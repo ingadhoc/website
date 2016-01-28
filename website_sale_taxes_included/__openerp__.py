@@ -34,8 +34,8 @@ Product Price Taxes Included or Not
     'images': [
     ],
     'depends': [
-        'website_sale',
-        # 'website_sale_delivery',
+        # 'website_sale',
+        'website_sale_delivery',
         'product_price_taxes_included',
     ],
     'data': [
