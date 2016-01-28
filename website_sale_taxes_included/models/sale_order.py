@@ -10,23 +10,6 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class delivery_carrier(models.Model):
-    _inherit = 'delivery.carrier'
-
-    taxed_price = fields.Float(
-        compute='get_taxed_price',
-        string='Taxed Price',
-        digits=dp.get_precision('Account'),
-        )
-
-    @api.one
-    def get_taxed_price(self):
-        for carrier in self:
-            self.taxed_price = carrier.product_id.taxes_id.compute_all(
-                carrier.price, 1.0, product=carrier.product_id
-                )['total_included']
-
-
 class sale_order(models.Model):
     _inherit = 'sale.order'
 
@@ -41,8 +24,8 @@ class sale_order(models.Model):
         amount_delivery_taxed = 0.0
         for line in self.order_line.filtered('is_delivery'):
             amount_delivery_taxed += line.tax_id.compute_all(
-                    line.price_subtotal, 1.0, product=line.product_id,
-                    partner=self.partner_id)['total_included']
+                line.price_subtotal, 1.0, product=line.product_id,
+                partner=self.partner_id)['total_included']
         self.amount_delivery_taxed = amount_delivery_taxed
 
 
@@ -66,6 +49,6 @@ class sale_order_line(models.Model):
                 line.price_unit * (1.0 - (line.discount or 0.0) / 100.0))
             # add taxes
             discounted_price = line.tax_id.compute_all(
-                        discounted_price, 1.0, product=line.product_id,
-                        partner=line.order_id.partner_id)['total_included']
+                discounted_price, 1.0, product=line.product_id,
+                partner=line.order_id.partner_id)['total_included']
             line.discounted_price = discounted_price

@@ -24,7 +24,8 @@ class website_sale(website_sale):
         '/shop',
         '/shop/page/<int:page>',
         '/shop/category/<model("product.public.category"):category>',
-        '/shop/category/<model("product.public.category"):category>/page/<int:page>'
+        '/shop/category/<model("product.public.category"):category>/page/'
+        '<int:page>'
     ], type='http', auth="public", website=True)
     def shop(self, page=0, category=None, search='', **post):
         context = request.context
@@ -32,22 +33,29 @@ class website_sale(website_sale):
         return super(website_sale, self).shop(
             page=0, category=None, search='', **post)
 
-    @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
+    @http.route(
+        ['/shop/product/<model("product.template"):product>'], type='http',
+        auth="public", website=True)
     def product(self, product, category='', search='', **kwargs):
         context = request.context
         context['taxes_included'] = True
         return super(website_sale, self).product(
             product, category='', search='', **kwargs)
 
-    @http.route(['/shop/get_unit_price'], type='json', auth="public", methods=['POST'], website=True)
-    def get_unit_price(self, product_ids, add_qty, use_order_pricelist=False, **kw):
+    @http.route(
+        ['/shop/get_unit_price'], type='json', auth="public", methods=['POST'],
+        website=True)
+    def get_unit_price(
+            self, product_ids, add_qty, use_order_pricelist=False, **kw):
         context = request.context
         context['taxes_included'] = True
         return super(website_sale, self).get_unit_price(
             product_ids, add_qty, use_order_pricelist=False, **kw)
 
     # for website options module
-    @http.route(['/shop/modal'], type='json', auth="public", methods=['POST'], website=True)
+    @http.route(
+        ['/shop/modal'], type='json', auth="public", methods=['POST'],
+        website=True)
     def modal(self, product_id, **kw):
         context = request.context
         context['taxes_included'] = True
