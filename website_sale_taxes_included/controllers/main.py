@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-import werkzeug
-
+##############################################################################
+# For copyright and license notices, see __openerp__.py file in module root
+# directory
+##############################################################################
 # from openerp import SUPERUSER_ID
 from openerp import http
 from openerp.http import request
@@ -14,6 +16,8 @@ from openerp.addons.website_sale.controllers.main import website_sale
 # NOTA: no lo queremos poner en todos lados porque en realidad en algunos
 # lugares el precio debe venir sin los impuestos desde la lista de precios
 # por que los impuestos se agregan después
+
+
 class website_sale(website_sale):
 
     @http.route([
