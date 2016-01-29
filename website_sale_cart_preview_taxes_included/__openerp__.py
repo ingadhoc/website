@@ -19,14 +19,14 @@
 #
 ##############################################################################
 {
-    'name': 'Product Price Taxes Included or Not',
+    'name': 'Cart Preview with taxes included',
     'version': '8.0.0.0.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
     'description': """
-Product Price Taxes Included or Not
-===================================
+Cart Preview with taxes included
+================================
     """,
     'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
@@ -34,9 +34,8 @@ Product Price Taxes Included or Not
     'images': [
     ],
     'depends': [
-        # 'website_sale',
-        'website_sale_delivery',
-        'product_price_taxes_included',
+        'website_sale_cart_preview',
+        'website_sale_taxes_included',
     ],
     'data': [
         'views/templates.xml',
@@ -46,6 +45,6 @@ Product Price Taxes Included or Not
     'test': [
     ],
     'installable': True,
-    'auto_install': False,
+    'auto_install': True,
     'application': False,
 }

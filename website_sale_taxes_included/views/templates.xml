@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="cart" inherit_id="website_sale.cart" name="Taxes Included Shopping Cart">
+  <xpath expr="//del[@t-field='line.product_id.lst_price']" position="attributes">
+    <attribute name="t-field">line.product_id.with_context(taxes_included=True).lst_price</attribute>
+  </xpath>
+</template>
+
+<!-- TODO tal vez en vez de discounted price deba ir otro, por ej el de l10n_ar_sale -->
+<!-- Detalle de lo que se va a pagar -->
+<template id="payment" inherit_id="website_sale.payment" name="Taxes Included Payment">
+  <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+    <attribute name="t-field">line.discounted_price</attribute>
+  </xpath>
+</template>
+
+<!-- Ocultar detalle de impuestos en subtotal -->
+<template id="total" inherit_id="website_sale.total" name="Taxes Included Cart Total">
+  <xpath expr="//tr[@id='order_total_taxes']" position="attributes">
+    <attribute name="t-if">False</attribute>
+  </xpath>
+</template>
+
+<!-- monto de envio en el resumen del cart -->
+<template id="cart_delivery" inherit_id="website_sale_delivery.cart_delivery" name="Taxes Included Delivery Costs">
+  <xpath expr="//span[@t-field='website_sale_order.amount_delivery']" position="attributes">
+    <attribute name="t-field">website_sale_order.amount_delivery_taxed</attribute>
+  </xpath>
+</template>
+
+<!-- recuadro antes de pagar que deja elegir entre distintos metodos de envio -->
+<template id="payment_delivery" inherit_id="website_sale_delivery.payment_delivery" name="Taxes Included Delivery Costs
+">
+  <xpath expr="//span[@t-field='delivery.price']" position="attributes">
+    <attribute name="t-field">delivery.taxed_price</attribute>
+  </xpath>
+</template>
+
+
+<!-- lo hicimos agregando el context a def sale_get_order -->
+
+<template id="suggested_products_list" inherit_id="website_sale.suggested_products_list" name="Taxes Included Suggested Products in my cart">
+  <xpath expr="//del[@t-field='product.lst_price']" position="attributes">
+    <attribute name="t-field">product.with_context(taxes_included=True).lst_price</attribute>
+  </xpath>
+  <xpath expr="//span[@t-field='product.price']" position="attributes">
+    <attribute name="t-field">product.with_context(taxes_included=True).price</attribute>
+  </xpath>
+</template>
+</data>
+</openerp>
