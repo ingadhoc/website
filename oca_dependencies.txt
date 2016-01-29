@@ -1,1 +1,2 @@
+oca_ecommerce https://github.com/oca/e-commerce.git
 adhoc_product https://github.com/ingadhoc/product.git
