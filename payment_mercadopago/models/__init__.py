@@ -4,4 +4,3 @@
 # directory
 ##############################################################################
 import mercadopago
-import res_company
