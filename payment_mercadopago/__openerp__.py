@@ -29,7 +29,6 @@
     'data': [
         'views/mercadopago.xml',
         'views/payment_acquirer.xml',
-        'views/res_config_view.xml',
         'data/mercadopago.xml',
     ],
     'installable': True,
