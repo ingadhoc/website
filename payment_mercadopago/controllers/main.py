@@ -27,10 +27,10 @@ class MercadoPagoController(http.Controller):
     def _get_return_url(self, **post):
         """ Extract the return URL from the data coming from MercadoPago. """
 
-#        return_url = post.pop('return_url', '')
-#        if not return_url:
-#            custom = json.loads(post.pop('custom', False) or '{}')
-#            return_url = custom.get('return_url', '/')
+        # return_url = post.pop('return_url', '')
+        # if not return_url:
+        #     custom = json.loads(post.pop('custom', False) or '{}')
+        #     return_url = custom.get('return_url', '/')
         return_url = ''
         return return_url
 
@@ -91,29 +91,39 @@ class MercadoPagoController(http.Controller):
     @http.route('/payment/mercadopago/ipn/', type='http', auth='none')
     def mercadopago_ipn(self, **post):
         """ MercadoPago IPN. """
-        # recibimo algo como http://www.yoursite.com/notifications?topic=payment&id=identificador-de-la-operación
-        #segun el topic:
+        # recibimo algo como
+        # http://www.yoursite.com/notifications?topic=payment&id=
+        # identificador-de-la-operación
+        # segun el topic:
         # luego se consulta con el "id"
-        _logger.info('Beginning MercadoPago IPN form_feedback with post data %s', pprint.pformat(post))  # debug
+        _logger.info(
+            'Beginning MercadoPago IPN form_feedback with post data %s',
+            pprint.pformat(post))
         self.mercadopago_validate_data(**post)
         return ''
 
     @http.route('/payment/mercadopago/dpn', type='http', auth="none")
     def mercadopago_dpn(self, **post):
         """ MercadoPago DPN """
-        _logger.info('Beginning MercadoPago DPN form_feedback with post data %s', pprint.pformat(post))  # debug
+        _logger.info(
+            'Beginning MercadoPago DPN form_feedback with post data %s',
+            pprint.pformat(post))
         return_url = self._get_return_url(**post)
         self.mercadopago_validate_data(**post)
         return werkzeug.utils.redirect(return_url)
 
     @http.route('/payment/mercadopago/cancel', type='http', auth="none")
     def mercadopago_cancel(self, **post):
-        """ When the user cancels its MercadoPago payment: GET on this route """
-        cr, uid, context = request.cr, SUPERUSER_ID, request.context
-        _logger.info('Beginning MercadoPago cancel with post data %s', pprint.pformat(post))  # debug
+        """
+        When the user cancels its MercadoPago payment: GET on this route
+        """
+        # cr, uid, context = request.cr, SUPERUSER_ID, request.context
+        _logger.info(
+            'Beginning MercadoPago cancel with post data %s',
+            pprint.pformat(post))  # debug
         return_url = self._get_return_url(**post)
         status = post.get('collection_status')
-        if status=='null':
+        if status == 'null':
             post['collection_status'] = 'cancelled'
         self.mercadopago_validate_data(**post)
         return werkzeug.utils.redirect(return_url)
