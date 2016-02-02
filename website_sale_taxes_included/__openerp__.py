@@ -39,6 +39,7 @@ Product Price Taxes Included or Not
     ],
     'data': [
         'views/templates.xml',
+        'security/ir.model.access.csv',
     ],
     'demo': [
     ],
