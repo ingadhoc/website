@@ -29,15 +29,15 @@ class AcquirerMercadopago(models.Model):
             return {
                 'mercadopago_form_url': (
                     'https://www.mercadopago.com/mla/checkout/pay'),
-                'mercadopago_rest_url': (
-                    'https://api.mercadolibre.com/oauth/token'),
+                # 'mercadopago_rest_url': (
+                #     'https://api.mercadolibre.com/oauth/token'),
             }
         else:
             return {
                 'mercadopago_form_url': (
                     'https://sandbox.mercadopago.com/mla/checkout/pay'),
-                'mercadopago_rest_url': (
-                    'https://api.sandbox.mercadolibre.com/oauth/token'),
+                # 'mercadopago_rest_url': (
+                #     'https://api.sandbox.mercadolibre.com/oauth/token'),
             }
 
     @api.model
@@ -116,15 +116,17 @@ class AcquirerMercadopago(models.Model):
                 },
             "back_urls": {
                 "success": '%s' % urlparse.urljoin(
-                    base_url, MercadoPagoController._return_url),
+                    base_url, MercadoPagoController._success_url),
                 "failure": '%s' % urlparse.urljoin(
-                    base_url, MercadoPagoController._cancel_url),
+                    base_url, MercadoPagoController._failure_url),
                 "pending": '%s' % urlparse.urljoin(
-                    base_url, MercadoPagoController._return_url)
+                    base_url, MercadoPagoController._pending_url)
                 },
+            # TODO implementar notification_url, mas codigo en commits
+            # anteriores
+            # "notification_url": '%s' % urlparse.urljoin(
+            #     base_url, MercadoPagoController._notify_url),
             "auto_return": "approved",
-            "notification_url": '%s' % urlparse.urljoin(
-                base_url, MercadoPagoController._notify_url),
             "external_reference": tx_values["reference"],
             "expires": False,
             }
@@ -142,6 +144,8 @@ class AcquirerMercadopago(models.Model):
             raise ValidationError(error_msg)
 
         mercadopago_tx_values = dict(tx_values)
+        # we return this pref_id that is used to go to the payment with
+        # mercadopago button
         if MPagoPrefId:
             mercadopago_tx_values.update({
                 'pref_id': MPagoPrefId,
@@ -164,7 +168,8 @@ class TxMercadoPago(models.Model):
         'Transaction ID'
         )
     mercadopago_txn_type = fields.Char(
-        'Transaction type'
+        'Transaction type',
+        help='Informative field computed after payment',
         )
 
     @api.model
@@ -209,7 +214,9 @@ class TxMercadoPago(models.Model):
         status = data.get('collection_status')
         data = {
             'acquirer_reference': data.get('external_reference'),
-            'mercadopago_txn_type': data.get('payment_type')
+            'mercadopago_txn_type': data.get('payment_type'),
+            'mercadopago_txn_id': data.get('merchant_order_id', False),
+            # otros parametros que vuevlven son 'collection_id'
         }
         if status in ['approved', 'processed']:
             _logger.info(
