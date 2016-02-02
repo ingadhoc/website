@@ -23,22 +23,6 @@
   </xpath>
 </template>
 
-<!-- monto de envio en el resumen del cart -->
-<template id="cart_delivery" inherit_id="website_sale_delivery.cart_delivery" name="Taxes Included Delivery Costs">
-  <xpath expr="//span[@t-field='website_sale_order.amount_delivery']" position="attributes">
-    <attribute name="t-field">website_sale_order.amount_delivery_taxed</attribute>
-  </xpath>
-</template>
-
-<!-- recuadro antes de pagar que deja elegir entre distintos metodos de envio -->
-<template id="payment_delivery" inherit_id="website_sale_delivery.payment_delivery" name="Taxes Included Delivery Costs
-">
-  <xpath expr="//span[@t-field='delivery.price']" position="attributes">
-    <attribute name="t-field">delivery.taxed_price</attribute>
-  </xpath>
-</template>
-
-
 <!-- lo hicimos agregando el context a def sale_get_order -->
 
 <template id="suggested_products_list" inherit_id="website_sale.suggested_products_list" name="Taxes Included Suggested Products in my cart">
