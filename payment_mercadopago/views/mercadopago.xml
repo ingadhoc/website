@@ -5,10 +5,6 @@
         <template id="mercadopago_acquirer_button">
             <form t-if="acquirer.mercadopago_secret_key and acquirer.mercadopago_client_id" t-att-action="tx_url" method="post" target="_self">
                 <input type="hidden" name="pref_id" t-att-value="tx_values['pref_id']"/>
-                <!-- no lo estamos usando -->
-<!--                 <t t-if="tx_values.get('return_url')">
-                    <input type='hidden' name='return_url' t-att-value='tx_values["return_url"]'/>
-                </t> -->
                 <button type="submit" width="100px"
                     t-att-class="submit_class">
                     <img t-if="not submit_txt" src="/payment_mercadopago/static/src/img/mercadopago_icon.png"/>

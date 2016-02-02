@@ -150,7 +150,6 @@ class AcquirerMercadopago(models.Model):
             mercadopago_tx_values.update({
                 'pref_id': MPagoPrefId,
             })
-        print 'mercadopago_tx_values', mercadopago_tx_values
         return partner_values, mercadopago_tx_values
 
     @api.multi
@@ -201,7 +200,9 @@ class TxMercadoPago(models.Model):
     @api.model
     def _mercadopago_form_get_invalid_parameters(self, tx, data):
         invalid_parameters = []
-        # TODO invalid paramters
+        # TODO implementar invalid paramters desde
+        # https://www.mercadopago.com.ar/developers/es/api-docs/
+        # basic-checkout/checkout-preferences/
         # if data.get('pspReference'):
         # _logger.warning('Received a notification from MercadoLibre.')
         return invalid_parameters

@@ -1,6 +1,14 @@
 # payment_mercadopago
 MercadoPago payment module for Odoo 8.0 Ecommerce
 
+## Configuration
+1. Install this module
+2. Go on to config / payment / payment methods / mercadopago
+
+## Known issues / Roadmap
+1. Each time the button data is loaded a mercadopago payment preference is created, this is too heavy and should be done only when payment button is clicked. When this is fixed we should enable validation = "automatic" on payment_acquirer_mercadopago
+2. Once this is solved, payment button will be available on sales orders, improove return url when payment is done via sale.order
+
 ## TEST MODE
 Sobre sandbox
 https://www.mercadopago.com.ar/developers/es/solutions/payments/basic-checkout/test/basic-sandbox/
