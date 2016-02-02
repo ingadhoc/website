@@ -19,14 +19,14 @@
 #
 ##############################################################################
 {
-    'name': 'Product Price Taxes Included or Not',
+    'name': 'eCommerce Delivery with taxes included',
     'version': '8.0.0.0.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
     'description': """
-Product Price Taxes Included or Not
-===================================
+eCommerce Delivery with taxes included
+======================================
     """,
     'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
@@ -34,18 +34,17 @@ Product Price Taxes Included or Not
     'images': [
     ],
     'depends': [
-        'website_sale',
-        'product_price_taxes_included',
+        'website_sale_taxes_included',
+        'website_sale_delivery',
     ],
     'data': [
         'views/templates.xml',
-        'security/ir.model.access.csv',
     ],
     'demo': [
     ],
     'test': [
     ],
     'installable': True,
-    'auto_install': False,
+    'auto_install': True,
     'application': False,
 }
