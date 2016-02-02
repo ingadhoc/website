@@ -150,6 +150,7 @@ class AcquirerMercadopago(models.Model):
             mercadopago_tx_values.update({
                 'pref_id': MPagoPrefId,
             })
+        print 'mercadopago_tx_values', mercadopago_tx_values
         return partner_values, mercadopago_tx_values
 
     @api.multi
