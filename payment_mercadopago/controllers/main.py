@@ -7,11 +7,14 @@
 import logging
 import pprint
 import werkzeug
-from mercadopago import mercadopago
 from openerp import http, SUPERUSER_ID
 from openerp.http import request
 from ast import literal_eval
 _logger = logging.getLogger(__name__)
+try:
+    from mercadopago import mercadopago
+except ImportError:
+    _logger.debug('Cannot import external_dependency mercadopago')
 
 
 class MercadoPagoController(http.Controller):
