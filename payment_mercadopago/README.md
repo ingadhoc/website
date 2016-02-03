@@ -4,10 +4,16 @@ MercadoPago payment module for Odoo 8.0 Ecommerce
 ## Configuration
 1. Install this module
 2. Go on to config / payment / payment methods / mercadopago
+3. If you want to use it on sales order you should set "validation" to "automatic" (or you can create to payment adquires). The issue is that with "automatic", on payment return with status "pending", no message is displayed to the user regarding pending payment. (still not working)
+
+Notes:
+* "Mensaje de agradecimiento" on payment adquires is only displayed if payment is pending and adquires is of validation type "manual".
 
 ## Known issues / Roadmap
-1. Each time the button data is loaded a mercadopago payment preference is created, this is too heavy and should be done only when payment button is clicked. When this is fixed we should enable validation = "automatic" on payment_acquirer_mercadopago
-2. Once this is solved, payment button will be available on sales orders, improove return url when payment is done via sale.order
+1. improove return url, we should send it to mercadopago and have return data. perhups we can use additional_info and read it from mercadopago on response. Check mercadopago_back_no_return on 'main'
+2. If we choose to use validation = automatic, perhups we can post a message if validation is on pending (we should overwrite "payment_get_status")
+3. Implement ipn from https://www.mercadopago.com.ar/developers/es/api-docs/basic-checkout/ipn/
+4. When paying from portal, not transaction is create do we get an error  with _mercadopago_form_get_tx_from_data method, we should check how other payment methods works
 
 ## TEST MODE
 Sobre sandbox

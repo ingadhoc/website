@@ -4,17 +4,12 @@
 # directory
 ##############################################################################
 
-try:
-    import simplejson as json
-except ImportError:
-    import json
 import logging
 import urlparse
 from openerp.addons.payment.models.payment_acquirer import ValidationError
 from openerp.addons.payment_mercadopago.controllers.main import (
     MercadoPagoController)
 from openerp import api, fields, models, _
-from openerp.addons.payment_mercadopago.mercadopago import mercadopago
 
 _logger = logging.getLogger(__name__)
 
@@ -23,25 +18,10 @@ class AcquirerMercadopago(models.Model):
     _inherit = 'payment.acquirer'
 
     @api.model
-    def _get_mercadopago_urls(self, environment):
-        """ MercadoPago URLS """
-        if environment == 'prod':
-            return {
-                'mercadopago_form_url': (
-                    'https://www.mercadopago.com/mla/checkout/pay'),
-                # 'mercadopago_rest_url': (
-                #     'https://api.mercadolibre.com/oauth/token'),
-            }
-        else:
-            return {
-                'mercadopago_form_url': (
-                    'https://sandbox.mercadopago.com/mla/checkout/pay'),
-                # 'mercadopago_rest_url': (
-                #     'https://api.sandbox.mercadolibre.com/oauth/token'),
-            }
-
-    @api.model
     def _get_providers(self):
+        """
+        We add mercadopago on providers selection field
+        """
         providers = super(AcquirerMercadopago, self)._get_providers()
         providers.append(['mercadopago', 'MercadoPago'])
         return providers
@@ -49,19 +29,16 @@ class AcquirerMercadopago(models.Model):
     mercadopago_client_id = fields.Char(
         'MercadoPago Client Id',
         required_if_provider='mercadopago',
-        help='Visit https://www.mercadopago.com/mla/account/credentials to get'
-        ' this parameter',
         )
     mercadopago_secret_key = fields.Char(
         'MercadoPago Secret Key',
         required_if_provider='mercadopago',
-        help='Visit https://www.mercadopago.com/mla/account/credentials to get'
-        ' this parameter',
         )
 
     @api.multi
     def mercadopago_compute_fees(self, amount, currency_id, country_id):
-        """ Compute mercadopago fees.
+        """ We add [provider]_compute_fees method
+            Compute mercadopago fees.
 
             :param float amount: the amount to pay
             :param integer country_id: an ID of a res.country, or None. This is
@@ -86,20 +63,21 @@ class AcquirerMercadopago(models.Model):
     def mercadopago_form_generate_values(self, partner_values, tx_values):
         self.ensure_one()
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-
-        if not self.mercadopago_client_id or not self.mercadopago_secret_key:
+        if (
+                not self.mercadopago_client_id or
+                not self.mercadopago_secret_key
+                ):
             raise ValidationError(_(
                 'YOU MUST COMPLETE acquirer.mercadopago_client_id and '
                 'acquirer.mercadopago_secret_key'))
-
-        MPago = mercadopago.MP(
-            self.mercadopago_client_id, self.mercadopago_secret_key)
-
-        if self.environment == "prod":
-            MPago.sandbox_mode(False)
+        if tx_values.get('return_url'):
+            success_url = MercadoPagoController._success_url
+            failure_url = MercadoPagoController._failure_url
+            pending_url = MercadoPagoController._pending_url
         else:
-            MPago.sandbox_mode(True)
-
+            success_url = MercadoPagoController._success_no_return_url
+            failure_url = MercadoPagoController._pending_no_return_url
+            pending_url = MercadoPagoController._pending_url
         preference = {
             "items": [{
                 "title": "Orden Ecommerce " + tx_values["reference"],
@@ -116,49 +94,30 @@ class AcquirerMercadopago(models.Model):
                 },
             "back_urls": {
                 "success": '%s' % urlparse.urljoin(
-                    base_url, MercadoPagoController._success_url),
+                    base_url, success_url),
                 "failure": '%s' % urlparse.urljoin(
-                    base_url, MercadoPagoController._failure_url),
+                    base_url, failure_url),
                 "pending": '%s' % urlparse.urljoin(
-                    base_url, MercadoPagoController._pending_url)
+                    base_url, pending_url)
                 },
-            # TODO implementar notification_url, mas codigo en commits
-            # anteriores
             # "notification_url": '%s' % urlparse.urljoin(
             #     base_url, MercadoPagoController._notify_url),
             "auto_return": "approved",
             "external_reference": tx_values["reference"],
             "expires": False,
             }
-
-        preferenceResult = MPago.create_preference(preference)
-
-        _logger.info('Preference Result: %s' % preferenceResult)
-        if 'response' in preferenceResult:
-            if 'id' in preferenceResult['response']:
-                MPagoPrefId = preferenceResult['response']['id']
-        else:
-            error_msg = 'Returning response is:'
-            error_msg += json.dumps(preferenceResult, indent=2)
-            _logger.error(error_msg)
-            raise ValidationError(error_msg)
-
-        mercadopago_tx_values = dict(tx_values)
-        # we return this pref_id that is used to go to the payment with
-        # mercadopago button
-        if MPagoPrefId:
-            mercadopago_tx_values.update({
-                'pref_id': MPagoPrefId,
-            })
-        return partner_values, mercadopago_tx_values
+        tx_values['mercadopago_data'] = {
+            'mercadopago_preference': preference,
+            'mercadopago_client_id': self.mercadopago_client_id,
+            'mercadopago_secret_key': self.mercadopago_secret_key,
+            'environment': self.environment,
+            }
+        return partner_values, tx_values
 
     @api.multi
     def mercadopago_get_form_action_url(self):
         self.ensure_one()
-        mercadopago_urls = self._get_mercadopago_urls(
-            self.environment)['mercadopago_form_url']
-        _logger.info("mercadopago_get_form_action_url: %s" % mercadopago_urls)
-        return mercadopago_urls
+        return MercadoPagoController._create_preference_url
 
 
 class TxMercadoPago(models.Model):
@@ -212,6 +171,7 @@ class TxMercadoPago(models.Model):
         """
         From:
         https://developers.mercadopago.com/documentacion/notificaciones-de-pago
+        Por lo que vi nunca se devuelve la "cancel_reason" o "pending_reason"
         """
         status = data.get('collection_status')
         data = {
