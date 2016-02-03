@@ -25,7 +25,11 @@
     'version': '1.0',
     'description': """MercadoPago Payment Acquirer""",
     'author': 'Moldeo Interactive - www.moldeo.coop,ADHOC SA',
+    'website': 'www.adhoc.com.ar',
+    'license': 'AGPL-3',
     'depends': ['payment'],
+    'images': [
+    ],
     'data': [
         'views/mercadopago.xml',
         'views/payment_acquirer.xml',

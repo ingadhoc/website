@@ -3,5 +3,5 @@
 # For copyright and license notices, see __openerp__.py file in module root
 # directory
 ##############################################################################
-import models
-import controllers
+from . import models
+from . import controllers
