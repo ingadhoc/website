@@ -30,6 +30,9 @@
     'depends': ['payment'],
     'images': [
     ],
+    'external_dependencies': {
+        'python': ['mercadopago']
+        },
     'data': [
         'views/mercadopago.xml',
         'views/payment_acquirer.xml',
