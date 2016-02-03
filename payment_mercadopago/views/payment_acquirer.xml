@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="acquirer_form_mercadopago" model="ir.ui.view">
+            <field name="name">acquirer.form.mercadopago</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//group[@name="acquirer_display"]' position='after'>
+                    <group attrs="{'invisible': [('provider', '!=', 'mercadopago')]}">
+                        <label for="mercadopago_client_id" string="You can get this values from:"/>
+                        <a href="https://www.mercadopago.com/mla/account/credentials" target="_blank">https://www.mercadopago.com/mla/account/credentials</a>
+                        <field name="mercadopago_client_id"/>
+                        <field name="mercadopago_secret_key"/>
+                        <!-- TODO terminar de implementar ipn -->
+<!--                         <label for="mercadopago_client_id" string="If you also want to receive notifications by ipn go to:"/>
+                        <a href="https://www.mercadopago.com/mla/herramientas/notificaciones" target="_blank">https://www.mercadopago.com/mla/herramientas/notificaciones</a> -->
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="transaction_form_mercadopago" model="ir.ui.view">
+            <field name="name">acquirer.transaction.form.mercadopago</field>
+            <field name="model">payment.transaction</field>
+            <field name="inherit_id" ref="payment.transaction_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//notebook' position='inside'>
+                    <page string="MercadoPago TX Details">
+                        <group>
+                            <field name="mercadopago_txn_id"/>
+                            <field name="mercadopago_txn_type"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
