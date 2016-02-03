@@ -7,7 +7,7 @@
 import logging
 import pprint
 import werkzeug
-from openerp.addons.payment_mercadopago.mercadopago import mercadopago
+from mercadopago import mercadopago
 from openerp import http, SUPERUSER_ID
 from openerp.http import request
 from ast import literal_eval
