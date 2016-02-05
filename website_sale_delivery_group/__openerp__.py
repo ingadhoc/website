@@ -34,4 +34,4 @@
     'name': 'e-Commerce Delivery Groups',
     'test': [],
     'version': '8.0.0.0.0',
- }
+}
