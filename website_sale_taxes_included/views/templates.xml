@@ -6,10 +6,6 @@
   <xpath expr="//del[@t-field='line.product_id.lst_price']" position="attributes">
     <attribute name="t-field">line.product_id.with_context(taxes_included=True).lst_price</attribute>
   </xpath>
-  <!-- TODO tal vez en vez de discounted price deba ir otro, por ej el de l10n_ar_sale -->
-  <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
-    <attribute name="t-field">line.discounted_price</attribute>
-  </xpath>
 </template>
 
 <!-- TODO tal vez en vez de discounted price deba ir otro, por ej el de l10n_ar_sale -->
