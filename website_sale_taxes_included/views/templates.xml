@@ -6,6 +6,10 @@
   <xpath expr="//del[@t-field='line.product_id.lst_price']" position="attributes">
     <attribute name="t-field">line.product_id.with_context(taxes_included=True).lst_price</attribute>
   </xpath>
+  <!-- TODO tal vez en vez de discounted price deba ir otro, por ej el de l10n_ar_sale -->
+  <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+    <attribute name="t-field">line.discounted_price</attribute>
+  </xpath>
 </template>
 
 <!-- TODO tal vez en vez de discounted price deba ir otro, por ej el de l10n_ar_sale -->
@@ -25,11 +29,20 @@
 
 <!-- Ocultar detalle de impuestos en columna checkout de la derecha -->
 <template id="checkout" inherit_id="website_sale.checkout" name="Taxes Included checkout">
+<!--   <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']" position="attributes">
+    <attribute name="t-if">False</attribute>
+  </xpath> -->
+  <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[1]" position="attributes">
+    <attribute name="t-if">False</attribute>
+  </xpath>
+  <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[2]" position="attributes">
+    <attribute name="t-if">False</attribute>
+  </xpath>
   <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[3]" position="attributes">
-<attribute name="t-if">False</attribute>
+    <attribute name="t-if">False</attribute>
   </xpath>
   <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[4]" position="attributes">
-<attribute name="t-if">False</attribute>
+    <attribute name="t-if">False</attribute>
   </xpath>
 </template>
 
