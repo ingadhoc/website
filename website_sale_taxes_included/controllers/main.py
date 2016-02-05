@@ -31,7 +31,7 @@ class website_sale(website_sale):
         context = request.context
         context['taxes_included'] = True
         return super(website_sale, self).shop(
-            page=0, category=None, search='', **post)
+            page=page, category=category, search=search, **post)
 
     @http.route(
         ['/shop/product/<model("product.template"):product>'], type='http',
@@ -40,7 +40,7 @@ class website_sale(website_sale):
         context = request.context
         context['taxes_included'] = True
         return super(website_sale, self).product(
-            product, category='', search='', **kwargs)
+            product, category=category, search=search, **kwargs)
 
     @http.route(
         ['/shop/get_unit_price'], type='json', auth="public", methods=['POST'],
@@ -50,7 +50,8 @@ class website_sale(website_sale):
         context = request.context
         context['taxes_included'] = True
         return super(website_sale, self).get_unit_price(
-            product_ids, add_qty, use_order_pricelist=False, **kw)
+            product_ids, add_qty,
+            use_order_pricelist=use_order_pricelist, **kw)
 
     # for website options module
     @http.route(
