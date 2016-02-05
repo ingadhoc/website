@@ -24,9 +24,7 @@ class SaleOrder(models.Model):
         carriers = self.env['delivery.carrier'].browse(carrier_ids)
         for carrier in carriers:
             if carrier.only_published_for_group_ids:
-                if (
-                        self.env.user.groups_id.ids not in
-                        carrier.only_published_for_group_ids.ids
-                        ):
+                if not set(self.env.user.groups_id.ids).intersection(
+                        carrier.only_published_for_group_ids.ids):
                     carriers -= carrier
         return carriers.ids
