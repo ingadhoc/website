@@ -27,6 +27,16 @@
         <xpath expr="//div[@t-if='has_check_vat'][2]" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
+
+        <!-- mostramos negrita para state -->
+        <xpath expr="//label[@for='state_id']" position="attributes">
+            <attribute name="style"/>
+        </xpath>
+
+        <!-- mostramos negrita para zip -->
+        <xpath expr="//label[@for='zip']" position="attributes">
+            <attribute name="style"/>
+        </xpath>
     </template>
 
     </data>
