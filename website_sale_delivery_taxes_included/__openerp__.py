@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'eCommerce Delivery with taxes included',
-    'version': '8.0.0.0.0',
+    'version': '8.0.0.0.1',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
