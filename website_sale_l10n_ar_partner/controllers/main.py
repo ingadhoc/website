@@ -23,9 +23,17 @@ class WebsiteSale(website_sale):
             res['document_number'] = 'missing'
         if not data.get('document_type_id') and not config['test_enable']:
             res['document_type_id'] = 'missing'
+
+        if not data.get('state_id') and not config['test_enable']:
+            res['state_id'] = 'missing'
+        if not data.get('zip') and not config['test_enable']:
+            res['zip'] = 'missing'
         return res
 
     def _get_optional_billing_fields(self):
+        """
+        We add them so they value is stored
+        """
         optional_billing_fields = (
             super(WebsiteSale, self)._get_optional_billing_fields() +
             ['document_number', 'document_type_id'])

@@ -19,14 +19,14 @@
 #
 ##############################################################################
 {
-    'name': 'eCommerce Delivery with taxes included',
-    'version': '8.0.0.0.1',
+    'name': 'e-Commerce Clear Line On Cart',
+    'version': '8.0.0.0.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
     'description': """
-eCommerce Delivery with taxes included
-======================================
+e-Commerce Clear Line On Cart
+=============================
     """,
     'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
@@ -34,17 +34,16 @@ eCommerce Delivery with taxes included
     'images': [
     ],
     'depends': [
-        'website_sale_taxes_included',
-        'website_sale_delivery',
+        'website_sale',
     ],
     'data': [
-        'views/templates.xml',
+        'cart_view.xml',
     ],
     'demo': [
     ],
     'test': [
     ],
     'installable': True,
-    'auto_install': True,
+    'auto_install': False,
     'application': False,
 }
