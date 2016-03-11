@@ -27,12 +27,14 @@
         'views/checkout_view.xml',
     ],
     'demo': [],
+    'images': [
+    ],
     'depends': [
         'website_sale',
         'l10n_ar_invoice',
     ],
     'installable': True,
-    'name': 'e-Commerce Argentina Partner Document Required',
+    'name': 'e-Commerce Argentina Partner Document',
     'test': [],
     'version': '8.0.0.0.0',
 }

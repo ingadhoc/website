@@ -32,8 +32,8 @@ class WebsiteSale(website_sale):
         return optional_billing_fields
 
     def checkout_values(self, data=None):
-        cr, uid, context, registry = (
-            request.cr, request.uid, request.context, request.registry)
+        cr, context, registry = (
+            request.cr, request.context, request.registry)
         res = super(WebsiteSale, self).checkout_values(data)
         orm_document_types = registry.get('afip.document_type')
         document_type_ids = orm_document_types.search(
