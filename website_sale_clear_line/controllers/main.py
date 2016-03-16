@@ -4,14 +4,14 @@
 # directory
 ##############################################################################
 from openerp.http import request
-from openerp import http
+from openerp import http, SUPERUSER_ID
 
 
 class pos_website_sale(http.Controller):
     @http.route(
         ['/shop/clear_cart_line'], type='json', auth="public", website=True)
     def clear_cart_line(self, line_id, **kw):
-        cr, uid, context, pool = (
-            request.cr, request.uid, request.context, request.registry)
+        cr, context, pool = (
+            request.cr, request.context, request.registry)
         pool['sale.order.line'].unlink(
-            cr, uid, line_id, context=context)
+            cr, SUPERUSER_ID, line_id, context=context)
