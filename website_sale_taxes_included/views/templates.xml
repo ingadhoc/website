@@ -24,7 +24,7 @@
 </template>
 
 <!-- Ocultar detalle de impuestos en columna checkout de la derecha -->
-<template id="checkout" inherit_id="website_sale.checkout" name="Taxes Included checkout">
+<template id="checkout" priority="10" inherit_id="website_sale.checkout" name="Taxes Included checkout">
 <!--   <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']" position="attributes">
     <attribute name="t-if">False</attribute>
   </xpath> -->
