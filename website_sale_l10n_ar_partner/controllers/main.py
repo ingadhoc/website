@@ -24,7 +24,15 @@ class WebsiteSale(website_sale):
         if not data.get('document_type_id') and not config['test_enable']:
             res['document_type_id'] = 'missing'
 
-        if not data.get('state_id') and not config['test_enable']:
+        # only make state required if there are states on choosen country
+        cr, context, pool = (
+            request.cr, request.context, request.registry)
+        state_ids = pool.get('res.country.state').search(
+            cr, SUPERUSER_ID, [('country_id', '=', data.get('country_id'))],
+            context=context)
+        if (
+                state_ids and not data.get('state_id') and
+                not config['test_enable']):
             res['state_id'] = 'missing'
         if not data.get('zip') and not config['test_enable']:
             res['zip'] = 'missing'
@@ -51,5 +59,18 @@ class WebsiteSale(website_sale):
         res.update({
             'document_types': document_types,
             })
+        return res
+
+    def _post_prepare_query(self, query, data, address_type):
+        res = super(WebsiteSale, self)._post_prepare_query(
+            query, data, address_type)
+        if address_type == 'billing':
+            prefix = ''
+        else:
+            prefix = 'shipping_'
+        if res.get(prefix + 'document_type_id'):
+            res[prefix + 'document_type_id'] = int(
+                res[prefix + 'document_type_id'])
+
         return res
 # vim:expandtab:tabstop=4:softtabstop=4:shiftwidth=4:
