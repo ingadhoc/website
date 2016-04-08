@@ -13,6 +13,9 @@
                         <a href="https://www.mercadopago.com/mla/account/credentials" target="_blank">https://www.mercadopago.com/mla/account/credentials</a>
                         <field name="mercadopago_client_id"/>
                         <field name="mercadopago_secret_key"/>
+                        <!-- <field name="mercadopago_description" attrs="{'required': [('provider', '=', 'mercadopago')]}"/> -->
+                        <field name="mercadopago_item_title" attrs="{'required': [('provider', '=', 'mercadopago')]}"/>
+                        <!-- <field name="mercadopago_generic_message" attrs="{'required': [('mercadopago_description', '=', 'generic_message'), ('provider', '=', 'mercadopago')], 'invisible': [('mercadopago_description', '!=', 'generic_message')]}"/> -->
                         <!-- TODO terminar de implementar ipn -->
 <!--                         <label for="mercadopago_client_id" string="If you also want to receive notifications by ipn go to:"/>
                         <a href="https://www.mercadopago.com/mla/herramientas/notificaciones" target="_blank">https://www.mercadopago.com/mla/herramientas/notificaciones</a> -->

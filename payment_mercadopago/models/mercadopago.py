@@ -3,9 +3,9 @@
 # For copyright and license notices, see __openerp__.py file in module root
 # directory
 ##############################################################################
-
 import logging
 import urlparse
+from openerp.exceptions import Warning
 from openerp.addons.payment.models.payment_acquirer import ValidationError
 from openerp.addons.payment_mercadopago.controllers.main import (
     MercadoPagoController)
@@ -26,6 +26,17 @@ class AcquirerMercadopago(models.Model):
         providers.append(['mercadopago', 'MercadoPago'])
         return providers
 
+    # mercadopago_item_type = fields.Selection([
+    #     ('so_lines', 'Send SO lines detail'),
+    #     ('generic_message', 'Generic Message'),
+    #     ],
+    #     'Mercadopago Description',
+    #     )
+    mercadopago_item_title = fields.Char(
+        'MercadoPago Item Title',
+        help='Yo need to use %s to indicate where SO number must go',
+        default='Orden Ecommerce %s',
+        )
     mercadopago_client_id = fields.Char(
         'MercadoPago Client Id',
         required_if_provider='mercadopago',
@@ -78,15 +89,41 @@ class AcquirerMercadopago(models.Model):
             success_url = MercadoPagoController._success_no_return_url
             failure_url = MercadoPagoController._pending_no_return_url
             pending_url = MercadoPagoController._pending_url
+
+        # TODO, implement, not implemented yet because mercadopago only
+        # shows description of first line and we would need to send taxes too
+        # sale_order = self.env['sale.order'].search(
+        #     [('name', '=', tx_values["reference"])], limit=1)
+        # if self.mercadopago_description == 'so_lines' and sale_order:
+        #     items = [{
+        #         "title": line.name,
+        #         "quantity": line.product_uom_qty,
+        #         "currency_id": (
+        #             tx_values['currency'] and
+        #             tx_values['currency'].name or ''),
+        #         "unit_price": line.price_unit,
+        #     } for line in sale_order.order_line]
+        # else:
+        if (
+                not self.mercadopago_item_title or
+                "%s" not in self.mercadopago_item_title
+                ):
+            raise Warning(_(
+                'No generic message defined for mercadopago or message '
+                'does not contains %/s!'))
+        items = [{
+            "title": self.mercadopago_item_title % (
+                tx_values["reference"]),
+            # "title": _("Orden Ecommerce %s") % tx_values["reference"],
+            "quantity": 1,
+            "currency_id": (
+                tx_values['currency'] and
+                tx_values['currency'].name or ''),
+            "unit_price": tx_values["amount"],
+        }]
+
         preference = {
-            "items": [{
-                "title": "Orden Ecommerce " + tx_values["reference"],
-                "quantity": 1,
-                "currency_id": (
-                    tx_values['currency'] and
-                    tx_values['currency'].name or ''),
-                "unit_price": tx_values["amount"],
-                }],
+            "items": items,
             "payer": {
                 "name": partner_values["name"],
                 "surname": partner_values["first_name"],
