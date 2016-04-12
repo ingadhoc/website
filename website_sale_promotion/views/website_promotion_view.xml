@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+          
+
+        <record id="view_website_promotion_tree" model="ir.ui.view">
+            <field name="name">website.promotion.tree</field>
+            <field name="model">website.promotion</field>
+            <field name="arch" type="xml">
+                <tree string="Promotion">
+                    <field name="name"/>
+                    <field name="state" invisible="1"/>
+                    <field name="pricelist_version_id"/>
+                    <field name="public_category_id"/>
+                    <field name="website_style_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_website_promotion_form" model="ir.ui.view">
+            <field name="name">website.promotion</field>
+            <field name="model">website.promotion</field>
+            <field name="arch" type="xml">
+                <form string="Promotion">
+                    <header>
+                        <button name="to_draft" type="object" string="To Draft" class="oe_highlight" attrs="{'invisible': [('state','!=','finished')]}"/>
+                        <button name="confirm" type="object" string="Confirm" class="oe_highlight" attrs="{'invisible': [('state','!=','draft')]}"/>
+                        <button name="finished" type="object" string="Finish" class="oe_highlight" attrs="{'invisible': [('state','!=','confirm')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="pricelist_version_id"/>
+                            <field name="public_category_id"/>
+                            <field name="website_style_id"/>
+                        </group>
+                        <group >
+                            <field name="template_ids"/>
+                            <field name="price_discount"/>
+                            <field name="price_surcharge"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+       
+
+        <record id="action_website_promotion" model="ir.actions.act_window">
+            <field name="name">Website Promotion</field>
+            <field name="res_model">website.promotion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_website_promotion_tree"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem id="menu_website_promotion"
+            parent="base.menu_product"
+            name="Products Promotion" action="action_website_promotion" sequence="50"/>
+
+      
+    </data>
+</openerp>
