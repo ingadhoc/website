@@ -3,12 +3,21 @@
 # For copyright and license notices, see __openerp__.py file in module root
 # directory
 ##############################################################################
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 
 
 class website_promotion(models.Model):
     _name = 'website.promotion'
     _description = 'Website Promotion'
+
+    @api.model
+    def _price_field_get(self):
+        result = []
+        for line in self.env['product.price.type'].search([]):
+            result.append((str(line.id), line.name))
+        result.append(('-1', _('Other Pricelist')))
+        result.append(('-2', _('Supplier Prices on the product form')))
+        return result
 
     name = fields.Char(
         'Name',
@@ -62,6 +71,18 @@ class website_promotion(models.Model):
         'Price Surcharge',
         readonly=True,
         states={'draft': [('readonly', False)]})
+    base = fields.Selection(
+        _price_field_get,
+        'Based on',
+        required=True,
+        readonly=True,
+        states={'draft': [('readonly', False)]}
+    )
+    base_pricelist_id = fields.Many2one(
+        'product.pricelist',
+        'Other Pricelist',
+        readonly=True,
+        states={'draft': [('readonly', False)]})
 
     @api.one
     def to_draft(self):
@@ -70,14 +91,18 @@ class website_promotion(models.Model):
     @api.one
     def confirm(self):
         self.state = 'confirm'
+        if self.website_style_id:
+            self.template_ids.write(
+                {'website_style_ids': [(4, self.website_style_id.id)]})
         self.template_ids.write(
-            {'public_categ_ids': [(4, self.public_category_id.id)],
-             'website_style_ids': [(4, self.website_style_id.id)]})
+            {'public_categ_ids': [(4, self.public_category_id.id)]})
         for product in self.template_ids:
             vals = {
                 'name': self.name,
                 'product_tmpl_id': product.id,
                 'sequence': 0,
+                'base': int(self.base),
+                'base_pricelist_id': self.base_pricelist_id.id,
                 'price_version_id': self.pricelist_version_id.id,
                 'price_discount': self.price_discount,
                 'price_surcharge': self.price_surcharge,
@@ -97,6 +122,8 @@ class website_promotion(models.Model):
         items = prod_pricelist_item_obj.search(domain)
         if items:
             items.unlink()
+        if self.website_style_id:
+            self.template_ids.write(
+                {'website_style_ids': [(3, self.website_style_id.id)]})
         self.template_ids.write(
-            {'public_categ_ids': [(3, self.public_category_id.id)],
-             'website_style_ids': [(3, self.website_style_id.id)]})
+            {'public_categ_ids': [(3, self.public_category_id.id)]})

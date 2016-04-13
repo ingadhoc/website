@@ -22,7 +22,7 @@
     'name': 'Website Sale Promotion',
     'category': 'Website',
     'summary': 'Website Sale',
-    'version': '8.0.0.0.0',
+    'version': '8.0.0.1.0',
     'description': """
 Website Sale Promotion
 ======================
