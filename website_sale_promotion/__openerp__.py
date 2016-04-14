@@ -32,8 +32,7 @@ Create promotions for products and specified a public category to show them
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'depends': [
-        'product',
-        'website',
+        'website_sale',
     ],
     'data': [
         'security/ir.model.access.csv',
