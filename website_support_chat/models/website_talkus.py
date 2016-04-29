@@ -3,9 +3,7 @@
 # For copyright and license notices, see __openerp__.py file in module root
 # directory
 ##############################################################################
-from openerp import fields, models, api, tools, _
-from openerp.exceptions import Warning
-import logging
+from openerp import fields, models
 
 
 class website_talkus(models.Model):
@@ -35,5 +33,5 @@ class website_talkus(models.Model):
     tag = fields.Char(
         'Tag',
     )
-   
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
