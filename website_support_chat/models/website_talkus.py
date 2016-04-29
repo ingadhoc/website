@@ -4,16 +4,18 @@
 # directory
 ##############################################################################
 from openerp import fields, models, api, tools, _
-from erppeek import Client
 from openerp.exceptions import Warning
 import logging
-_logger = logging.getLogger(__name__)
 
 
-class website_talkus_bubble(models.Model):
-    _name = 'website.talkus.bubble'
+class website_talkus(models.Model):
+    _name = 'website.talkus'
     _description = 'website.talkus.bubble'
 
+    id_talkus = fields.Char(
+        'Id talkus',
+        required=True,
+    )
     userName = fields.Char(
         'Name',
         required=True,
@@ -26,6 +28,12 @@ class website_talkus_bubble(models.Model):
     )
     welcomeMessage = fields.Char(
         'welcomeMessage',
+    )
+    loading_image = fields.Char(
+        'Image',
+    )
+    tag = fields.Char(
+        'Tag',
     )
    
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
