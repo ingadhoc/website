@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+    <!-- Default template user for new users signing in -->
+        <record id="default_template_bubble_talkus" model="website.talkus.bubble">
+            <field name="userName">John</field>
+            <field name="userPicture"></field>
+            <field name="message">hello</field>
+            <field name="welcomeMessage">hello</field>
+        </record>
+
+        <record id="website_talkus1" model="ir.config_parameter">
+            <field name="key">website_talkus.loading_image</field>
+            <field name="value">https://www.adhoc.com.ar/website/imagefield=datasmodel=ir.attachmentid=1116</field>
+        </record>
+
+        <record id="website_talkus2" model="ir.config_parameter">
+            <field name="key">website_talkus.id</field>
+            <field name="value">AKoBPjeu9YRvYHKQu</field>
+        </record>
+
+        <record id="website_talkus3" model="ir.config_parameter">
+            <field name="key">website_talkus.tag</field>
+            <field name="value">No</field>
+        </record>
+
+        <record id="website_talkus4" model="ir.config_parameter">
+            <field name="key">website_talkus.bubble</field>
+            <field name="value" ref="default_template_bubble_talkus"/>
+        </record>
+
+    </data>
+</openerp>
+
