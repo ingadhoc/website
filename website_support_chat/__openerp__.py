@@ -31,7 +31,6 @@ Website Support - Chat
 Base module for support management. Client Side.
 It not adds a menu.
     """,
-    'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [
