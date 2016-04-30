@@ -5,7 +5,7 @@ from openerp.http import request
 
 
 class Website_Chat(openerp.addons.web.controllers.main.Home):
-    #Create the talkus website model.
+    # Create the talkus website model.
     @http.route('/website_support_chat/get_values',
                 type='json', auth='public', website=True)
     def get_values(self):
