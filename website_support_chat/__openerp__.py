@@ -21,6 +21,7 @@
 {
     'name': 'Website Support Chat',
     'version': '8.0.0.0.0',
+    "author": "ADHOC SA",
     'category': 'Support',
     'sequence': 14,
     'summary': '',
