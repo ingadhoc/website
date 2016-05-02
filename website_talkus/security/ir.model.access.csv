@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_website_talkus,website_talkus,model_website_talkus,,1,0,0,0
+access_website_talkus_bubble,website_talkus_bubble,model_website_talkus_bubble,,1,0,0,0

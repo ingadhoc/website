@@ -6,31 +6,34 @@
 from openerp import fields, models
 
 
-class website_talkus(models.Model):
-    _name = 'website.talkus'
+class website_talkus_bubble(models.Model):
+    _name = 'website.talkus.bubble'
     _description = 'website.talkus.bubble'
 
-    id_talkus = fields.Char(
-        'Id talkus',
-        required=True,
-    )
     userName = fields.Char(
         'Name',
         required=True,
+        help="User name displayed in the first welcome message",
     )
     userPicture = fields.Char(
-        'User',
+        'User Picture',
+        help="Url of the avatar displayed in the button near the bubble and in the first welcome message",
     )
     message = fields.Char(
         'message',
+        help="Message displayed in the bubble",
     )
     welcomeMessage = fields.Char(
         'welcomeMessage',
+        help="First welcome message displayed when the user open for live chat",
     )
-    loading_image = fields.Char(
-        'Image',
+    delay = fields.Integer(
+        'Delay',
+        help="How many seconds before displaying the bubble",
     )
-    tag = fields.Char(
-        'Tag',
+    website_talkus_id = fields.Many2one(
+        'website.talkus',
+        string='Website Talkus',
     )
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

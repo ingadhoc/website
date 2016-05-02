@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- Website Talkus main menu -->
+        <menuitem id="website_talkus_main"
+            parent="base.menu_administration"
+            name="Website Talkus" sequence="8"/>
+
+        <!-- Website Talkus VIEWS -->
+        <record id="view_website_talkus_list" model="ir.ui.view">
+            <field name="name">website.talkus.list</field>
+            <field name="model">website.talkus</field>
+            <field name="arch" type="xml">
+                <tree string="Website Talkus">
+                    <field name="id_talkus"/>
+                    <field name="loading_image"/>
+                    <field name="tag"/>
+                    <field name="backgroud_color" widget="color"/>
+                    <field name="border_color" widget="color"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_website_talkus_form" model="ir.ui.view">
+            <field name="name">website.talkus.form</field>
+            <field name="model">website.talkus</field>
+            <field name="arch" type="xml">
+                <form string="Website Talkus">
+                    <group>
+                        <field name="id_talkus"/>
+                        <field name="bubble_ids"/>
+                        <field name="loading_image"/>
+                        <field name="tag"/>
+                        <field name="backgroud_color" widget="color"/>
+                        <field name="border_color" widget="color"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="action_website_talkus" model="ir.actions.act_window">
+            <field name="name">Website Talkus</field>
+            <field name="res_model">website.talkus</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Talkus Chats menu -->
+        <menuitem id="menu_talkus_chat"
+            parent="website_talkus_main" name="Talkus Chat"
+            action="action_website_talkus" sequence="1"/>
+
+
+    </data>
+</openerp>

@@ -19,14 +19,14 @@
 #
 ##############################################################################
 {
-    'name': 'Website Support Chat',
+    'name': 'Website Talkus',
     'version': '8.0.0.0.0',
     "author": "ADHOC SA",
     'category': 'Support',
     'sequence': 14,
     'summary': '',
     'description': """
-Website Support - Chat
+Website Talkus - Chat
 ====================
 Base module for support management. Client Side.
 It not adds a menu.
@@ -38,10 +38,13 @@ It not adds a menu.
     'depends': [
         'base',
         'website',
+        'web_widget_color',
     ],
     'data': [
         'views/website_chat.xml',
         'views/data_parameter.xml',
+        'views/website_talkus_view.xml',
+        'views/website_talkus_bubble_view.xml',
         'security/ir.model.access.csv',
     ],
     'qweb': [

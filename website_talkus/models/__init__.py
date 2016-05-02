@@ -5,3 +5,4 @@
 ##############################################################################
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 import website_talkus
+import website_talkus_bubble

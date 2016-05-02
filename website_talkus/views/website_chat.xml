@@ -6,7 +6,7 @@
             <!--<xpath expr="//table[@class='oe_webclient']" position="after">-->
             <xpath expr="//body" position="after">
                 <!-- talkus chat Monitor. -->
-                <script type="text/javascript" src="/website_support_chat/static/src/js/website_chat_widgets.js"></script>
+                <script type="text/javascript" src="/website_talkus/static/src/js/website_chat_widgets.js"></script>
             </xpath>
         </template>
     </data>
