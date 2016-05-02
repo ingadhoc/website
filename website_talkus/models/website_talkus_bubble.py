@@ -17,7 +17,8 @@ class website_talkus_bubble(models.Model):
     )
     userPicture = fields.Char(
         'User Picture',
-        help="Url of the avatar displayed in the button near the bubble and in the first welcome message",
+        help="Url of the avatar displayed in the button near "
+             "the bubble and in the first welcome message",
     )
     message = fields.Char(
         'message',
@@ -25,7 +26,8 @@ class website_talkus_bubble(models.Model):
     )
     welcomeMessage = fields.Char(
         'welcomeMessage',
-        help="First welcome message displayed when the user open for live chat",
+        help="First welcome message displayed when "
+             "the user open for live chat",
     )
     delay = fields.Integer(
         'Delay',
