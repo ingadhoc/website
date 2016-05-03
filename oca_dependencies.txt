@@ -1,4 +1,3 @@
 oca_ecommerce https://github.com/oca/e-commerce.git
 adhoc-product https://github.com/ingadhoc/product.git
 adhoc-argentina https://github.com/ingadhoc/odoo-argentina.git
-oca_web https://github.com/OCA/web.git
