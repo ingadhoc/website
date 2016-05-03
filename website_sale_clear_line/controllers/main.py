@@ -15,3 +15,4 @@ class pos_website_sale(http.Controller):
             request.cr, request.context, request.registry)
         pool['sale.order.line'].unlink(
             cr, SUPERUSER_ID, line_id, context=context)
+
