@@ -57,4 +57,3 @@ It not adds a menu.
     'auto_install': False,
     'application': True,
 }
-
