@@ -42,7 +42,6 @@ It not adds a menu.
     ],
     'data': [
         'views/website_chat.xml',
-        'views/data_parameter.xml',
         'views/website_talkus_view.xml',
         'views/website_talkus_bubble_view.xml',
         'security/ir.model.access.csv',
@@ -50,6 +49,7 @@ It not adds a menu.
     'qweb': [
     ],
     'demo': [
+        'demo/talkus_demo.xml',
     ],
     'test': [
     ],

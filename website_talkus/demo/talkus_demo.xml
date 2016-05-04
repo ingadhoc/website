@@ -6,8 +6,8 @@
 
         <record id="default_template_website_talkus" model="website.talkus">
             <field name="loading_image"></field>
-            <field name="id_talkus">AKoBPjeu9YRvYHKQu</field>
-            <field name="tag"></field>
+            <field name="id_talkus">enter_your_id</field>
+            <field name="tag">commercial</field>
             <field name="backgroud_color">#AACCEE</field>
             <field name="border_color">#ACEACE</field>
         </record>
