@@ -23,6 +23,7 @@ class WebsiteChat(openerp.addons.web.controllers.main.Home):
                           'img': webs_talkus['loading_image'],
                           'backgroud_color': webs_talkus['backgroud_color'],
                           'border_color': webs_talkus['border_color'],
+                          'welcomeMessage': webs_talkus['welcomeMessage'],
                           'login': obj.login,
                           }
 

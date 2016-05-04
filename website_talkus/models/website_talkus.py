@@ -18,7 +18,12 @@ class website_talkus(models.Model):
         'website.talkus.bubble',
         'website_talkus_id',
         string='Bubbles',
-        )
+    )
+    welcomeMessage = fields.Char(
+        'welcomeMessage',
+        help="First welcome message displayed when "
+             "the user open for live chat",
+    )
     loading_image = fields.Char(
         'Image',
     )

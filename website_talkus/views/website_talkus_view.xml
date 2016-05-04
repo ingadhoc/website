@@ -30,6 +30,7 @@
                         <field name="id_talkus"/>
                         <field name="bubble_ids"/>
                         <field name="loading_image"/>
+                        <field name="welcomeMessage"/>
                         <field name="tag"/>
                         <field name="backgroud_color" widget="color"/>
                         <field name="border_color" widget="color"/>
