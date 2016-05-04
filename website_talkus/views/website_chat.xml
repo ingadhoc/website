@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--<template id="layout_talkus_js" inherit_id="web.webclient_bootstrap" name="add talkus to main layout">-->
+        <template id="layout_website_talkus_js" inherit_id="website.layout" name="add talkus to website">
+            <!--<xpath expr="//table[@class='oe_webclient']" position="after">-->
+            <xpath expr="//body" position="after">
+                <!-- talkus chat Monitor. -->
+                <script type="text/javascript" src="/website_talkus/static/src/js/website_chat_widgets.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

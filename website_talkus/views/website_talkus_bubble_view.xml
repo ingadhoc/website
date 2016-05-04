@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- Website Talkus VIEWS -->
+        <record id="view_website_talkus_bubble_list" model="ir.ui.view">
+            <field name="name">website.talkus.bubble.list</field>
+            <field name="model">website.talkus.bubble</field>
+            <field name="arch" type="xml">
+                <tree string="Website Talkus Bubble" editable="True">
+                    <field name="userName"/>
+                    <field name="userPicture"/>
+                    <field name="message"/>
+                    <field name="welcomeMessage"/>
+                    <field name="delay"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_website_talkus_bubble_form" model="ir.ui.view">
+            <field name="name">website.talkus.bubble.form</field>
+            <field name="model">website.talkus.bubble</field>
+            <field name="arch" type="xml">
+                <form string="Website Talkus Bubble">
+                    <group>
+                        <field name="userName"/>
+                        <field name="userPicture"/>
+                        <field name="message"/>
+                        <field name="welcomeMessage"/>
+                        <field name="delay"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="action_website_talkus_bubble" model="ir.actions.act_window">
+            <field name="name">Website Talkus Bubble</field>
+            <field name="res_model">website.talkus.bubble</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</openerp>
