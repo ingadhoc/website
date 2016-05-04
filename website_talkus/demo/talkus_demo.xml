@@ -18,7 +18,7 @@
             <field name="message">hello</field>
             <field name="welcomeMessage">hello</field>
             <field name="delay">4</field>
-            <field name="website_talkus_id" ref="default_template_website_talkus"/>
+            <field name="website_talkus_id" ref="website_talkus"/>
         </record>
 
     </data>
