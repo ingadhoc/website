@@ -20,17 +20,11 @@
 ##############################################################################
 {
     'name': 'Website Talkus',
-    'version': '8.0.0.0.0',
+    'version': '8.0.0.1.0',
     "author": "ADHOC SA",
     'category': 'Support',
     'sequence': 14,
     'summary': '',
-    'description': """
-Website Talkus - Chat
-====================
-Base module for support management. Client Side.
-It not adds a menu.
-    """,
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [

@@ -4,7 +4,7 @@
 
     <!-- Default template user for new users signing in -->
 
-        <record id="default_template_website_talkus" model="website.talkus">
+        <record id="website_talkus" model="website.talkus">
             <field name="loading_image"></field>
             <field name="id_talkus">enter_your_id</field>
             <field name="tag">commercial</field>
@@ -12,12 +12,7 @@
             <field name="border_color">#ACEACE</field>
         </record>
 
-        <record id="website_talkus" model="ir.config_parameter">
-            <field name="key">website_talkus</field>
-            <field name="value" ref="default_template_website_talkus"/>
-        </record>
-
-        <record id="default_template_website_talkus_bubble" model="website.talkus.bubble">
+        <record id="website_talkus_bubble" model="website.talkus.bubble">
             <field name="userName">John</field>
             <field name="userPicture"></field>
             <field name="message">hello</field>
@@ -25,12 +20,6 @@
             <field name="delay">4</field>
             <field name="website_talkus_id" ref="default_template_website_talkus"/>
         </record>
-
-        <record id="website_talkus_bubble" model="ir.config_parameter">
-            <field name="key">website_talkus_bubble</field>
-            <field name="value" ref="default_template_website_talkus_bubble"/>
-        </record>
-
 
     </data>
 </openerp>

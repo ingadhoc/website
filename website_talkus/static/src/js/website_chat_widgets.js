@@ -22,4 +22,3 @@ function get_open_webite_chat() {
 }
 
 get_open_webite_chat();
-
