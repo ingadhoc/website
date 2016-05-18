@@ -1,1 +1,3 @@
 mercadopago
+suds-jurko
+requests

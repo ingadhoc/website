@@ -1,0 +1,319 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://ws.wso2.org/dataservice" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://api.todopago.com.ar" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://api.todopago.com.ar">
+   <wsdl:documentation>Servicio de Consulta de Operaciones o Transacciones                                                                                                                                </wsdl:documentation>
+   <wsdl:types>
+      <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://api.todopago.com.ar">
+         <xs:element name="GetByRangeDateTime">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="MERCHANT" nillable="true" type="xs:string"/>
+                  <xs:element name="STARTDATE" nillable="true" type="xs:date"/>
+                  <xs:element name="ENDDATE" nillable="true" type="xs:date"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="OperationsColections" type="ns0:OperationsColections"/>
+         <xs:complexType name="OperationsColections">
+            <xs:sequence>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="Operations" type="ns0:Operations"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="Operations">
+            <xs:sequence>
+               <xs:element name="RESULTCODE" nillable="true" type="xs:string"/>
+               <xs:element name="RESULTMESSAGE" nillable="true" type="xs:string"/>
+               <xs:element name="DATETIME" nillable="true" type="xs:dateTime"/>
+               <xs:element name="OPERATIONID" nillable="true" type="xs:string"/>
+               <xs:element name="CURRENCYCODE" nillable="true" type="xs:string"/>
+               <xs:element name="AMOUNT" nillable="true" type="xs:float"/>
+               <xs:element name="AMOUNTBUYER" nillable="true" type="xs:float"/>
+               <xs:element name="BANKID" nillable="true" type="xs:float"/>
+               <xs:element name="PROMOTIONID" nillable="true" type="xs:float"/>
+               <xs:element name="TYPE" nillable="true" type="xs:string"/>
+               <xs:element name="INSTALLMENTPAYMENTS" nillable="true" type="xs:string"/>
+               <xs:element name="CUSTOMEREMAIL" nillable="true" type="xs:string"/>
+               <xs:element name="IDENTIFICATIONTYPE" nillable="true" type="xs:string"/>
+               <xs:element name="IDENTIFICATION" nillable="true" type="xs:string"/>
+               <xs:element name="CARDNUMBER" nillable="true" type="xs:string"/>
+               <xs:element name="CARDHOLDERNAME" nillable="true" type="xs:string"/>
+               <xs:element name="TICKETNUMBER" nillable="true" type="xs:integer"/>
+               <xs:element name="AUTHORIZATIONCODE" nillable="true" type="xs:string"/>
+               <xs:element name="BARCODE" nillable="true" type="xs:string"/>
+               <xs:element name="COUPONEXPDATE" nillable="true" type="xs:string"/>
+               <xs:element name="COUPONSECEXPDATE" nillable="true" type="xs:string"/>
+               <xs:element name="COUPONSUBSCRIBER" nillable="true" type="xs:string"/>
+               <xs:element name="PAYMENTMETHODCODE" nillable="true" type="xs:string"/>
+               <xs:element name="PAYMENTMETHODNAME" nillable="true" type="xs:string"/>
+               <xs:element name="PAYMENTMETHODTYPE" nillable="true" type="xs:string"/>
+               <xs:element name="REFUNDED" nillable="true" type="xs:string"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="GetByOperationId">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="MERCHANT" nillable="true" type="xs:string"/>
+                  <xs:element name="OPERATIONID" nillable="true" type="xs:string"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="_getgetbyoperationid">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="MERCHANT" nillable="true" type="xs:string"/>
+                  <xs:element name="OPERATIONID" nillable="true" type="xs:string"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="_getgetbyrangedatetime">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="MERCHANT" nillable="true" type="xs:string"/>
+                  <xs:element name="STARTDATE" nillable="true" type="xs:date"/>
+                  <xs:element name="ENDDATE" nillable="true" type="xs:date"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:schema>
+      <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+         <xs:element name="DataServiceFault">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="current_params" type="xs:string"/>
+                  <xs:element name="current_request_name" type="xs:string"/>
+                  <xs:element name="nested_exception" type="xs:string"/>
+                  <xs:element name="source_data_service">
+                     <xs:complexType>
+                        <xs:sequence>
+                           <xs:element name="location" type="xs:string"/>
+                           <xs:element name="default_namespace" type="xs:string"/>
+                           <xs:element name="description" type="xs:string"/>
+                           <xs:element name="data_service_name" type="xs:string"/>
+                        </xs:sequence>
+                     </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ds_code" type="xs:string"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="REQUEST_STATUS" type="xs:string"/>
+         <xs:element name="DATA_SERVICE_RESPONSE">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:any minOccurs="0"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:schema>
+   </wsdl:types>
+   <wsdl:message name="_getgetbyrangedatetimeRequest">
+      <wsdl:part name="parameters" element="ns0:_getgetbyrangedatetime"/>
+   </wsdl:message>
+   <wsdl:message name="_getgetbyrangedatetimeResponse">
+      <wsdl:part name="parameters" element="ns0:OperationsColections"/>
+   </wsdl:message>
+   <wsdl:message name="DataServiceFault">
+      <wsdl:part name="parameters" element="ns1:DataServiceFault"/>
+   </wsdl:message>
+   <wsdl:message name="GetByRangeDateTimeRequest">
+      <wsdl:part name="parameters" element="ns0:GetByRangeDateTime"/>
+   </wsdl:message>
+   <wsdl:message name="GetByRangeDateTimeResponse">
+      <wsdl:part name="parameters" element="ns0:OperationsColections"/>
+   </wsdl:message>
+   <wsdl:message name="GetByOperationIdRequest">
+      <wsdl:part name="parameters" element="ns0:GetByOperationId"/>
+   </wsdl:message>
+   <wsdl:message name="GetByOperationIdResponse">
+      <wsdl:part name="parameters" element="ns0:OperationsColections"/>
+   </wsdl:message>
+   <wsdl:message name="_getgetbyoperationidRequest">
+      <wsdl:part name="parameters" element="ns0:_getgetbyoperationid"/>
+   </wsdl:message>
+   <wsdl:message name="_getgetbyoperationidResponse">
+      <wsdl:part name="parameters" element="ns0:OperationsColections"/>
+   </wsdl:message>
+   <wsdl:portType name="OperationsPortType">
+      <wsdl:operation name="_getgetbyrangedatetime">
+         <wsdl:input message="ns0:_getgetbyrangedatetimeRequest" wsaw:Action="urn:_getgetbyrangedatetime"/>
+         <wsdl:output message="ns0:_getgetbyrangedatetimeResponse" wsaw:Action="urn:_getgetbyrangedatetimeResponse"/>
+         <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:_getgetbyrangedatetimeDataServiceFault"/>
+      </wsdl:operation>
+      <wsdl:operation name="GetByRangeDateTime">
+         <wsdl:documentation>Consulta por Comercio y Fecha de Creacion</wsdl:documentation>
+         <wsdl:input message="ns0:GetByRangeDateTimeRequest" wsaw:Action="urn:GetByRangeDateTime"/>
+         <wsdl:output message="ns0:GetByRangeDateTimeResponse" wsaw:Action="urn:GetByRangeDateTimeResponse"/>
+         <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:GetByRangeDateTimeDataServiceFault"/>
+      </wsdl:operation>
+      <wsdl:operation name="GetByOperationId">
+         <wsdl:documentation>Consulta por id De Operacion y Comercio</wsdl:documentation>
+         <wsdl:input message="ns0:GetByOperationIdRequest" wsaw:Action="urn:GetByOperationId"/>
+         <wsdl:output message="ns0:GetByOperationIdResponse" wsaw:Action="urn:GetByOperationIdResponse"/>
+         <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:GetByOperationIdDataServiceFault"/>
+      </wsdl:operation>
+      <wsdl:operation name="_getgetbyoperationid">
+         <wsdl:input message="ns0:_getgetbyoperationidRequest" wsaw:Action="urn:_getgetbyoperationid"/>
+         <wsdl:output message="ns0:_getgetbyoperationidResponse" wsaw:Action="urn:_getgetbyoperationidResponse"/>
+         <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:_getgetbyoperationidDataServiceFault"/>
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="OperationsSoap11Binding" type="ns0:OperationsPortType">
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <wsdl:operation name="_getgetbyrangedatetime">
+         <soap:operation soapAction="urn:_getgetbyrangedatetime" style="document"/>
+         <wsdl:input>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetByRangeDateTime">
+         <soap:operation soapAction="urn:GetByRangeDateTime" style="document"/>
+         <wsdl:input>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetByOperationId">
+         <soap:operation soapAction="urn:GetByOperationId" style="document"/>
+         <wsdl:input>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="_getgetbyoperationid">
+         <soap:operation soapAction="urn:_getgetbyoperationid" style="document"/>
+         <wsdl:input>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:binding name="OperationsSoap12Binding" type="ns0:OperationsPortType">
+      <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <wsdl:operation name="_getgetbyrangedatetime">
+         <soap12:operation soapAction="urn:_getgetbyrangedatetime" style="document"/>
+         <wsdl:input>
+            <soap12:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap12:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetByRangeDateTime">
+         <soap12:operation soapAction="urn:GetByRangeDateTime" style="document"/>
+         <wsdl:input>
+            <soap12:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap12:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetByOperationId">
+         <soap12:operation soapAction="urn:GetByOperationId" style="document"/>
+         <wsdl:input>
+            <soap12:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap12:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="_getgetbyoperationid">
+         <soap12:operation soapAction="urn:_getgetbyoperationid" style="document"/>
+         <wsdl:input>
+            <soap12:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap12:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:binding name="OperationsHttpBinding" type="ns0:OperationsPortType">
+      <http:binding verb="POST"/>
+      <wsdl:operation name="_getgetbyrangedatetime">
+         <http:operation location="_getgetbyrangedatetime"/>
+         <wsdl:input>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:input>
+         <wsdl:output>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="GetByRangeDateTime">
+         <http:operation location="GetByRangeDateTime"/>
+         <wsdl:input>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:input>
+         <wsdl:output>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="GetByOperationId">
+         <http:operation location="GetByOperationId"/>
+         <wsdl:input>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:input>
+         <wsdl:output>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="_getgetbyoperationid">
+         <http:operation location="_getgetbyoperationid"/>
+         <wsdl:input>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:input>
+         <wsdl:output>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="Operations">
+      <wsdl:port name="OperationsHttpsSoap11Endpoint" binding="ns0:OperationsSoap11Binding">
+         <soap:address location="https://10.123.4.121:8243/services/t/1.1/Operations.OperationsHttpsSoap11Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="OperationsHttpSoap11Endpoint" binding="ns0:OperationsSoap11Binding">
+         <soap:address location="http://10.123.4.121:8280/services/t/1.1/Operations.OperationsHttpSoap11Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="OperationsHttpsSoap12Endpoint" binding="ns0:OperationsSoap12Binding">
+         <soap12:address location="https://10.123.4.121:8243/services/t/1.1/Operations.OperationsHttpsSoap12Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="OperationsHttpSoap12Endpoint" binding="ns0:OperationsSoap12Binding">
+         <soap12:address location="http://10.123.4.121:8280/services/t/1.1/Operations.OperationsHttpSoap12Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="OperationsHttpsEndpoint" binding="ns0:OperationsHttpBinding">
+         <http:address location="https://10.123.4.121:8243/services/t/1.1/Operations.OperationsHttpsEndpoint"/>
+      </wsdl:port>
+      <wsdl:port name="OperationsHttpEndpoint" binding="ns0:OperationsHttpBinding">
+         <http:address location="http://10.123.4.121:8280/services/t/1.1/Operations.OperationsHttpEndpoint"/>
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                     xmlns="http://schemas.xmlsoap.org/wsdl/"
+                     xmlns:ns="http://api.todopago.com.ar"
+                     xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
+                     xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
+                     xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+                     xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                     xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+                     xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                     xmlns:tns="http://api.todopago.com.ar"
+                     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                     xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/"
+                     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+                     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/"
+                     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                     targetNamespace="http://api.todopago.com.ar">
+      <wsdl:types>
+         <schema xmlns="http://www.w3.org/2001/XMLSchema"
+                 attributeFormDefault="unqualified"
+                 elementFormDefault="qualified"
+                 targetNamespace="http://api.todopago.com.ar">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+            <element name="SendAuthorizeRequest">
+               <complexType>
+                  <sequence>
+                     <element name="Security" type="string"/>
+                     <element name="Session" type="string" minOccurs="0" nillable="true"/>
+                     <element name="Merchant" type="string"/>
+                     <element name="URL_OK" type="string" minOccurs="0" nillable="true"/>
+                     <element name="URL_ERROR" type="string" minOccurs="0" nillable="true"/>
+                     <element name="EncodingMethod"
+                              type="string"
+                              minOccurs="0"
+                              nillable="true"/>
+                     <element name="Payload" type="anyType" minOccurs="0" nillable="true"/>
+                  </sequence>
+               </complexType>
+            </element>
+            <element name="SendAuthorizeRequestResponse">
+               <complexType>
+                  <sequence>
+                     <element name="StatusCode" type="int"/>
+                     <element name="StatusMessage"
+                              type="string"
+                              minOccurs="0"
+                              nillable="true"/>
+                     <element name="URL_Request" type="string" minOccurs="0" nillable="true"/>
+                     <element name="RequestKey" type="string" minOccurs="0" nillable="true"/>
+                     <element name="PublicRequestKey" type="string" minOccurs="0" nillable="true"/>
+                  </sequence>
+               </complexType>
+            </element>
+            <element name="GetAuthorizeAnswer">
+               <complexType>
+                  <sequence>
+                     <element name="Security"   type="string"/>
+                     <element name="Session"    type="string" minOccurs="0" nillable="true"/>
+                     <element name="Merchant"   type="string"/>
+                     <element name="RequestKey" type="string" minOccurs="0" nillable="true"/>
+                     <element name="AnswerKey"  type="string" minOccurs="0" nillable="true"/>
+                  </sequence>
+               </complexType>
+            </element>
+            <element name="GetAuthorizeAnswerResponse">
+               <complexType>
+                  <sequence>
+                     <element name="StatusCode" type="int"/>
+                     <element name="StatusMessage"
+                              type="string"
+                              minOccurs="0"
+                              nillable="true"/>
+                     <element name="AuthorizationKey"
+                              type="string"
+                              minOccurs="0"
+                              nillable="true"/>
+                     <element name="EncodingMethod"
+                              type="string"
+                              minOccurs="0"
+                              nillable="true"/>
+                     <element name="Payload" type="anyType" minOccurs="0" nillable="true"/>
+                  </sequence>
+               </complexType>
+            </element>
+				<element name="VoidRequest">
+					<complexType>
+						<sequence>
+							<element name="Security"          type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="Merchant"          type="string" minOccurs="1" maxOccurs="1" nillable="false"/>
+                            <element name="Channel"           type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="AuthorizationKey"  type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="RequestKey"        type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="VoidResponse">
+					<complexType>
+						<sequence>
+							<element name="StatusCode"        type="int"    minOccurs="1" maxOccurs="1" nillable="false"/>
+							<element name="StatusMessage"     type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="AuthorizationKey"  type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="AUTHORIZATIONCODE" type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="ReturnRequest">
+					<complexType>
+						<sequence>
+							<element name="Security"          type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="Merchant"          type="string" minOccurs="1" maxOccurs="1" nillable="false"/>
+							<element name="Channel"           type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="AuthorizationKey"  type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="RequestKey"        type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="CURRENCYCODE"      type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="AMOUNT"            type="float"  minOccurs="0" maxOccurs="1" nillable="true"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="ReturnResponse">
+					<complexType>
+						<sequence>
+							<element name="StatusCode"        type="int"    minOccurs="1" maxOccurs="1" nillable="false"/>
+							<element name="StatusMessage"     type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="AuthorizationKey"  type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<element name="AUTHORIZATIONCODE" type="string" minOccurs="0" maxOccurs="1" nillable="true"/>
+						</sequence>
+					</complexType>
+				</element>
+         </schema>
+      </wsdl:types>
+      <wsdl:message name="GetAuthorizeAnswer">
+         <wsdl:part name="parameters" element="ns:GetAuthorizeAnswer"/>
+      </wsdl:message>
+      <wsdl:message name="GetAuthorizeAnswerResponse">
+         <wsdl:part name="parameters" element="ns:GetAuthorizeAnswerResponse"/>
+      </wsdl:message>
+      <wsdl:message name="SendAuthorizeRequest">
+         <wsdl:part name="parameters" element="ns:SendAuthorizeRequest"/>
+      </wsdl:message>
+      <wsdl:message name="SendAuthorizeRequestResponse">
+         <wsdl:part name="parameters" element="ns:SendAuthorizeRequestResponse"/>
+      </wsdl:message>
+		<wsdl:message name="VoidRequest">
+			<wsdl:part name="parameters" element="ns:VoidRequest"/>
+		</wsdl:message>
+		<wsdl:message name="VoidResponse">
+			<wsdl:part name="parameters" element="ns:VoidResponse"/>
+		</wsdl:message>
+		<wsdl:message name="ReturnRequest">
+			<wsdl:part name="parameters" element="ns:ReturnRequest"/>
+		</wsdl:message>
+		<wsdl:message name="ReturnResponse">
+			<wsdl:part name="parameters" element="ns:ReturnResponse"/>
+		</wsdl:message>
+      <wsdl:portType name="AuthorizePortType">
+         <wsdl:operation name="GetAuthorizeAnswer">
+            <wsdl:documentation>Service definition of Operation GetAuthorizeAnswer: Utilizada para recuerar los datos de la Respuesta de la Autorizacion en el Caso de Clientes no PCI</wsdl:documentation>
+            <wsdl:input message="ns:GetAuthorizeAnswer"/>
+            <wsdl:output message="ns:GetAuthorizeAnswerResponse"
+                         wsaw:Action="//api.todopago.com.ar/AuthorizePortType/GetAuthorizeAnswerResponse"/>
+         </wsdl:operation>
+         <wsdl:operation name="SendAuthorizeRequest">
+            <wsdl:documentation>Service definition of Operation SendAuthorizeRequest: Utilizada para enviar los datos que se utilizaran en el  requerimiento de Autorizacion, para Clientes PCI</wsdl:documentation>
+            <wsdl:input message="ns:SendAuthorizeRequest"/>
+            <wsdl:output message="ns:SendAuthorizeRequestResponse"
+                         wsaw:Action="//api.todopago.com.ar/AuthorizePortType/SendAuthorizeRequestResponse"/>
+			</wsdl:operation>
+			<wsdl:operation name="VoidRequest">
+				<wsdl:documentation>Service definition of Operation Void: Utilizada para Anular una Transaccion</wsdl:documentation>
+				<wsdl:input message="ns:VoidRequest"/>
+				<wsdl:output message="ns:VoidResponse"
+                         wsaw:Action="//api.todopago.com.ar/AuthorizePortType/VoidResponse"/>
+			</wsdl:operation>
+			<wsdl:operation name="ReturnRequest">
+				<wsdl:documentation>Service definition of Operation Return: Utilizada para Devolver total o parcialmente una Transaccion</wsdl:documentation>
+				<wsdl:input message="ns:ReturnRequest"/>
+				<wsdl:output message="ns:ReturnResponse"
+                         wsaw:Action="//api.todopago.com.ar/AuthorizePortType/ReturnResponse"/>
+         </wsdl:operation>
+      </wsdl:portType>
+      <wsdl:binding name="AuthorizeSoap11Binding" type="ns:AuthorizePortType">
+         <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+         <wsdl:operation name="SendAuthorizeRequest">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input>
+               <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+               <soap:body use="literal"/>
+            </wsdl:output>
+         </wsdl:operation>
+         <wsdl:operation name="GetAuthorizeAnswer">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input>
+               <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+               <soap:body use="literal"/>
+            </wsdl:output>
+         </wsdl:operation>
+			<wsdl:operation name="VoidRequest">
+				<soap:operation soapAction="" style="document"/>
+				<wsdl:input>
+					<soap:body use="literal"/>
+				</wsdl:input>
+				<wsdl:output>
+					<soap:body use="literal"/>
+				</wsdl:output>
+			</wsdl:operation>
+			<wsdl:operation name="ReturnRequest">
+				<soap:operation soapAction="" style="document"/>
+				<wsdl:input>
+					<soap:body use="literal"/>
+				</wsdl:input>
+				<wsdl:output>
+					<soap:body use="literal"/>
+				</wsdl:output>
+			</wsdl:operation>
+      </wsdl:binding>
+      <wsdl:binding name="AuthorizeSoap12Binding" type="ns:AuthorizePortType">
+         <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+         <wsdl:operation name="SendAuthorizeRequest">
+            <soap12:operation soapAction="" style="document"/>
+            <wsdl:input>
+               <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+               <soap12:body use="literal"/>
+            </wsdl:output>
+         </wsdl:operation>
+         <wsdl:operation name="GetAuthorizeAnswer">
+            <soap12:operation soapAction="" style="document"/>
+            <wsdl:input>
+               <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+               <soap12:body use="literal"/>
+            </wsdl:output>
+         </wsdl:operation>
+			<wsdl:operation name="VoidRequest">
+				<soap12:operation soapAction="" style="document"/>
+				<wsdl:input>
+					<soap12:body use="literal"/>
+				</wsdl:input>
+				<wsdl:output>
+					<soap12:body use="literal"/>
+				</wsdl:output>
+			</wsdl:operation>
+			<wsdl:operation name="ReturnRequest">
+				<soap12:operation soapAction="" style="document"/>
+				<wsdl:input>
+					<soap12:body use="literal"/>
+				</wsdl:input>
+				<wsdl:output>
+					<soap12:body use="literal"/>
+				</wsdl:output>
+			</wsdl:operation>
+      </wsdl:binding>
+      <wsdl:binding name="AuthorizeHttpBinding" type="ns:AuthorizePortType">
+         <http:binding verb="POST"/>
+         <wsdl:operation name="SendAuthorizeRequest">
+            <http:operation location="SendAuthorizeRequest"/>
+            <wsdl:input>
+               <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+               <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+         </wsdl:operation>
+         <wsdl:operation name="GetAuthorizeAnswer">
+            <http:operation location="GetAuthorizeAnswer"/>
+            <wsdl:input>
+               <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+               <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+         </wsdl:operation>
+			<wsdl:operation name="VoidRequest">
+				<http:operation location="VoidRequest"/>
+				<wsdl:input>
+					<mime:content type="text/xml" part="parameters"/>
+				</wsdl:input>
+				<wsdl:output>
+					<mime:content type="text/xml" part="parameters"/>
+				</wsdl:output>
+			</wsdl:operation>
+			<wsdl:operation name="ReturnRequest">
+				<http:operation location="ReturnRequest"/>
+				<wsdl:input>
+					<mime:content type="text/xml" part="parameters"/>
+				</wsdl:input>
+				<wsdl:output>
+					<mime:content type="text/xml" part="parameters"/>
+				</wsdl:output>
+			</wsdl:operation>
+      </wsdl:binding>
+      <wsdl:service name="Authorize">
+         <wsdl:port name="AuthorizeHttpsSoap11Endpoint" binding="ns:AuthorizeSoap11Binding">
+            <soap:address location="https://192.168.135.35:8443/services/Authorize.AuthorizeHttpsSoap11Endpoint"/>
+         </wsdl:port>
+         <wsdl:port name="AuthorizeHttpSoap11Endpoint" binding="ns:AuthorizeSoap11Binding">
+            <soap:address location="http://192.168.135.35:8480/services/Authorize.AuthorizeHttpSoap11Endpoint"/>
+         </wsdl:port>
+         <wsdl:port name="AuthorizeHttpSoap12Endpoint" binding="ns:AuthorizeSoap12Binding">
+            <soap12:address location="http://192.168.135.35:8480/services/Authorize.AuthorizeHttpSoap12Endpoint"/>
+         </wsdl:port>
+         <wsdl:port name="AuthorizeHttpsSoap12Endpoint" binding="ns:AuthorizeSoap12Binding">
+            <soap12:address location="https://192.168.135.35:8443/services/Authorize.AuthorizeHttpsSoap12Endpoint"/>
+         </wsdl:port>
+         <wsdl:port name="AuthorizeHttpsEndpoint" binding="ns:AuthorizeHttpBinding">
+            <http:address location="https://192.168.135.35:8443/services/Authorize.AuthorizeHttpsEndpoint"/>
+         </wsdl:port>
+         <wsdl:port name="AuthorizeHttpEndpoint" binding="ns:AuthorizeHttpBinding">
+            <http:address location="http://192.168.135.35:8480/services/Authorize.AuthorizeHttpEndpoint"/>
+         </wsdl:port>
+      </wsdl:service>
+   </wsdl:definitions>
