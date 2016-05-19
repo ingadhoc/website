@@ -52,7 +52,6 @@ class TodoPagoController(http.Controller):
 
     @http.route([
         '/payment/todopago/success_no_return',
-        '/payment/todopago/failure_no_return',
     ],
         type='http', auth="none")
     def todopago_back_no_return(self, **post):
@@ -68,7 +67,42 @@ class TodoPagoController(http.Controller):
             'todopago: entering mecadopago_back with post data %s',
             pprint.pformat(post))
         self.todopago_validate(**post)
-        return werkzeug.utils.redirect('/')
+        cr, uid = request.cr, SUPERUSER_ID
+        todopago_id = request.registry['payment.acquirer'].search(
+            cr, uid, [('provider', '=', 'todopago')], limit=1)
+        todopago = request.registry['payment.acquirer'].browse(
+            cr, uid, todopago_id)
+        return_url = '/'
+        if todopago.todopago_success_return_url:
+            return_url = todopago.todopago_success_return_url
+        return werkzeug.utils.redirect(return_url)
+
+    @http.route([
+        '/payment/todopago/failure_no_return',
+    ],
+        type='http', auth="none")
+    def todopago_back_no_return_failure(self, **post):
+        """
+        Odoo, si usas el boton de pago desde una sale order o email, no manda
+        una return url, desde website si y la almacenan en un valor que vuelve
+        desde el agente de pago. Como no podemos mandar esta "return_url" para
+        que vuelva, directamente usamos dos distintas y vovemos con una u otra
+        """
+        # TODO nos falta implementar esto, en realidad deberia volver a la
+        # orden de venta o a donde?
+        _logger.info(
+            'todopago: entering mecadopago_back with post data %s',
+            pprint.pformat(post))
+        self.todopago_validate(**post)
+        cr, uid = request.cr, SUPERUSER_ID
+        todopago_id = request.registry['payment.acquirer'].search(
+            cr, uid, [('provider', '=', 'todopago')], limit=1)
+        todopago = request.registry['payment.acquirer'].browse(
+            cr, uid, todopago_id)
+        return_url = '/'
+        if todopago.todopago_failure_return_url:
+            return_url = todopago.todopago_failure_return_url
+        return werkzeug.utils.redirect(return_url)
 
     @http.route([
         '/payment/todopago/success',

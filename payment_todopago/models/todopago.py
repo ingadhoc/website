@@ -31,6 +31,11 @@ class AcquirerMercadopago(models.Model):
         providers.append(['todopago', 'TodoPago'])
         return providers
 
+    # TODO mejorar la implementacion de esto dando mensajes o algo mas flexible
+    todopago_success_return_url = fields.Char(
+    )
+    todopago_failure_return_url = fields.Char(
+    )
     todopago_client_id = fields.Char(
         'TodoPago Merchant Id',
         required_if_provider='todopago',
@@ -90,6 +95,7 @@ class AcquirerMercadopago(models.Model):
         else:
             success_url = TodoPagoController._success_no_return_url
             failure_url = TodoPagoController._failure_no_return_url
+            # if self.todopago_failure_return_url
             # pending_url = TodoPagoController._pending_url
 
         # sale_order = self.env['sale.order'].search(
@@ -234,9 +240,12 @@ class AcquirerMercadopago(models.Model):
             return "/"
         transaction = self.env['payment.transaction'].search([
             ('reference', '=', optionsSAR_operacion['OPERATIONID'])])
-        if transaction:
-            _logger.error('Error: Transaction already exists')
-            return "/"
+        # TODO mejorar esto da error al generar nuevas trasnacciones,
+        # deberiamos verificar si la que existe tiene sentido o no
+        # if transaction:
+        #     _logger.error('Error: Transaction already exists')
+        #     return "/"
+        transaction.unlink()
         tr_vals = {
             'todopago_RequestKey': response.RequestKey,
             'todopago_PublicRequestKey': response.PublicRequestKey,
@@ -248,7 +257,6 @@ class AcquirerMercadopago(models.Model):
             'amount': amount,
         }
         _logger.info('Creating transaction with data %s' % tr_vals)
-        # transaction.unlink()
         transaction = transaction.create(tr_vals)
         return response.URL_Request
 

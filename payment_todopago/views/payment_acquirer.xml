@@ -13,6 +13,8 @@
                         <a href="https://www.todopago.com/mla/account/credentials" target="_blank">https://www.todopago.com/mla/account/credentials</a>
                         <field name="todopago_client_id"/>
                         <field name="todopago_secret_key"/>
+                        <field name="todopago_success_return_url"/>
+                        <field name="todopago_failure_return_url"/>
                         <!-- <field name="todopago_description" attrs="{'required': [('provider', '=', 'todopago')]}"/> -->
                         <!-- <field name="todopago_generic_message" attrs="{'required': [('todopago_description', '=', 'generic_message'), ('provider', '=', 'todopago')], 'invisible': [('todopago_description', '!=', 'generic_message')]}"/> -->
                         <!-- TODO terminar de implementar ipn -->
