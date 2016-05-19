@@ -238,14 +238,18 @@ class AcquirerMercadopago(models.Model):
             _logger.error('Error: StatusCode "%s", StatusMessage "%s"' % (
                 response.StatusCode, response.StatusMessage))
             return "/"
-        transaction = self.env['payment.transaction'].search([
+        transactions = self.env['payment.transaction'].search([
             ('reference', '=', optionsSAR_operacion['OPERATIONID'])])
         # TODO mejorar esto da error al generar nuevas trasnacciones,
         # deberiamos verificar si la que existe tiene sentido o no
-        # if transaction:
-        #     _logger.error('Error: Transaction already exists')
-        #     return "/"
-        transaction.unlink()
+        for transaction in transactions:
+            if transaction.state not in ['cancel', 'error']:
+                _logger.error('Error: Transaction already exists')
+                return "/"
+            # if transaction canceled, we replace number to aboid constrain
+            # error
+            transaction.reference = "%s-%s" % (
+                transaction.reference, transaction.id)
         tr_vals = {
             'todopago_RequestKey': response.RequestKey,
             'todopago_PublicRequestKey': response.PublicRequestKey,
@@ -257,7 +261,7 @@ class AcquirerMercadopago(models.Model):
             'amount': amount,
         }
         _logger.info('Creating transaction with data %s' % tr_vals)
-        transaction = transaction.create(tr_vals)
+        transaction = transactions.create(tr_vals)
         return response.URL_Request
 
 
