@@ -213,6 +213,7 @@ class AcquirerMercadopago(models.Model):
         # TODO en realidad podriamos consturir toda la data aca y no en
         # todopago_form_generate_values
         self.ensure_one()
+        _logger.info('Creating transaction on todopago')
         todopago_data = literal_eval(data.get('todopago_data', {}))
         partner_id = todopago_data.get('partner_id')
         amount = todopago_data.get('amount')
@@ -223,6 +224,7 @@ class AcquirerMercadopago(models.Model):
             'optionsSAR_operacion')
 
         tpc = self.get_TodoPagoConnector()
+        _logger.info('Sending sendAuthorizeRequest')
         response = tpc.sendAuthorizeRequest(
             optionsSAR_comercio, optionsSAR_operacion)
         _logger.info('Preference Result: %s' % response)
