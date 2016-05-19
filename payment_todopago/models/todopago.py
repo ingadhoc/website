@@ -128,7 +128,8 @@ class AcquirerMercadopago(models.Model):
         phone = partner_values["phone"] or "12345678"
         phone = str(phone).translate(string_all, nodigs)
         amount = "%.2f" % round(tx_values['amount'], 2)
-        email = partner_values["email"].encode("utf8")
+        email = partner_values["email"] or 'dummy@email.com'
+        email = email.encode("utf8")
         city = partner_values["city"] or 'DUMMY CITY'
         city = city.encode("utf8")
         street = partner_values["address"] or 'DUMMY STREET'
