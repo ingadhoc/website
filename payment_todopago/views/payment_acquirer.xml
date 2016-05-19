@@ -9,8 +9,6 @@
             <field name="arch" type="xml">
                 <xpath expr='//group[@name="acquirer_display"]' position='after'>
                     <group attrs="{'invisible': [('provider', '!=', 'todopago')]}">
-                        <label for="todopago_client_id" string="You can get this values from:"/>
-                        <a href="https://www.todopago.com/mla/account/credentials" target="_blank">https://www.todopago.com/mla/account/credentials</a>
                         <field name="todopago_client_id"/>
                         <field name="todopago_secret_key"/>
                         <field name="todopago_success_return_url"/>
