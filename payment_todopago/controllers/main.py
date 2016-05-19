@@ -64,7 +64,7 @@ class TodoPagoController(http.Controller):
         # TODO nos falta implementar esto, en realidad deberia volver a la
         # orden de venta o a donde?
         _logger.info(
-            'todopago: entering mecadopago_back with post data %s',
+            'todopago: entering todopago succesfull with post data %s',
             pprint.pformat(post))
         self.todopago_validate(**post)
         cr, uid = request.cr, SUPERUSER_ID
@@ -91,7 +91,7 @@ class TodoPagoController(http.Controller):
         # TODO nos falta implementar esto, en realidad deberia volver a la
         # orden de venta o a donde?
         _logger.info(
-            'todopago: entering mecadopago_back with post data %s',
+            'todopago: entering todopago failure with post data %s',
             pprint.pformat(post))
         self.todopago_validate(**post)
         cr, uid = request.cr, SUPERUSER_ID

@@ -178,10 +178,10 @@ class AcquirerMercadopago(models.Model):
             'CSITUNITPRICE': amount,
         }
         URL_ERROR = "%s?%s" % (
-            urlparse.urljoin(base_url, success_url),
+            urlparse.urljoin(base_url, failure_url),
             url_encode({'OPERATIONID': OPERATIONID}))
         URL_OK = "%s?%s" % (
-            urlparse.urljoin(base_url, failure_url),
+            urlparse.urljoin(base_url, success_url),
             url_encode({'OPERATIONID': OPERATIONID}))
         optionsSAR_comercio = {
             "Session": "ABCDEF-1234-12221-FDE1-00000200",
