@@ -136,6 +136,10 @@ class AcquirerMercadopago(models.Model):
         street = street.encode("utf8")
         postal_code = partner_values["zip"] or '1000'
         postal_code = postal_code.encode("utf8")
+        first_name = partner_values["first_name"]
+        first_name = first_name.encode("utf8")
+        last_name = partner_values["last_name"]
+        last_name = last_name.encode("utf8")
         OPERATIONID = str(tx_values["reference"])
         # cargamos todos los datos obligatorios: facturacion (CSB), envio (CSS)
         # y de los prioductos
@@ -159,10 +163,10 @@ class AcquirerMercadopago(models.Model):
             "CSSTSTREET1": street,
             "CSBTPOSTALCODE": postal_code,
             "CSSTPOSTALCODE": postal_code,
-            "CSBTFIRSTNAME": str(partner_values["first_name"]),
-            "CSSTFIRSTNAME": str(partner_values["first_name"]),
-            "CSBTLASTNAME": str(partner_values["last_name"]),
-            "CSSTLASTNAME": str(partner_values["last_name"]),
+            "CSBTFIRSTNAME": first_name,
+            "CSSTFIRSTNAME": first_name,
+            "CSBTLASTNAME": last_name,
+            "CSSTLASTNAME": last_name,
             "CSBTPHONENUMBER": phone,
             "CSSTPHONENUMBER": phone,
             "CSBTSTATE": state,
