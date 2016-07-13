@@ -11,7 +11,7 @@ class PaymentAcquirer(models.Model):
 
     force_currency_id = fields.Many2one(
         'res.currency',
-        'Currency',
+        'Force Currency',
         help='Use this currency instead of pricelist currency',
     )
 
