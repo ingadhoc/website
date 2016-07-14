@@ -1,0 +1,93 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * payment_todopago
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: website (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-14 13:41+0000\n"
+"PO-Revision-Date: 2016-05-19 12:31+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>\n"
+"Language-Team: Croatian (http://www.transifex.com/adhoc/ingadhoc-website-8-0/language/hr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: hr\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#. module: payment_todopago
+#: model:payment.acquirer,pre_msg:payment_todopago.payment_acquirer_todopago
+msgid ""
+"<p>You will be redirected to the Todopago website after cliking on the "
+"payment button.</p>"
+msgstr ""
+
+#. module: payment_todopago
+#: field:payment.transaction,todopago_Answer:0
+msgid "Answer"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.model,name:payment_todopago.model_payment_acquirer
+msgid "Payment Acquirer"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.model,name:payment_todopago.model_payment_transaction
+msgid "Payment Transaction"
+msgstr ""
+
+#. module: payment_todopago
+#: field:payment.transaction,todopago_PublicRequestKey:0
+msgid "PublicRequestKey"
+msgstr ""
+
+#. module: payment_todopago
+#: field:payment.transaction,todopago_RequestKey:0
+msgid "RequestKey"
+msgstr ""
+
+#. module: payment_todopago
+#: view:payment.transaction:payment_todopago.transaction_form_todopago
+msgid "TODOPAGO TX Details"
+msgstr ""
+
+#. module: payment_todopago
+#: field:payment.acquirer,todopago_client_id:0
+msgid "TodoPago Merchant Id"
+msgstr ""
+
+#. module: payment_todopago
+#: field:payment.acquirer,todopago_secret_key:0
+msgid "TodoPago Secret Key"
+msgstr ""
+
+#. module: payment_todopago
+#: model:payment.acquirer,name:payment_todopago.payment_acquirer_todopago
+msgid "Todopago"
+msgstr ""
+
+#. module: payment_todopago
+#: field:payment.acquirer,todopago_failure_return_url:0
+msgid "Todopago failure return url"
+msgstr ""
+
+#. module: payment_todopago
+#: field:payment.acquirer,todopago_success_return_url:0
+msgid "Todopago success return url"
+msgstr ""
+
+#. module: payment_todopago
+#: field:payment.transaction,todopago_txn_id:0
+msgid "Transaction ID"
+msgstr "ID transakcije"
+
+#. module: payment_todopago
+#: code:addons/payment_todopago/models/todopago.py:86
+#, python-format
+msgid ""
+"YOU MUST COMPLETE acquirer.todopago_client_id and "
+"acquirer.todopago_secret_key"
+msgstr ""

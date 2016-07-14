@@ -1,20 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* website_sale_promotion
-#
+# * website_sale_promotion
+# 
+# Translators:
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: website (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-13 14:58+0000\n"
-"PO-Revision-Date: 2016-04-13 11:59-0300\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2016-07-14 13:42+0000\n"
+"PO-Revision-Date: 2016-07-14 13:53+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/adhoc/ingadhoc-website-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_promotion
 #: field:website.promotion,base:0
@@ -38,6 +40,11 @@ msgid "Created on"
 msgstr "Created on"
 
 #. module: website_sale_promotion
+#: field:website.promotion,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: website_sale_promotion
 #: selection:website.promotion,state:0
 msgid "Draft"
 msgstr "Borrador"
@@ -58,6 +65,11 @@ msgid "ID"
 msgstr "ID"
 
 #. module: website_sale_promotion
+#: field:website.promotion,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: website_sale_promotion
 #: field:website.promotion,write_uid:0
 msgid "Last Updated by"
 msgstr "Last Updated by"
@@ -73,7 +85,6 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: website_sale_promotion
-#: code:addons/sources/adhoc-web/website_sale_promotion/models/website_promotion.py:18
 #: code:addons/website_sale_promotion/models/website_promotion.py:18
 #: field:website.promotion,base_pricelist_id:0
 #, python-format
@@ -123,7 +134,6 @@ msgid "State"
 msgstr "Estado"
 
 #. module: website_sale_promotion
-#: code:addons/sources/adhoc-web/website_sale_promotion/models/website_promotion.py:19
 #: code:addons/website_sale_promotion/models/website_promotion.py:19
 #, python-format
 msgid "Supplier Prices on the product form"
