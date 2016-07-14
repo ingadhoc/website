@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+<!--         <template id="checkout" name="checkout note" inherit_id="website_sale.checkout">
+            <xpath expr="//div[@class='form-group col-lg-12']" position="after">
+                <div>
+                    aaaa
+                    <input type="text" name="internal_note" class="form-control" t-att-value="checkout.get('internal_note')"/>
+                </div>
+            </xpath>
+        </template> -->
+
+<!-- intento de agregarlo en payment -->
+<!--     <template id="sale_note" name="Sale Notes" inherit_id="website_sale.payment">
+        <xpath expr="//div[@id='payment_method']" position="before">
+            <div t-if="deliveries" class="row" id="sale_note">
+                <div>
+                    <input type="text" class="js_quantity form-control" t-att-data-id="order.id" t-att-value="order.note"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+ -->
+    </data>
+</openerp>
