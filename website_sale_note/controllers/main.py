@@ -3,12 +3,12 @@
 # For copyright and license notices, see __openerp__.py file in module root
 # directory
 ##############################################################################
-import openerp
 from openerp import http
 from openerp.http import request
+from openerp.addons.website_sale.controllers.main import website_sale
 
 
-class website_sale(openerp.addons.website_sale.controllers.main.website_sale):
+class website_sale(website_sale):
 
     @http.route(
         ['/shop/payment/add_note'], type='json', auth="public", website=True)
