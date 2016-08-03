@@ -9,7 +9,7 @@
             <field name="view_template_id" ref="todopago_acquirer_button"/>
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[
-<p>You will be redirected to the Todopago website after cliking on the payment button.</p>]]></field>
+<p>Only available in Argentina and in ARS. You will be redirected to the Todopago website after cliking on the payment button.</p>]]></field>
             <!-- till we fix this button in sales orders -->
             <field name="validation">automatic</field>
             <field name="todopago_client_id">dummy</field>

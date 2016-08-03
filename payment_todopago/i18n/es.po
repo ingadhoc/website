@@ -21,9 +21,9 @@ msgstr ""
 #. module: payment_todopago
 #: model:payment.acquirer,pre_msg:payment_todopago.payment_acquirer_todopago
 msgid ""
-"<p>You will be redirected to the Todopago website after cliking on the "
+"<p>Only available in Argentina and in ARS. You will be redirected to the Todopago website after cliking on the "
 "payment button.</p>"
-msgstr "<p>Va a ser redirigido a el sitio de Todopago después de hacer click en el botón de pago.</p>"
+msgstr "<p>Solo disponible en Argentina y en ARS. Va a ser redirigido a el sitio de Todopago después de hacer click en el botón de pago.</p>"
 
 #. module: payment_todopago
 #: field:payment.transaction,todopago_Answer:0

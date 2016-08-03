@@ -13,5 +13,31 @@
             </form>
         </template>
 
+        <template id="payment_error">
+          <t t-call="website.layout">
+              <t t-set="additional_title">Shop - Payment Error</t>
+              <div id="wrap">
+                <div class="container oe_website_sale">
+                  <ul class="wizard pull-right">
+                      <li><a href="/shop/cart" class="text-success">Review Order<span class="chevron"></span></a></li>
+                      <li><a href="/shop/checkout" class="text-success">Shipping &amp; Billing<span class="chevron"></span></a></li>
+                      <li><a href="/shop/payment" class="text-success">Payment<span class="chevron"></span></a></li>
+                      <li class="text-primary">Confirmation<span class="chevron"></span></li>
+                  </ul>
+                  <h1 class="mb32">Order <em t-field="transaction.sale_order_id.name"/> / Payment Error</h1>
+                  <div class="row">
+                      <div class="col-md-8 oe_cart">
+                          <p>We are sorry but there was an error on your payment. Please check your settings and try again</p>
+                          <p t-field="transaction.state_message"/>
+                          <div class="clearfix"/>
+                          <div class="oe_structure"/>
+                      </div>
+                  </div>
+                </div>
+                <div class="oe_structure"/>
+              </div>
+
+          </t>
+        </template>
     </data>
 </openerp>

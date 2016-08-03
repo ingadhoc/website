@@ -48,7 +48,7 @@ class TodoPagoController(http.Controller):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
         request.registry['payment.transaction'].form_feedback(
             cr, uid, post, 'todopago', context)
-        return False
+        return None
 
     @http.route([
         '/payment/todopago/success_no_return',
@@ -64,7 +64,7 @@ class TodoPagoController(http.Controller):
         # TODO nos falta implementar esto, en realidad deberia volver a la
         # orden de venta o a donde?
         _logger.info(
-            'todopago: entering todopago succesfull with post data %s',
+            'todopago: entering todopago no_return success with post data %s',
             pprint.pformat(post))
         self.todopago_validate(**post)
         cr, uid = request.cr, SUPERUSER_ID
@@ -91,7 +91,7 @@ class TodoPagoController(http.Controller):
         # TODO nos falta implementar esto, en realidad deberia volver a la
         # orden de venta o a donde?
         _logger.info(
-            'todopago: entering todopago failure with post data %s',
+            'todopago: entering todopago no_return failure with post data %s',
             pprint.pformat(post))
         self.todopago_validate(**post)
         cr, uid = request.cr, SUPERUSER_ID
@@ -105,13 +105,32 @@ class TodoPagoController(http.Controller):
         return werkzeug.utils.redirect(return_url)
 
     @http.route([
-        '/payment/todopago/success',
         '/payment/todopago/failure',
     ],
-        type='http', auth="none")
-    def todopago_back(self, **post):
+        type='http', auth="public", website=True)
+    def todopago_back_failure(self, **post):
         _logger.info(
-            'todopago: entering mecadopago_back with post data %s',
+            'todopago: entering todopago failure with post data %s',
+            pprint.pformat(post))
+        self.todopago_validate(**post)
+        # buscamos la transaccion y mostramos el error
+        reference = post.get('OPERATIONID')
+        cr, uid, context = request.cr, SUPERUSER_ID, request.context
+        transaction_id = request.registry['payment.transaction'].search(
+            cr, uid, [('reference', '=', reference)], context=context)
+        transaction = request.registry['payment.transaction'].browse(
+            cr, uid, transaction_id, context=context)
+        return request.website.render(
+            "payment_todopago.payment_error", {'transaction': transaction})
+
+    @http.route([
+        '/payment/todopago/success',
+    ],
+        type='http', auth="none")
+    def todopago_back_success(self, **post):
+        print '1111111111'
+        _logger.info(
+            'todopago: entering todopago success with post data %s',
             pprint.pformat(post))
         self.todopago_validate(**post)
         return werkzeug.utils.redirect('/shop/payment/validate')

@@ -78,6 +78,8 @@ class AcquirerMercadopago(models.Model):
 
     @api.multi
     def todopago_form_generate_values(self, partner_values, tx_values):
+        # return {}, tx_values
+        # return partner_values, tx_values
         self.ensure_one()
         if (
                 not self.todopago_client_id or
@@ -104,15 +106,25 @@ class AcquirerMercadopago(models.Model):
 
         # get some values and catch errors
         errors = []
+        # mandatorio, ya es mandatorio en ecommerce. Ademas parece ser solo
+        # para argentina ya que requiere provincia en codigos argentinos
         country = (
-            partner_values['country'] and partner_values['country'].code or '')
-        country = country.encode("utf8")
+            partner_values['country'] and partner_values['country'].code or
+            'AR').encode("utf8")
         if country != 'AR':
             errors.append('Only Argentina Implemented for TODOPAGO')
+
+        # mandatorio y exije que moneda sea ars segun
+        # https://github.com/TodoPago/SDK-Python#generalidades
         currency = (tx_values['currency'] and tx_values['currency'].name or '')
         if currency != 'ARS':
             errors.append('Only ARS Currency Implemented for TODOPAGO')
-        state = partner_values['state'] and partner_values['state'].code or 'B'
+
+        # usamos estado generico de bs as si no viene definido
+        if partner_values['state'] and partner_values['state'].code:
+            state = partner_values['state'].code
+        else:
+            state = 'B'
         state = state.encode("utf8")
 
         if errors:
@@ -130,6 +142,7 @@ class AcquirerMercadopago(models.Model):
         amount = "%.2f" % round(tx_values['amount'], 2)
         email = partner_values["email"] or 'dummy@email.com'
         email = email.encode("utf8")
+        # mandatorio, ya es mandatorio en ecommerce
         city = partner_values["city"] or 'DUMMY CITY'
         city = city.encode("utf8")
         street = partner_values["address"] or 'DUMMY STREET'
@@ -140,6 +153,10 @@ class AcquirerMercadopago(models.Model):
         first_name = first_name.encode("utf8")
         last_name = partner_values["last_name"]
         last_name = last_name.encode("utf8")
+        # TODO tal vez necesitariamos separar primer y segundo nombre
+        # en el caso que solo haya una palabra
+        if not first_name:
+            first_name = last_name
         OPERATIONID = str(tx_values["reference"])
         # cargamos todos los datos obligatorios: facturacion (CSB), envio (CSS)
         # y de los prioductos
@@ -245,27 +262,34 @@ class AcquirerMercadopago(models.Model):
             return "/"
         transactions = self.env['payment.transaction'].search([
             ('reference', '=', optionsSAR_operacion['OPERATIONID'])])
-        # TODO mejorar esto da error al generar nuevas trasnacciones,
-        # deberiamos verificar si la que existe tiene sentido o no
-        for transaction in transactions:
-            if transaction.state not in ['cancel', 'error']:
-                _logger.error('Error: Transaction already exists')
-                return "/"
-            # if transaction canceled, we replace number to aboid constrain
-            # error
-            transaction.reference = "%s-%s" % (
-                transaction.reference, transaction.id)
         tr_vals = {
             'todopago_RequestKey': response.RequestKey,
             'todopago_PublicRequestKey': response.PublicRequestKey,
+        }
+        # desde el website la transaccion ya esta creadas, desde SO no, por
+        # eso lo hacemos asi
+        for transaction in transactions:
+            if transaction.state not in ['cancel', 'error']:
+                _logger.info('Writing transaction id %s with data %s' % (
+                    transaction.id, tr_vals))
+                transaction.write(tr_vals)
+                return response.URL_Request
+            # if transaction canceled, we replace number to aboid constrain
+            # error
+            # esto no pasa desde el website pero si nos pasa desde ov
+            # desde website odoo las renombra correctamente, igual deberiamos
+            # verificar que no este corregido en OV
+            transaction.reference = "%s-%s" % (
+                transaction.reference, transaction.id)
+        _logger.info('Creating transaction with data %s' % tr_vals)
+        tr_vals.update({
             'partner_id': partner_id,
             'acquirer_id': self.id,
             'currency_id': currency_id,
             'acquirer_reference': 'todopago',
             'reference': optionsSAR_operacion['OPERATIONID'],
             'amount': amount,
-        }
-        _logger.info('Creating transaction with data %s' % tr_vals)
+        })
         transaction = transactions.create(tr_vals)
         return response.URL_Request
 
@@ -297,7 +321,8 @@ class TxTodoPago(models.Model):
             _logger.error(error_msg)
             raise ValidationError(error_msg)
         transaction = self.search([
-            ('reference', '=', reference), ('state', '=', 'draft')], limit=1)
+            ('reference', '=', reference)], limit=1)
+            # ('reference', '=', reference), ('state', '=', 'draft')], limit=1)
 
         if not transaction:
             error_msg = (
@@ -317,30 +342,37 @@ class TxTodoPago(models.Model):
     def _todopago_form_validate(self, tx, data):
         """
         """
-        status = data.get('collection_status')
-        data = {
+        _logger.info('Todo pago form validate for tx %s with data %s' % (
+            tx, data))
+        # we need to get answer form todopago
+        answer_data = {
             'Security': str(tx.acquirer_id.todopago_secret_key),
             'Merchant': str(tx.acquirer_id.todopago_client_id),
             'RequestKey': str(tx.todopago_RequestKey),
             'AnswerKey': str(tx.todopago_Answer),
         }
         tpc = tx.acquirer_id.get_TodoPagoConnector()
-        AA = tpc.getAuthorizeAnswer(data)
+        AA = tpc.getAuthorizeAnswer(answer_data)
         status = AA.StatusCode
+
+        vals = {
+            'todopago_RequestKey': str(tx.todopago_RequestKey),
+            'todopago_Answer': str(tx.todopago_Answer),
+        }
         if status == -1:
             _logger.info(
                 'Validated TodoPago payment for tx %s: set as done' % (
                     tx.reference))
-            data.update(
+            vals.update(
                 state='done',
                 state_message='%s. %s' % (AA.StatusMessage, AA.Payload),
-                date_validate=data.get('payment_date', fields.datetime.now()))
-            return tx.write(data)
+                date_validate=vals.get('payment_date', fields.datetime.now()))
+            return tx.write(vals)
         else:
             _logger.info(
                 'Received notification for TodoPago payment %s: '
                 'set as cancelled' % (tx.reference))
-            data.update(
+            vals.update(
                 state='cancel',
                 state_message=AA.StatusMessage)
-            return tx.write(data)
+            return tx.write(vals)

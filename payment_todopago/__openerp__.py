@@ -22,7 +22,7 @@
     'name': 'TodoPago Payment Acquirer',
     'category': 'Hidden',
     'summary': 'Payment Acquirer: TodoPago Implementation',
-    'version': '8.0.0.3.0',
+    'version': '8.0.0.4.0',
     'author': 'Moldeo Interactive - www.moldeo.coop,ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
