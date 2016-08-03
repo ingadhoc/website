@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: website (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:41+0000\n"
-"PO-Revision-Date: 2016-07-14 13:49+0000\n"
+"POT-Creation-Date: 2016-08-03 21:38+0000\n"
+"PO-Revision-Date: 2016-08-03 23:09+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/adhoc/ingadhoc-website-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -19,16 +19,36 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: payment_todopago
+#: view:website:payment_todopago.payment_error
+msgid "/ Payment Error"
+msgstr "/ Error de Pago"
+
+#. module: payment_todopago
 #: model:payment.acquirer,pre_msg:payment_todopago.payment_acquirer_todopago
 msgid ""
-"<p>Only available in Argentina and in ARS. You will be redirected to the Todopago website after cliking on the "
-"payment button.</p>"
+"<p>Only available in Argentina and in ARS. You will be redirected to the "
+"Todopago website after cliking on the payment button.</p>"
 msgstr "<p>Solo disponible en Argentina y en ARS. Va a ser redirigido a el sitio de Todopago después de hacer click en el botón de pago.</p>"
 
 #. module: payment_todopago
 #: field:payment.transaction,todopago_Answer:0
 msgid "Answer"
 msgstr "Pregunta"
+
+#. module: payment_todopago
+#: view:website:payment_todopago.payment_error
+msgid "Confirmation"
+msgstr "Confirmación"
+
+#. module: payment_todopago
+#: view:website:payment_todopago.payment_error
+msgid "Order"
+msgstr "Orden"
+
+#. module: payment_todopago
+#: view:website:payment_todopago.payment_error
+msgid "Payment"
+msgstr "Pago"
 
 #. module: payment_todopago
 #: model:ir.model,name:payment_todopago.model_payment_acquirer
@@ -49,6 +69,21 @@ msgstr "PublicRequestKey"
 #: field:payment.transaction,todopago_RequestKey:0
 msgid "RequestKey"
 msgstr "RequestKey"
+
+#. module: payment_todopago
+#: view:website:payment_todopago.payment_error
+msgid "Review Order"
+msgstr "Revisar pedido"
+
+#. module: payment_todopago
+#: view:website:payment_todopago.payment_error
+msgid "Shipping & Billing"
+msgstr "Envío y facturación"
+
+#. module: payment_todopago
+#: view:website:payment_todopago.payment_error
+msgid "Shop - Payment Error"
+msgstr "Tienda - Error de Pago"
 
 #. module: payment_todopago
 #: view:payment.transaction:payment_todopago.transaction_form_todopago
@@ -86,7 +121,14 @@ msgid "Transaction ID"
 msgstr "ID de la transacción"
 
 #. module: payment_todopago
-#: code:addons/payment_todopago/models/todopago.py:86
+#: view:website:payment_todopago.payment_error
+msgid ""
+"We are sorry but there was an error on your payment. Please check your "
+"settings and try again"
+msgstr "Lamentablemente hubo un error con su pago. Por favor verifique sus opciones y vuelva a intentarlo"
+
+#. module: payment_todopago
+#: code:addons/payment_todopago/models/todopago.py:88
 #, python-format
 msgid ""
 "YOU MUST COMPLETE acquirer.todopago_client_id and "
