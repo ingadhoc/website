@@ -125,6 +125,13 @@ class AcquirerMercadopago(models.Model):
             state = partner_values['state'].code
         else:
             state = 'B'
+
+        # TODOPAGO necesita que el codigo de provincia sea alguno de estos
+        todopago_state_codes = [
+            'C', 'B', 'K', 'H', 'U', 'X', 'W', 'E', 'P', 'Y', 'L', 'F', 'M',
+            'N', 'Q', 'R', 'A', 'J', 'D', 'Z', 'S', 'G', 'V', 'T']
+        if state not in todopago_state_codes:
+            state = 'B'
         state = state.encode("utf8")
 
         if errors:
@@ -139,6 +146,8 @@ class AcquirerMercadopago(models.Model):
         nodigs = string_all.translate(string_all, string.digits)
         phone = partner_values["phone"] or "12345678"
         phone = str(phone).translate(string_all, nodigs)
+        # todopago no nos acepta mas de 13 caraceteres
+        phone = phone[:13]
         amount = "%.2f" % round(tx_values['amount'], 2)
         email = partner_values["email"] or 'dummy@email.com'
         email = email.encode("utf8")
@@ -290,6 +299,8 @@ class AcquirerMercadopago(models.Model):
             'reference': optionsSAR_operacion['OPERATIONID'],
             'amount': amount,
         })
+        # en realidad creo que no lo deberiamos crear aca nosotros, es la ruta
+        # shop/payment/transaction que lo crea
         transaction = transactions.create(tr_vals)
         return response.URL_Request
 
