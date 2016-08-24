@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <template id="assets_frontend_show_password" inherit_id="website.assets_frontend" name="Assets Frontend show password">
+      <xpath expr="." position="inside">
+          <link rel='stylesheet' href='/wk_show_password/static/src/css/wk_show_password.css'/>
+          <script type="text/javascript" src="/wk_show_password/static/src/js/wk_show_password.js"></script>
+      </xpath>
+    </template>
+
+    <template id="wk_show_hide_password_1" inherit_id="auth_signup.fields">
+      <xpath expr="//div[@class='form-group field-password']//input" position="replace">
+          	<div class="input-group">
+            	<input type="password" name="password" id="password" class="form-control"
+                    required="required" t-att-autofocus="'autofocus' if only_passwords else None"/>
+            	<span class="input-group-btn">
+                  <button class="btn btn-default" type="button">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                </span>
+            </div>
+      </xpath>
+
+      <xpath expr="//div[@class='form-group field-confirm_password']//input" position="replace">
+            <div class="input-group">
+            	<input type="password" name="confirm_password" id="confirm_password" class="form-control" required="required"/>
+            	<span class="input-group-btn">
+                  <button class="btn btn-default" type="button">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                </span>
+            </div>
+      </xpath>
+    </template>
+
+    <template id="wk_show_hide_password_2" inherit_id="web.login" name="show hide password">
+    	<xpath expr="//div[@class='form-group field-password']//input" position="replace">
+            <div class="input-group">
+            	<input type="password" name="password" id="password" class="form-control" required="required" t-att-autofocus="'autofocus' if login else None"/>
+            	<span class="input-group-btn">
+                  <button class="btn btn-default" type="button">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                </span>
+            </div>
+        </xpath>
+    </template>
+
+
+  </data>
+</openerp>
