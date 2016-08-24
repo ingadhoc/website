@@ -1,0 +1,23 @@
+a.back-to-top {
+  display: none;
+  width: 60px;
+  height: 60px;
+  text-indent: -9999px;
+  position: fixed;
+  z-index: 999;
+  right: 20px;
+  bottom: 20px;
+  background: #357ebd url("/website_back2top/static/description/up-arrow.png") no-repeat center 43%;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  outline: none;
+  color: white;
+  font-weight: 700;
+  padding-top:32px;
+  text-align: center;
+  text-decoration: none;
+}
+a:hover.back-to-top {
+  background-color: #000;
+}
