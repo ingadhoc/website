@@ -20,14 +20,14 @@
 ##############################################################################
 {
     'name': 'Website Portal for Sales With Taxes Included or Not',
-    'version': '8.0.0.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
-    'description': """
+    'description': '''
 Website Portal for Sales With Taxes Included
 ============================================
-    """,
+    ''',
     'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -48,7 +48,7 @@ Website Portal for Sales With Taxes Included
     ],
     'test': [
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }

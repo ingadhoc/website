@@ -33,8 +33,8 @@
         'website_sale',
         'l10n_ar_invoice',
     ],
-    'installable': True,
+    'installable': False,
     'name': 'e-Commerce Argentina Partner Document',
     'test': [],
-    'version': '8.0.0.0.0',
+    'version': '9.0.1.0.0',
 }

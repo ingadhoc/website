@@ -22,12 +22,12 @@
     'name': 'Website Sale Promotion',
     'category': 'Website',
     'summary': 'Website Sale',
-    'version': '8.0.0.1.0',
-    'description': """
+    'version': '9.0.1.0.0',
+    'description': '''
 Website Sale Promotion
 ======================
 Create promotions for products and specified a public category to show them
-        """,
+        ''',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -40,6 +40,6 @@ Create promotions for products and specified a public category to show them
     ],
     'demo': [
     ],
-    'installable': True,
+    'installable': False,
     'application': True,
 }

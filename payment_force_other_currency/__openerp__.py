@@ -22,11 +22,11 @@
     'name': 'Payment Force Other Currency',
     'category': 'Website',
     'summary': 'Website Sale',
-    'version': '8.0.0.1.0',
-    'description': """
+    'version': '9.0.1.0.0',
+    'description': '''
 Payment Force Other Currency
 ============================
-        """,
+        ''',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -38,6 +38,6 @@ Payment Force Other Currency
     ],
     'demo': [
     ],
-    'installable': True,
+    'installable': False,
     'application': False,
 }

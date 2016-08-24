@@ -20,14 +20,14 @@
 ##############################################################################
 {
     'name': 'eCommerce Delivery with taxes included',
-    'version': '8.0.0.0.1',
+    'version': '9.0.1.0.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
-    'description': """
+    'description': '''
 eCommerce Delivery with taxes included
 ======================================
-    """,
+    ''',
     'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -44,7 +44,7 @@ eCommerce Delivery with taxes included
     ],
     'test': [
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': True,
     'application': False,
 }

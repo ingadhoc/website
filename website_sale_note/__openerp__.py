@@ -22,12 +22,12 @@
     'name': 'Website Sale Note',
     'category': 'Website',
     'summary': 'Website Sale',
-    'version': '8.0.0.1.0',
-    'description': """
+    'version': '9.0.1.0.0',
+    'description': '''
 Website Sale Note
 =================
 Customer can add a note on check out, this note will be added as an internal note
-        """,
+        ''',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -40,6 +40,6 @@ Customer can add a note on check out, this note will be added as an internal not
     ],
     'demo': [
     ],
-    'installable': True,
+    'installable': False,
     'application': False,
 }

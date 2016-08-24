@@ -20,8 +20,8 @@
 ##############################################################################
 {
     'name': 'Website Talkus',
-    'version': '8.0.0.1.0',
-    "author": "ADHOC SA",
+    'version': '9.0.1.0.0',
+    'author': 'ADHOC SA',
     'category': 'Support',
     'sequence': 14,
     'summary': '',
@@ -47,7 +47,7 @@
     ],
     'test': [
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': True,
 }

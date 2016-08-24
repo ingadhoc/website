@@ -20,11 +20,11 @@
 ##############################################################################
 {
     'name': 'e-Commerce Custom Products Search',
-    'version': '8.0.0.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
-    'description': """
+    'description': '''
 Commerce Custom Products Search
 ===============================
 Search also by:
@@ -32,7 +32,7 @@ Search also by:
 * attributes
 * public categories
 
-    """,
+    ''',
     'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -47,7 +47,7 @@ Search also by:
     ],
     'test': [
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }
