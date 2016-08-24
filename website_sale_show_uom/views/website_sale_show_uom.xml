@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <template id="products_item_uom" inherit_id="website_sale.products_item" name="Products Item Show UOM">
+            <xpath expr="//div[@class='product_price']" position="after">
+                <t t-if="product.uom_id.name">
+                    <div>
+                        <label>Unif of measure:</label>
+                        <span t-field="product.uom_id.name" style="white-space: nowrap;"/>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="product_price_uom" inherit_id="website_sale.product_price" name="Product Price Show UOM">
+            <xpath expr="//b[@class='oe_price']" position="after">
+                <t t-if="product.uom_id.name">
+                    <div>
+                        <label>Unif of measure:</label>
+                        <span t-field="product.uom_id.name" style="white-space: nowrap;"/>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="cart_uom" inherit_id="website_sale.cart" name="Shopping Cart Show UOM">
+            <xpath expr="//td[@t-if='line.product_id.product_tmpl_id']/div" position="after">
+                <t t-if="line.product_id.uom_id.name">
+                    <label>Unit of measure:</label>
+                    <span t-field="line.product_id.uom_id.name" style="white-space: nowrap;"/>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="payment_uom" inherit_id="website_sale.payment" name="Payment Show UOM">
+            <xpath expr="//td[@t-if='line.product_id.product_tmpl_id']/strong" position="after">
+                <div t-if="line.product_id.uom_id.name">
+                    <label>Unit of measure:</label>
+                    <span t-field="line.product_id.uom_id.name" style="white-space: nowrap;"/>
+                </div>
+            </xpath>
+        </template>
+
+       <template id="suggested_products_list_uom" inherit_id="website_sale.suggested_products_list" name="Suggested Products Show UOM">
+            <xpath expr="//div[@t-field='product.description_sale']" position="before">
+                <div t-if="product.uom_id.name">
+                    <label>Unit of measure:</label>
+                    <span t-field="product.uom_id.name" style="white-space: nowrap;"/>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="modal_cart_uom" inherit_id="website_sale_options.modal" name="Modal Cart Show UOM">
+            <xpath expr="//div[@t-field='product.description_sale']/.." position="before">
+                <div t-if="product.uom_id.name">
+                    <label>Unit of measure:</label>
+                    <span t-field="product.uom_id.name" style="white-space: nowrap;"/>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="modal_optional_uom" inherit_id="website_sale_options.modal" name="Modal Optional Products Show UOM">
+            <xpath expr="//div[@class='pull-left']/div[@t-field='product.description_sale']" position="before">
+                <div t-if="product.uom_id.name">
+                    <label>Unit of measure:</label>
+                    <span t-field="product.uom_id.name" style="white-space: nowrap;"/>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</openerp>
+
