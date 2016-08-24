@@ -1,0 +1,92 @@
+    h1,h2,h3,h4,h5,h6{ 
+        letter-spacing:0px;
+        font-weight:normal;
+        position: relative;
+        padding: 0 0 10px 0;         
+        font-weight:normal;
+        font-family: 'PT Sans',sans-serif;
+        line-height:140% !important;
+        color:#222222;
+    }
+    h3{
+        font-size: 18px; 
+    }
+    h1 a, h2 a, h3 a, h4 a, h5 a, h6 a{
+        color:#222222 !important;
+        text-decoration:none !important; 
+    }
+
+
+    
+/*----------custom------*/
+
+
+@keyframes cf3FadeInOut {
+  0% {
+  opacity:0;
+}
+45% {
+opacity:0;
+}
+55% {
+opacity:0.6;
+}
+100% {
+opacity:0.6;
+}
+}
+
+.img_hidden {
+animation-name: cf3FadeInOut;
+animation-timing-function: ease-in-out;
+animation-iteration-count: infinite;
+animation-duration: 10s;
+animation-direction: alternate;
+}
+
+
+.navbar-default .navbar-nav > li > a {
+  color: #777777;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #333333;
+  background-color: transparent;
+   background: rgba(255,140,0, 0.7);
+}
+.navbar-default .navbar-nav > .active > a:hover{
+color: #333333;
+  background-color: transparent;
+   background: rgba(255,140,0, 0.7);
+
+}
+
+.list-unstyled > li:hover{
+color: #333333;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+
+
+
+header a.navbar-brand.logo > img:hover {
+  -webkit-animation: rerotate 1.5s forwards;
+    animation: rerotate 1.5s forwards;
+}
+@-webkit-keyframes rerotate {
+    50% {
+        -webkit-transform: rotate(-25deg);
+    }
+}
+@keyframes rerotate {
+    50% {
+        transform: rotate(-25deg);
+    }
+}
+
+.block-title:hover {
+color: #F0F0F0 ;
+}
+
