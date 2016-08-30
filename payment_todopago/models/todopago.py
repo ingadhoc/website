@@ -48,7 +48,7 @@ class AcquirerMercadopago(models.Model):
     @api.multi
     def get_TodoPagoConnector(self):
         self.ensure_one()
-        j_header_http = {"Authorization": "TODOPAGO %s" % (
+        j_header_http = {"Authorization": "%s" % (
             self.todopago_secret_key)}
         return tp.TodoPagoConnector(j_header_http, self.environment)
 
