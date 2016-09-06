@@ -1,5 +1,5 @@
 from todopagoconnector import TodoPagoConnector
-import os.path, sys, urllib, urlparse, warnings
+import warnings
 
 warnings.simplefilter('always')
 
@@ -86,14 +86,14 @@ optionsGAA = {
 
 optionsRR = {
     'Security': '1540601877567890AB240E46ABD10E',
-    'Merchant' : '2266',
+    'Merchant': '2266',
     'RequestKey': 'c98617da-8536-51b4-41ae-859e8037d7ab',
-    'AMOUNT' : '1'
+    'AMOUNT': '1'
 }
 
 optionsVR = {
     'Security': '1540567890AB59EF50240E46ABD10E',
-    'Merchant' : '2266',
+    'Merchant': '2266',
     'RequestKey': 'c98617da-8536-51b4-41ae-859e8037d7ab'
 }
 optionsGAPM = {
@@ -112,7 +112,7 @@ optionsGBRDT = {
 }
 
 j_header_http = {
-    'Authorization':'TODOPAGO 1540601877EB2059EF50240E46ABD10E'
+    'Authorization': 'TODOPAGO 1540601877EB2059EF50240E46ABD10E'
 }
 
 j_wsdls = {
