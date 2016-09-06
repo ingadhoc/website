@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from. todopagoconnector import TodoPagoConnector
 
 optionsSAR_comercio = {

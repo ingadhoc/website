@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # pip install suds-jurko
 from suds.client import Client
 import requests
