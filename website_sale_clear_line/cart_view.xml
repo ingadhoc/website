@@ -3,7 +3,7 @@
 <data>
 
 <!-- priority 99 for compatibility with sale options, first load sale options view and then this one -->
-<template id="cart" inherit_id="website_sale.cart" priority="99" name="Cart Clear Line">
+<template id="cart" inherit_id="website_sale.cart_lines" priority="99" name="Cart Clear Line">
     <xpath expr="//t[@t-foreach='website_sale_order.website_order_line']/tr" position="inside">
         <td>
             <a href="" id="clear_cart_line_button" t-att-data-line-id="line.id" class="btn btn-default mb32"><span class="fa fa-trash-o"/></a>

@@ -24,10 +24,6 @@
     'category': 'Product',
     'sequence': 14,
     'summary': '',
-    'description': '''
-e-Commerce Clear Line On Cart
-=============================
-    ''',
     'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -43,7 +39,7 @@ e-Commerce Clear Line On Cart
     ],
     'test': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': False,
 }
