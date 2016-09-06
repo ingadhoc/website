@@ -191,8 +191,8 @@ class TodoPagoConnector:
         return urlparse.urljoin(
             'file:', urllib.pathname2url(
                 os.path.abspath(
-                    os.path.dirname(__file__)))) + '/' + \
-               filename + '.wsdl'
+                    os.path.dirname(
+                        __file__)))) + '/' + filename + '.wsdl'
 
     def _parse_to_service(self, data, servicio):
         retorno = """<soapenv:Envelope xmlns:soapenv=
@@ -209,9 +209,9 @@ class TodoPagoConnector:
 
     def _getClientSoap(self, operacion):
         self.cliente = Client(self._get_wsdl_url(operacion),
-            location=self._end_point+operacion,
-            headers=self._http_header,
-            cache=None)
+                              location=self._end_point+operacion,
+                              headers=self._http_header,
+                              cache=None)
 
     def _client_soap_header(self, data):
         retorno = "{"
@@ -221,16 +221,16 @@ class TodoPagoConnector:
 
         return retorno
 
-    def _get_payload(self,diccionario):
-        diccionario["SDK"]="Python"
-        diccionario["SDKVERSION"]=ver
+    def _get_payload(self, diccionario):
+        diccionario["SDK"] = "Python"
+        diccionario["SDKVERSION"] = ver
         try:
-            diccionario["LENGUAGEVERSION"]=sys.version
-        except Exception, err:
+            diccionario["LENGUAGEVERSION"] = sys.version
+        except Exception:
             try:
-                diccionario["LENGUAGEVERSION"]=sys.version()
-            except Exception, err2:
-                diccionario["LENGUAGEVERSION"]="version unknown"
+                diccionario["LENGUAGEVERSION"] = sys.version()
+            except Exception:
+                diccionario["LENGUAGEVERSION"] = "version unknown"
 
         xmlpayload = "<Request>"
         for key in diccionario:
