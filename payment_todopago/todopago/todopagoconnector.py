@@ -1,8 +1,12 @@
 # pip install suds-jurko
 from suds.client import Client
 import requests
-import os.path, sys, urllib
-import urlparse, warnings, copy
+import os.path
+import urlparse
+import sys
+import warnings
+import copy
+import urllib
 
 
 def deprecated(func):
@@ -264,7 +268,7 @@ class TodoPagoConnector:
             self._parse_rest_params(sorted_params)
 
         headers_aux = copy.deepcopy(self._http_header)
-        headers_aux["Accept"]= 'application/json'
+        headers_aux["Accept"] = 'application/json'
 
         response = requests.get(url, headers=headers_aux)
 
