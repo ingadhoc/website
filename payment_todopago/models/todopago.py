@@ -7,13 +7,13 @@ import logging
 import urlparse
 from werkzeug import url_encode
 from openerp.addons.payment.models.payment_acquirer import ValidationError
-from openerp.addons.payment_todopago.controllers.main import (
+from. payment_todopago.controllers.main import (
     TodoPagoController)
 from openerp import api, fields, models, _
 import string
 from ast import literal_eval
 from openerp.http import request
-from openerp.addons.payment_todopago.todopago import todopagoconnector as tp
+from. payment_todopago.todopago import todopagoconnector as tp
 _logger = logging.getLogger(__name__)
 
 
