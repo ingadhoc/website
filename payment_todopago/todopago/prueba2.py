@@ -1,5 +1,5 @@
-from todopagoconnector import TodoPagoConnector
-from user import User
+from. todopagoconnector import TodoPagoConnector
+from. user import User
 
 user = User("Gustavo", "123")
 print user.getData()

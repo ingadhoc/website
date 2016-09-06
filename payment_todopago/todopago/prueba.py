@@ -1,4 +1,4 @@
-from todopagoconnector import TodoPagoConnector
+from. todopagoconnector import TodoPagoConnector
 import warnings
 
 warnings.simplefilter('always')
