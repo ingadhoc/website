@@ -1,4 +1,3 @@
-import requests
 from todopagoconnector import TodoPagoConnector
 from user import User
 

@@ -333,7 +333,6 @@ class TxTodoPago(models.Model):
             raise ValidationError(error_msg)
         transaction = self.search([
             ('reference', '=', reference)], limit=1)
-            # ('reference', '=', reference), ('state', '=', 'draft')], limit=1)
 
         if not transaction:
             error_msg = (
