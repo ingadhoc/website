@@ -1,7 +1,4 @@
 from. todopagoconnector import TodoPagoConnector
-import warnings
-
-warnings.simplefilter('always')
 
 optionsSAR_comercio = {
     "Session": "ABCDEF-1234-12221-FDE1-00000200",

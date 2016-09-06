@@ -4,7 +4,6 @@ import requests
 import os.path
 import urlparse
 import sys
-import warnings
 import copy
 import urllib
 
