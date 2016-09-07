@@ -13,6 +13,7 @@ class ProductAttribute(models.Model):
     _inherit = 'product.attribute'
 
     website_link_on_product = fields.Boolean(
+        default=True,
         help='Add a link on website product view so that user can click on an '
         'attribute value and go to a search of products of that value'
     )
