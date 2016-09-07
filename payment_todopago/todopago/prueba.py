@@ -124,17 +124,17 @@ userCredenciales = {
 }
 
 tpc = TodoPagoConnector(j_header_http, "test")
-print (tpc.sendAuthorize(optionsSAR_comercio, optionsSAR_operacion))
-print "\n\r ------------------------------------ "
-print tpc.getAuthorize(optionsGAA)
-print "\n\r ------------------------------------ "
-print tpc.returnRequest(optionsRR)
-print "\n\r ------------------------------------ "
-print tpc.voidRequest(optionsVR)
-print "\n\r ------------------------------------ "
-print tpc.getByOperationId(optionsGS)
-print "\n\r ------------------------------------ "
-print tpc.getByRangeDateTime(optionsGBRDT)
-print "\n\r ------------------------------------ "
-print tpc.getCredentials(userCredenciales)
-print "\n\r ------------------------------------ "
+# print (tpc.sendAuthorize(optionsSAR_comercio, optionsSAR_operacion))
+# print "\n\r ------------------------------------ "
+# print tpc.getAuthorize(optionsGAA)
+# print "\n\r ------------------------------------ "
+# print tpc.returnRequest(optionsRR)
+# print "\n\r ------------------------------------ "
+# print tpc.voidRequest(optionsVR)
+# print "\n\r ------------------------------------ "
+# print tpc.getByOperationId(optionsGS)
+# print "\n\r ------------------------------------ "
+# print tpc.getByRangeDateTime(optionsGBRDT)
+# print "\n\r ------------------------------------ "
+# print tpc.getCredentials(userCredenciales)
+# print "\n\r ------------------------------------ "

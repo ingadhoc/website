@@ -241,7 +241,7 @@ class TodoPagoConnector:
             xmlpayload += "<"+key+">"+diccionario[key]+"</"+key+">"
         xmlpayload += "</Request>"
 
-        print 'xmlpayload', xmlpayload
+        # print 'xmlpayload', xmlpayload
         return xmlpayload
 
     def _sort_rest_params(self, dict, keys_order):
