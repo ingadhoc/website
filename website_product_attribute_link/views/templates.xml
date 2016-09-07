@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="product_attributes" inherit_id="website_sale.product_attributes" name="Product attributes Link">
+  <xpath expr="//span[@t-field='variant_id.value_ids[0].name']" position="replace">
+    <!-- if website link we add link, on link we reset category and search -->
+    <a t-if="variant_id.attribute_id.website_link_on_product" t-att-href="keep('/shop/', attrib=['%s-%s' % (variant_id.attribute_id.id, variant_id.value_ids[0].id)], search='', category=0)">
+      <span t-field="variant_id.value_ids[0].name"/>
+    </a>
+    <!-- if no website link we keep original -->
+    <t t-if="not variant_id.attribute_id.website_link_on_product">
+      <span t-field="variant_id.value_ids[0].name" />
+    </t>
+  </xpath>
+</template>
+
+</data>
+</openerp>
