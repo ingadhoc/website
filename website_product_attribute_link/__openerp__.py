@@ -34,6 +34,7 @@
     ],
     'data': [
         'views/templates.xml',
+        'views/product_attribute_view.xml',
     ],
     'demo': [
     ],
