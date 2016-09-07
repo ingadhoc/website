@@ -128,7 +128,7 @@ class TodoPagoController(http.Controller):
     ],
         type='http', auth="none")
     def todopago_back_success(self, **post):
-        print '1111111111'
+        # print '1111111111'
         _logger.info(
             'todopago: entering todopago success with post data %s',
             pprint.pformat(post))
