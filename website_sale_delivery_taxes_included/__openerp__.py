@@ -24,10 +24,6 @@
     'category': 'Product',
     'sequence': 14,
     'summary': '',
-    'description': '''
-eCommerce Delivery with taxes included
-======================================
-    ''',
     'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -44,7 +40,7 @@ eCommerce Delivery with taxes included
     ],
     'test': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': True,
     'application': False,
 }
