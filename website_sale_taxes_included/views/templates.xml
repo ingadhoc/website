@@ -2,7 +2,7 @@
 <openerp>
 <data>
 
-<template id="cart" inherit_id="website_sale.cart" name="Taxes Included Shopping Cart">
+<template id="cart_lines" inherit_id="website_sale.cart_lines" name="Taxes Included Shopping Cart">
   <xpath expr="//del[@t-field='line.product_id.lst_price']" position="attributes">
     <attribute name="t-field">line.product_id.with_context(taxes_included=True).lst_price</attribute>
   </xpath>
@@ -18,29 +18,29 @@
 
 <!-- Ocultar detalle de impuestos en subtotal -->
 <template id="total" inherit_id="website_sale.total" name="Taxes Included Cart Total">
-  <xpath expr="//tr[@id='order_total_taxes']" position="attributes">
+  <xpath expr="//div[@id='order_total_taxes']" position="attributes">
     <attribute name="t-if">False</attribute>
   </xpath>
 </template>
 
 <!-- Ocultar detalle de impuestos en columna checkout de la derecha -->
-<template id="checkout" priority="10" inherit_id="website_sale.checkout" name="Taxes Included checkout">
-<!--   <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']" position="attributes">
-    <attribute name="t-if">False</attribute>
-  </xpath> -->
-  <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[1]" position="attributes">
-    <attribute name="t-if">False</attribute>
-  </xpath>
-  <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[2]" position="attributes">
-    <attribute name="t-if">False</attribute>
-  </xpath>
-  <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[3]" position="attributes">
-    <attribute name="t-if">False</attribute>
-  </xpath>
-  <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[4]" position="attributes">
-    <attribute name="t-if">False</attribute>
-  </xpath>
-</template>
+<!--<template id="checkout" priority="10" inherit_id="website_sale.checkout" name="Taxes Included checkout">-->
+<!--&lt;!&ndash;   <xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']" position="attributes">-->
+    <!--<attribute name="t-if">False</attribute>-->
+  <!--</xpath> &ndash;&gt;-->
+  <!--<xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[1]" position="attributes">-->
+    <!--<attribute name="t-if">False</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[2]" position="attributes">-->
+    <!--<attribute name="t-if">False</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[3]" position="attributes">-->
+    <!--<attribute name="t-if">False</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="//div[@class='col-lg-offset-1 col-lg-3 col-md-3 text-muted']/div[@class='row']/div[4]" position="attributes">-->
+    <!--<attribute name="t-if">False</attribute>-->
+  <!--</xpath>-->
+<!--</template>-->
 
 <!-- lo hicimos agregando el context a def sale_get_order -->
 
