@@ -11,5 +11,5 @@ class product_template(models.Model):
 
     website_promotion_id = fields.Many2one(
         'website.promotion',
-        'Website Promotion',
+        string='Website Promotion',
     )

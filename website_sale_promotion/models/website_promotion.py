@@ -13,8 +13,8 @@ class website_promotion(models.Model):
     @api.model
     def _price_field_get(self):
         result = []
-        for line in self.env['product.price.type'].search([]):
-            result.append((str(line.id), line.name))
+        # for line in self.env['product.price.type'].search([]):
+        #     result.append((str(line.id), line.name))
         result.append(('-1', _('Other Pricelist')))
         result.append(('-2', _('Supplier Prices on the product form')))
         return result
@@ -25,13 +25,13 @@ class website_promotion(models.Model):
         readonly=True,
         states={'draft': [('readonly', False)]}
     )
-    pricelist_version_id = fields.Many2one(
-        'product.pricelist.version',
-        'Pricelist Version',
-        required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]}
-    )
+    # pricelist_version_id = fields.Many2one(
+    #     'product.pricelist.version',
+    #     'Pricelist Version',
+    #     required=True,
+    #     readonly=True,
+    #     states={'draft': [('readonly', False)]}
+    # )
     public_category_id = fields.Many2one(
         'product.public.category',
         'Public Category',
@@ -103,7 +103,7 @@ class website_promotion(models.Model):
                 'sequence': 0,
                 'base': int(self.base),
                 'base_pricelist_id': self.base_pricelist_id.id,
-                'price_version_id': self.pricelist_version_id.id,
+                # 'price_version_id': self.pricelist_version_id.id,
                 'price_discount': self.price_discount,
                 'price_surcharge': self.price_surcharge,
             }
@@ -115,7 +115,7 @@ class website_promotion(models.Model):
         prod_pricelist_item_obj = self.env['product.pricelist.item']
         domain = [
             ('name', '=', self.name),
-            ('price_version_id', '=', self.pricelist_version_id.id),
+            # ('price_version_id', '=', self.pricelist_version_id.id),
             ('sequence', '=', 0),
             ('product_tmpl_id', 'in', self.template_ids.ids)
         ]
