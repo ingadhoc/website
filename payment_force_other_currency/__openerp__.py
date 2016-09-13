@@ -27,13 +27,14 @@
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'depends': [
-        'payment',
+        # 'payment',
+        'website_payment',
     ],
     'data': [
         'views/payment_acquirer_view.xml',
     ],
     'demo': [
     ],
-    'installable': False,
+    'installable': True,
     'application': False,
 }
