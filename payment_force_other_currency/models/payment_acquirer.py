@@ -26,7 +26,7 @@ class PaymentAcquirer(models.Model):
         partner_data, tx_data = super(
             PaymentAcquirer, self).render(
             cr, uid, id, reference, amount, new_currency_id,
-            partner_id=False, values=None, context=context)
+            partner_id=partner_id, values=values, context=context)
         # convertimos el monto a la nueva moneda
         if new_currency_id:
             tx_data['amount'] = self.pool['res.currency'].compute(
