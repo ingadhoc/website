@@ -24,15 +24,6 @@
     'category': 'Product',
     'sequence': 14,
     'summary': '',
-    'description': '''
-Commerce Custom Products Search
-===============================
-Search also by:
-
-* attributes
-* public categories
-
-    ''',
     'author':  'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -47,7 +38,7 @@ Search also by:
     ],
     'test': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': False,
 }
