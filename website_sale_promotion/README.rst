@@ -6,7 +6,7 @@
 Website Sale Promotion
 ======================
 
-Create promotions for products and specified a public category to show them
+This module create promotions for products and specified a public category to show them
 
 Installation
 ============
