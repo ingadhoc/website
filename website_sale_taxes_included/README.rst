@@ -6,7 +6,7 @@
 Product Price Taxes Included or Not
 ===================================
 
-Product Price Taxes Included or Not
+This module include in Product Price Taxes  or Not
 
 Installation
 ============
