@@ -15,18 +15,18 @@ class PaymentAcquirer(models.Model):
         help='Use this currency instead of pricelist currency',
     )
 
-    def form_preprocess_values(
-            self, cr, uid, id, reference, amount, currency_id, tx_id,
-            partner_id, partner_values, tx_values, context=None):
+    def render(self, cr, uid, id,
+               reference, amount, currency_id,
+               partner_id=False, values=None, context=None):
         # primero cambiamos la moneda porque termina haciendo un browse
         acquirer = self.browse(cr, uid, id, context=context)
         new_currency_id = False
         if acquirer.force_currency_id:
             new_currency_id = acquirer.force_currency_id.id
         partner_data, tx_data = super(
-            PaymentAcquirer, self).form_preprocess_values(
-            cr, uid, id, reference, amount, new_currency_id, tx_id,
-            partner_id, partner_values, tx_values, context=context)
+            PaymentAcquirer, self).render(
+            cr, uid, id, reference, amount, new_currency_id,
+            partner_id=False, values=None, context=context)
         # convertimos el monto a la nueva moneda
         if new_currency_id:
             tx_data['amount'] = self.pool['res.currency'].compute(

@@ -7,7 +7,7 @@
             <field name="model">payment.acquirer</field>
             <field name="inherit_id" ref="payment.acquirer_form"/>
             <field name="arch" type="xml"> 
-                <field name="website_published" position="after">
+                <field name="company_id" position="after">
                     <field name="force_currency_id"/>
                 </field>
             </field>
