@@ -34,6 +34,6 @@
     ],
     'demo': [
     ],
-    'installable': True,
+    'installable': False,
     'application': False,
 }
