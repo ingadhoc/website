@@ -32,7 +32,7 @@
     'depends': [
         'base',
         'website',
-        'web_widget_color',
+        # 'web_widget_color',
     ],
     'data': [
         'views/website_chat.xml',
@@ -47,7 +47,7 @@
     ],
     'test': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': True,
 }
