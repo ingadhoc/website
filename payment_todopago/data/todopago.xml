@@ -11,7 +11,7 @@
             <field name="pre_msg"><![CDATA[
 <p>Only available in Argentina and in ARS. You will be redirected to the Todopago website after cliking on the payment button.</p>]]></field>
             <!-- till we fix this button in sales orders -->
-            <field name="validation">automatic</field>
+            <!--<field name="validation">automatic</field>-->
             <field name="todopago_client_id">dummy</field>
             <field name="todopago_secret_key">dummy</field>
         </record>
