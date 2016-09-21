@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'Website Talkus',
-    'version': '8.0.0.1.0',
+    'version': '8.0.0.2.0',
     "author": "ADHOC SA",
     'category': 'Support',
     'sequence': 14,
