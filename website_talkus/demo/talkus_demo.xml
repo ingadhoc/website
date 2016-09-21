@@ -5,18 +5,18 @@
     <!-- Default template user for new users signing in -->
 
         <record id="website_talkus" model="website.talkus">
-            <field name="loading_image"></field>
+            <!-- <field name="loading_image"></field> -->
             <field name="id_talkus">enter_your_id</field>
             <field name="tag">commercial</field>
-            <field name="backgroud_color">#AACCEE</field>
-            <field name="border_color">#ACEACE</field>
+            <!-- <field name="backgroud_color">#AACCEE</field> -->
+            <!-- <field name="border_color">#ACEACE</field> -->
         </record>
 
         <record id="website_talkus_bubble" model="website.talkus.bubble">
             <field name="userName">John</field>
-            <field name="userPicture"></field>
-            <field name="message">hello</field>
-            <field name="welcomeMessage">hello</field>
+            <field name="userPicture">https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRHC12PEo2pw491ZmsEswcXnWNLZjN6fGirvSmoHh7bJuhLZY7v</field>
+            <field name="message">Hello!</field>
+            <!-- <field name="welcomeMessage">hello</field> -->
             <field name="delay">4</field>
             <field name="website_talkus_id" ref="website_talkus"/>
         </record>

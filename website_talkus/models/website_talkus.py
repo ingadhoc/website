@@ -18,24 +18,8 @@ class website_talkus(models.Model):
         'website.talkus.bubble',
         'website_talkus_id',
         string='Bubbles',
-    )
-    welcomeMessage = fields.Char(
-        'welcomeMessage',
-        help="First welcome message displayed when "
-             "the user open for live chat",
-    )
-    loading_image = fields.Char(
-        'Image',
+        help='Now Bubbles can be defined on talkus rules directly'
     )
     tag = fields.Char(
         'Tag',
     )
-    backgroud_color = fields.Char(
-        'Backgroud Color',
-        help='Choose your color',
-    )
-    border_color = fields.Char(
-        'Border Color',
-        help='Choose your border_color',
-    )
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
