@@ -20,26 +20,24 @@ class WebsiteChat(openerp.addons.web.controllers.main.Home):
 
         website_talkus = {'id': webs_talkus['id_talkus'],
                           'tag': webs_talkus['tag'],
-                          'img': webs_talkus['loading_image'],
-                          'backgroud_color': webs_talkus['backgroud_color'],
-                          'border_color': webs_talkus['border_color'],
-                          'welcomeMessage': webs_talkus['welcomeMessage'],
+                          # 'img': webs_talkus['loading_image'],
+                          # 'backgroud_color': webs_talkus['backgroud_color'],
+                          # 'border_color': webs_talkus['border_color'],
+                          # 'welcomeMessage': webs_talkus['welcomeMessage'],
                           'login': obj.login,
                           }
 
         count_bubble = len(webs_talkus['bubble_ids'])
         if count_bubble > 0:
             count_bubble_r = random.randint(0, count_bubble - 1)
+            bubble = webs_talkus['bubble_ids'][count_bubble_r]
             website_talkus['bubble'] = {
-                'userName': webs_talkus['bubble_ids']
-                [count_bubble_r]['userName'],
-                'userPicture': webs_talkus['bubble_ids']
-                [count_bubble_r]['userPicture'],
-                'message': webs_talkus['bubble_ids']
-                [count_bubble_r]['message'],
-                'welcomeMessage': webs_talkus['bubble_ids']
-                [count_bubble_r]['welcomeMessage'],
-                'delay': webs_talkus['bubble_ids']
-                [count_bubble_r]['delay'],
+                'userName': bubble['userName'],
+                'userPicture': bubble['userPicture'],
+                'message': bubble['message'],
+                # depreceated in new widget
+                # 'welcomeMessage': bubble['welcomeMessage'],
+                'delay': bubble['delay'],
             }
+            print 'website_talkus', website_talkus
         return website_talkus

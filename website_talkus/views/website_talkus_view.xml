@@ -14,10 +14,10 @@
             <field name="arch" type="xml">
                 <tree string="Website Talkus">
                     <field name="id_talkus"/>
-                    <field name="loading_image"/>
+                    <!-- <field name="loading_image"/> -->
                     <field name="tag"/>
-                    <field name="backgroud_color" widget="color"/>
-                    <field name="border_color" widget="color"/>
+                    <!-- <field name="backgroud_color" widget="color"/> -->
+                    <!-- <field name="border_color" widget="color"/> -->
                 </tree>
             </field>
         </record>
@@ -29,11 +29,11 @@
                     <group>
                         <field name="id_talkus"/>
                         <field name="bubble_ids"/>
-                        <field name="loading_image"/>
-                        <field name="welcomeMessage"/>
+                        <!-- <field name="loading_image"/> -->
+                        <!-- <field name="welcomeMessage"/> -->
                         <field name="tag"/>
-                        <field name="backgroud_color" widget="color"/>
-                        <field name="border_color" widget="color"/>
+                        <!-- <field name="backgroud_color" widget="color"/> -->
+                        <!-- <field name="border_color" widget="color"/> -->
                     </group>
                 </form>
             </field>
