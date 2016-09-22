@@ -11,7 +11,7 @@
             <field name="pre_msg"><![CDATA[
 <p>You will be redirected to the MercadoPago website after cliking on the payment button.</p>]]></field>
             <!-- till we fix this button in sales orders -->
-            <field name="validation">manual</field>
+            <!--<field name="validation">manual</field>-->
             <field name="mercadopago_client_id">dummy</field>
             <field name="mercadopago_secret_key">dummy</field>
         </record>

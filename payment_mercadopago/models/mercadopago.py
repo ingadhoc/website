@@ -22,7 +22,8 @@ class AcquirerMercadopago(models.Model):
         """
         We add mercadopago on providers selection field
         """
-        providers = super(AcquirerMercadopago, self)._get_providers()
+        providers = super(AcquirerMercadopago,
+                          self)._get_providers()
         providers.append(['mercadopago', 'MercadoPago'])
         return providers
 
@@ -34,7 +35,8 @@ class AcquirerMercadopago(models.Model):
     #     )
     mercadopago_item_title = fields.Char(
         'MercadoPago Item Title',
-        help='Yo need to use %s to indicate where SO number must go',
+        help='Yo need to use %s to indicate '
+             'where SO number must go',
         default='Orden Ecommerce %s',
         )
     mercadopago_client_id = fields.Char(
@@ -47,14 +49,16 @@ class AcquirerMercadopago(models.Model):
         )
 
     @api.multi
-    def mercadopago_compute_fees(self, amount, currency_id, country_id):
+    def mercadopago_compute_fees(
+            self, amount, currency_id, country_id):
         """ We add [provider]_compute_fees method
             Compute mercadopago fees.
 
             :param float amount: the amount to pay
-            :param integer country_id: an ID of a res.country, or None. This is
-                                       the customer's country, to be compared
-                                       to the acquirer company country.
+            :param integer country_id:
+            an ID of a res.country, or None.
+            This is the customer's country, to be
+            compared to the acquirer company country.
             :return float fees: computed fees
         """
         self.ensure_one()
@@ -67,7 +71,8 @@ class AcquirerMercadopago(models.Model):
         else:
             percentage = self.fees_int_var
             fixed = self.fees_int_fixed
-        fees = (percentage / 100.0 * amount + fixed) / (1 - percentage / 100.0)
+        fees = \
+            (percentage / 100.0 * amount + fixed) / (1 - percentage / 100.0)
         return fees
 
     @api.multi
