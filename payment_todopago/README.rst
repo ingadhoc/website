@@ -18,8 +18,8 @@ Known issues / Roadmap
 3. Implement ipn from https://www.mercadopago.com.ar/developers/es/api-docs/basic-checkout/ipn/
 4. When paying from portal, not transaction is create do we get an error  with _mercadopago_form_get_tx_from_data method, we should check how other payment methods works
 
-TEST MODE Y DESARROLLo
-=========
+TEST MODE Y DESARROLLO
+======================
 Crear cuentas en:
 https://todopago.com.ar/
 Entrar a herramietnas / comercios: integración y generar credeciales ya sea para ambiente de producción o ambiente de pruebas

@@ -38,5 +38,5 @@
         'views/payment_acquirer.xml',
         'data/todopago.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

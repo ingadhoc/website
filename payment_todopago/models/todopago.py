@@ -236,14 +236,14 @@ class AcquirerMercadopago(models.Model):
         }
         return partner_values, tx_values
 
-    @api.multi
-    def todopago_get_form_action_url(self):
-        self.ensure_one()
-        """
-        Este metodo se llama cada vez que se ve el boton asi que no
-        lo podemos usar para mucho
-        """
-        return TodoPagoController._create_preference_url
+    # @api.multi
+    # def todopago_get_form_action_url(self):
+    #     self.ensure_one()
+    #     """
+    #     Este metodo se llama cada vez que se ve el boton asi que no
+    #     lo podemos usar para mucho
+    #     """
+    #     return TodoPagoController._create_preference_url
 
     @api.multi
     def _todopago_create_transaction(self, data):
@@ -333,7 +333,6 @@ class TxTodoPago(models.Model):
             raise ValidationError(error_msg)
         transaction = self.search([
             ('reference', '=', reference)], limit=1)
-            # ('reference', '=', reference), ('state', '=', 'draft')], limit=1)
 
         if not transaction:
             error_msg = (
