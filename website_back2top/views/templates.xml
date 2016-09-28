@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <template id="assets_frontend_back2top" inherit_id="website.assets_frontend" active="True" customize_show="True" name="Back2top">
+      <xpath expr="." position="inside">
+          <link rel='stylesheet' href='/website_back2top/static/src/css/website_scroll_back2top.css'/>
+          <script type="text/javascript" src="/website_back2top/static/src/js/website_scroll_back2top.js"></script>
+      </xpath>
+    </template>
+  </data>
+</openerp>
