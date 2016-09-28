@@ -150,7 +150,7 @@ class AcquirerMercadopago(models.Model):
         phone = phone[:13]
         amount = "%.2f" % round(tx_values['amount'], 2)
         email = partner_values["email"] or 'dummy@email.com'
-        email = email.encode("utf8")
+        email = email.strip().encode("utf8")
         # mandatorio, ya es mandatorio en ecommerce
         city = partner_values["city"] or 'DUMMY CITY'
         city = city.encode("utf8")

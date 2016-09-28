@@ -24,11 +24,12 @@ class website_talkus_bubble(models.Model):
         'message',
         help="Message displayed in the bubble",
     )
-    welcomeMessage = fields.Char(
-        'welcomeMessage',
-        help="First welcome message displayed when "
-             "the user open for live chat",
-    )
+    # DEPRECEATED
+    # welcomeMessage = fields.Char(
+    #     'welcomeMessage',
+    #     help="First welcome message displayed when "
+    #          "the user open for live chat",
+    # )
     delay = fields.Integer(
         'Delay',
         help="How many seconds before displaying the bubble",
@@ -37,5 +38,3 @@ class website_talkus_bubble(models.Model):
         'website.talkus',
         string='Website Talkus',
     )
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

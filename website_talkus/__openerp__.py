@@ -32,7 +32,6 @@
     'depends': [
         'base',
         'website',
-        # 'web_widget_color',
     ],
     'data': [
         'views/website_chat.xml',
