@@ -23,7 +23,7 @@
     'name': 'Website Search',
     'category': 'Website',
     'summary': 'Website search',
-    'version': '1.0',
+    'version': '9.0.1.0.0',
     'description': """
 Search website content: including pages, blogs posts, blog post comments, customers, job opportunities and products
         """,
@@ -40,6 +40,6 @@ Search website content: including pages, blogs posts, blog post comments, custom
     ],
     'demo': [
     ],
-    'installable': True,
+    'installable': False,
     'application': True,
 }
