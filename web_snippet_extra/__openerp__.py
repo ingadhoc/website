@@ -19,8 +19,8 @@
 ##############################################################################
 
 {
-    'name' : 'Website Snippet Extra',
-    'version': '1.0',
+    'name': 'Website Snippet Extra',
+    'version': '9.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'Probuse Consulting Service Pvt. Ltd.',
     'category': 'Website',
@@ -28,11 +28,11 @@
     'description': '''
     Website Snippet Extra
     ''',
-    'depends':['website'],
-    'data' : [
+    'depends': ['website'],
+    'data': [
               'static/src/xml/probuse_snippest.xml'],
-    'installable':True,
-    'auto_install':False
+    'installable': False,
+    'auto_install': False
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

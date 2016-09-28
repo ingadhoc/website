@@ -26,13 +26,12 @@
 
     """,
     'category': 'website',
-    'version': '1.1',
-    'depends': ['website','website_sale'],
-   'data': [
-         'security/ir.model.access.csv',
-         'views/backend.xml'
-       ],
-    'images':['static/description/banner.jpg',],
-    'installable': True,
+    'version': '9.0.1.0.0',
+    'depends': ['website', 'website_sale'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/backend.xml'
+    ],
+    'images': ['static/description/banner.jpg', ],
+    'installable': False,
 }
-
