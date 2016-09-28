@@ -1,134 +1,135 @@
-(function() {
-  'use strict';
+odoo.define('website_animate.o_animate_frontend', function (require) {
+    'use strict';
 
-  openerp.website_animate = {
-    win   : {},
-    items : {},
+    var s_animation = require('web_editor.snippets.animation');
+    var base = require('web_editor.base');
 
-    offsetRatio : 0.3,  // Dynamic offset ratio: 0.3 = (element's height/3)
-    offsetMin   : 10,   // Minimum offset for small elements (in pixels)
+    var WebsiteAnimate = {
+        win   : {},
+        items : {},
 
-    // Retrieve animable elements and attach handlers.
-    start : function(){
-      var self   = this;
-      self.items = $(".o_animate");
-      self.items.each(function(){
-        var $el = $(this);
-        // Set all monitored elements to initial state
-        self.reset_animation($el);
-      });
-      setTimeout(function(){
-        self.attach_handlers();
-      });
-    },
+        offsetRatio : 0.3,  // Dynamic offset ratio: 0.3 = (element's height/3)
+        offsetMin   : 10,   // Minimum offset for small elements (in pixels)
 
-    // Bind events and define the scrolling function
-    attach_handlers : function(){
-      var self = this;
-      var lastScroll = 0;
+        // Retrieve animable elements and attach handlers.
+        start: function () {
+            var self   = this;
+            self.items = $(".o_animate");
+            self.items.each(function () {
+                var $el = $(this);
+                // Set all monitored elements to initial state
+                self.reset_animation($el);
+            });
+            setTimeout(function () {
+                self.attach_handlers();
+            });
+        },
 
-      $(window)
-      .on("resize.o_animate", function(){
-          self.win.h = $(window).height();
-          $(window).trigger("scroll");
-      })
-      .trigger("resize")
-      .on("scroll.o_animate", (_.throttle(function(){
-        // _.throttle -> Limit the number of times the scroll function
-        // can be called in a given period. (http://underscorejs.org/#throttle)
-        var windowTop    = $(window).scrollTop();
-        var windowBottom = windowTop + self.win.h;
+        // Bind events and define the scrolling function
+        attach_handlers: function () {
+            var self = this;
+            var lastScroll = 0;
 
-        // Handle reverse scrolling
-        var direction = (windowTop < lastScroll) ? -1 : 1;
-        lastScroll = windowTop;
+            $(window)
+            .on("resize.o_animate", function () {
+                    self.win.h = $(window).height();
+                    $(window).trigger("scroll");
+            })
+            .trigger("resize")
+            .on("scroll.o_animate", (_.throttle(function () {
+                // _.throttle -> Limit the number of times the scroll function
+                // can be called in a given period. (http://underscorejs.org/#throttle)
+                var windowTop    = $(window).scrollTop();
+                var windowBottom = windowTop + self.win.h;
 
-        self.items.each(function(){
-          var $el       = $(this);
-          var elHeight  = $el.height();
-          var elOffset  = direction * Math.max((elHeight * self.offsetRatio), self.offsetMin)
-          var state     = $el.css("animation-play-state");
+                // Handle reverse scrolling
+                var direction = (windowTop < lastScroll) ? -1 : 1;
+                lastScroll = windowTop;
 
-          // We need to offset for the change in position from some animation
-          // So we get the top value of the transform matrix
-          var transformMatrix = $el.css('transform').replace(/[^0-9\-.,]/g, '').split(',')
-          var transformOffset = transformMatrix[13] || transformMatrix[5];
-          var elTop = $el.offset().top - transformOffset;
+                self.items.each(function () {
+                    var $el       = $(this);
+                    var elHeight  = $el.height();
+                    var elOffset  = direction * Math.max((elHeight * self.offsetRatio), self.offsetMin)
+                    var state     = $el.css("animation-play-state");
 
-          var visible = windowBottom > (elTop + elOffset) && windowTop < (elTop + elHeight - elOffset);
+                    // We need to offset for the change in position from some animation
+                    // So we get the top value of the transform matrix
+                    var transformMatrix = $el.css('transform').replace(/[^0-9\-.,]/g, '').split(',')
+                    var transformOffset = transformMatrix[13] || transformMatrix[5];
+                    var elTop = $el.offset().top - transformOffset;
 
-          if ( visible && (state == "paused") ){
-            $el.addClass("o_visible");
-            self.start_animation($el);
-          } else if ( !(visible) && $el.hasClass("o_animate_both_scroll") && (state == "running") ){
-            $el.removeClass("o_visible");
-            self.reset_animation($el)
-          }
-        });
-      },100)))
-      .trigger("scroll");
-    },
+                    var visible = windowBottom > (elTop + elOffset) && windowTop < (elTop + elHeight - elOffset);
 
-    // Set elements to initial state
-    reset_animation:function($el){
-      var self = this;
-      var anim_name = $el.css("animation-name");
+                    if ( visible && (state == "paused") ) {
+                        $el.addClass("o_visible");
+                        self.start_animation($el);
+                    } else if ( !(visible) && $el.hasClass("o_animate_both_scroll") && (state == "running") ) {
+                        $el.removeClass("o_visible");
+                        self.reset_animation($el)
+                    }
+                });
+            },100)))
+            .trigger("scroll");
+        },
 
-      $el
-      .css({"animation-name" : "dummy-none", "animation-play-state" : ""})
-      .removeClass("o_animated o_animating")
+        // Set elements to initial state
+        reset_animation: function ($el) {
+            var self = this;
+            var anim_name = $el.css("animation-name");
 
-      // force the browser to redraw using setTimeout
-      setTimeout(function(){
-        $el.css({"animation-name" : anim_name, "animation-play-state" : "paused"})
-      },0);
-    },
+            $el
+            .css({"animation-name" : "dummy-none", "animation-play-state" : ""})
+            .removeClass("o_animated o_animating")
 
-    // Start animation and/or update element's state
-    start_animation: function($el){
-      var self = this;
+            // force the browser to redraw using setTimeout
+            setTimeout(function () {
+                $el.css({"animation-name" : anim_name, "animation-play-state" : "paused"})
+            },0);
+        },
 
-      // force the browser to redraw using setTimeout
-      setTimeout(function(){
-        $el
-        .css({"animation-play-state": "running"})
-        .addClass("o_animating")
-        .one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(e) {
-          $el.addClass("o_animated").removeClass("o_animating");
-          $(window).trigger("resize");
-        });
-      });
-    },
-  };
+        // Start animation and/or update element's state
+        start_animation: function ($el) {
+            var self = this;
 
+            // force the browser to redraw using setTimeout
+            setTimeout(function () {
+                $el
+                .css({"animation-play-state": "running"})
+                .addClass("o_animating")
+                .one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
+                    $el.addClass("o_animated").removeClass("o_animating");
+                    $(window).trigger("resize");
+                });
+            });
+        },
+    };
 
-  $(document).ready(function(){
-    // By default, elements are hidden by the css of o_animate.
-    // render alements  + // We will trigger the animation then pause it in state 0.
-    openerp.website_animate.start()
-    // Then we render all the elements, the ones which are invisible
-    // in state 0 (like fade_in for example) will stay invisible.
-    $(".o_animate").css("visibility", "visible");
-  }),
+    base.ready().then(function () {
+        // By default, elements are hidden by the css of o_animate.
+        // render alements  + // We will trigger the animation then pause it in state 0.
+        WebsiteAnimate.start();
+        // Then we render all the elements, the ones which are invisible
+        // in state 0 (like fade_in for example) will stay invisible.
+        $(".o_animate").css("visibility", "visible");
+    });
 
+    // Backward compatibility for enark animation system
+    s_animation.registry.o_animate = s_animation.Class.extend({
+        selector: '.o_animation',
 
-  // Backward compatibility for enark animation system
-  openerp.website.snippet.animationRegistry.o_animate = openerp.website.snippet.Animation.extend({
-    selector: '.o_animation',
+        stop: function () {
+            this._super();
 
-    stop: function () {
-      this._super();
+            // Convert old classes to the new animation system
+            var old_animation_classes = "o_animation o_displayed o_displayed_top o_displayed_middle o_displayed_bottom o_visible o_visible_top o_visible_middle o_visible_bottom";
+            $(".o_fade_in").addClass("o_animate o_anim_fade_in").removeClass("o_fade_in");
+            $(".o_fade_in_down").addClass("o_animate o_anim_fade_in_down").removeClass("o_fade_in_down");
+            $(".o_fade_in_left").addClass("o_animate o_anim_fade_in_left").removeClass("o_fade_in_left");
+            $(".o_fade_in_right").addClass("o_animate o_anim_fade_in_right").removeClass("o_fade_in_right");
+            $(".o_fade_in_up").addClass("o_animate o_anim_fade_in_up").removeClass("o_fade_in_up");
+            this.$target.removeClass(old_animation_classes);
+        },
+    });
 
-      // Convert old classes to the new animation system
-      var old_animation_classes = "o_animation o_displayed o_displayed_top o_displayed_middle o_displayed_bottom o_visible o_visible_top o_visible_middle o_visible_bottom";
-      $(".o_fade_in").addClass("o_animate o_anim_fade_in").removeClass("o_fade_in");
-      $(".o_fade_in_down").addClass("o_animate o_anim_fade_in_down").removeClass("o_fade_in_down");
-      $(".o_fade_in_left").addClass("o_animate o_anim_fade_in_left").removeClass("o_fade_in_left");
-      $(".o_fade_in_right").addClass("o_animate o_anim_fade_in_right").removeClass("o_fade_in_right");
-      $(".o_fade_in_up").addClass("o_animate o_anim_fade_in_up").removeClass("o_fade_in_up");
-      this.$target.removeClass(old_animation_classes);
-
-    },
-  });
-
-})();
+    return WebsiteAnimate;
+});

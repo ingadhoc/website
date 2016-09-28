@@ -1,168 +1,159 @@
-(function(){
-  'use strict';
-  var website = openerp.website;
+odoo.define('website_animate.o_animate_editor', function (require) {
+    'use strict';
 
-  //  Animations
-  website.snippet.options.o_animate = website.snippet.Option.extend({
+    var s_options = require('web_editor.snippets.options');
 
-    start: function(){
-      this._super();
-      var self = this;
+    //  Animations
+    s_options.registry.o_animate = s_options.Class.extend({
+        start: function () {
+            this._super.apply(this, arguments);
+            var self = this;
 
-      setTimeout(function(){
+            setTimeout(function () {
+                if (self.$overlay.find("li.snippet-option-o_animate > ul > li li.active").length > 0) {
+                    self.update_options_visibility("show");
+                } else {
+                    self.update_options_visibility("hide");
+                }
 
-        if(self.$overlay.find("li.snippet-option-o_animate > ul > li li.active").length > 0) {
-          self.update_options_visibility("show");
-        } else {
-          self.update_options_visibility("hide");
-        }
+                // remove theme_enark animation options from the context menu
+                // WARNING: theme_enark do not prefix js methods,
+                // Remove in Odoo9
+                if (self.$overlay.find('li.snippet-option-animation').length > 0) {
+                    $(this).addClass("hidden");
+                }
+            }, 500);
+        },
 
-        // remove theme_enark animation options from the context menu
-        // WARNING: theme_enark do not prefix js methods,
-        // Remove in Odoo9
+        select_class: function (type, value, $li) {
+            this._super.apply(this, arguments);
+            var self = this;
 
-        if(self.$overlay.find('li.snippet-option-animation').length > 0) {
-          $(this).addClass("hidden");
-        }
+            setTimeout(function () {
+                self.$target.addClass("o_animate_preview o_animate").css('animation-name', 'dummy-none');
+                self.$target.css('animation-name', '');
+            });
 
-      },500)
-    },
+            if (type !== "click") {
+                return;
+            }
+            if (value.length > 0) {
+                self.update_options_visibility("show");
+                self.$target.removeClass("o_animate_preview");
+            } else {
+                setTimeout(function () {
+                    self.update_options_visibility("hide");
+                    self.$target.removeClass("o_animate_preview o_animate");
+                }, 500);
+            }
+        },
 
-    select_class: function(type, value, $li){
-      this._super(type, value, $li);
-      var self = this;
+        update_options_visibility: function (value) {
+            var self = this;
+            var opts = ".snippet-option-o_animate_duration, .snippet-option-o_animate_delay, .snippet-option-o_animate_options";
+            setTimeout(function () {
+                if (value == "show") {
+                    self.$overlay.find(opts).removeClass("hidden");
+                } else if (value == "hide") {
+                    self.$overlay.find(opts).addClass("hidden");
+                }
+            });
+        },
 
-      setTimeout(function(){
-        self.$target.addClass("o_animate_preview o_animate").css('animation-name', 'dummy-none');
-        self.$target.css('animation-name', '');
-      });
+        clean_for_save: function () {
+            var self = this;
 
-      if(type != "click") {return}
-      if(value.length > 0 ){
-        self.update_options_visibility("show");
-        self.$target.removeClass("o_animate_preview");
-      } else {
-        setTimeout(function(){
-          self.update_options_visibility("hide");
-          self.$target.removeClass("o_animate_preview o_animate");
-        },500)
-      }
-    },
+            // Clean elements
+            self.$target.removeClass("o_animating o_animated o_animate_preview")
+                        .css({
+                            'animation': '',
+                            'animation-name': '',
+                            'animation-play-state': '',
+                            'visibility': ''
+                        });
+            if (self.$target.hasClass("o_animate")) {
+                self.$target.css('animation-play-state', 'paused');
+            }
 
-    update_options_visibility: function(value){
-      var self = this;
-      var opts = ".snippet-option-o_animate_duration, .snippet-option-o_animate_delay, .snippet-option-o_animate_options";
-      setTimeout(function(){
-        if(value == "show"){
-          self.$overlay.find(opts).removeClass("hidden");
-        } else if (value == "hide"){
-          self.$overlay.find(opts).addClass("hidden");
-        }
-      })
-    },
+            // Clean all inView elements
+            $("#wrapwrap").find(".o_animate").removeClass("o_visible");
+        },
+    });
 
-    clean_for_save: function(){
-      var self = this;
+    // Duration
+    s_options.registry.o_animate_duration = s_options.Class.extend({
+        select_class: function (type, value, $li) {
+            this._super.apply(this, arguments);
 
-      // Clean elements
-      self.$target
-      .removeClass("o_animating o_animated o_animate_preview")
-      .css({
-        'animation': '',
-        'animation-name': '',
-        'animation-play-state': '',
-        'visibility': ''
-      });
-      if(self.$target.hasClass("o_animate")){
-        self.$target.css('animation-play-state', 'paused');
-      }
+            var self = this;
+            var $timeline_duration = this.$overlay.find(".timeline.duration span[simulate='duration']");
+            var $timeline_delay = this.$overlay.find(".timeline.duration span[simulate='delay']");
 
-      // Clean all inView elements
-      $("#wrapwrap").find(".o_animate").removeClass("o_visible");
-    }
+            this.$target.css({
+                'animation-duration': '',
+                'animation-delay': ''
+            });
 
-  }),
+            var el_delay = this.$target.css("animation-delay");
+            var el_duration = this.$target.css("animation-duration");
+            var el_period;
 
-  // Duration
-  website.snippet.options.o_animate_duration = website.snippet.Option.extend({
-    select_class: function(type, value, $li){
-      this._super(type, value, $li);
+            el_delay = parseFloat(el_delay.slice(0,-1));
+            el_duration = parseFloat(el_duration.slice(0,-1));
+            el_period = el_delay + el_duration;
 
-      var self = this;
-      var $timeline_duration = self.$overlay.find(".timeline.duration span[simulate='duration']");
-      var $timeline_delay    = self.$overlay.find(".timeline.duration span[simulate='delay']");
+            $timeline_duration.parent().width((el_duration*100)/el_period +"%");
+            $timeline_delay.parent().width((el_delay*100)/el_period +"%");
 
-      self.$target
-      .css({
-        'animation-duration': '',
-        'animation-delay': ''
-      });
+            this.$target.addClass("o_animate_preview").css('animation-name', 'dummy-none').css('animation-duration', '0s');
 
-      var el_delay    = self.$target.css("animation-delay");
-      var el_duration = self.$target.css("animation-duration");
-      var el_period;
+            $timeline_duration.css('animation-name', 'dummy-none').css('animation-duration', el_duration + "s").css('animation-delay', el_delay  + "s");
+            $timeline_delay.css('animation-name', 'dummy-none').css('animation-duration', el_delay  + "s");
 
-      el_delay = parseFloat(el_delay.slice(0,-1));
-      el_duration = parseFloat(el_duration.slice(0,-1));
-      el_period = el_delay + el_duration;
+            setTimeout(function () {
+                self.$target.css('animation-name', '').css('animation-duration', '');
 
-      $timeline_duration.parent().width((el_duration*100)/el_period +"%");
-      $timeline_delay.parent().width((el_delay*100)/el_period +"%");
+                $timeline_duration.css('animation-name', '');
+                $timeline_delay.css('animation-name', '');
+            });
+        },
+    });
 
+    // Delay
+    s_options.registry.o_animate_delay = s_options.Class.extend({
+        select_class: function (type, value, $li) {
+            this._super.apply(this, arguments);
+            var self = this;
+            var $timeline_delay = this.$overlay.find(".timeline.delay span[simulate='delay']");
+            var $timeline_duration = this.$overlay.find(".timeline.delay span[simulate='duration']");
 
-      self.$target.addClass("o_animate_preview").css('animation-name', 'dummy-none').css('animation-duration', '0s');
+            this.$target.css({
+                'animation-duration': '',
+                'animation-delay': ''
+            });
 
-      $timeline_duration.css('animation-name', 'dummy-none').css('animation-duration', el_duration + "s").css('animation-delay', el_delay  + "s");
-      $timeline_delay.css('animation-name', 'dummy-none').css('animation-duration', el_delay  + "s");
+            var el_delay = this.$target.css("animation-delay");
+            var el_duration = this.$target.css("animation-duration");
+            var el_period;
 
-      setTimeout(function(){
-        self.$target.css('animation-name', '').css('animation-duration', '');
+            el_delay = parseFloat(el_delay.slice(0,-1));
+            el_duration = parseFloat(el_duration.slice(0,-1));
+            el_period = el_delay + el_duration;
 
-        $timeline_duration.css('animation-name', '');
-        $timeline_delay.css('animation-name', '');
+            $timeline_duration.parent().width((el_duration*100)/el_period +"%");
+            $timeline_delay.parent().width((el_delay*100)/el_period +"%");
 
-      });
-    }
-  }),
+            this.$target.addClass("o_animate_preview").css('animation-name', 'dummy-none').css('animation-duration', '0s');
 
-  // Delay
-  website.snippet.options.o_animate_delay = website.snippet.Option.extend({
-    select_class: function(type, value, $li){
-      this._super(type, value, $li);
-      var self = this;
-      var $timeline_delay = self.$overlay.find(".timeline.delay span[simulate='delay']");
-      var $timeline_duration = self.$overlay.find(".timeline.delay span[simulate='duration']");
+            $timeline_duration.css('animation-name', 'dummy-none').css('animation-duration', el_duration + "s").css('animation-delay', el_delay  + "s");
+            $timeline_delay.css('animation-name', 'dummy-none').css('animation-duration', el_delay  + "s");
 
-      self.$target
-      .css({
-        'animation-duration': '',
-        'animation-delay': ''
-      });
+            setTimeout(function () {
+                self.$target.css('animation-name', '').css('animation-duration', '');
 
-      var el_delay    = self.$target.css("animation-delay");
-      var el_duration = self.$target.css("animation-duration");
-      var el_period;
-
-      el_delay = parseFloat(el_delay.slice(0,-1));
-      el_duration = parseFloat(el_duration.slice(0,-1));
-      el_period = el_delay + el_duration;
-
-      $timeline_duration.parent().width((el_duration*100)/el_period +"%");
-      $timeline_delay.parent().width((el_delay*100)/el_period +"%");
-
-      self.$target.addClass("o_animate_preview").css('animation-name', 'dummy-none').css('animation-duration', '0s');
-
-      $timeline_duration.css('animation-name', 'dummy-none').css('animation-duration', el_duration + "s").css('animation-delay', el_delay  + "s");
-      $timeline_delay.css('animation-name', 'dummy-none').css('animation-duration', el_delay  + "s");
-
-      setTimeout(function(){
-        self.$target.css('animation-name', '').css('animation-duration', '');
-
-        $timeline_duration.css('animation-name', '');
-        $timeline_delay.css('animation-name', '');
-
-      });
-    }
-  })
-
-})();
+                $timeline_duration.css('animation-name', '');
+                $timeline_delay.css('animation-name', '');
+            });
+        },
+    });
+});
