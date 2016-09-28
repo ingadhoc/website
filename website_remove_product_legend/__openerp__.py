@@ -22,7 +22,7 @@
     'name': 'Remove Website Legend on Product',
     'category': 'Website',
     'summary': 'Remove "30-day money-back guarantee..." on ecommerce products',
-    'version': '8.0.0.1.0',
+    'version': '9.0.1.0.0',
     'description': """
 Website Sale Promotion
 ======================
@@ -39,6 +39,6 @@ Create promotions for products and specified a public category to show them
     ],
     'demo': [
     ],
-    'installable': True,
+    'installable': False,
     'application': True,
 }
