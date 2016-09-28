@@ -8,7 +8,7 @@
         'views/assets.xml',
         'views/options.xml',
     ],
-    'depends': ['website_less'],
+    'depends': ['website'],
     'images': [
         'static/description/icon.png',
     ],
