@@ -15,11 +15,8 @@ class website_sale(website_sale):
     def _get_search_domain(self, search, category, attrib_values):
         cr, uid, context, pool = (
             request.cr, request.uid, request.context, request.registry)
-        print 'aaaaaaaaaa'
         domain = super(website_sale, self)._get_search_domain(
             search, category, attrib_values)
-        # print 'domain', domain
-        print 'search', search
         if search:
             sub_domain = []
             connector = []
@@ -33,16 +30,6 @@ class website_sale(website_sale):
                     ('public_categ_ids', 'child_of', public_categ_ids)
                 ]
                 connector = ['|', ]
-                # '&', ('sale_ok', '=', True), 
-            # sub_domain = ['|'] + sub_domain
-            # domain = ['|'] + domain + sub_domain
-                # domain = [
-                #     '&', ('sale_ok', '=', True), '|',
-                #     ('attribute_line_ids.value_ids.name', 'ilike', srch),
-                #     ('public_categ_ids', 'child_of', public_categ_ids)
-                #     ] + domain
-                    # ]
-        print 'domain', domain
         return domain
 
     @http.route()

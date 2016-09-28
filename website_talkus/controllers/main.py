@@ -39,5 +39,4 @@ class WebsiteChat(openerp.addons.web.controllers.main.Home):
                 # 'welcomeMessage': bubble['welcomeMessage'],
                 'delay': bubble['delay'],
             }
-            print 'website_talkus', website_talkus
         return website_talkus
