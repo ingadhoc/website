@@ -1,7 +1,7 @@
 # coding: utf-8
 {
     "name": "Website Product Rate",
-    "version": "8.0.0.1.6",
+    "version": "9.0.1.0.0",
     "author": "Vauxoo",
     "category": "Website",
     "website": "http://www.vauxoo.com/",
@@ -24,6 +24,6 @@
         "static/src/xml/rate.xml",
         "static/src/xml/mail.xml",
     ],
-    "installable": True,
+    "installable": False,
     "auto_install": False,
 }
