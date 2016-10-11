@@ -130,8 +130,8 @@ class AcquirerMercadopago(models.Model):
         preference = {
             "items": items,
             "payer": {
-                "name": partner_values["name"],
-                "surname": partner_values["first_name"],
+                "name": partner_values["first_name"],
+                "surname": partner_values["last_name"],
                 "email": partner_values["email"],
                 },
             "back_urls": {
