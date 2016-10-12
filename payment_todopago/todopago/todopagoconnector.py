@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 # pip install suds-jurko
-from suds.client import Client
+try:
+    from suds.client import Client
+except ImportError:
+    suds = None
+
 import requests
 import os.path
 import urlparse
