@@ -28,7 +28,7 @@
 Product Price Taxes Included or Not
 ===================================
     ''',
-    'author':  'ADHOC SA',
+    'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [
