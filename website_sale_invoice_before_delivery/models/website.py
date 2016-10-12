@@ -15,10 +15,12 @@ class Website(models.Model):
     def sale_get_order(
             self, cr, uid, ids, force_create=False,
             code=None, update_pricelist=None, context=None):
-        return super(Website, self.with_context(
-            default_order_policy='prepaid')).sale_get_order(
-                cr, uid, ids,
-                force_create=force_create,
-                code=code,
-                update_pricelist=update_pricelist,
-                context=context)
+        if not context:
+            context = {}
+        context['default_order_policy'] = 'prepaid'
+        return super(Website, self).sale_get_order(
+            cr, uid, ids,
+            force_create=force_create,
+            code=code,
+            update_pricelist=update_pricelist,
+            context=context)
