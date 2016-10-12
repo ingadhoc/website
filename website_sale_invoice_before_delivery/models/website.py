@@ -17,6 +17,7 @@ class Website(models.Model):
             code=None, update_pricelist=None, context=None):
         if not context:
             context = {}
+        context = context.copy()
         context['default_order_policy'] = 'prepaid'
         return super(Website, self).sale_get_order(
             cr, uid, ids,
