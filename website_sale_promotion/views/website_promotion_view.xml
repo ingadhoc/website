@@ -32,8 +32,7 @@
                         <group>
                             <field name="name"/>
                             <!--<field name="pricelist_version_id"/>-->
-                            <field name="base"/>
-                            <field name="base_pricelist_id" attrs="{'invisible': [('base','!=','-1')],'required': [('base','=','-1')]}"/>
+                            <field name="base_pricelist_id"/>
                             <field name="public_category_id"/>
                             <field name="website_style_id"/>
                         </group>

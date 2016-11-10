@@ -10,28 +10,12 @@ class website_promotion(models.Model):
     _name = 'website.promotion'
     _description = 'Website Promotion'
 
-    @api.model
-    def _price_field_get(self):
-        result = []
-        # for line in self.env['product.price.type'].search([]):
-        #     result.append((str(line.id), line.name))
-        result.append(('-1', _('Other Pricelist')))
-        result.append(('-2', _('Supplier Prices on the product form')))
-        return result
-
     name = fields.Char(
         'Name',
         required=True,
         readonly=True,
         states={'draft': [('readonly', False)]}
     )
-    # pricelist_version_id = fields.Many2one(
-    #     'product.pricelist.version',
-    #     'Pricelist Version',
-    #     required=True,
-    #     readonly=True,
-    #     states={'draft': [('readonly', False)]}
-    # )
     public_category_id = fields.Many2one(
         'product.public.category',
         'Public Category',
@@ -71,17 +55,11 @@ class website_promotion(models.Model):
         'Price Surcharge',
         readonly=True,
         states={'draft': [('readonly', False)]})
-    base = fields.Selection(
-        _price_field_get,
-        'Based on',
-        required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]}
-    )
     base_pricelist_id = fields.Many2one(
         'product.pricelist',
         'Other Pricelist',
         readonly=True,
+        required=True,
         states={'draft': [('readonly', False)]})
 
     @api.one
@@ -101,7 +79,7 @@ class website_promotion(models.Model):
                 'name': self.name,
                 'product_tmpl_id': product.id,
                 'sequence': 0,
-                'base': int(self.base),
+                'base': 'pricelist',
                 'base_pricelist_id': self.base_pricelist_id.id,
                 # 'price_version_id': self.pricelist_version_id.id,
                 'price_discount': self.price_discount,

@@ -53,7 +53,7 @@ class website_sale(website_sale):
             product_ids, add_qty,
             use_order_pricelist=use_order_pricelist, **kw)
 
-    # for website options module
+    # for website_sale_options
     @http.route(
         ['/shop/modal'], type='json', auth="public", methods=['POST'],
         website=True)

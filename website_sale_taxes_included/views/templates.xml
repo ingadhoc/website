@@ -8,7 +8,7 @@
   </xpath>
 </template>
 
-<!-- TODO tal vez en vez de discounted price deba ir otro, por ej el de l10n_ar_sale -->
+<!-- TODO debeia ir en l10n_ar.. website -->
 <!-- Detalle de lo que se va a pagar -->
 <template id="payment" inherit_id="website_sale.payment" name="Taxes Included Payment">
   <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
@@ -16,6 +16,8 @@
   </xpath>
 </template>
 
+<!-- TODO esto deberia ir al l10n_ar.. website y opcional segun el partner y demas-->
+<!-- tmb deberiamos cambiar el sbutotal por report subtotal -->
 <!-- Ocultar detalle de impuestos en subtotal -->
 <template id="total" inherit_id="website_sale.total" name="Taxes Included Cart Total">
   <xpath expr="//div[@id='order_total_taxes']" position="attributes">
