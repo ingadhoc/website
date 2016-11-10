@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    'author':  'ADHOC SA',
+    'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
@@ -31,7 +31,7 @@
     ],
     'depends': [
         'website_sale',
-        'l10n_ar_invoice',
+        'l10n_ar_sale',
     ],
     'installable': False,
     'name': 'e-Commerce Argentina Partner Document',
