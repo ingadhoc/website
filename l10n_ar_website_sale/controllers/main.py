@@ -4,7 +4,7 @@
 # directory
 ##############################################################################
 from openerp.addons.website_sale.controllers.main import website_sale
-from openerp import SUPERUSER_ID
+from openerp import SUPERUSER_ID, _
 from openerp.http import request
 from openerp.tools import config
 
@@ -17,12 +17,22 @@ class WebsiteSale(website_sale):
         it gives an error in testes. So we add them and test the manually
         To not break these tests, allow for missing fields in test mode
         """
-        res = super(WebsiteSale, self).checkout_form_validate(data)
+        error, error_message = super(
+            WebsiteSale, self).checkout_form_validate(data)
+
         # Phantomjs test steps from website_sale don't enter the VAT field.
-        if not data.get('document_number') and not config['test_enable']:
-            res['document_number'] = 'missing'
-        if not data.get('document_type_id') and not config['test_enable']:
-            res['document_type_id'] = 'missing'
+        if not data.get('main_id_number') and not config['test_enable']:
+            error['main_id_number'] = 'missing'
+        if not data.get('main_id_category_id') and not config['test_enable']:
+            error['main_id_category_id'] = 'missing'
+
+        # validate document number
+        try:
+            request.env['res.partner.id_category'].sudo().browse(
+                data.get('main_id_category_id')).validate_id_number(
+                data.get('main_id_number'))
+        except:
+            error_message.append(_('Numero de documento invalido'))
 
         # only make state required if there are states on choosen country
         cr, context, pool = (
@@ -33,10 +43,10 @@ class WebsiteSale(website_sale):
         if (
                 state_ids and not data.get('state_id') and
                 not config['test_enable']):
-            res['state_id'] = 'missing'
+            error['state_id'] = 'missing'
         if not data.get('zip') and not config['test_enable']:
-            res['zip'] = 'missing'
-        return res
+            error['zip'] = 'missing'
+        return error, error_message
 
     def _get_optional_billing_fields(self):
         """
@@ -44,21 +54,21 @@ class WebsiteSale(website_sale):
         """
         optional_billing_fields = (
             super(WebsiteSale, self)._get_optional_billing_fields() +
-            ['document_number', 'document_type_id'])
+            ['main_id_number', 'main_id_category_id'])
         return optional_billing_fields
 
     def checkout_values(self, data=None):
         cr, context, registry = (
             request.cr, request.context, request.registry)
         res = super(WebsiteSale, self).checkout_values(data)
-        orm_document_types = registry.get('afip.document_type')
-        document_type_ids = orm_document_types.search(
+        orm_document_categories = registry.get('res.partner.id_category')
+        main_id_category_ids = orm_document_categories.search(
             cr, SUPERUSER_ID, [], context=context)
-        document_types = orm_document_types.browse(
-            cr, SUPERUSER_ID, document_type_ids, context)
+        document_categories = orm_document_categories.browse(
+            cr, SUPERUSER_ID, main_id_category_ids, context)
         res.update({
-            'document_types': document_types,
-            })
+            'document_categories': document_categories,
+        })
         return res
 
     def _post_prepare_query(self, query, data, address_type):
@@ -68,9 +78,8 @@ class WebsiteSale(website_sale):
             prefix = ''
         else:
             prefix = 'shipping_'
-        if res.get(prefix + 'document_type_id'):
-            res[prefix + 'document_type_id'] = int(
-                res[prefix + 'document_type_id'])
+        if res.get(prefix + 'main_id_category_id'):
+            res[prefix + 'main_id_category_id'] = int(
+                res[prefix + 'main_id_category_id'])
 
         return res
-# vim:expandtab:tabstop=4:softtabstop=4:shiftwidth=4:

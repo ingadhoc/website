@@ -25,6 +25,7 @@
     'category': 'Accounting & Finance',
     'data': [
         'views/checkout_view.xml',
+        'views/portal_sale_templates.xml',
     ],
     'demo': [],
     'images': [
@@ -33,7 +34,7 @@
         'website_sale',
         'l10n_ar_sale',
     ],
-    'installable': False,
+    'installable': True,
     'name': 'e-Commerce Argentina Partner Document',
     'test': [],
     'version': '9.0.1.0.0',
