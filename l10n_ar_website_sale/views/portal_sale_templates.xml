@@ -9,7 +9,7 @@
 </template>
 
 
-<template id="orders_followup" inherit_id="website_portal_sale.orders_followup" name="Sales Order with Printed Prices">
+<template id="orders_followup" inherit_id="website_portal_sale.orders_followup" name="Sales Order with Report Prices">
   <xpath expr="//span[@t-field='ol.price_unit']" position="attributes">
     <attribute name="t-field">ol.report_price_unit</attribute>
   </xpath>
@@ -17,7 +17,7 @@
     <attribute name="t-field">ol.report_price_subtotal</attribute>
   </xpath>
 
-<!-- cultar subtotal e impuestos -->
+<!-- ocultar subtotal e impuestos -->
   <xpath expr="//div[@class='panel-body']/div[@class='row'][3]/div[@class='col-md-6'][2]/div" position="attributes">
       <attribute name="t-if">False</attribute>
   </xpath>

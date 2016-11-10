@@ -10,8 +10,7 @@
 </template>
 
 <!-- recuadro antes de pagar que deja elegir entre distintos metodos de envio -->
-<template id="payment_delivery" inherit_id="website_sale_delivery.payment_delivery" name="Taxes Included Delivery Costs
-">
+<template id="payment_delivery" inherit_id="website_sale_delivery.payment_delivery" name="Taxes Included Delivery Costs">
   <xpath expr="//span[@t-field='delivery.price']" position="attributes">
     <attribute name="t-field">delivery.taxed_price</attribute>
   </xpath>

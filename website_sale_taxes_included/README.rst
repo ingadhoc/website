@@ -6,7 +6,9 @@
 Product Price Taxes Included or Not
 ===================================
 
-Shou prices on ecommerce with taxes included
+Show prices on ecommerce with taxes included.
+
+TODO: habria que ver que de este modulo llevamos a l10n_ar_website_sale o si se aprovecha la posibilidad de elegir lista de precios o lo que fuese
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot

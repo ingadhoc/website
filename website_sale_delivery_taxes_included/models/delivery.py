@@ -17,7 +17,7 @@ class delivery_carrier(models.Model):
         compute='get_taxed_price',
         string='Taxed Price',
         digits=dp.get_precision('Account'),
-        )
+    )
 
     @api.one
     def get_taxed_price(self):
@@ -28,6 +28,6 @@ class delivery_carrier(models.Model):
             taxed_price = \
                 carrier.product_id.taxes_id.filtered(
                     lambda x: x.company_id.id == company_id).compute_all(
-                    carrier.price, 1.0,
+                    carrier.price,
                     product=carrier.product_id)['total_included']
             self.taxed_price = taxed_price
