@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<!-- we should improove this and show original invoice report -->
+<template id="invoices" inherit_id="website_portal_sale.invoices" name="Invoices and Payments Without link">
+  <xpath expr="//a" position="replace">
+    <t t-esc="invoice.number"/>
+  </xpath>
+</template>
+
+
+<template id="orders_followup" inherit_id="website_portal_sale.orders_followup" name="Sales Order with Report Prices">
+  <xpath expr="//span[@t-field='ol.price_unit']" position="attributes">
+    <attribute name="t-field">ol.report_price_unit</attribute>
+  </xpath>
+  <xpath expr="//span[@t-field='ol.price_subtotal']" position="attributes">
+    <attribute name="t-field">ol.report_price_subtotal</attribute>
+  </xpath>
+
+<!-- ocultar subtotal e impuestos -->
+  <xpath expr="//div[@class='panel-body']/div[@class='row'][3]/div[@class='col-md-6'][2]/div" position="attributes">
+      <attribute name="t-if">False</attribute>
+  </xpath>
+    <xpath expr="//div[@class='panel-body']/div[@class='row'][3]/div[@class='col-md-6'][2]/div[2]" position="attributes">
+      <attribute name="t-if">False</attribute>
+  </xpath>
+</template>
+
+</data>
+</openerp>
