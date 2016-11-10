@@ -1,0 +1,140 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_issue
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-web (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-25 21:58+0000\n"
+"PO-Revision-Date: 2015-08-06 15:37+0000\n"
+"Last-Translator: Juan Jose Scarafia <scarafia.juanjose@gmail.com>\n"
+"Language-Team: English (http://www.transifex.com/adhoc/ingadhoc-odoo-web-8-0/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_issue
+#: view:website:website_issue.issue_thanks
+msgid "&times;"
+msgstr "&times;"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "A Section Subtitle"
+msgstr "A Section Subtitle"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "Contact us about any issue you may be facing with."
+msgstr "Contact us about any issue you may be facing with."
+
+#. module: website_issue
+#: code:addons/website_issue/controllers/main.py:111
+#, python-format
+msgid "Custom Fields: "
+msgstr "Custom Fields: "
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "Description"
+msgstr "Description"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "Email"
+msgstr "Email"
+
+#. module: website_issue
+#: code:addons/website_issue/controllers/main.py:125
+#, python-format
+msgid "Environ Fields: "
+msgstr "Environ Fields: "
+
+#. module: website_issue
+#: view:website:website_issue.issue_thanks
+msgid "If you have an emergency, do not hesitate to contact us by phone:"
+msgstr "If you have an emergency, do not hesitate to contact us by phone:"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "Mi sinpiett"
+msgstr "Mi sinpiett"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "New Issue"
+msgstr "New Issue"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "Phone Number"
+msgstr "Phone Number"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "Send"
+msgstr "Send"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid ""
+"Start with the customer – find out what they want\n"
+"                            and give it to them."
+msgstr "Start with the customer – find out what they want\n                            and give it to them."
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "Summary"
+msgstr "Summary"
+
+#. module: website_issue
+#: view:website:website_issue.issue_thanks
+msgid "Thanks!"
+msgstr "Thanks!"
+
+#. module: website_issue
+#: view:website:website_issue.issue_thanks
+msgid "We will get back to you shortly."
+msgstr "We will get back to you shortly."
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "We'll do our best to get back to you as soon as possible."
+msgstr "We'll do our best to get back to you as soon as possible."
+
+#. module: website_issue
+#: model:ir.actions.act_url,name:website_issue.action_open_website
+msgid "Website Issue Form"
+msgstr "Website Issue Form"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid ""
+"Write one or two paragraphs describing your product or\n"
+"                            services. To be successful your content needs to be\n"
+"                            useful to your readers."
+msgstr "Write one or two paragraphs describing your product or\n                            services. To be successful your content needs to be\n                            useful to your readers."
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "Your Company"
+msgstr "Your Company"
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "Your Name"
+msgstr "Your Name"
+
+#. module: website_issue
+#: view:website:website_issue.issue_thanks
+msgid "Your issue has been sent successfully."
+msgstr "Your issue has been sent successfully."
+
+#. module: website_issue
+#: view:website:website.snippets
+msgid "e.g. (+32).81.81.37.00"
+msgstr "e.g. (+32).81.81.37.00"

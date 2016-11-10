@@ -1,0 +1,200 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_doc
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-web (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-25 21:58+0000\n"
+"PO-Revision-Date: 2015-08-06 15:37+0000\n"
+"Last-Translator: Juan Jose Scarafia <scarafia.juanjose@gmail.com>\n"
+"Language-Team: English (http://www.transifex.com/adhoc/ingadhoc-odoo-web-8-0/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_doc
+#: help:website.doc.toc,add_google_doc:0
+msgid "Add Google Doc after Page Content?"
+msgstr "Add Google Doc after Page Content?"
+
+#. module: website_doc
+#: field:website.doc.toc,add_google_doc:0
+msgid "Add Google Doc?"
+msgstr "Add Google Doc?"
+
+#. module: website_doc
+#: model:ir.ui.menu,name:website_doc.menu_documentation_article
+msgid "Article"
+msgstr "Article"
+
+#. module: website_doc
+#: view:website.doc.toc:website_doc.view_documentation_toc_form
+msgid "Articles"
+msgstr "Articles"
+
+#. module: website_doc
+#: field:website.doc.toc,child_ids:0
+msgid "Children Table Of Content"
+msgstr "Children Table Of Content"
+
+#. module: website_doc
+#: view:website.doc.toc:website_doc.view_documentation_toc_form
+msgid "Childs"
+msgstr "Childs"
+
+#. module: website_doc
+#: field:website.doc.toc,content:0
+msgid "Content"
+msgstr "Content"
+
+#. module: website_doc
+#: field:website.doc.toc,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: website_doc
+#: field:website.doc.toc,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: website_doc
+#: model:ir.actions.act_url,name:website_doc.action_open_documentation
+#: view:website:website.layout
+#: model:website.menu,name:website_doc.menu_questions
+msgid "Documentation"
+msgstr "Documentation"
+
+#. module: website_doc
+#: model:ir.ui.menu,name:website_doc.menu_documentation
+msgid "Documentation "
+msgstr "Documentation "
+
+#. module: website_doc
+#: model:ir.actions.act_window,name:website_doc.action_documentation_article
+msgid "Documentation Article"
+msgstr "Documentation Article"
+
+#. module: website_doc
+#: model:ir.actions.act_window,name:website_doc.action_documentation_toc
+#: view:website.doc.toc:website_doc.view_documentation_toc_form
+#: view:website.doc.toc:website_doc.view_documentation_toc_list
+msgid "Documentation TOC"
+msgstr "Documentation TOC"
+
+#. module: website_doc
+#: model:ir.model,name:website_doc.model_website_doc_toc
+#: model:ir.ui.menu,name:website_doc.menu_documentation_toc
+#: field:website.doc.toc,article_toc_id:0
+msgid "Documentation ToC"
+msgstr "Documentation ToC"
+
+#. module: website_doc
+#: constraint:website.doc.toc:0
+msgid "Error ! You cannot create recursive categories."
+msgstr "Error ! You cannot create recursive categories."
+
+#. module: website_doc
+#: field:website.doc.toc,article_ids:0
+msgid "Google Docs"
+msgstr "Google Docs"
+
+#. module: website_doc
+#: field:website.doc.toc,google_doc_code:0
+#: field:website.doc.toc,google_doc_link:0
+msgid "Google Document Code"
+msgstr "Google Document Code"
+
+#. module: website_doc
+#: field:website.doc.toc,google_doc_height:0
+msgid "Google Document Height"
+msgstr "Google Document Height"
+
+#. module: website_doc
+#: field:website.doc.toc,group_ids:0
+msgid "Groups"
+msgstr "Groups"
+
+#. module: website_doc
+#. openerp-web
+#: code:addons/website_doc/static/src/xml/website_doc.xml:7
+#, python-format
+msgid "Help and Doc"
+msgstr "Help and Doc"
+
+#. module: website_doc
+#: field:website.doc.toc,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: website_doc
+#: help:website.doc.toc,group_ids:0
+msgid ""
+"If you have groups, the visibility of this TOC will be based on        these"
+" groups. If this field is empty, Odoo will compute visibility based on the"
+"        related object's read access."
+msgstr "If you have groups, the visibility of this TOC will be based on        these groups. If this field is empty, Odoo will compute visibility based on the        related object's read access."
+
+#. module: website_doc
+#: field:website.doc.toc,is_article:0
+msgid "Is Article?"
+msgstr "Is Article?"
+
+#. module: website_doc
+#: field:website.doc.toc,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: website_doc
+#: field:website.doc.toc,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: website_doc
+#: field:website.doc.toc,parent_left:0
+msgid "Left Parent"
+msgstr "Left Parent"
+
+#. module: website_doc
+#: field:website.doc.toc,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: website_doc
+#: field:website.doc.toc,parent_id:0
+msgid "Parent Table Of Content"
+msgstr "Parent Table Of Content"
+
+#. module: website_doc
+#: view:website:website_doc.documentation_post
+msgid "Related topics"
+msgstr "Related topics"
+
+#. module: website_doc
+#: field:website.doc.toc,parent_right:0
+msgid "Right Parent"
+msgstr "Right Parent"
+
+#. module: website_doc
+#: field:website.doc.toc,sequence:0
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: website_doc
+#: field:website.doc.toc,website_meta_description:0
+msgid "Website meta description"
+msgstr "Website meta description"
+
+#. module: website_doc
+#: field:website.doc.toc,website_meta_keywords:0
+msgid "Website meta keywords"
+msgstr "Website meta keywords"
+
+#. module: website_doc
+#: field:website.doc.toc,website_meta_title:0
+msgid "Website meta title"
+msgstr "Website meta title"

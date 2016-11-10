@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-extend="UserMenu">
+        <t t-jquery="a[data-menu='settings']" t-operation="after">
+            <li>
+                <a data-menu="help_and_doc" href="#">Help and Doc</a>
+            </li>
+        </t>
+    </t>
+</templates>

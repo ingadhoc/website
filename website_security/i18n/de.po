@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_security
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-04 21:40+0000\n"
+"PO-Revision-Date: 2015-08-04 21:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_security
+#: field:website.menu,group_ids:0
+msgid "Groups"
+msgstr "Gruppen"
+
+#. module: website_security
+#: help:website.menu,group_ids:0
+msgid "If you have groups, the visibility of this menu will be based        on these groups. If this field is empty, Odoo will compute visibility based on the        related object's read access."
+msgstr "Sofern Gruppen angegeben sind, wird sich die Sichtbarkeit des Menüs auf diese Gruppen basieren. Ist dieses Feld leer, wird Odoo die Sichtbarkeit anhand der Objekt Leserechte bestimmen."
+
+#. module: website_security
+#: model:ir.ui.menu,name:website_security.website_main_menu
+#: model:ir.ui.menu,name:website_security.website_sub_menu
+msgid "Website"
+msgstr "Webseite"
+
+#. module: website_security
+#: model:ir.actions.act_window,name:website_security.action_website_menu
+#: model:ir.model,name:website_security.model_website_menu
+#: model:ir.ui.menu,name:website_security.website_menu_menu
+msgid "Website Menu"
+msgstr "Webseiten Menü"
+
+#. module: website_security
+#: view:website.menu:website_security.menu_form
+msgid "Website Menus"
+msgstr "Webseiten Menüs"
+
+#. module: website_security
+#: model:ir.actions.act_window,name:website_security.website_action_ui_view
+#: model:ir.ui.menu,name:website_security.menu_website_view
+msgid "Website Views"
+msgstr "Webseiten Ansichten"
+
+#. module: website_security
+#: field:website.menu,related_view_id:0
+msgid "Related View"
+msgstr "Zugehörige Ansicht"
