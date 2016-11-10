@@ -6,25 +6,7 @@
 Product Price Taxes Included or Not
 ===================================
 
-This module include in Product Price Taxes  or Not
-
-Installation
-============
-
-To install this module, you need to:
-
-
-Configuration
-=============
-
-To configure this module, you need to:
-
-
-Usage
-=====
-
-To use this module, you need to:
-
+Shou prices on ecommerce with taxes included
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
