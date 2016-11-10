@@ -21,7 +21,7 @@
     """,
     "author": "Webkul Software Pvt. Ltd.",
     "website": "http://www.webkul.com",
-    "version": '1.0',
+    "version": '9.0.1.0.0',
     "depends": ['website_sale'],
     "data": [
         'views/auth_signup_login.xml',

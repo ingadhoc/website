@@ -19,7 +19,7 @@ class sale_order_line(models.Model):
         compute='_fnct_get_discounted_price',
         string='Discounted price',
         digits=dp.get_precision('Product Price')
-        )
+    )
 
     @api.multi
     def _fnct_get_discounted_price(self):

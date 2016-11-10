@@ -61,4 +61,3 @@ class website_sale(website_sale):
         context = request.context
         context['taxes_included'] = True
         return super(website_sale, self).modal(product_id, **kw)
-# vim:expandtab:tabstop=4:softtabstop=4:shiftwidth=4:
