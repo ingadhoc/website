@@ -6,7 +6,7 @@
 eCommerce Delivery with taxes included
 ======================================
 
-This module include the taxes in eCommerce Delivery
+This module include taxes on delivery costs of ecommerce
 
 Installation
 ============
