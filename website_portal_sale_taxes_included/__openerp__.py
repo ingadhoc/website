@@ -27,17 +27,19 @@
     'description': '''
 Website Portal for Sales With Taxes Included
 ============================================
+Show prices of sale orders and quoatations with taxes included on website
+portal
     ''',
-    'author':  'ADHOC SA',
+    'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [
     ],
     'depends': [
-        'website_portal_sale',
+        'website_sale',
         # TODO tenemos que mejorar o separar integracion entre
         # l10n_ar_invoice_sale y product_price_taxes_included
-        'l10n_ar_invoice_sale',
+        'l10n_ar_sale',
         # 'product_price_taxes_included',
     ],
     'data': [
@@ -48,7 +50,7 @@ Website Portal for Sales With Taxes Included
     ],
     'test': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': False,
 }
