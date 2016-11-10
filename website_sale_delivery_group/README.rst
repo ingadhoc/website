@@ -6,8 +6,7 @@
 e-Commerce Delivery Groups
 ==========================
 
-Allow to set groups on delivery methods acquires,
-    only users of that groups will be able to use them
+Allow to set groups on delivery methods acquires, only users of that groups will be able to use them
 
 Installation
 ============

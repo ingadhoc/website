@@ -6,11 +6,10 @@
 e-Commerce Custom Products Search
 =================================
 
-This module allow Custom Products Search in e-Commerce
-Search also by:
-
-* attributes
-* public categories
+This module makes some modifications on e-Commerce search
+* search by attributes
+* search by public categories
+* reset search when clicking on a category
 
 Installation
 ============
