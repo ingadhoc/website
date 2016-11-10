@@ -39,17 +39,18 @@ class AcquirerMercadopago(models.Model):
     todopago_client_id = fields.Char(
         'TodoPago Merchant Id',
         required_if_provider='todopago',
+        help='For eg. 11123',
     )
     todopago_secret_key = fields.Char(
         'TodoPago Secret Key',
+        help='For eg. TODOPAGO 4C841713E65FBC7719D666CCAC531234',
         required_if_provider='todopago',
     )
 
     @api.multi
     def get_TodoPagoConnector(self):
         self.ensure_one()
-        j_header_http = {"Authorization": "TODOPAGO %s" % (
-            self.todopago_secret_key)}
+        j_header_http = {"Authorization": self.todopago_secret_key}
         return tp.TodoPagoConnector(j_header_http, self.environment)
 
     @api.multi
