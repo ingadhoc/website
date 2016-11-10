@@ -1,1 +1,2 @@
-product https://github.com/ingadhoc/product.git
+ingadhoc-product https://github.com/ingadhoc/product.git
+ingadhoc-product https://github.com/ingadhoc/argentina-sale.git
