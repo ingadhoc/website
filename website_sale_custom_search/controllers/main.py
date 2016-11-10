@@ -78,7 +78,7 @@ class website_sale(website_sale):
                     cr, uid, [('name', 'ilike', srch)], context=context)
                 domain += [
                     '|', '|', '|', '|', '|', '|', ('name', 'ilike', srch),
-                    ('ean13', 'ilike', srch),
+                    ('barcode', 'ilike', srch),
                     ('description', 'ilike', srch),
                     ('description_sale', 'ilike', srch),
                     ('public_categ_ids', 'child_of', public_categ_ids),
