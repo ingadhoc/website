@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- Documentation main mennu -->
+        <menuitem id="menu_documentation"
+            parent="base.menu_administration" groups="base.group_user"
+            name="Documentation " sequence="6"/>
+
+        <!-- DOCUMENTATION TOC VIEWS -->
+        <record id="view_documentation_toc_filter" model="ir.ui.view">
+            <field name="name">website.doc.toc.filter</field>
+            <field name="model">website.doc.toc</field>
+            <field name="arch" type="xml">
+                <search string="Documentation TOC">
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                    <field name="article_toc_id"/>
+                    <filter string="Root TOC" name="root_toc" domain="[('parent_id', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="parent_id" string="Parent" context="{'group_by':'parent_id'}"/>
+                        <filter name="article_toc_id" string="Article" context="{'group_by':'article_toc_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_documentation_toc_list" model="ir.ui.view">
+            <field name="name">website.doc.toc.list</field>
+            <field name="model">website.doc.toc</field>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Documentation TOC">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                    <field name="partner_id"/>
+                    <field name="article_ids"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_documentation_article_list" model="ir.ui.view">
+            <field name="name">website.doc.article.list</field>
+            <field name="model">website.doc.toc</field>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Documentation Articles">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="article_toc_id"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_documentation_toc_form" model="ir.ui.view">
+            <field name="name">website.doc.toc.form</field>
+            <field name="model">website.doc.toc</field>
+            <field name="arch" type="xml">
+                <form string="Documentation TOC">
+                    <header>
+                        <field name="state" widget="statusbar" clickable="True"/>
+                        <!-- <field name="state" widget="statusbar" clickable="True"  attrs="{'invisible':[('is_article', '=', False)]}"/> -->
+                    </header>
+                    <field name="is_article" invisible="1"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="parent_id" invisible="'from_parent' in context" attrs="{'invisible':[('is_article', '=', True)]}"/>
+                        <!-- por ahora no lo usamos, usamos el published, probablemente los grupos terminen siendo grupos de infra o algo asi -->
+                        <!-- <field name="group_ids" widget="many2many_tags" attrs="{'invisible':[('is_article', '=', False)]}"/> -->
+                        <field name="article_toc_id" attrs="{'invisible':[('is_article', '=', False)]}" invisible="'from_toc' in context"/>
+                        <field name="add_google_doc" attrs="{'invisible':[('is_article', '=', False)]}"/>
+                    </group>
+                    <group attrs="{'invisible':[('add_google_doc', '=', False)]}">
+                        <field name="google_doc_code" attrs="{'required':[('add_google_doc', '=', True)]}"/>
+                        <field name="google_doc_height" attrs="{'required':[('add_google_doc', '=', True)]}"/>
+                        <field name="google_doc_link" widget="url"/>
+                    </group>
+                    <notebook>
+                        <page string="Articles" attrs="{'invisible':[('is_article', '=', True)]}">
+                            <field name="article_ids" context="{'default_is_article': 1, 'from_toc': True}"/>
+                        </page>
+                        <!-- We edit content on front end -->
+<!--                         <page string="Content" attrs="{'invisible':[('is_article', '!=', True)]}">
+                            <field name="content"/>
+                        </page> -->
+                        <page string="Childs" attrs="{'invisible':[('is_article', '=', True)]}">
+                            <field name="child_ids" context="{'from_parent':True}" />
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record id="action_documentation_toc" model="ir.actions.act_window">
+            <field name="name">Documentation TOC</field>
+            <field name="res_model">website.doc.toc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_documentation_toc_list"/>
+            <field name="context">{'default_is_article':0, 'search_default_root_toc': 1}</field>
+            <field name="domain">[('is_article', '=', False)]</field>
+        </record>
+
+        <menuitem id="menu_documentation_toc"
+            parent="menu_documentation"
+            name="Documentation ToC" action="action_documentation_toc" sequence="10"/>
+
+        <record id="action_documentation_article" model="ir.actions.act_window">
+            <field name="name">Documentation Article</field>
+            <field name="res_model">website.doc.toc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_documentation_article_list"/>
+            <field name="context">{'default_is_article':1}</field>
+            <field name="domain">[('is_article', '=', True)]</field>
+        </record>
+
+        <menuitem id="menu_documentation_article"
+            parent="menu_documentation"
+            name="Article" action="action_documentation_article" sequence="30"/>
+
+        <!-- Tree type view -->
+
+        <record id="action_documentation_toc_tree" model="ir.actions.act_window">
+            <field name="name">Documentation Items</field>
+            <field name="res_model">website.doc.toc</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_documentation_toc_list"/>
+            <field name="domain">[('parent_id', '=', False), ('is_article', '=', False)]</field>
+        </record>
+
+        <menuitem id="menu_documentation_toc_tree"
+            parent="menu_documentation"
+            name="Documentation TOC Structure" action="action_documentation_toc_tree" sequence="20"/>
+
+        <act_window
+            id="action_documentation_toc_tree_article"
+            name="Articles"
+            context="{'search_default_article_toc_id': [active_id]}"
+            res_model="website.doc.toc"
+            src_model="website.doc.toc"
+            view_id="view_documentation_article_list"
+            view_mode="tree,form"
+            key2="tree_but_open"/>
+    </data>
+</openerp>
