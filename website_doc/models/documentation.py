@@ -27,7 +27,7 @@ class Documentation(models.Model):
         for record in reads:
             name = record['name']
             if record['parent_id']:
-                name = record['parent_id'][1]+' / '+name
+                name = record['parent_id'][1] + ' / ' + name
             res.append((record['id'], name))
         return res
 
@@ -41,69 +41,69 @@ class Documentation(models.Model):
     sequence = fields.Integer(
         'Sequence',
         default=10,
-        )
+    )
     name = fields.Char(
         'Name',
         required=True,
         # to avoid complications we disable translation
         # translate=True,
-        )
+    )
     parent_id = fields.Many2one(
         'website.doc.toc',
         'Parent Table Of Content',
         ondelete='cascade',
         domain=[('is_article', '=', False)],
-        )
+    )
     child_ids = fields.One2many(
         'website.doc.toc',
         'parent_id',
         'Children Table Of Content'
-        )
+    )
     parent_left = fields.Integer(
         'Left Parent',
         select=True
-        )
+    )
     parent_right = fields.Integer(
         'Right Parent',
         select=True
-        )
+    )
     is_article = fields.Boolean(
         'Is Article?'
-        )
+    )
     article_toc_id = fields.Many2one(
         'website.doc.toc',
         'Documentation ToC',
         ondelete='set null',
         domain=[('is_article', '=', False)],
-        )
+    )
     article_ids = fields.One2many(
         'website.doc.toc',
         'article_toc_id',
         'Articles',
         domain=[('is_article', '=', True)],
         context={'default_is_article': 1},
-        )
+    )
     add_google_doc = fields.Boolean(
         'Add Google Doc?',
         help="Add Google Doc after Page Content?"
-        )
+    )
     google_doc_link = fields.Char(
         'Google Document Code',
-        )
+    )
     google_doc_code = fields.Char(
         'Google Document Code',
-        )
+    )
     google_doc_height = fields.Char(
         'Google Document Height',
         default='1050px'
-        )
+    )
     content = fields.Html(
         'Content',
-        )
+    )
     google_doc = fields.Text(
         'Content',
         compute='_get_google_doc',
-        )
+    )
     group_ids = fields.Many2many(
         'res.groups',
         'website_doc_toc_group_rel',
@@ -114,7 +114,7 @@ class Documentation(models.Model):
         # "If this field is empty, Odoo will compute
         # visibility based on the "
         # related object's read access."
-        )
+    )
     state = fields.Selection(
         [('private', 'Is Private'),
          ('published', 'Published')],
@@ -124,13 +124,13 @@ class Documentation(models.Model):
         # default='private',
         help="If private, then it wont be accesible "
              "by portal or public users"
-        )
+    )
     partner_id = fields.Many2one(
         'res.partner',
         'Partner',
-        help='If partner is set, only this partner will be able\
-        to see this item (except documentation managers)',
-        )
+        help='If partner is set, only this partner will be able '
+        'to see this item (except documentation managers)',
+    )
 
     @api.one
     @api.depends('google_doc_code', 'google_doc_height')
@@ -145,6 +145,7 @@ class Documentation(models.Model):
         (osv.osv._check_recursion,
             'Error ! You cannot create recursive categories.', ['parent_id'])
     ]
+
 
 google_doc_template = """
  <div class="row">
