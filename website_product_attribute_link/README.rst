@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============
-Link 
-==============
+==============================================
+Product Attribute Link on Website Product view
+==============================================
 
 Add links on website product view to search by the attribute value clicked on the product
 
@@ -47,7 +47,7 @@ Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/ingadhoc/{project_repo}/issues>`_. In case of trouble, please
+<https://github.com/ingadhoc/website/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
 help us smashing it by providing a detailed and welcomed feedback.
 
