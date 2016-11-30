@@ -3,8 +3,8 @@
     <data>
         <!-- Documentation main mennu -->
         <menuitem id="menu_documentation"
-            parent="base.menu_administration" groups="base.group_user"
-            name="Documentation " sequence="6"/>
+            parent="website.menu_website_configuration" groups="base.group_user"
+            name="Documentation " sequence="25"/>
 
         <!-- DOCUMENTATION TOC VIEWS -->
         <record id="view_documentation_toc_filter" model="ir.ui.view">

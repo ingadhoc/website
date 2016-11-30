@@ -2,11 +2,6 @@
 <openerp>
     <data>
 
-        <!-- Website Talkus main menu -->
-        <menuitem id="website_talkus_main"
-            parent="base.menu_administration"
-            name="Website Talkus" sequence="8"/>
-
         <!-- Website Talkus VIEWS -->
         <record id="view_website_talkus_list" model="ir.ui.view">
             <field name="name">website.talkus.list</field>
@@ -45,10 +40,16 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+        <!-- Website Talkus main menu -->
+        <menuitem id="website_talkus_main"
+            action="action_website_talkus"
+            parent="website.menu_website_configuration"
+            name="Talkus" sequence="30"/>
+
         <!-- Talkus Chats menu -->
-        <menuitem id="menu_talkus_chat"
+        <!-- <menuitem id="menu_talkus_chat"
             parent="website_talkus_main" name="Talkus Chat"
-            action="action_website_talkus" sequence="1"/>
+            action="action_website_talkus" sequence="1"/> -->
 
 
     </data>
