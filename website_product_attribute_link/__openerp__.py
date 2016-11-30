@@ -35,12 +35,13 @@
     'data': [
         'views/templates.xml',
         'views/product_attribute_view.xml',
+        'data/product_group_data.xml',
     ],
     'demo': [
     ],
     'test': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': False,
 }
