@@ -139,7 +139,7 @@ class Documentation(models.Model):
         if self.google_doc_height and self.google_doc_code:
             google_doc = google_doc_template % (
                 self.google_doc_height, self.google_doc_code)
-        self.google_doc = google_doc
+            self.google_doc = google_doc
 
     _constraints = [
         (osv.osv._check_recursion,
