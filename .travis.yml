@@ -66,9 +66,9 @@ virtualenv:
 
 # Enable this if your repository needs sass command (needed for website related repos)
 before_install:
-  - if [[ "${OCA_RUNBOT}" == "1" ]]; rvm install ruby --latest; fi
-  - if [[ "${OCA_RUNBOT}" == "1" ]]; gem install bootstrap-sass; fi
-  - if [[ "${OCA_RUNBOT}" == "1" ]]; gem install compass --pre; fi
+  - if [[ "${OCA_RUNBOT}" == "1" ]]; then rvm install ruby --latest; fi
+  - if [[ "${OCA_RUNBOT}" == "1" ]]; then gem install bootstrap-sass; fi
+  - if [[ "${OCA_RUNBOT}" == "1" ]]; then gem install compass --pre; fi
 
 install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
