@@ -145,8 +145,12 @@ class AcquirerMercadopago(models.Model):
         # clean phone, only numbers
         string_all = string.maketrans('', '')
         nodigs = string_all.translate(string_all, string.digits)
-        phone = partner_values["phone"] or "12345678"
-        phone = str(phone).translate(string_all, nodigs)
+        phone = partner_values["phone"]
+        # phone = partner_values["phone"] or "12345678"
+        # phone = str(phone).translate(string_all, nodigs)
+        # it we call str to a char phone then it return an empty string, if
+        # empty string or nothing, use dummy phone
+        phone = str(phone).translate(string_all, nodigs) or "12345678"
         # todopago no nos acepta mas de 13 caraceteres
         phone = phone[:13]
         amount = "%.2f" % round(tx_values['amount'], 2)
