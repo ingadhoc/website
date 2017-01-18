@@ -4,7 +4,8 @@
 <!-- we should improove this and show original invoice report -->
 <template id="invoices" inherit_id="website_portal_sale.invoices" name="Invoices and Payments Without link">
   <xpath expr="//a" position="replace">
-    <t t-esc="invoice.number"/>
+    <!-- <t t-esc="invoice.number"/> -->
+    <t t-esc="invoice.display_name"/>
   </xpath>
 </template>
 
