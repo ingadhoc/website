@@ -138,7 +138,10 @@ class AcquirerMercadopago(models.Model):
         # todopago no nos acepta mas de 13 caraceteres
         phone = phone[:13]
         amount = "%.2f" % round(tx_values['amount'], 2)
-        email = values["partner_email"] or 'dummy@email.com'
+        email = values["partner_email"]
+        # if multiple emails then we dont send any. TODO improove and get first
+        if not email or ',' in email or ';' in email:
+            email = 'dummy@email.com'
         email = email.strip().encode("utf8")
         # mandatorio, ya es mandatorio en ecommerce
         city = values["billing_partner_city"] or 'DUMMY CITY'
@@ -148,9 +151,12 @@ class AcquirerMercadopago(models.Model):
         postal_code = values["billing_partner_zip"] or '1000'
         postal_code = postal_code.encode("utf8")
         first_name = values["billing_partner_first_name"]
-        first_name = first_name.encode("utf8")
+        # TODO improove this, todopago does not accept . or ,
+        first_name = first_name.encode("utf8").replace(
+            '.', '').replace(',', '')
         last_name = values["billing_partner_last_name"]
-        last_name = last_name.encode("utf8")
+        last_name = last_name.encode("utf8").replace(
+            '.', '').replace(',', '')
         # TODO tal vez necesitariamos separar primer y segundo nombre
         # en el caso que solo haya una palabra
         if not first_name:
