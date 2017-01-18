@@ -132,9 +132,10 @@ class AcquirerMercadopago(models.Model):
 
         # clean phone, only numbers
         string_all = string.maketrans('', '')
-        nodigs = string_all.translate(string_all, string.digits)
+        onlydigits = string_all.translate(string_all, string.digits)
+        onlyletters = string_all.translate(string_all, string.letters)
         phone = values["billing_partner_phone"]
-        phone = str(phone).translate(string_all, nodigs) or "12345678"
+        phone = str(phone).translate(string_all, onlydigits) or "12345678"
         # todopago no nos acepta mas de 13 caraceteres
         phone = phone[:13]
         amount = "%.2f" % round(tx_values['amount'], 2)
@@ -151,12 +152,12 @@ class AcquirerMercadopago(models.Model):
         postal_code = values["billing_partner_zip"] or '1000'
         postal_code = postal_code.encode("utf8")
         first_name = values["billing_partner_first_name"]
-        # TODO improove this, todopago does not accept . or ,
-        first_name = first_name.encode("utf8").replace(
-            '.', '').replace(',', '')
         last_name = values["billing_partner_last_name"]
-        last_name = last_name.encode("utf8").replace(
-            '.', '').replace(',', '')
+        # todopago only accept lettters
+        first_name = str(first_name.encode("utf8")).translate(
+            string_all, onlyletters)
+        last_name = str(last_name.encode("utf8")).translate(
+            string_all, onlyletters)
         # TODO tal vez necesitariamos separar primer y segundo nombre
         # en el caso que solo haya una palabra
         if not first_name:
