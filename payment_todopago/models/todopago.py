@@ -31,11 +31,6 @@ class AcquirerMercadopago(models.Model):
         providers.append(['todopago', 'TodoPago'])
         return providers
 
-    # TODO mejorar la implementacion de esto dando mensajes o algo mas flexible
-    todopago_success_return_url = fields.Char(
-    )
-    todopago_failure_return_url = fields.Char(
-    )
     todopago_client_id = fields.Char(
         'TodoPago Merchant Id',
         required_if_provider='todopago',
@@ -78,10 +73,11 @@ class AcquirerMercadopago(models.Model):
         return fees
 
     @api.multi
-    def todopago_form_generate_values(self, partner_values, tx_values):
+    def todopago_form_generate_values(self, values):
         # return {}, tx_values
-        # return partner_values, tx_values
+        # return values, tx_values
         self.ensure_one()
+        tx_values = dict(values)
         if (
                 not self.todopago_client_id or
                 not self.todopago_secret_key
@@ -91,18 +87,8 @@ class AcquirerMercadopago(models.Model):
                 'acquirer.todopago_secret_key'))
 
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-        if tx_values.get('return_url'):
-            success_url = TodoPagoController._success_url
-            failure_url = TodoPagoController._failure_url
-            # pending_url = TodoPagoController._pending_url
-        else:
-            success_url = TodoPagoController._success_no_return_url
-            failure_url = TodoPagoController._failure_no_return_url
-            # if self.todopago_failure_return_url
-            # pending_url = TodoPagoController._pending_url
-
-        # sale_order = self.env['sale.order'].search(
-        #     [('name', '=', tx_values["reference"])], limit=1)
+        success_url = TodoPagoController._success_url
+        failure_url = TodoPagoController._failure_url
         commercial_partner = tx_values['partner'].commercial_partner_id
 
         # get some values and catch errors
@@ -110,7 +96,8 @@ class AcquirerMercadopago(models.Model):
         # mandatorio, ya es mandatorio en ecommerce. Ademas parece ser solo
         # para argentina ya que requiere provincia en codigos argentinos
         country = (
-            partner_values['country'] and partner_values['country'].code or
+            values['billing_partner_country'] and values[
+                'billing_partner_country'].code or
             'AR').encode("utf8")
         if country != 'AR':
             errors.append('Only Argentina Implemented for TODOPAGO')
@@ -122,8 +109,9 @@ class AcquirerMercadopago(models.Model):
             errors.append('Only ARS Currency Implemented for TODOPAGO')
 
         # usamos estado generico de bs as si no viene definido
-        if partner_values['state'] and partner_values['state'].code:
-            state = partner_values['state'].code
+        if values['billing_partner_state'] and values[
+                'billing_partner_state'].code:
+            state = values['billing_partner_state'].code
         else:
             state = 'B'
 
@@ -140,28 +128,28 @@ class AcquirerMercadopago(models.Model):
             # display
             _logger.info('Todo pago method not avialble because of %s' % (
                 errors))
-            return partner_values, tx_values
+            return tx_values
 
         # clean phone, only numbers
         string_all = string.maketrans('', '')
         nodigs = string_all.translate(string_all, string.digits)
-        phone = partner_values["phone"] or "12345678"
-        phone = str(phone).translate(string_all, nodigs)
+        phone = values["billing_partner_phone"]
+        phone = str(phone).translate(string_all, nodigs) or "12345678"
         # todopago no nos acepta mas de 13 caraceteres
         phone = phone[:13]
         amount = "%.2f" % round(tx_values['amount'], 2)
-        email = partner_values["email"] or 'dummy@email.com'
+        email = values["partner_email"] or 'dummy@email.com'
         email = email.strip().encode("utf8")
         # mandatorio, ya es mandatorio en ecommerce
-        city = partner_values["city"] or 'DUMMY CITY'
+        city = values["billing_partner_city"] or 'DUMMY CITY'
         city = city.encode("utf8")
-        street = partner_values["address"] or 'DUMMY STREET'
+        street = values["billing_partner_address"] or 'DUMMY STREET'
         street = street.encode("utf8")
-        postal_code = partner_values["zip"] or '1000'
+        postal_code = values["billing_partner_zip"] or '1000'
         postal_code = postal_code.encode("utf8")
-        first_name = partner_values["first_name"]
+        first_name = values["billing_partner_first_name"]
         first_name = first_name.encode("utf8")
-        last_name = partner_values["last_name"]
+        last_name = values["billing_partner_last_name"]
         last_name = last_name.encode("utf8")
         # TODO tal vez necesitariamos separar primer y segundo nombre
         # en el caso que solo haya una palabra
@@ -224,27 +212,30 @@ class AcquirerMercadopago(models.Model):
             "EMAILCLIENTE": email,
         }
 
-        tx_values['todopago_data'] = {
-            'optionsSAR_operacion': optionsSAR_operacion,
-            'optionsSAR_comercio': optionsSAR_comercio,
-            'todopago_client_id': self.todopago_client_id,
-            'todopago_secret_key': self.todopago_secret_key,
-            # 'environment': self.environment,
-            'acquirer_id': self.id,
-            'partner_id': commercial_partner.id,
-            'amount': tx_values['amount'],
-            'currency_id': tx_values['currency'].id,
-        }
-        return partner_values, tx_values
+        tx_values.update({
+            'todopago_data': {
+                'optionsSAR_operacion': optionsSAR_operacion,
+                'optionsSAR_comercio': optionsSAR_comercio,
+                'todopago_client_id': self.todopago_client_id,
+                'todopago_secret_key': self.todopago_secret_key,
+                # 'environment': self.environment,
+                'acquirer_id': self.id,
+                'partner_id': commercial_partner.id,
+                'amount': tx_values['amount'],
+                'currency_id': tx_values['currency'].id,
+                'return_url': tx_values['return_url'],
+            }
+        })
+        return tx_values
 
-    # @api.multi
-    # def todopago_get_form_action_url(self):
-    #     self.ensure_one()
-    #     """
-    #     Este metodo se llama cada vez que se ve el boton asi que no
-    #     lo podemos usar para mucho
-    #     """
-    #     return TodoPagoController._create_preference_url
+    @api.multi
+    def todopago_get_form_action_url(self):
+        self.ensure_one()
+        """
+        Este metodo se llama cada vez que se ve el boton asi que no
+        lo podemos usar para mucho
+        """
+        return TodoPagoController._create_preference_url
 
     @api.multi
     def _todopago_create_transaction(self, data):
@@ -260,6 +251,8 @@ class AcquirerMercadopago(models.Model):
             'optionsSAR_comercio')
         optionsSAR_operacion = todopago_data.get(
             'optionsSAR_operacion')
+        return_url = todopago_data.get(
+            'return_url')
 
         tpc = self.get_TodoPagoConnector()
         _logger.info('Sending sendAuthorizeRequest')
@@ -275,6 +268,7 @@ class AcquirerMercadopago(models.Model):
         tr_vals = {
             'todopago_RequestKey': response.RequestKey,
             'todopago_PublicRequestKey': response.PublicRequestKey,
+            'todopago_Return_url': return_url,
         }
         # desde el website la transaccion ya esta creadas, desde SO no, por
         # eso lo hacemos asi
@@ -318,8 +312,8 @@ class TxTodoPago(models.Model):
     todopago_Answer = fields.Char(
         'Answer',
     )
-    todopago_txn_id = fields.Char(
-        'Transaction ID',
+    todopago_Return_url = fields.Char(
+        'Todopago return url',
     )
 
     @api.model
@@ -367,8 +361,10 @@ class TxTodoPago(models.Model):
         status = AA.StatusCode
 
         vals = {
-            'todopago_RequestKey': str(tx.todopago_RequestKey),
-            'todopago_Answer': str(tx.todopago_Answer),
+            # 'todopago_RequestKey': str(tx.todopago_RequestKey),
+            # 'todopago_Answer': str(tx.todopago_Answer),
+            'acquirer_reference': AA.AuthorizationKey,
+            'state_message': '%s. %s' % (AA.StatusMessage, AA.Payload),
         }
         if status == -1:
             _logger.info(
@@ -376,14 +372,17 @@ class TxTodoPago(models.Model):
                     tx.reference))
             vals.update(
                 state='done',
-                state_message='%s. %s' % (AA.StatusMessage, AA.Payload),
-                date_validate=vals.get('payment_date', fields.datetime.now()))
+                # state_message='%s. %s' % (AA.StatusMessage, AA.Payload),
+                date_validate=vals.get('payment_date', fields.datetime.now())
+            )
             return tx.write(vals)
         else:
             _logger.info(
                 'Received notification for TodoPago payment %s: '
-                'set as cancelled' % (tx.reference))
+                'set as errored' % (tx.reference))
             vals.update(
-                state='cancel',
-                state_message=AA.StatusMessage)
+                state='error',
+                # state='cancel',
+                # state_message=AA.StatusMessage
+            )
             return tx.write(vals)

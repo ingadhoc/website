@@ -3,8 +3,8 @@
     <data noupdate="1">
 
         <template id="todopago_acquirer_button">
-            <form t-if="acquirer.todopago_secret_key and acquirer.todopago_client_id and tx_values.get('todopago_data', False)" t-att-action="tx_url" method="post" target="_self">
-                <input type="hidden" name="todopago_data" t-att-value="tx_values['todopago_data']"/>
+            <form t-if="acquirer.todopago_secret_key and acquirer.todopago_client_id and todopago_data" t-att-action="tx_url" method="post" target="_self">
+                <input type="hidden" name="todopago_data" t-att-value="todopago_data"/>
                 <button type="submit" width="100px"
                     t-att-class="submit_class">
                     <img t-if="not submit_txt" src="/payment_todopago/static/src/img/todopago_icon.png"/>
