@@ -51,7 +51,8 @@ env:
   - TRANSIFEX_TEAM='46451'
 
   matrix:
-  - LINT_CHECK="1"
+  # por todopago no podemos activarlo 
+  # - LINT_CHECK="1"
   - TRANSIFEX="1"
   - TESTS="1" ODOO_REPO="odoo/odoo" 
 # either use the two lines above or the two below. Don't change the default if
@@ -66,9 +67,10 @@ virtualenv:
 
 # Enable this if your repository needs sass command (needed for website related repos)
 before_install:
-  - rvm install ruby --latest
-  - gem install bootstrap-sass
-  - gem install compass --pre
+  # on runbot do not install, they give an error
+  - if [[ "${OCA_RUNBOT}" != "1" ]]; then rvm install ruby --latest; fi
+  - if [[ "${OCA_RUNBOT}" != "1" ]]; then gem install bootstrap-sass; fi
+  - if [[ "${OCA_RUNBOT}" != "1" ]]; then gem install compass --pre; fi
 
 install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools

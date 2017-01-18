@@ -7,17 +7,10 @@
             <field name="model">payment.acquirer</field>
             <field name="inherit_id" ref="payment.acquirer_form"/>
             <field name="arch" type="xml">
-                <xpath expr='//group[@name="acquirer_left"]' position='after'>
+                <xpath expr='//group[@name="acquirer"]' position='after'>
                     <group attrs="{'invisible': [('provider', '!=', 'todopago')]}">
                         <field name="todopago_client_id"/>
                         <field name="todopago_secret_key"/>
-                        <field name="todopago_success_return_url"/>
-                        <field name="todopago_failure_return_url"/>
-                        <!-- <field name="todopago_description" attrs="{'required': [('provider', '=', 'todopago')]}"/> -->
-                        <!-- <field name="todopago_generic_message" attrs="{'required': [('todopago_description', '=', 'generic_message'), ('provider', '=', 'todopago')], 'invisible': [('todopago_description', '!=', 'generic_message')]}"/> -->
-                        <!-- TODO terminar de implementar ipn -->
-<!--                         <label for="todopago_client_id" string="If you also want to receive notifications by ipn go to:"/>
-                        <a href="https://www.todopago.com/mla/herramientas/notificaciones" target="_blank">https://www.todopago.com/mla/herramientas/notificaciones</a> -->
                     </group>
                 </xpath>
             </field>
@@ -34,7 +27,7 @@
                             <field name="todopago_RequestKey"/>
                             <field name="todopago_PublicRequestKey"/>
                             <field name="todopago_Answer"/>
-                            <field name="todopago_txn_id"/>
+                            <field name="todopago_Return_url"/>
                         </group>
                     </page>
                 </xpath>
