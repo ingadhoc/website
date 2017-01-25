@@ -34,7 +34,7 @@
                 </div>
 
                 <!-- <ul t-if="title.article_ids" class="mt32"> -->
-                <ul t-if="title.article_ids">
+                <ul t-if="not title.dont_show_childs and title.article_ids">
                     <li t-foreach="title.article_ids" t-as="article">
                         <a t-attf-href="/doc/how-to/#{slug(title)}/#{slug(article)}" t-field="article.name"/>
                     </li>
