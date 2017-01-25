@@ -57,7 +57,8 @@ class Documentation(models.Model):
     child_ids = fields.One2many(
         'website.doc.toc',
         'parent_id',
-        'Children Table Of Content'
+        'Children Table Of Content',
+        copy=True,
     )
     parent_left = fields.Integer(
         'Left Parent',
@@ -82,6 +83,7 @@ class Documentation(models.Model):
         'Articles',
         domain=[('is_article', '=', True)],
         context={'default_is_article': 1},
+        copy=True,
     )
     add_google_doc = fields.Boolean(
         'Add Google Doc?',
@@ -130,6 +132,8 @@ class Documentation(models.Model):
         'Partner',
         help='If partner is set, only this partner will be able '
         'to see this item (except documentation managers)',
+    )
+    dont_show_childs = fields.Boolean(
     )
 
     @api.one

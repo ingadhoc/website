@@ -68,6 +68,7 @@
                     <group>
                         <field name="name"/>
                         <field name="parent_id" invisible="'from_parent' in context" attrs="{'invisible':[('is_article', '=', True)]}"/>
+                        <field name="dont_show_childs" attrs="{'invisible':[('is_article', '=', True)]}"/>
                         <!-- por ahora no lo usamos, usamos el published, probablemente los grupos terminen siendo grupos de infra o algo asi -->
                         <!-- <field name="group_ids" widget="many2many_tags" attrs="{'invisible':[('is_article', '=', False)]}"/> -->
                         <field name="article_toc_id" attrs="{'invisible':[('is_article', '=', False)]}" invisible="'from_toc' in context"/>

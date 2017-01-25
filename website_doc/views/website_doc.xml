@@ -39,9 +39,10 @@
                         <a t-attf-href="/doc/how-to/#{slug(title)}/#{slug(article)}" t-field="article.name"/>
                     </li>
                 </ul>
-
-                <t t-set="titles" t-value="title.child_ids"/>
-                <t t-call="website_doc.toc"/>
+                <t t-if="not title.dont_show_childs">
+                    <t t-set="titles" t-value="title.child_ids"/>
+                    <t t-call="website_doc.toc"/>
+                </t>
             </t>
         </template>
 
