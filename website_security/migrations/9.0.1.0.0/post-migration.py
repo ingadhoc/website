@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015  ADHOC SA  (http://www.adhoc.com.ar)
-#    All Rights Reserved.
+#    OpenUpgrade module for Odoo
+#    @copyright 2015-Today: Odoo Community Association
+#    @author: Stephane LE CORNEC
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,30 +19,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Website Security',
-    'version': '9.0.1.1.0',
-    'category': 'Website',
-    'sequence': 14,
-    'summary': '',
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'images': [
-    ],
-    'depends': [
-        'website',
-        # 'portal',
-    ],
-    'data': [
-        'views/website_views.xml',
-        'security/security.xml',
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'installable': True,
-    'auto_install': False,
-    'application': False,
-}
+
+from openupgradelib import openupgrade
+
+
+@openupgrade.migrate()
+def migrate(cr, version):
+    # because this module is renamed, we need to inforce load of this data
+    openupgrade.load_data(
+        cr, 'website_security', 'migrations/9.0.1.1.0/mig_data.xml')

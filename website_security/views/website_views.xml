@@ -2,14 +2,9 @@
 <openerp>
     <data>
 
-        <menuitem id="website_main_menu" name="Website" sequence="400"/>
+        <!-- <menuitem id="website_main_menu" name="Website" sequence="400"/> -->
 
-        <menuitem id="website_sub_menu" name="Website" parent="website_main_menu" sequence="10"/>
-
-        <!-- make website menu child of new website submenu -->
-        <record id="website.menu_website" model="ir.ui.menu">
-            <field name="parent_id" ref="website_security.website_sub_menu"/>
-        </record>
+        <menuitem id="website_sub_menu" name="Website" parent="website.menu_website_configuration" sequence="10"/>
 
         <record id="website_action_ui_view" model="ir.actions.act_window">
             <field name="name">Website Views</field>
