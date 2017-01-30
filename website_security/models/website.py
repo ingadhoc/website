@@ -10,8 +10,8 @@ class website_menu(models.Model):
     _inherit = "website.menu"
 
     related_view_id = fields.Many2one(
-        'Related View',
         'ir.ui.view',
+        string='Related View',
         compute='get_related_view',
     )
     group_ids = fields.Many2many(
