@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="issues_followup_solution" inherit_id="website_project_issue.issues_followup" name="Project Issues Solution">
+        <xpath expr="//div[@class='panel-body']" position="inside">
+            <div class='row'>
+                <div class="col-md-12">
+                    <strong>Description:</strong> <span t-field="issue.issue_description"/>
+                </div>
+            </div>
+            <div class='row'>
+                <div class="col-md-12">
+                    <strong>Solution:</strong> <span t-if="issue.solution_description" t-field="issue.solution_description"/> <span t-if="not issue.solution_description" t-field="issue.project_issue_solution_id.solution_description"/> 
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
