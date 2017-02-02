@@ -39,13 +39,13 @@
             <t t-foreach="titles" t-as="title">
                 <div t-attf-class="h#{str(level+2) + (level&lt;2 and ' page-header' or '')}">
                     <a t-attf-href="/doc/how-to/#{ slug(title) }" t-field="title.name"/>
-                    <t  t-if="not title.dont_show_childs">
-                        <t t-set="articles" t-value="title.article_ids"/>
-                        <t t-call="website_doc.articles"/>
-                        <t t-set="titles" t-value="title.child_ids"/>
-                        <t t-call="website_doc.toc"/>
-                    </t>
                 </div>
+                <t  t-if="not title.dont_show_childs">
+                    <t t-set="articles" t-value="title.article_ids"/>
+                    <t t-call="website_doc.articles"/>
+                    <t t-set="titles" t-value="title.child_ids"/>
+                    <t t-call="website_doc.toc"/>
+                </t>
             </t>
         </template>
 
@@ -93,6 +93,7 @@
                         <t t-raw="toc.google_doc"/>
                     </div>
                 </section>
+                <div class="mt16 mb16"/>
             </t>
         </template>
     </data>
