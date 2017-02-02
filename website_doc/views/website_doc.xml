@@ -25,27 +25,31 @@
         </template>
 
         <!-- Page Index -->
+        <template id="articles" name="Documentation Articles">
+            <ul t-if="articles">
+                <li t-foreach="articles" t-as="article">
+                    <a t-attf-href="/doc/how-to/#{slug(article)}" t-field="article.name"/>
+                </li>
+            </ul>
+        </template>
+
+        <!-- listado de titulos y articulos -->
         <template id="toc" name="Documentation Index">
             <t t-set="level" t-value="level+1"/>
             <t t-foreach="titles" t-as="title">
                 <div t-attf-class="h#{str(level+2) + (level&lt;2 and ' page-header' or '')}">
-                    <!-- <t t-esc="title.name"/> -->
                     <a t-attf-href="/doc/how-to/#{ slug(title) }" t-field="title.name"/>
+                    <t  t-if="not title.dont_show_childs">
+                        <t t-set="articles" t-value="title.article_ids"/>
+                        <t t-call="website_doc.articles"/>
+                        <t t-set="titles" t-value="title.child_ids"/>
+                        <t t-call="website_doc.toc"/>
+                    </t>
                 </div>
-
-                <!-- <ul t-if="title.article_ids" class="mt32"> -->
-                <ul t-if="not title.dont_show_childs and title.article_ids">
-                    <li t-foreach="title.article_ids" t-as="article">
-                        <a t-attf-href="/doc/how-to/#{slug(title)}/#{slug(article)}" t-field="article.name"/>
-                    </li>
-                </ul>
-                <t t-if="not title.dont_show_childs">
-                    <t t-set="titles" t-value="title.child_ids"/>
-                    <t t-call="website_doc.toc"/>
-                </t>
             </t>
         </template>
 
+        <!-- breadcrumb de navegacion -->
         <template id="breadcrumb" name="Documentation Breadcrumb">
             <t t-if="toc.parent_id">
                 <t t-call="website_doc.breadcrumb">
@@ -53,46 +57,10 @@
                 </t>
             </t>
             <li t-if="toc">
-                <a t-attf-href="/doc/how-to/#{ slug(toc) }" t-field="toc.name"/>
+                <a t-attf-href="/doc/how-to/#{slug(toc)}" t-field="toc.name"/>
             </li>
         </template>
 
-        <template id="documentation" name="Documentation Index">
-            <t t-call="website.layout">
-                <!-- este es el breadcum de los tocs -->
-                <section class="container mt16" t-if="toc">
-                    <div class="row">
-                        <ol class="breadcrumb mb0">
-                            <li>
-                                <a href="/doc/how-to">Documentation</a>
-                            </li>
-                            <t t-call="website_doc.breadcrumb">
-                                <t t-set="toc" t-value="toc.parent_id"/>
-                            </t>
-                            <li class="active">
-                                <span t-field="toc.name"/>
-                            </li>
-                        </ol>
-                    </div>
-                </section>
-                <section class="container">
-                    <t t-set="level" t-value="toc and 1 or 0"/>
-                    <h1 class="page-header" t-if="toc">
-                        <t t-esc="toc.name"/>
-                    </h1>
-                    <!-- agregamos los articulos cuando ya no hay titulos hijos -->
-                    <!-- <ul t-if="toc and toc.article_ids" class="mt32"> -->
-                    <ul t-if="toc and toc.article_ids">
-                        <li t-foreach="toc.article_ids" t-as="article">
-                            <a t-attf-href="/doc/how-to/#{slug(toc)}/#{slug(article)}" t-field="article.name"/>
-                        </li>
-                    </ul>
-                    <t t-set="titles" t-value="sections"/>
-                    <t t-call="website_doc.toc"/>
-                </section>
-                <div class="oe_structure"/>
-            </t>
-        </template>
 
         <template id="documentation_post" name="Documentation Page">
             <t t-call="website.layout">
@@ -103,34 +71,28 @@
                                 <a href="/doc/how-to">Documentation</a>
                             </li>
                             <t t-call="website_doc.breadcrumb">
-                                <t t-set="toc" t-value="toc.parent_id"/>
+                                <!-- si es un articulo el padre lo define article_toc_id, si no es parent_id -->
+                                <t t-set="toc" t-value="toc.is_article and toc.article_toc_id or toc.parent_id"/>
                             </t>
-                            <li>
-                                <a t-attf-href="/doc/how-to/#{ slug(toc) }" t-field="toc.name"/>
+                            <li class="active">
+                                <span t-field="toc.name"/>
                             </li>
                         </ol>
                     </div>
                 </section>
                 <section class="container">
-                    <h1 class="page-header">
-                        <t t-esc="article.name"/>
-                    </h1>
+                    <h3 class="page-header" t-if="toc">
+                        <t t-esc="toc.name"/>
+                    </h3>
+                    <t t-set="level" t-value="toc and 1 or 0"/>
+                    <t t-set="articles" t-value="toc.article_ids"/>
+                    <t t-call="website_doc.articles"/>
+                    <t t-call="website_doc.toc"/>
                     <div class="row">
-                        <div t-field='article.content' class="oe_structure"/>
-                        <t t-raw="article.google_doc"/>
-                        <div t-if="len(toc.article_ids)&gt;1">
-                            <h2 class="page-header">Related topics</h2>
-                            <ul>
-                                <t t-foreach="toc.article_ids" t-as="topic">
-                                    <li t-if="article.id != topic.id">
-                                        <a t-attf-href="/doc/how-to/#{slug(toc)}/#{slug(topic)}" t-field="topic.name"/>
-                                    </li>
-                                </t>
-                            </ul>
-                        </div>
+                        <div t-field='toc.content' class="oe_structure"/>
+                        <t t-raw="toc.google_doc"/>
                     </div>
                 </section>
-                <div class="oe_structure mt16 mb16"/>
             </t>
         </template>
     </data>
