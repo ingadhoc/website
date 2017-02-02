@@ -100,7 +100,7 @@ class Documentation(models.Model):
         default='1050px'
     )
     content = fields.Html(
-        'Content',
+        'Content', sanitize=False
     )
     google_doc = fields.Text(
         'Content',
