@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_project_task" name="Portal Project Tasks" inherit_id="website_portal.account">
+        <xpath expr="//div[contains(@class,'o_my_documents')]/*[last()]" position="after">
+            <h3 class="page-header">Your Tasks</h3>
+            <t t-if="not tasks">
+                <p>There are currently no tasks for your account.</p>
+            </t>
+            <t t-if="tasks">
+                <table class="table table-hover status_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Task</th>
+                            <th>Description</th><th/>
+                            <th>Planned Hours</th>
+                            <th>Remaining Hours</th>
+                            <th>Deadline</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <t t-foreach="tasks" t-as="task">
+                        <tr t-att-class="'hidden to_hide' if task_index &gt; 4 else ''">
+                            <td><a t-attf-href="/my/tasks/#{task.id}">Task <t t-esc="task.id"/></a></td>
+                            <td><span t-field="task.name"/></td><td/>
+                            <td><span t-field="task.planned_hours"/></td>
+                            <td><span t-field="task.remaining_hours"/></td>
+                            <td><span t-field="task.date_deadline"/></td>
+                            <td><span t-field="task.stage_id.name"/></td>
+                        </tr>
+                    </t>
+                    <tr t-att-class="'hidden' if len(tasks) &lt; 6 else ''">
+                        <td colspan="4">
+                            <a href="" class="o_my_show_more btn btn-xs btn-default"><span>Show more</span><span class="hidden">Show less</span></a>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="tasks_followup" name="Project Tasks">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="oe_structure">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <ol class="breadcrumb mt8">
+                                    <li><a href="/my/home">My Account</a></li>
+                                    <li>Task <span t-field="task.id"/></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>
+                                            Task <span t-field="task.id"/> - <span t-field="task.name"/>
+                                            <a class="btn btn-info" t-att-href="'/web#return_label=Website&amp;model=project.task&amp;id=%s&amp;view_type=form' % (task.id)" groups="project.group_project_user">Edit Task</a>
+                                            <span t-field="task.stage_id.name" class="pull-right label label-info" title="Current stage of this task"/>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="mb4">
+                                    <strong>Deadline:</strong> <span t-field="task.date_deadline" t-field-options='{"widget": "date"}'/>
+                                </div>
+                                <div class="mb4">
+                                    <strong>Planned Hours:</strong> <span t-field="task.planned_hours"/>
+                                </div>
+                                <div class="mb4">
+                                    <strong>Remaining Hours:</strong> <span t-field="task.remaining_hours"/>
+                                </div>
+                                <div class='row'>
+                                    <div class="col-md-6" t-if="task.user_id">
+                                        <strong>Assigned to</strong>
+                                        <div>
+                                            <address t-field="task.user_id" t-field-options='{"widget": "contact", "fields": ["name", "email", "phone"], "no_marker": true}'/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Customer</strong>
+                                        <div t-if="task.partner_id">
+                                            <address t-field="task.partner_id" t-field-options='{"widget": "contact", "fields": ["name", "email"], "no_marker": true}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class="col-md-12">
+                                    <strong>Description:</strong> <span t-field="task.description"/>
+                                </div>
+                            </div>
+                            <t t-if="task.timesheet_ids">
+                                <hr/>
+                                <table class="table table-hover o_my_status_table">
+                                    <thead>
+                                      <tr class="active">
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Responsible</th>
+                                        <th>Duration</th>
+                                      </tr>
+                                    </thead>
+                                    <tr t-foreach="task.timesheet_ids" t-as="timesheet">
+                                        <td><span t-esc="timesheet.date"/></td>
+                                        <td><span t-esc="timesheet.name"/></td>
+                                        <td><span t-esc="timesheet.user_id.name"/></td>
+                                        <td><span t-field="timesheet.unit_amount" t-field-options='{"widget": "duration", "unit": "hour"}'/></td>
+                                    </tr>
+                                </table>
+                            </t>
+                        </div>
+                        <div class="row mt32">
+                            <div class="col-md-12">
+                                <h4><strong>Message and communication history</strong></h4>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1 mt16">
+                                <t t-call="website_mail.message_thread">
+                                    <t t-set="object" t-value="task"/>
+                                    <t t-set="chatter_mode" t-value="'json'"/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
