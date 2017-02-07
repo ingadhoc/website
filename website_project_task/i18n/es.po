@@ -1,0 +1,132 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_project_task
+# 
+# Translators:
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-06 19:21+0000\n"
+"PO-Revision-Date: 2017-02-06 19:21+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2017\n"
+"Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.portal_project_task
+msgid "<span>Show more</span><span class=\"hidden\">Show less</span>"
+msgstr "<span>Ver más</span><span class=\"hidden\">Ver menos</span>"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "<strong>Assigned to</strong>"
+msgstr "<strong>Asignada a</strong>"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "<strong>Customer</strong>"
+msgstr "<strong>Cliente</strong>"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "<strong>Deadline:</strong>"
+msgstr "<strong>Fecha Límite:</strong>"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "<strong>Description:</strong>"
+msgstr "<strong>Descripción:</strong>"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "<strong>Message and communication history</strong>"
+msgstr "<strong>Histórico de mensajes y comunicaciones</strong>"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "<strong>Planned Hours:</strong>"
+msgstr "<strong>Horas estimadas:</strong>"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "<strong>Remaining Hours:</strong>"
+msgstr "<strong>Horas Restantes:</strong>"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "Current stage of this task"
+msgstr "Estado actual de esta tarea"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "Date"
+msgstr "Fecha"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.portal_project_task
+msgid "Deadline"
+msgstr "Fecha Límite"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.portal_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "Description"
+msgstr "Descripción"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "Duration"
+msgstr "Duración"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "Edit Task"
+msgstr "Editar Tarea"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "My Account"
+msgstr "Mi Cuenta"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.portal_project_task
+msgid "Planned Hours"
+msgstr "Horas estimadas"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.portal_project_task
+msgid "Remaining Hours"
+msgstr "Horas restantes"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.portal_project_task
+msgid "Status"
+msgstr "Estado"
+
+#. module: website_project_task
+#: model:ir.model,name:website_project_task.model_project_task
+#: model:ir.ui.view,arch_db:website_project_task.portal_project_task
+#: model:ir.ui.view,arch_db:website_project_task.tasks_followup
+msgid "Task"
+msgstr "Tarea"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.portal_project_task
+msgid "There are currently no tasks for your account."
+msgstr "Actualmente no hay tareas para su cuenta"
+
+#. module: website_project_task
+#: model:ir.ui.view,arch_db:website_project_task.portal_project_task
+msgid "Your Tasks"
+msgstr "Sus Tareas"

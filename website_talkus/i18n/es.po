@@ -6,12 +6,12 @@
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: website (8.0)\n"
+"Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:42+0000\n"
-"PO-Revision-Date: 2016-07-14 13:55+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/adhoc/ingadhoc-website-8-0/language/es/)\n"
+"POT-Creation-Date: 2017-02-06 19:21+0000\n"
+"PO-Revision-Date: 2017-02-06 19:21+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
+"Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -19,159 +19,133 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_talkus
-#: field:website.talkus,backgroud_color:0
-msgid "Backgroud Color"
-msgstr "Color de Fondo"
-
-#. module: website_talkus
-#: field:website.talkus,border_color:0
-msgid "Border Color"
-msgstr "Color de Bordes"
-
-#. module: website_talkus
-#: field:website.talkus,bubble_ids:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_ids
 msgid "Bubbles"
 msgstr "Burbujas"
 
 #. module: website_talkus
-#: help:website.talkus,border_color:0
-msgid "Choose your border_color"
-msgstr "Elija su border_color"
-
-#. module: website_talkus
-#: help:website.talkus,backgroud_color:0
-msgid "Choose your color"
-msgstr "Elija su colr"
-
-#. module: website_talkus
-#: field:website.talkus,create_uid:0 field:website.talkus.bubble,create_uid:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_create_uid
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_create_uid
 msgid "Created by"
 msgstr "Created by"
 
 #. module: website_talkus
-#: field:website.talkus,create_date:0
-#: field:website.talkus.bubble,create_date:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_create_date
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_create_date
 msgid "Created on"
 msgstr "Created on"
 
 #. module: website_talkus
-#: field:website.talkus.bubble,delay:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_delay
 msgid "Delay"
 msgstr "Demora"
 
 #. module: website_talkus
-#: field:website.talkus,display_name:0
-#: field:website.talkus.bubble,display_name:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_display_name
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_display_name
 msgid "Display Name"
 msgstr "Display Name"
 
 #. module: website_talkus
-#: help:website.talkus,welcomeMessage:0
-#: help:website.talkus.bubble,welcomeMessage:0
-msgid "First welcome message displayed when the user open for live chat"
-msgstr "Primer mensaje mostrado cuando el usuario abre el chat"
-
-#. module: website_talkus
-#: help:website.talkus.bubble,delay:0
+#: model:ir.model.fields,help:website_talkus.field_website_talkus_bubble_delay
 msgid "How many seconds before displaying the bubble"
 msgstr "Cuantos segundos antes de mostrar la burbuja"
 
 #. module: website_talkus
-#: field:website.talkus,id:0 field:website.talkus.bubble,id:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_id
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_id
 msgid "ID"
 msgstr "ID"
 
 #. module: website_talkus
-#: field:website.talkus,id_talkus:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_id_talkus
 msgid "Id talkus"
 msgstr "Id de talkus"
 
 #. module: website_talkus
-#: field:website.talkus,loading_image:0
-msgid "Image"
-msgstr "Imagen"
-
-#. module: website_talkus
-#: field:website.talkus,__last_update:0
-#: field:website.talkus.bubble,__last_update:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus___last_update
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble___last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: website_talkus
-#: field:website.talkus,write_uid:0 field:website.talkus.bubble,write_uid:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_write_uid
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_write_uid
 msgid "Last Updated by"
 msgstr "Last Updated by"
 
 #. module: website_talkus
-#: field:website.talkus,write_date:0 field:website.talkus.bubble,write_date:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_write_date
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_write_date
 msgid "Last Updated on"
 msgstr "Last Updated on"
 
 #. module: website_talkus
-#: help:website.talkus.bubble,message:0
+#: model:ir.model.fields,help:website_talkus.field_website_talkus_bubble_message
 msgid "Message displayed in the bubble"
 msgstr "Mensaje mostrado en la burbuja"
 
 #. module: website_talkus
-#: field:website.talkus.bubble,userName:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_userName
 msgid "Name"
 msgstr "Nombre"
 
 #. module: website_talkus
-#: field:website.talkus,tag:0
+#: model:ir.model.fields,help:website_talkus.field_website_talkus_bubble_ids
+msgid "Now Bubbles can be defined on talkus rules directly"
+msgstr ""
+
+#. module: website_talkus
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_tag
 msgid "Tag"
 msgstr "Etiqueta"
 
 #. module: website_talkus
-#: model:ir.ui.menu,name:website_talkus.menu_talkus_chat
-msgid "Talkus Chat"
-msgstr "Chat Talkus"
+#: model:ir.ui.menu,name:website_talkus.website_talkus_main
+msgid "Talkus"
+msgstr ""
 
 #. module: website_talkus
-#: help:website.talkus.bubble,userPicture:0
+#: model:ir.model.fields,help:website_talkus.field_website_talkus_bubble_userPicture
 msgid ""
 "Url of the avatar displayed in the button near the bubble and in the first "
 "welcome message"
-msgstr "Url de avatar mostrado en el botón cerca de la burbuja y en el primer mensaje de bienvenida"
+msgstr ""
+"Url de avatar mostrado en el botón cerca de la burbuja y en el primer "
+"mensaje de bienvenida"
 
 #. module: website_talkus
-#: field:website.talkus.bubble,userPicture:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_userPicture
 msgid "User Picture"
 msgstr "Imagen de Usuario"
 
 #. module: website_talkus
-#: help:website.talkus.bubble,userName:0
+#: model:ir.model.fields,help:website_talkus.field_website_talkus_bubble_userName
 msgid "User name displayed in the first welcome message"
 msgstr "Nombre de Usuario mostrado en el primer mensaje de bienvenida"
 
 #. module: website_talkus
 #: model:ir.actions.act_window,name:website_talkus.action_website_talkus
-#: model:ir.ui.menu,name:website_talkus.website_talkus_main
-#: view:website.talkus:website_talkus.view_website_talkus_form
-#: view:website.talkus:website_talkus.view_website_talkus_list
-#: field:website.talkus.bubble,website_talkus_id:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_website_talkus_id
+#: model:ir.ui.view,arch_db:website_talkus.view_website_talkus_form
+#: model:ir.ui.view,arch_db:website_talkus.view_website_talkus_list
 msgid "Website Talkus"
 msgstr "Website Talkus"
 
 #. module: website_talkus
 #: model:ir.actions.act_window,name:website_talkus.action_website_talkus_bubble
-#: view:website.talkus.bubble:website_talkus.view_website_talkus_bubble_form
-#: view:website.talkus.bubble:website_talkus.view_website_talkus_bubble_list
+#: model:ir.ui.view,arch_db:website_talkus.view_website_talkus_bubble_form
+#: model:ir.ui.view,arch_db:website_talkus.view_website_talkus_bubble_list
 msgid "Website Talkus Bubble"
 msgstr "Burbuja de Website Talkus"
 
 #. module: website_talkus
-#: field:website.talkus.bubble,message:0
+#: model:ir.model.fields,field_description:website_talkus.field_website_talkus_bubble_message
 msgid "message"
 msgstr "mensaje"
 
 #. module: website_talkus
 #: model:ir.model,name:website_talkus.model_website_talkus
+#: model:ir.model,name:website_talkus.model_website_talkus_bubble
 msgid "website.talkus.bubble"
 msgstr "website.talkus.bubble"
-
-#. module: website_talkus
-#: field:website.talkus,welcomeMessage:0
-#: field:website.talkus.bubble,welcomeMessage:0
-msgid "welcomeMessage"
-msgstr "welcomeMessage"

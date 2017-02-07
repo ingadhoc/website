@@ -3,14 +3,15 @@
 # * payment_todopago
 # 
 # Translators:
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: website (8.0)\n"
+"Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:41+0000\n"
-"PO-Revision-Date: 2016-05-19 12:31+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/adhoc/ingadhoc-website-8-0/language/de/)\n"
+"POT-Creation-Date: 2017-02-06 19:21+0000\n"
+"PO-Revision-Date: 2017-02-06 19:21+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
+"Language-Team: German (https://www.transifex.com/adhoc/teams/46451/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -18,15 +19,67 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: payment_todopago
-#: model:payment.acquirer,pre_msg:payment_todopago.payment_acquirer_todopago
-msgid ""
-"<p>You will be redirected to the Todopago website after cliking on the "
-"payment button.</p>"
+#: model:ir.ui.view,arch_db:payment_todopago.payment_error
+msgid "/ Payment Error"
 msgstr ""
 
 #. module: payment_todopago
-#: field:payment.transaction,todopago_Answer:0
+#: model:payment.acquirer,cancel_msg:payment_todopago.payment_acquirer_todopago
+msgid "<span><i>Cancel,</i> Your payment has been cancelled.</span>"
+msgstr ""
+
+#. module: payment_todopago
+#: model:payment.acquirer,done_msg:payment_todopago.payment_acquirer_todopago
+msgid ""
+"<span><i>Done,</i> Your online payment has been successfully processed. "
+"Thank you for your order.</span>"
+msgstr ""
+
+#. module: payment_todopago
+#: model:payment.acquirer,error_msg:payment_todopago.payment_acquirer_todopago
+msgid ""
+"<span><i>Error,</i> Please be aware that an error occurred during the "
+"transaction. The order has been confirmed but won't be paid. Don't hesitate "
+"to contact us if you have any questions on the status of your order.</span>"
+msgstr ""
+
+#. module: payment_todopago
+#: model:payment.acquirer,pending_msg:payment_todopago.payment_acquirer_todopago
+msgid ""
+"<span><i>Pending,</i> Your online payment has been successfully processed. "
+"But your order is not validated yet.</span>"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction_todopago_Answer
 msgid "Answer"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.ui.view,arch_db:payment_todopago.payment_error
+msgid "Confirmation<span class=\"chevron\"/>"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.model.fields,help:payment_todopago.field_payment_acquirer_todopago_client_id
+msgid "For eg. 11123"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.model.fields,help:payment_todopago.field_payment_acquirer_todopago_secret_key
+msgid "For eg. TODOPAGO 4C841713E65FBC7719D666CCAC531234"
+msgstr ""
+
+#. module: payment_todopago
+#: model:payment.acquirer,pre_msg:payment_todopago.payment_acquirer_todopago
+msgid ""
+"Only available in Argentina and in ARS. You will be redirected to the "
+"Todopago website after cliking on the payment button."
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.ui.view,arch_db:payment_todopago.payment_error
+msgid "Order"
 msgstr ""
 
 #. module: payment_todopago
@@ -40,27 +93,47 @@ msgid "Payment Transaction"
 msgstr "Zahlungstransaktion"
 
 #. module: payment_todopago
-#: field:payment.transaction,todopago_PublicRequestKey:0
+#: model:ir.ui.view,arch_db:payment_todopago.payment_error
+msgid "Payment<span class=\"chevron\"/>"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction_todopago_PublicRequestKey
 msgid "PublicRequestKey"
 msgstr ""
 
 #. module: payment_todopago
-#: field:payment.transaction,todopago_RequestKey:0
+#: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction_todopago_RequestKey
 msgid "RequestKey"
 msgstr ""
 
 #. module: payment_todopago
-#: view:payment.transaction:payment_todopago.transaction_form_todopago
+#: model:ir.ui.view,arch_db:payment_todopago.payment_error
+msgid "Review Order<span class=\"chevron\"/>"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.ui.view,arch_db:payment_todopago.payment_error
+msgid "Shipping &amp; Billing<span class=\"chevron\"/>"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.ui.view,arch_db:payment_todopago.payment_error
+msgid "Shop - Payment Error"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.ui.view,arch_db:payment_todopago.transaction_form_todopago
 msgid "TODOPAGO TX Details"
 msgstr ""
 
 #. module: payment_todopago
-#: field:payment.acquirer,todopago_client_id:0
+#: model:ir.model.fields,field_description:payment_todopago.field_payment_acquirer_todopago_client_id
 msgid "TodoPago Merchant Id"
 msgstr ""
 
 #. module: payment_todopago
-#: field:payment.acquirer,todopago_secret_key:0
+#: model:ir.model.fields,field_description:payment_todopago.field_payment_acquirer_todopago_secret_key
 msgid "TodoPago Secret Key"
 msgstr ""
 
@@ -70,22 +143,19 @@ msgid "Todopago"
 msgstr ""
 
 #. module: payment_todopago
-#: field:payment.acquirer,todopago_failure_return_url:0
-msgid "Todopago failure return url"
+#: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction_todopago_Return_url
+msgid "Todopago return url"
 msgstr ""
 
 #. module: payment_todopago
-#: field:payment.acquirer,todopago_success_return_url:0
-msgid "Todopago success return url"
+#: model:ir.ui.view,arch_db:payment_todopago.payment_error
+msgid ""
+"We are sorry but there was an error on your payment. Please check your "
+"settings and try again"
 msgstr ""
 
 #. module: payment_todopago
-#: field:payment.transaction,todopago_txn_id:0
-msgid "Transaction ID"
-msgstr "Transaktions-ID"
-
-#. module: payment_todopago
-#: code:addons/payment_todopago/models/todopago.py:86
+#: code:addons/payment_todopago/models/todopago.py:85
 #, python-format
 msgid ""
 "YOU MUST COMPLETE acquirer.todopago_client_id and "

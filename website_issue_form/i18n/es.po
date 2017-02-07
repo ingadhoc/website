@@ -1,0 +1,142 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_issue_form
+# 
+# Translators:
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-13 13:04+0000\n"
+"PO-Revision-Date: 2017-01-13 13:04+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
+"Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_thanks
+msgid "&amp;times;"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "<span class=\"oe_snippet_thumbnail_title\">Mi sinpiett</span>"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "A Section Subtitle"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "Contact us about any issue you may be facing with."
+msgstr ""
+"Contactenos con cualquier incidencia a la cual pueda estar enfrentándose."
+
+#. module: website_issue_form
+#: code:addons/website_issue_form/controllers/main.py:126
+#, python-format
+msgid "Custom Fields: "
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "Description"
+msgstr "Descripción"
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "Email"
+msgstr ""
+
+#. module: website_issue_form
+#: code:addons/website_issue_form/controllers/main.py:142
+#, python-format
+msgid "Environ Fields: "
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_thanks
+msgid "If you have an emergency, do not hesitate to contact us by phone:"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "New Issue"
+msgstr "Nueva Incidencia"
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "Phone Number"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "Send"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid ""
+"Start with the customer – find out what they want\n"
+"                            and give it to them."
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "Summary"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_thanks
+msgid "Thanks!"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_thanks
+msgid "We will get back to you shortly."
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "We'll do our best to get back to you as soon as possible."
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.actions.act_url,name:website_issue_form.action_open_website
+msgid "Website Issue Form"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid ""
+"Write one or two paragraphs describing your product or\n"
+"                            services. To be successful your content needs to be\n"
+"                            useful to your readers."
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "Your Company"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "Your Name"
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_thanks
+msgid "Your issue has been sent successfully."
+msgstr ""
+
+#. module: website_issue_form
+#: model:ir.ui.view,arch_db:website_issue_form.issue_snippet_structure
+msgid "e.g. (+32).81.81.37.00"
+msgstr ""

@@ -6,10 +6,10 @@
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:42+0000\n"
-"PO-Revision-Date: 2016-07-14 13:42+0000\n"
+"POT-Creation-Date: 2017-02-06 19:21+0000\n"
+"PO-Revision-Date: 2017-02-06 19:21+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_product_description
-#: help:product.template,description_website:0
+#: model:ir.model.fields,help:website_sale_product_description.field_product_template_description_website
 msgid ""
 "A description of the Product that you want to communicate on the ecommerce "
 "to your customers. This description will not be used on Sales Orders, "
@@ -30,7 +30,7 @@ msgstr ""
 " Facturas"
 
 #. module: website_sale_product_description
-#: view:product.template:website_sale_product_description.product_template_form_view
+#: model:ir.ui.view,arch_db:website_sale_product_description.product_template_form_view
 msgid "Description for Website"
 msgstr "Descripción para Website"
 
@@ -40,16 +40,11 @@ msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: website_sale_product_description
-#: field:product.template,description_website:0
+#: model:ir.model.fields,field_description:website_sale_product_description.field_product_template_description_website
 msgid "Sale Description"
 msgstr "Descripción de Venta"
 
 #. module: website_sale_product_description
-#: view:product.template:website_sale_product_description.product_template_form_view
+#: model:ir.ui.view,arch_db:website_sale_product_description.product_template_form_view
 msgid "note to be displayed on website..."
 msgstr "nota a ser mostrada en el website..."
-
-#. module: website_sale_product_description
-#: view:website:website_sale.product
-msgid "product.description_website"
-msgstr "product.description_website"

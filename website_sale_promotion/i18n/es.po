@@ -6,12 +6,12 @@
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: website (8.0)\n"
+"Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:42+0000\n"
-"PO-Revision-Date: 2016-07-14 13:53+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/adhoc/ingadhoc-website-8-0/language/es/)\n"
+"POT-Creation-Date: 2016-11-10 20:13+0000\n"
+"PO-Revision-Date: 2016-11-10 20:13+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
+"Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -19,28 +19,28 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_promotion
-#: field:website.promotion,base:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_base
 msgid "Based on"
 msgstr "Basado en"
 
 #. module: website_sale_promotion
-#: view:website.promotion:website_sale_promotion.view_website_promotion_form
+#: model:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_form
 #: selection:website.promotion,state:0
 msgid "Confirm"
 msgstr "Confirmar"
 
 #. module: website_sale_promotion
-#: field:website.promotion,create_uid:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_create_uid
 msgid "Created by"
 msgstr "Created by"
 
 #. module: website_sale_promotion
-#: field:website.promotion,create_date:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_create_date
 msgid "Created on"
 msgstr "Created on"
 
 #. module: website_sale_promotion
-#: field:website.promotion,display_name:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_display_name
 msgid "Display Name"
 msgstr "Display Name"
 
@@ -50,7 +50,7 @@ msgid "Draft"
 msgstr "Borrador"
 
 #. module: website_sale_promotion
-#: view:website.promotion:website_sale_promotion.view_website_promotion_form
+#: model:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_form
 msgid "Finish"
 msgstr "Finalizar"
 
@@ -60,55 +60,50 @@ msgid "Finished"
 msgstr "Finalizado"
 
 #. module: website_sale_promotion
-#: field:website.promotion,id:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_id
 msgid "ID"
 msgstr "ID"
 
 #. module: website_sale_promotion
-#: field:website.promotion,__last_update:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion___last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: website_sale_promotion
-#: field:website.promotion,write_uid:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_write_uid
 msgid "Last Updated by"
 msgstr "Last Updated by"
 
 #. module: website_sale_promotion
-#: field:website.promotion,write_date:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_write_date
 msgid "Last Updated on"
 msgstr "Last Updated on"
 
 #. module: website_sale_promotion
-#: field:website.promotion,name:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_name
 msgid "Name"
 msgstr "Nombre"
 
 #. module: website_sale_promotion
 #: code:addons/website_sale_promotion/models/website_promotion.py:18
-#: field:website.promotion,base_pricelist_id:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_base_pricelist_id
 #, python-format
 msgid "Other Pricelist"
 msgstr "Otro Precio"
 
 #. module: website_sale_promotion
-#: field:website.promotion,price_discount:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_price_discount
 msgid "Price Discount"
 msgstr "Descuento precio"
 
 #. module: website_sale_promotion
-#: field:website.promotion,price_surcharge:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_price_surcharge
 msgid "Price Surcharge"
 msgstr "Sobrecarga precio"
 
 #. module: website_sale_promotion
-#: field:website.promotion,pricelist_version_id:0
-msgid "Pricelist Version"
-msgstr "Versión de Lista de Precios"
-
-#. module: website_sale_promotion
 #: model:ir.model,name:website_sale_promotion.model_product_template
-#: field:website.promotion,template_ids:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_template_ids
 msgid "Product Template"
 msgstr "Plantilla de producto"
 
@@ -118,18 +113,18 @@ msgid "Products Promotion"
 msgstr "Promociones en Productos"
 
 #. module: website_sale_promotion
-#: view:website.promotion:website_sale_promotion.view_website_promotion_form
-#: view:website.promotion:website_sale_promotion.view_website_promotion_tree
+#: model:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_form
+#: model:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_tree
 msgid "Promotion"
 msgstr "Promocion"
 
 #. module: website_sale_promotion
-#: field:website.promotion,public_category_id:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_public_category_id
 msgid "Public Category"
 msgstr "Categoría pública"
 
 #. module: website_sale_promotion
-#: field:website.promotion,state:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_state
 msgid "State"
 msgstr "Estado"
 
@@ -140,18 +135,18 @@ msgid "Supplier Prices on the product form"
 msgstr "Supplier Prices on the product form"
 
 #. module: website_sale_promotion
-#: view:website.promotion:website_sale_promotion.view_website_promotion_form
+#: model:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_form
 msgid "To Draft"
 msgstr "A Borrador"
 
 #. module: website_sale_promotion
 #: model:ir.actions.act_window,name:website_sale_promotion.action_website_promotion
 #: model:ir.model,name:website_sale_promotion.model_website_promotion
-#: field:product.template,website_promotion_id:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_product_template_website_promotion_id
 msgid "Website Promotion"
 msgstr "Website Promotion"
 
 #. module: website_sale_promotion
-#: field:website.promotion,website_style_id:0
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_website_style_id
 msgid "Website Style"
 msgstr "Estilos"
