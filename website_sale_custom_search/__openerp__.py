@@ -42,6 +42,7 @@ Search also by:
         'website_sale',
     ],
     'data': [
+        'views/templates.xml',
     ],
     'demo': [
     ],
