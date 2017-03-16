@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'e-Commerce Custom Products Search',
-    'version': '8.0.0.0.0',
+    'version': '8.0.0.1.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
