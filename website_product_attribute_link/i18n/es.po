@@ -1,0 +1,39 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_product_attribute_link
+# 
+# Translators:
+# Nicolas Mac Rouillon <nmr@ingadhoc.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-16 17:24+0000\n"
+"PO-Revision-Date: 2017-03-16 17:24+0000\n"
+"Last-Translator: Nicolas Mac Rouillon <nmr@ingadhoc.com>, 2017\n"
+"Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_product_attribute_link
+#: model:ir.model.fields,help:website_product_attribute_link.field_product_attribute_website_link_on_product
+msgid ""
+"Add a link on website product view so that user can click on an attribute "
+"value and go to a search of products of that value"
+msgstr ""
+"Agregue un vínculo en la vista de producto del sitio web para que el usuario"
+" pueda hacer clic en un valor de atributo e ir a una búsqueda de productos "
+"de ese valor"
+
+#. module: website_product_attribute_link
+#: model:ir.model,name:website_product_attribute_link.model_product_attribute
+msgid "Product Attribute"
+msgstr "Atributo de producto"
+
+#. module: website_product_attribute_link
+#: model:ir.model.fields,field_description:website_product_attribute_link.field_product_attribute_website_link_on_product
+msgid "Website link on product"
+msgstr "Enlace del sitio web en el producto"
