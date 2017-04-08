@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: website (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:42+0000\n"
-"PO-Revision-Date: 2016-07-14 13:55+0000\n"
+"POT-Creation-Date: 2017-03-16 18:53+0000\n"
+"PO-Revision-Date: 2016-09-21 14:13+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/adhoc/ingadhoc-website-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -19,29 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_talkus
-#: field:website.talkus,backgroud_color:0
-msgid "Backgroud Color"
-msgstr "Color de Fondo"
-
-#. module: website_talkus
-#: field:website.talkus,border_color:0
-msgid "Border Color"
-msgstr "Color de Bordes"
-
-#. module: website_talkus
 #: field:website.talkus,bubble_ids:0
 msgid "Bubbles"
 msgstr "Burbujas"
-
-#. module: website_talkus
-#: help:website.talkus,border_color:0
-msgid "Choose your border_color"
-msgstr "Elija su border_color"
-
-#. module: website_talkus
-#: help:website.talkus,backgroud_color:0
-msgid "Choose your color"
-msgstr "Elija su colr"
 
 #. module: website_talkus
 #: field:website.talkus,create_uid:0 field:website.talkus.bubble,create_uid:0
@@ -66,12 +46,6 @@ msgid "Display Name"
 msgstr "Display Name"
 
 #. module: website_talkus
-#: help:website.talkus,welcomeMessage:0
-#: help:website.talkus.bubble,welcomeMessage:0
-msgid "First welcome message displayed when the user open for live chat"
-msgstr "Primer mensaje mostrado cuando el usuario abre el chat"
-
-#. module: website_talkus
 #: help:website.talkus.bubble,delay:0
 msgid "How many seconds before displaying the bubble"
 msgstr "Cuantos segundos antes de mostrar la burbuja"
@@ -85,11 +59,6 @@ msgstr "ID"
 #: field:website.talkus,id_talkus:0
 msgid "Id talkus"
 msgstr "Id de talkus"
-
-#. module: website_talkus
-#: field:website.talkus,loading_image:0
-msgid "Image"
-msgstr "Imagen"
 
 #. module: website_talkus
 #: field:website.talkus,__last_update:0
@@ -116,6 +85,11 @@ msgstr "Mensaje mostrado en la burbuja"
 #: field:website.talkus.bubble,userName:0
 msgid "Name"
 msgstr "Nombre"
+
+#. module: website_talkus
+#: help:website.talkus,bubble_ids:0
+msgid "Now Bubbles can be defined on talkus rules directly"
+msgstr ""
 
 #. module: website_talkus
 #: field:website.talkus,tag:0
@@ -169,9 +143,3 @@ msgstr "mensaje"
 #: model:ir.model,name:website_talkus.model_website_talkus
 msgid "website.talkus.bubble"
 msgstr "website.talkus.bubble"
-
-#. module: website_talkus
-#: field:website.talkus,welcomeMessage:0
-#: field:website.talkus.bubble,welcomeMessage:0
-msgid "welcomeMessage"
-msgstr "welcomeMessage"
