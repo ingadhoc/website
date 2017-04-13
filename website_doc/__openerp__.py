@@ -35,6 +35,7 @@
         'security/security.xml',
         'views/doc.xml',
         'views/website_doc.xml',
+        'views/website_search.xml',
     ],
     'demo': [
     ],
