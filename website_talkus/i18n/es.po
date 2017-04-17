@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
+# Nicolas Mac Rouillon <nmr@ingadhoc.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 19:21+0000\n"
-"PO-Revision-Date: 2017-02-06 19:21+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
+"POT-Creation-Date: 2017-03-16 17:24+0000\n"
+"PO-Revision-Date: 2017-03-16 17:24+0000\n"
+"Last-Translator: Nicolas Mac Rouillon <nmr@ingadhoc.com>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,6 +95,7 @@ msgstr "Nombre"
 #: model:ir.model.fields,help:website_talkus.field_website_talkus_bubble_ids
 msgid "Now Bubbles can be defined on talkus rules directly"
 msgstr ""
+"Ahora las burbujas se pueden definir directamente en las reglas del talkus"
 
 #. module: website_talkus
 #: model:ir.model.fields,field_description:website_talkus.field_website_talkus_tag
@@ -103,7 +105,7 @@ msgstr "Etiqueta"
 #. module: website_talkus
 #: model:ir.ui.menu,name:website_talkus.website_talkus_main
 msgid "Talkus"
-msgstr ""
+msgstr "Talkus"
 
 #. module: website_talkus
 #: model:ir.model.fields,help:website_talkus.field_website_talkus_bubble_userPicture
