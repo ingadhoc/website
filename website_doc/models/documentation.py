@@ -142,10 +142,12 @@ class Documentation(models.Model):
     )
     url_suffix = fields.Char(
         compute='_compute_url',
+        compute_sudo=True,
     )
     documentation_id = fields.Many2one(
         'website.doc.toc',
         'Documentation',
+        compute_sudo=True,
         compute='_compute_documentation',
         help='First documentation toc',
     )

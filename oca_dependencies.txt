@@ -1,3 +1,4 @@
 ingadhoc-product https://github.com/ingadhoc/product.git
 ingadhoc-project https://github.com/ingadhoc/project.git
+ingadhoc-patches https://github.com/ingadhoc/patches.git
 ingadhoc-argentina-sale https://github.com/ingadhoc/argentina-sale.git

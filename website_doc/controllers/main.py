@@ -20,6 +20,14 @@ controllers = controllers()
 class WebsiteDoc(http.Controller):
 
     @http.route([
+        '/doc/how-to',
+    ],
+        type='http', auth="public", website=True)
+    def old_how_to_redirect(self, **kwargs):
+        # just in case some old link to how-to remains active
+        return werkzeug.utils.redirect('/doc')
+
+    @http.route([
         # we have add route doc on link but we add this for compatibility with
         # old links
         '/doc/<model("website.doc.toc"):toc>',
