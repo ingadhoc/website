@@ -47,11 +47,14 @@ class Documentation(models.Model):
         required=True,
         # to avoid complications we disable translation
         # translate=True,
+        index=True,
     )
     parent_id = fields.Many2one(
         'website.doc.toc',
         'Parent Table Of Content',
-        ondelete='cascade',
+        # por ahora preferimos no perder y borrar todo por error
+        ondelete='set null',
+        # ondelete='cascade',
         domain=[('is_article', '=', False)],
     )
     child_ids = fields.One2many(
@@ -59,6 +62,7 @@ class Documentation(models.Model):
         'parent_id',
         'Children Table Of Content',
         copy=True,
+        domain=[('is_article', '=', False)],
     )
     parent_left = fields.Integer(
         'Left Parent',
@@ -71,15 +75,16 @@ class Documentation(models.Model):
     is_article = fields.Boolean(
         'Is Article?'
     )
-    article_toc_id = fields.Many2one(
-        'website.doc.toc',
-        'Documentation ToC',
-        ondelete='set null',
-        domain=[('is_article', '=', False)],
-    )
+    # article_toc_id = fields.Many2one(
+    #     'website.doc.toc',
+    #     'Documentation ToC',
+    #     ondelete='set null',
+    #     domain=[('is_article', '=', False)],
+    # )
     article_ids = fields.One2many(
         'website.doc.toc',
-        'article_toc_id',
+        'parent_id',
+        # 'article_toc_id',
         'Articles',
         domain=[('is_article', '=', True)],
         context={'default_is_article': 1},
@@ -100,10 +105,10 @@ class Documentation(models.Model):
         default='1050px'
     )
     content = fields.Html(
-        'Content', sanitize=False
+        'Content', sanitize=False,
     )
     google_doc = fields.Text(
-        'Content',
+        'Google Content',
         compute='_get_google_doc',
     )
     group_ids = fields.Many2many(
@@ -135,6 +140,38 @@ class Documentation(models.Model):
     )
     dont_show_childs = fields.Boolean(
     )
+    url_suffix = fields.Char(
+        compute='_compute_url',
+    )
+    documentation_id = fields.Many2one(
+        'website.doc.toc',
+        'Documentation',
+        compute='_compute_documentation',
+        help='First documentation toc',
+    )
+
+    @api.multi
+    @api.depends('parent_id')
+    def _compute_url(self):
+        for rec in self:
+            rec.url_suffix = '/doc/%s/%s' % (rec.documentation_id.id, rec.id)
+
+    @api.multi
+    @api.depends('is_article', 'parent_id')
+    def _compute_documentation(self):
+        # si estamos en un articulo, el padre es el article_toc_id si no el
+        # mismo
+        for rec in self:
+            # if rec.is_article:
+            #     parent_toc = rec.article_toc_id
+            # else:
+            #     parent_toc = rec
+            # the first parent is the documentation
+            rec.documentation_id = rec.search([
+                # ('id', 'parent_of', parent_toc.id),
+                ('id', 'parent_of', rec.id),
+                ('is_article', '=', False),
+                ('parent_id', '=', False)], limit=1).id
 
     @api.one
     @api.depends('google_doc_code', 'google_doc_height')

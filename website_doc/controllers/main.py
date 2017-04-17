@@ -5,17 +5,39 @@
 ##############################################################################
 from openerp import http
 from openerp.http import request
+import logging
+import werkzeug.utils
+# from openerp.addons.web import http
+# from openerp.addons.web.http import request
+from openerp.addons.website.controllers.main import Website as controllers
+# from openerp.addons.website.models.website import slugify
+
+logger = logging.getLogger(__name__)
+
+controllers = controllers()
 
 
 class WebsiteDoc(http.Controller):
 
     @http.route([
-        '/doc/how-to',
+        # we have add route doc on link but we add this for compatibility with
+        # old links
+        '/doc/<model("website.doc.toc"):toc>',
+        # we have replace route url from /doc/how-to/ to /doc/ but we keep
+        # this for old links
         '/doc/how-to/<model("website.doc.toc"):toc>',
-        # '/doc/how-to/<model("website.doc.toc"):toc>',
     ],
         type='http', auth="public", website=True)
-    def article_doc_render(self, toc=None, **kwargs):
+    def article_doc_redirect(self, toc, **kwargs):
+        return werkzeug.utils.redirect(toc.url_suffix)
+
+    @http.route([
+        # '/doc/how-to',
+        '/doc',
+        '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>',
+    ],
+        type='http', auth="public", website=True)
+    def article_doc_render(self, doc=None, toc=None, **kwargs):
         # si estamos buscando en root los articulos son todos los que no tengan
         # padre, si no, son los hijos del toc
         if toc:
