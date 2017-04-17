@@ -3,10 +3,10 @@
 <data>
 
 <!-- search icon on documntation breadcrumb -->
-<template id="breadcrumb_search" inherit_id="website_doc.documentation_post" customize_show="True" name="Documentation breadcrumb search">
+<template id="breadcrumb_search" inherit_id="website_doc.documentation_post" name="Documentation breadcrumb search">
     <xpath expr="//li" position="before">
           <li class="dropdown">
-            <a t-attf-href="/search_results?{{keep_query('sorting', 'search_on_pages', 'search_on_blogposts', 'search_on_comments', 'search_on_customers', 'search_on_jobs', 'search_on_products', 'case_sensitive', search=search, search_advanced='0')}}" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-search"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-search"></span></a>
             <ul class="dropdown-menu" style="padding:12px;">
                 <form class="form-inline" t-attf-action="/doc/#{slug(toc.documentation_id)}/search_results" method="get">
                     <div class="input-group">
