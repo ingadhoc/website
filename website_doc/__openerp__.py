@@ -22,15 +22,21 @@
     'name': 'Website Documentation',
     'category': 'Website',
     'summary': 'Website, Documentation',
-    'version': '9.0.1.2.0',
+    'version': '9.0.1.3.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'depends': [
+        'base_search_fuzzy',
+        'base_name_search_improved',
         'website',
     ],
+    'external_dependencies': {
+        'python': ['html2text']
+    },
     'data': [
         'data/doc_data.xml',
+        'data/ir_model_data.xml',
         'security/ir.model.access.csv',
         'security/security.xml',
         'views/doc.xml',

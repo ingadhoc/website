@@ -14,11 +14,9 @@
                 <search string="Documentation TOC">
                     <field name="name"/>
                     <field name="parent_id"/>
-                    <field name="article_toc_id"/>
                     <filter string="Root TOC" name="root_toc" domain="[('parent_id', '=', False)]"/>
                     <group expand="0" string="Group By">
                         <filter name="parent_id" string="Parent" context="{'group_by':'parent_id'}"/>
-                        <filter name="article_toc_id" string="Article" context="{'group_by':'article_toc_id'}"/>
                     </group>
                 </search>
             </field>
@@ -48,7 +46,7 @@
                 <tree string="Documentation Articles">
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
-                    <field name="article_toc_id"/>
+                    <field name="parent_id"/>
                     <field name="partner_id"/>
                     <field name="state"/>
                 </tree>
@@ -67,11 +65,12 @@
                     <field name="is_article" invisible="1"/>
                     <group>
                         <field name="name"/>
-                        <field name="parent_id" invisible="'from_parent' in context" attrs="{'invisible':[('is_article', '=', True)]}"/>
+                        <field name="url_suffix" widget="url"/>
+                        <field name="parent_id" invisible="'from_parent' in context"/>
+                        <!-- <field name="parent_id" invisible="'from_parent' in context" attrs="{'invisible':[('is_article', '=', True)]}"/> -->
                         <field name="dont_show_childs" attrs="{'invisible':[('is_article', '=', True)]}"/>
                         <!-- por ahora no lo usamos, usamos el published, probablemente los grupos terminen siendo grupos de infra o algo asi -->
                         <!-- <field name="group_ids" widget="many2many_tags" attrs="{'invisible':[('is_article', '=', False)]}"/> -->
-                        <field name="article_toc_id" attrs="{'invisible':[('is_article', '=', False)]}" invisible="'from_toc' in context"/>
                         <field name="add_google_doc" attrs="{'invisible':[('is_article', '=', False)]}"/>
                     </group>
                     <group attrs="{'invisible':[('add_google_doc', '=', False)]}">
@@ -140,7 +139,7 @@
         <act_window
             id="action_documentation_toc_tree_article"
             name="Articles"
-            context="{'search_default_article_toc_id': [active_id]}"
+            context="{'search_default_parent_id': [active_id]}"
             res_model="website.doc.toc"
             src_model="website.doc.toc"
             view_id="view_documentation_article_list"

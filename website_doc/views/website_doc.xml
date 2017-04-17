@@ -20,7 +20,7 @@
         <template id="header_footer_custom" inherit_id="website.footer_default"
             name="Footer Documentation Link">
             <xpath expr="//ul[@id='products']" position="inside">
-                <li><a href="/doc/how-to">Documentation</a></li>
+                <li><a href="/doc">Documentation</a></li>
             </xpath>
         </template>
 
@@ -28,7 +28,8 @@
         <template id="articles" name="Documentation Articles">
             <ul t-if="articles">
                 <li t-foreach="articles" t-as="article">
-                    <a t-attf-href="/doc/how-to/#{slug(article)}" t-field="article.name"/>
+                    <!-- <a t-attf-href="/doc/#{slug(article)}" t-field="article.name"/> -->
+                    <a t-att-href="article.url_suffix" t-field="article.name"/> 
                 </li>
             </ul>
         </template>
@@ -38,7 +39,8 @@
             <t t-set="level" t-value="level+1"/>
             <t t-foreach="titles" t-as="title">
                 <div t-attf-class="h#{str(level+2) + (level&lt;2 and ' page-header' or '')}">
-                    <a t-attf-href="/doc/how-to/#{ slug(title) }" t-field="title.name"/>
+                    <!-- <a t-attf-href="/doc/#{ slug(title) }" t-field="title.name"/> -->
+                    <a t-att-href="title.url_suffix" t-field="title.name"/> 
                 </div>
                 <t  t-if="not title.dont_show_childs">
                     <t t-set="articles" t-value="title.article_ids"/>
@@ -57,7 +59,8 @@
                 </t>
             </t>
             <li t-if="toc">
-                <a t-attf-href="/doc/how-to/#{slug(toc)}" t-field="toc.name"/>
+                <!-- <a t-attf-href="/doc/#{slug(toc)}" t-field="toc.name"/> -->
+                <a t-att-href="toc.url_suffix" t-field="toc.name"/> 
             </li>
         </template>
 
@@ -68,11 +71,10 @@
                     <div class="row">
                         <ol class="breadcrumb mb0">
                             <li>
-                                <a href="/doc/how-to">Documentation</a>
+                                <a href="/doc">Documentation</a>
                             </li>
                             <t t-call="website_doc.breadcrumb">
-                                <!-- si es un articulo el padre lo define article_toc_id, si no es parent_id -->
-                                <t t-set="toc" t-value="toc.is_article and toc.article_toc_id or toc.parent_id"/>
+                                <t t-set="toc" t-value="toc.parent_id"/>
                             </t>
                             <li class="active">
                                 <span t-field="toc.name"/>
