@@ -6,4 +6,3 @@
 
 from . import main
 from . import website_search
-from . import html2text
