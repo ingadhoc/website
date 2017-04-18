@@ -4,20 +4,35 @@
 # 
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
-# Nicolas Mac Rouillon <nmr@ingadhoc.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-16 17:24+0000\n"
-"PO-Revision-Date: 2017-03-16 17:24+0000\n"
-"Last-Translator: Nicolas Mac Rouillon <nmr@ingadhoc.com>, 2017\n"
+"POT-Creation-Date: 2017-04-17 22:13+0000\n"
+"PO-Revision-Date: 2017-04-17 22:13+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.search_results
+msgid "<span> resultado encontrado</span>"
+msgstr ""
+
+#. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.error_search_len
+msgid ""
+"<span>La palabra a buscar debe tener como mínimo 3 caracteres...</span>"
+msgstr ""
+
+#. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.search_results
+msgid "<span>No se encontraron resultados</span>"
+msgstr ""
 
 #. module: website_doc
 #: model:ir.model.fields,help:website_doc.field_website_doc_toc_add_google_doc
@@ -31,7 +46,6 @@ msgstr "Agregar a  Documentos de Google?"
 
 #. module: website_doc
 #: model:ir.ui.menu,name:website_doc.menu_documentation_article
-#: model:ir.ui.view,arch_db:website_doc.view_documentation_toc_filter
 msgid "Article"
 msgstr "Artículo"
 
@@ -54,7 +68,6 @@ msgstr "Hijas"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_content
-#: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_google_doc
 msgid "Content"
 msgstr "Contenido"
 
@@ -75,6 +88,7 @@ msgstr "Display Name"
 
 #. module: website_doc
 #: model:ir.actions.act_url,name:website_doc.action_open_documentation
+#: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_documentation_id
 #: model:ir.ui.view,arch_db:website_doc.documentation_post
 #: model:ir.ui.view,arch_db:website_doc.header_footer_custom
 #: model:website.menu,name:website_doc.menu_questions
@@ -116,7 +130,6 @@ msgstr "Documentation TOC Structure"
 
 #. module: website_doc
 #: model:ir.model,name:website_doc.model_website_doc_toc
-#: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_article_toc_id
 #: model:ir.ui.menu,name:website_doc.menu_documentation_toc
 msgid "Documentation ToC"
 msgstr "Documentation ToC"
@@ -130,6 +143,16 @@ msgstr "No mostrar hijas"
 #: constraint:website.doc.toc:0
 msgid "Error ! You cannot create recursive categories."
 msgstr "¡Error! No puede crear categorías recursivas."
+
+#. module: website_doc
+#: model:ir.model.fields,help:website_doc.field_website_doc_toc_documentation_id
+msgid "First documentation toc"
+msgstr ""
+
+#. module: website_doc
+#: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_google_doc
+msgid "Google Content"
+msgstr ""
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_google_doc_code
@@ -247,6 +270,12 @@ msgid "Root TOC"
 msgstr "Root TOC"
 
 #. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.breadcrumb_search
+#: model:ir.ui.view,arch_db:website_doc.search_form
+msgid "Search word..."
+msgstr ""
+
+#. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_sequence
 msgid "Sequence"
 msgstr "Secuencia"
@@ -255,6 +284,17 @@ msgstr "Secuencia"
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_state
 msgid "State"
 msgstr "Estado"
+
+#. module: website_doc
+#: code:addons/website_doc/controllers/website_search.py:106
+#, python-format
+msgid "Unable to get text page"
+msgstr ""
+
+#. module: website_doc
+#: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_url_suffix
+msgid "Url suffix"
+msgstr ""
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_website_meta_description
@@ -270,3 +310,13 @@ msgstr "Meta keywords del sitio web"
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_website_meta_title
 msgid "Website meta title"
 msgstr "Meta título del sitio web"
+
+#. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.search_results
+msgid "al"
+msgstr ""
+
+#. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.search_results
+msgid "resultados encontrados, mostrando del"
+msgstr ""
