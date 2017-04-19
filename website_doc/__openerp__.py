@@ -22,7 +22,7 @@
     'name': 'Website Documentation',
     'category': 'Website',
     'summary': 'Website, Documentation',
-    'version': '9.0.1.3.0',
+    'version': '9.0.1.4.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',

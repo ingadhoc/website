@@ -68,6 +68,7 @@
                         <field name="url_suffix" widget="url"/>
                         <field name="parent_id" invisible="'from_parent' in context"/>
                         <!-- <field name="parent_id" invisible="'from_parent' in context" attrs="{'invisible':[('is_article', '=', True)]}"/> -->
+                        <field name="icon" attrs="{'invisible':[('dont_show_childs', '=', False)]}"/>
                         <field name="dont_show_childs" attrs="{'invisible':[('is_article', '=', True)]}"/>
                         <!-- por ahora no lo usamos, usamos el published, probablemente los grupos terminen siendo grupos de infra o algo asi -->
                         <!-- <field name="group_ids" widget="many2many_tags" attrs="{'invisible':[('is_article', '=', False)]}"/> -->
