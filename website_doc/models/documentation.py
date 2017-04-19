@@ -151,9 +151,14 @@ class Documentation(models.Model):
         compute='_compute_documentation',
         help='First documentation toc',
     )
+    icon = fields.Char(
+        help='fa-icon name, you can use any of the icons on '
+        'http://fontawesome.io/icons/, for eg. "fa-pencil-square-o"'
+    )
 
     @api.multi
-    @api.depends('parent_id')
+    # sacamos depends para que no de error con cache y newid
+    # @api.depends('parent_id')
     def _compute_url(self):
         for rec in self:
             rec.url_suffix = '/doc/%s/%s' % (rec.documentation_id.id, rec.id)

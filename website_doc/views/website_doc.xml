@@ -38,11 +38,21 @@
         <template id="toc" name="Documentation Index">
             <t t-set="level" t-value="level+1"/>
             <t t-foreach="titles" t-as="title">
-                <div t-attf-class="h#{str(level+2) + (level&lt;2 and ' page-header' or '')}">
+                <t t-if="title.dont_show_childs">
+                    <div class="col-sm-3 mb8">
+                        <a t-att-href="title.url_suffix">  
+                            <div class="well well-sm oe_slides_thumbnail_container text-center">
+                                <i t-att-class="'fa fa-2x mt4 %s' % title.icon"/>
+                                <h5 t-field="title.name"/>
+                            </div>
+                        </a>
+                    </div>
+                </t>
+                <t t-if="not title.dont_show_childs">
+                     <div t-attf-class="h#{str(level+2) + (level&lt;2 and ' page-header' or '')}">
                     <!-- <a t-attf-href="/doc/#{ slug(title) }" t-field="title.name"/> -->
                     <a t-att-href="title.url_suffix" t-field="title.name"/> 
                 </div>
-                <t  t-if="not title.dont_show_childs">
                     <t t-set="articles" t-value="title.article_ids"/>
                     <t t-call="website_doc.articles"/>
                     <t t-set="titles" t-value="title.child_ids"/>
