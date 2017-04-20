@@ -39,7 +39,7 @@
             <t t-set="level" t-value="level+1"/>
             <t t-foreach="titles" t-as="title">
                 <t t-if="title.dont_show_childs">
-                    <div class="col-sm-3 mb8">
+                    <div class="col-sm-3 mt8">
                         <a t-att-href="title.url_suffix">  
                             <div class="well well-sm oe_slides_thumbnail_container text-center">
                                 <i t-att-class="'fa fa-2x mt4 %s' % title.icon"/>
@@ -76,7 +76,7 @@
 
         <template id="documentation_post" name="Documentation Page">
             <t t-call="website.layout">
-                <section class="container mt16" t-if="toc">
+                <section class="container mt16">
                     <div class="row">
                         <ol class="breadcrumb mb0">
                             <li>
@@ -92,8 +92,8 @@
                     </div>
                 </section>
                 <section class="container">
-                    <h3 class="page-header" t-if="toc">
-                        <t t-esc="toc.name"/>
+                    <h3 class="page-header mt16">
+                        <t t-esc="toc and toc.name or 'Documentation'"/>
                     </h3>
                     <t t-set="level" t-value="toc and 1 or 0"/>
                     <t t-set="articles" t-value="toc.article_ids"/>

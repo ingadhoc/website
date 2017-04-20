@@ -5,7 +5,8 @@
 <!-- search icon on documntation breadcrumb -->
 <template id="breadcrumb_search" inherit_id="website_doc.documentation_post" name="Documentation breadcrumb search">
     <xpath expr="//li" position="before">
-          <li class="dropdown">
+        <!-- hasta que hagamos la busqueda tmb compatible con no estar en un doc -->
+          <li class="dropdown" t-if="toc">
             <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-search"></span></a>
             <ul class="dropdown-menu" style="padding:12px;">
                 <form class="form-inline" t-attf-action="/doc/#{slug(toc.documentation_id)}/search_results" method="get">
@@ -74,6 +75,23 @@
 <!-- Search Results Layout -->
 <template id="search_results" name="Search Results">
         <t t-call="website.layout">
+            <!-- agregamos breadcrumb -->
+            <section class="container mt16">
+                <div class="row">
+                    <ol class="breadcrumb mb0">
+                        <li>
+                            <a href="/doc">Documentation</a>
+                        </li>
+                        <t t-call="website_doc.breadcrumb">
+                            <t t-set="toc" t-value="doc"/>
+                        </t>
+                        <li class="active">
+                            <span>Search</span>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
          <t t-set="head">
             <script type="text/javascript" src="/web/static/lib/ckeditor/ckeditor.js"/>
             <script type="text/javascript">
