@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-17 22:13+0000\n"
-"PO-Revision-Date: 2017-04-17 22:13+0000\n"
+"POT-Creation-Date: 2017-04-20 12:26+0000\n"
+"PO-Revision-Date: 2017-04-20 12:26+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,11 @@ msgstr ""
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.search_results
 msgid "<span>No se encontraron resultados</span>"
+msgstr ""
+
+#. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.search_results
+msgid "<span>Search</span>"
 msgstr ""
 
 #. module: website_doc
@@ -91,6 +96,7 @@ msgstr "Display Name"
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_documentation_id
 #: model:ir.ui.view,arch_db:website_doc.documentation_post
 #: model:ir.ui.view,arch_db:website_doc.header_footer_custom
+#: model:ir.ui.view,arch_db:website_doc.search_results
 #: model:website.menu,name:website_doc.menu_questions
 msgid "Documentation"
 msgstr "Documentación"
@@ -179,6 +185,11 @@ msgstr "Groups"
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_id
 msgid "ID"
 msgstr "ID"
+
+#. module: website_doc
+#: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_icon
+msgid "Icon"
+msgstr ""
 
 #. module: website_doc
 #: model:ir.model.fields,help:website_doc.field_website_doc_toc_partner_id
@@ -314,6 +325,13 @@ msgstr "Meta título del sitio web"
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.search_results
 msgid "al"
+msgstr ""
+
+#. module: website_doc
+#: model:ir.model.fields,help:website_doc.field_website_doc_toc_icon
+msgid ""
+"fa-icon name, you can use any of the icons on http://fontawesome.io/icons/, "
+"for eg. \"fa-pencil-square-o\""
 msgstr ""
 
 #. module: website_doc
