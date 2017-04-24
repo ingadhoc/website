@@ -84,9 +84,9 @@
                             <field name="article_ids" context="{'default_is_article': 1, 'from_toc': True}"/>
                         </page>
                         <!-- We edit content on front end -->
-<!--                         <page string="Content" attrs="{'invisible':[('is_article', '!=', True)]}">
+                        <page string="Content" attrs="{'invisible':[('is_article', '!=', True)]}">
                             <field name="content"/>
-                        </page> -->
+                        </page>
                         <page string="Childs" attrs="{'invisible':[('is_article', '=', True)]}">
                             <field name="child_ids" context="{'from_parent':True}" />
                         </page>
