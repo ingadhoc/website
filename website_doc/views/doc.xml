@@ -85,7 +85,7 @@
                         </page>
                         <!-- We edit content on front end -->
                         <page string="Content" attrs="{'invisible':[('is_article', '!=', True)]}">
-                            <field name="content"/>
+                            <field name="content" widget="text"/>
                         </page>
                         <page string="Childs" attrs="{'invisible':[('is_article', '=', True)]}">
                             <field name="child_ids" context="{'from_parent':True}" />
