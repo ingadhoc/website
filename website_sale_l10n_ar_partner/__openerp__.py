@@ -38,5 +38,5 @@
     'installable': True,
     'name': 'e-Commerce Argentina Partner Document',
     'test': [],
-    'version': '8.0.0.0.0',
+    'version': '8.0.0.1.0',
 }
