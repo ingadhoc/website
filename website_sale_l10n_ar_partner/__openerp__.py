@@ -25,16 +25,18 @@
     'category': 'Accounting & Finance',
     'data': [
         'views/checkout_view.xml',
+        'views/website_portal_view.xml',
     ],
     'demo': [],
     'images': [
     ],
     'depends': [
         'website_sale',
+        'website_portal',
         'l10n_ar_invoice',
     ],
     'installable': True,
     'name': 'e-Commerce Argentina Partner Document',
     'test': [],
-    'version': '8.0.0.0.0',
+    'version': '8.0.0.1.0',
 }

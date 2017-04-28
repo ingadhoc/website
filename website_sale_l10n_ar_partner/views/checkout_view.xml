@@ -11,15 +11,15 @@
                 <label class="control-label" for="document_type_id">Tipo de Documento</label>
                 <select name="document_type_id" class="form-control">
                     <option value="">Tipo de Documento...</option>
-                    <t t-foreach="document_types or []" t-as="document_type">
-                      <option t-att-value="document_type.id" t-att-selected="document_type.id == checkout.get('document_type_id')"><t t-esc="document_type.name"/></option>
-                    </t>
+                        <t t-foreach="document_types or []" t-as="document_type">
+                          <option t-att-value="document_type.id" t-att-selected="document_type.id == checkout.get('document_type_id')"><t t-esc="document_type.name"/></option>
+                        </t>
                 </select>
             </div>
             <!-- agregamos document number -->
             <div t-attf-class="form-group #{error.get('document_number') and 'has-error' or ''} col-lg-6">
                 <label class="control-label" for="document_number">Número de Documento</label>
-                <input type="text" name="document_number" class="form-control" t-att-value="checkout.get('document_number')"/>
+                <input type="text" t-att-readonly="'readonly' if checkout.get('invoice_ids') else None" name="document_number" class="form-control" t-att-value="checkout.get('document_number')"/>
             </div>
         </xpath>
 
