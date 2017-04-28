@@ -44,7 +44,7 @@ class WebsiteSale(website_sale):
         """
         optional_billing_fields = (
             super(WebsiteSale, self)._get_optional_billing_fields() +
-            ['document_number', 'document_type_id'])
+            ['document_number', 'document_type_id', 'invoice_ids'])
         return optional_billing_fields
 
     def checkout_values(self, data=None):
@@ -58,7 +58,7 @@ class WebsiteSale(website_sale):
             cr, SUPERUSER_ID, document_type_ids, context)
         res.update({
             'document_types': document_types,
-            })
+        })
         return res
 
     def _post_prepare_query(self, query, data, address_type):
