@@ -26,16 +26,18 @@
     'data': [
         'views/checkout_view.xml',
         'views/portal_sale_templates.xml',
+        'views/website_portal_view.xml',
     ],
     'demo': [],
     'images': [
     ],
     'depends': [
         'website_sale',
+        'website_portal',
         'l10n_ar_sale',
     ],
     'installable': True,
     'name': 'e-Commerce Argentina Partner Document',
     'test': [],
-    'version': '9.0.1.0.0',
+    'version': '9.0.1.1.0',
 }

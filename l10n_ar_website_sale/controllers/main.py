@@ -7,6 +7,8 @@ from openerp.addons.website_sale.controllers.main import website_sale
 from openerp import SUPERUSER_ID, _
 from openerp.http import request
 from openerp.tools import config
+from openerp import http
+from openerp.addons.website_portal.controllers.main import website_account
 
 
 class WebsiteSale(website_sale):
@@ -54,7 +56,7 @@ class WebsiteSale(website_sale):
         """
         optional_billing_fields = (
             super(WebsiteSale, self)._get_optional_billing_fields() +
-            ['main_id_number', 'main_id_category_id'])
+            ['main_id_number', 'main_id_category_id', 'invoice_ids'])
         return optional_billing_fields
 
     def checkout_values(self, data=None):
@@ -83,3 +85,14 @@ class WebsiteSale(website_sale):
                 res[prefix + 'main_id_category_id'])
 
         return res
+
+
+class l10n_ar_website_account(website_account):
+
+    @http.route(['/my/account'], type='http', auth='user', website=True)
+    def details(self, redirect=None, **post):
+        response = super(l10n_ar_website_account, self).details()
+        document_categories = request.env[
+            'res.partner.id_category'].sudo().search([])
+        response.qcontext.update({'document_categories': document_categories})
+        return response
