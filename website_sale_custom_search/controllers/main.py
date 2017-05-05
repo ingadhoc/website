@@ -125,9 +125,24 @@ class QueryURL(object):
     def __call__(self, path=None, **kw):
         if not path:
             path = self.path
-        is_category = path.startswith('/shop/category/')
+
+        # is_category = path.startswith('/shop/category/')
         for k, v in self.args.items():
-            if is_category and k == 'search':
+            # TODO borrar lo viejo si vemos que quedo bien la nueva logica
+            # al final nos parecio mejor que se limpie siempre, no solo si
+            # la url empieza con /shop/category. En la practica lo unico que
+            # notamos que cambio fue que al hacer click en todos los productos
+            # tmb se limpia la busqueda
+
+            # # reset search es cuando hicimos una busqueda y hacemos click en
+            # # cualquier categoria (no la "todos los pro.."), en ese caso
+            # # limpiamos la busqueda
+            # reset_search = is_category and k == 'search'
+            # # reset attribute es que cuando se entro por un atributo y se
+            # # hace click en cualquier categoria
+            # reset_attrib = k == 'attrib'
+            # if reset_search or reset_attrib:
+            if k in ('attrib', 'search'):
                 continue
             kw.setdefault(k, v)
         l = []
@@ -139,6 +154,7 @@ class QueryURL(object):
                     l.append(werkzeug.url_encode([(k, v)]))
         if l:
             path += '?' + '&'.join(l)
+
         return path
 
 
