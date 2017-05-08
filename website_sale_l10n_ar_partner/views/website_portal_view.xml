@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+
+    <template id="details" name="l10n_ar website_portal" inherit_id="website_portal.details">
+
+        <xpath expr="//input[@name='vat']" position="attributes">
+            <attribute name="t-att-readonly">'readonly' if partner.invoice_ids else None</attribute>
+        </xpath>
+
+    </template>
+
+    </data>
+</openerp>
