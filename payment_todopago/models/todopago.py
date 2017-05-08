@@ -13,6 +13,7 @@ from openerp import api, fields, models, _
 import string
 from ast import literal_eval
 from openerp.http import request
+from email.utils import parseaddr
 from openerp.addons.payment_todopago.todopago import todopagoconnector as tp
 _logger = logging.getLogger(__name__)
 
@@ -139,9 +140,9 @@ class AcquirerMercadopago(models.Model):
         # todopago no nos acepta mas de 13 caraceteres
         phone = phone[:13]
         amount = "%.2f" % round(tx_values['amount'], 2)
-        email = values["partner_email"]
-        # if multiple emails then we dont send any. TODO improove and get first
-        if not email or ',' in email or ';' in email:
+        # parse address
+        email = parseaddr(values["email"])[1]
+        if not email or '@' not in email:
             email = 'dummy@email.com'
         email = email.strip().encode("utf8")
         # mandatorio, ya es mandatorio en ecommerce
