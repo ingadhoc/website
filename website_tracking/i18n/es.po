@@ -1,0 +1,108 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_tracking
+# 
+# Translators:
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-16 18:53+0000\n"
+"PO-Revision-Date: 2017-03-16 18:53+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
+"Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_tracking
+#: view:website.sale.tracker:website_tracking.website_sale_tracker_view
+#: field:website.sale.tracker,category_id:0
+msgid "Category"
+msgstr ""
+
+#. module: website_tracking
+#: field:website.sale.tracker,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: website_tracking
+#: field:website.sale.tracker,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: website_tracking
+#: field:website.sale.tracker,date:0
+msgid "Date & Time"
+msgstr ""
+
+#. module: website_tracking
+#: field:website.sale.tracker,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: website_tracking
+#: view:website.sale.tracker:website_tracking.website_sale_tracker_view
+msgid "Group By"
+msgstr ""
+
+#. module: website_tracking
+#: field:website.sale.tracker,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: website_tracking
+#: view:website.sale.tracker:website_tracking.website_sale_tracker_view
+#: field:website.sale.tracker,lang_id:0
+msgid "Language"
+msgstr ""
+
+#. module: website_tracking
+#: field:website.sale.tracker,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: website_tracking
+#: field:website.sale.tracker,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: website_tracking
+#: field:website.sale.tracker,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: website_tracking
+#: view:website.sale.tracker:website_tracking.website_sale_tracker_view
+#: field:website.sale.tracker,product_id:0
+msgid "Product"
+msgstr ""
+
+#. module: website_tracking
+#: view:website.sale.tracker:website_tracking.website_sale_tracker_view
+msgid "Search"
+msgstr ""
+
+#. module: website_tracking
+#: field:website.sale.tracker,search_user:0
+msgid "Search user"
+msgstr ""
+
+#. module: website_tracking
+#: model:ir.actions.act_window,name:website_tracking.action_menu_website_sale_tracker
+msgid "Tracker"
+msgstr ""
+
+#. module: website_tracking
+#: view:website.sale.tracker:website_tracking.website_sale_tracker_view
+#: field:website.sale.tracker,user_id:0
+msgid "User"
+msgstr ""
+
+#. module: website_tracking
+#: view:website.sale.tracker:website_tracking.view_website_sale_tracker_tree
+msgid "Website sale_tracker"
+msgstr ""
