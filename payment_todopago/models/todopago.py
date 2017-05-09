@@ -141,7 +141,7 @@ class AcquirerMercadopago(models.Model):
         phone = phone[:13]
         amount = "%.2f" % round(tx_values['amount'], 2)
         # parse address
-        email = parseaddr(values["email"])[1]
+        email = parseaddr(values["partner_email"])[1]
         if not email or '@' not in email:
             email = 'dummy@email.com'
         email = email.strip().encode("utf8")
