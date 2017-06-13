@@ -102,6 +102,19 @@
                     <div class="row">
                         <div t-field='toc.content' class="oe_structure"/>
                         <t t-raw="toc.google_doc"/>
+                        <div t-if="toc.is_article">
+                            <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>"</h2>
+                            <ul>
+                                <t t-foreach="toc.parent_id.article_ids" t-as="topic">
+                                    <li t-if="toc.id == topic.id">
+                                        <span t-esc="topic.name"/>
+                                    </li>
+                                    <li t-if="toc.id != topic.id">
+                                        <a t-att-href="topic.url_suffix" t-field="topic.name"/>
+                                    </li>
+                                </t>
+                            </ul>
+                        </div>
                     </div>
                 </section>
                 <div class="mt16 mb16"/>
