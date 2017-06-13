@@ -13,17 +13,20 @@ class WebsiteAccount(website_account):
     @http.route()
     def account(self):
         response = super(WebsiteAccount, self).account()
-        user = request.env.user
+        # lo cambiamos para que sea como sugieren aca porque si no se
+        # ven tareas que el usuario no tiene permisos
+        # user = request.env.user
         # TDE FIXME: shouldn't that be mnaged by the access rule itself ?
         # portal projects where you or someone from your company are a follower
-        project_tasks = request.env['project.task'].sudo().search([
-            '&',
-            ('project_id.privacy_visibility', '=', 'portal'),
-            '|',
-            ('message_partner_ids', 'child_of', [
-                user.partner_id.commercial_partner_id.id]),
-            ('message_partner_ids', 'child_of', [user.partner_id.id])
-        ])
+        # project_tasks = request.env['project.task'].sudo().search([
+        #     '&',
+        #     ('project_id.privacy_visibility', '=', 'portal'),
+        #     '|',
+        #     ('message_partner_ids', 'child_of', [
+        #         user.partner_id.commercial_partner_id.id]),
+        #     ('message_partner_ids', 'child_of', [user.partner_id.id])
+        # ])
+        project_tasks = request.env['project.task'].search([])
         response.qcontext.update({'tasks': project_tasks})
         return response
 
