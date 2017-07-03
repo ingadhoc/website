@@ -55,9 +55,13 @@ class WebsiteDoc(http.Controller):
             titles = toc.search([
                 ('parent_id', '=', False),
                 ('is_article', '=', False)])
+
+        # por ahora read status activado si usuario no es public user
+        read_status_enable = request.uid != request.website.user_id.id
         value = {
             'toc': toc,
             'titles': titles,
+            'read_status_enable': read_status_enable,
         }
         return request.website.render(
             "website_doc.documentation_post", value)

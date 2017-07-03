@@ -157,7 +157,34 @@ class Documentation(models.Model):
     )
     read_status = fields.Boolean(
         'Read Status',
+        compute='_compute_read',
+        inverse='_inverse_read'
     )
+
+    @api.multi
+    def _compute_read(self):
+        for rec in self:
+            status = self.env['website.doc.status'].search([
+                ('user_id', '=', self._uid), ('article_doc_id', '=', rec.id)])
+            if status:
+                rec.read_status = True
+            else:
+                rec.read_status = False
+
+    @api.multi
+    def _inverse_read(self):
+        status_obj = self.env['website.doc.status']
+        for rec in self:
+            doc_status_id = status_obj.search([
+                ('user_id', '=', self._uid),
+                ('article_doc_id', '=', rec.id)], limit=1)
+            if rec.read_status and not doc_status_id:
+                status_obj.create(
+                    {'user_id': self._uid,
+                     'article_doc_id': rec.id
+                     })
+            elif not rec.read_status and doc_status_id:
+                doc_status_id.unlink()
 
     @api.multi
     # sacamos depends para que no de error con cache y newid
@@ -222,3 +249,14 @@ google_doc_template = """
     </script>
 </div>
 """
+
+
+class DocumentationStatusDoc(models.Model):
+    _name = 'website.doc.status'
+    _description = 'Documentation Status'
+
+    user_id = fields.Many2one(
+        'res.users', 'User')
+
+    article_doc_id = fields.Many2one(
+        'website.doc.toc', 'Article')
