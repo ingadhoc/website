@@ -26,10 +26,14 @@
 
         <!-- Page Index -->
         <template id="articles" name="Documentation Articles">
-            <ul t-if="articles">
+           <ul t-if="articles">
                 <li t-foreach="articles" t-as="article">
                     <!-- <a t-attf-href="/doc/#{slug(article)}" t-field="article.name"/> -->
-                    <a t-att-href="article.url_suffix" t-field="article.name"/> 
+                    <div t-attf-class="js_publish_management oe_inline #{article.read_status and 'css_published' or 'css_unpublished'}" t-att-data-id="article.id" t-att-data-object="article._name" t-att-data-controller="'/doc/read'">
+                        <a t-att-href="article.url_suffix" t-field="article.name"/>
+                        <button class="btn btn-s fa fa-circle-o btn-danger js_publish_btn btn-link" title="Marcar este artículo como leído"/>
+                        <button class="btn btn-s fa fa-check-circle-o btn-success js_publish_btn btn-link" title="Marcar este artículo como NO leído"/>
+                    </div>
                 </li>
             </ul>
         </template>
@@ -93,7 +97,11 @@
                 </section>
                 <section class="container">
                     <h1 class="page-header mt16">
-                        <t t-esc="toc and toc.name or 'Documentation'"/>
+                        <div t-attf-class="js_publish_management oe_inline #{toc.read_status and 'css_published' or 'css_unpublished'}" t-att-data-id="toc.id" t-att-data-object="toc._name" t-att-data-controller="'/doc/read'">
+                            <t t-esc="toc and toc.name or 'Documentation'"/>
+                            <button class="btn fa fa-circle-o btn-danger js_publish_btn btn-link" title="Marcar este artículo como leído" t-if="toc.is_article"/>
+                            <button class="btn fa fa-check-circle-o btn-success js_publish_btn btn-link" title="Marcar este artículo como NO leído" t-if="toc.is_article"/>
+                        </div>
                     </h1>
                     <t t-set="level" t-value="toc and 1 or 0"/>
                     <t t-set="articles" t-value="toc.article_ids"/>
@@ -106,11 +114,13 @@
                             <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>"</h2>
                             <ul>
                                 <t t-foreach="toc.parent_id.article_ids" t-as="topic">
-                                    <li t-if="toc.id == topic.id">
-                                        <span t-esc="topic.name"/>
-                                    </li>
-                                    <li t-if="toc.id != topic.id">
-                                        <a t-att-href="topic.url_suffix" t-field="topic.name"/>
+                                    <li>
+                                        <div t-attf-class="js_publish_management oe_inline #{topic.read_status and 'css_published' or 'css_unpublished'}" t-att-data-id="topic.id" t-att-data-object="topic._name" t-att-data-controller="'/doc/read'">
+                                            <t t-if="toc.id == topic.id"><span t-esc="topic.name"/></t>
+                                            <t t-if="toc.id != topic.id"><a t-att-href="topic.url_suffix" t-field="topic.name"/></t>
+                                            <button class="btn btn-s fa fa-circle-o btn-danger js_publish_btn btn-link" title="Marcar este artículo como leído" />
+                                            <button class="btn btn-s fa fa-check-circle-o btn-success js_publish_btn btn-link" title="Marcar este artículo como NO leído"/>
+                                        </div>
                                     </li>
                                 </t>
                             </ul>

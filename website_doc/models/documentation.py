@@ -155,6 +155,9 @@ class Documentation(models.Model):
         help='fa-icon name, you can use any of the icons on '
         'http://fontawesome.io/icons/, for eg. "fa-pencil-square-o"'
     )
+    read_status = fields.Boolean(
+        'Read Status',
+    )
 
     @api.multi
     # sacamos depends para que no de error con cache y newid

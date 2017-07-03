@@ -61,3 +61,10 @@ class WebsiteDoc(http.Controller):
         }
         return request.website.render(
             "website_doc.documentation_post", value)
+
+    @http.route(['/doc/read'], type='json', auth="public", website=True)
+    def read(self, id, object):
+        _id = int(id)
+        obj = request.registry[object].browse(request.cr, request.uid, _id)
+        obj.read_status = not obj.read_status
+        return bool(obj.read_status)
