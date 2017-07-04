@@ -209,8 +209,13 @@ class Documentation(models.Model):
     # sacamos depends para que no de error con cache y newid
     # @api.depends('parent_id')
     def _compute_url(self):
+        uuid = self._context.get('uuid')
+        remote_uid = self._context.get('remote_uid')
         for rec in self:
             rec.url_suffix = '/doc/%s/%s' % (rec.documentation_id.id, rec.id)
+            if remote_uid and uuid:
+                rec.url_suffix = '%s/%s/%s' % (
+                    rec.url_suffix, uuid, remote_uid)
 
     @api.multi
     @api.depends('is_article', 'parent_id')

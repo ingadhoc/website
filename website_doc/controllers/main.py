@@ -43,8 +43,10 @@ class WebsiteDoc(http.Controller):
         # '/doc/how-to',
         '/doc',
         '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>',
-        '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>/<string:uuid>',
-        '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>/<string:uuid>/<string:remote_uid>',
+        '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>/'
+        '<string:uuid>',
+        '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>/'
+        '<string:uuid>/<string:remote_uid>',
     ],
         type='http', auth="public", website=True)
     def article_doc_render(
@@ -82,6 +84,7 @@ class WebsiteDoc(http.Controller):
             'titles': titles,
             'read_status_enable': read_status_enable,
             'uuid': uuid,
+            'remote_uid': remote_uid,
             'remote_uid': remote_uid,
         }
         return request.website.render(
