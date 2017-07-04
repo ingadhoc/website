@@ -162,10 +162,21 @@ class Documentation(models.Model):
     )
 
     @api.multi
+    def _get_doc_status(self, remote_uid, uuid):
+        self.ensure_one()
+        if remote_uid and uuid:
+            domain = [('remote_uid', '=', remote_uid), ('uuid', '=', uuid)]
+        else:
+            domain = [('user_id', '=', self._uid)]
+        return self.env['website.doc.status'].search(
+            domain + [('article_doc_id', '=', self.id)], limit=1)
+
+    @api.multi
     def _compute_read(self):
+        uuid = self._context.get('uuid')
+        remote_uid = self._context.get('remote_uid')
         for rec in self:
-            status = self.env['website.doc.status'].search([
-                ('user_id', '=', self._uid), ('article_doc_id', '=', rec.id)])
+            status = rec._get_doc_status(remote_uid, uuid)
             if status:
                 rec.read_status = True
             else:
@@ -173,18 +184,26 @@ class Documentation(models.Model):
 
     @api.multi
     def _inverse_read(self):
+        uuid = self._context.get('uuid')
+        remote_uid = self._context.get('remote_uid')
         status_obj = self.env['website.doc.status']
         for rec in self:
-            doc_status_id = status_obj.search([
-                ('user_id', '=', self._uid),
-                ('article_doc_id', '=', rec.id)], limit=1)
-            if rec.read_status and not doc_status_id:
-                status_obj.create(
-                    {'user_id': self._uid,
-                     'article_doc_id': rec.id
-                     })
-            elif not rec.read_status and doc_status_id:
-                doc_status_id.unlink()
+            status = rec._get_doc_status(remote_uid, uuid)
+            if rec.read_status and not status:
+                if uuid and remote_uid:
+                    vals = {
+                        'remote_uid': remote_uid,
+                        'uuid': uuid,
+                        'article_doc_id': rec.id,
+                    }
+                else:
+                    vals = {
+                        'user_id': rec._uid,
+                        'article_doc_id': rec.id,
+                    }
+                status_obj.create(vals)
+            elif not rec.read_status and status:
+                status.unlink()
 
     @api.multi
     # sacamos depends para que no de error con cache y newid
@@ -256,7 +275,18 @@ class DocumentationStatusDoc(models.Model):
     _description = 'Documentation Status'
 
     user_id = fields.Many2one(
-        'res.users', 'User')
-
+        'res.users',
+        'User',
+    )
+    uuid = fields.Char(
+        'Database UUID',
+    )
+    remote_uid = fields.Char(
+        'User remote Id',
+    )
     article_doc_id = fields.Many2one(
-        'website.doc.toc', 'Article')
+        'website.doc.toc',
+        'Article',
+        required=True,
+        ondelete='cascade',
+    )
