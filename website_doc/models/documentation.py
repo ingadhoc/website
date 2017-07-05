@@ -155,13 +155,67 @@ class Documentation(models.Model):
         help='fa-icon name, you can use any of the icons on '
         'http://fontawesome.io/icons/, for eg. "fa-pencil-square-o"'
     )
+    read_status = fields.Boolean(
+        'Read Status',
+        compute='_compute_read',
+        inverse='_inverse_read'
+    )
+
+    @api.multi
+    def _get_doc_status(self, remote_uid, uuid):
+        self.ensure_one()
+        if remote_uid and uuid:
+            domain = [('remote_uid', '=', remote_uid), ('uuid', '=', uuid)]
+        else:
+            domain = [('user_id', '=', self._uid)]
+        return self.env['website.doc.status'].search(
+            domain + [('article_doc_id', '=', self.id)], limit=1)
+
+    @api.multi
+    def _compute_read(self):
+        uuid = self._context.get('uuid')
+        remote_uid = self._context.get('remote_uid')
+        for rec in self:
+            status = rec._get_doc_status(remote_uid, uuid)
+            if status:
+                rec.read_status = True
+            else:
+                rec.read_status = False
+
+    @api.multi
+    def _inverse_read(self):
+        uuid = self._context.get('uuid')
+        remote_uid = self._context.get('remote_uid')
+        status_obj = self.env['website.doc.status']
+        for rec in self:
+            status = rec._get_doc_status(remote_uid, uuid)
+            if rec.read_status and not status:
+                if uuid and remote_uid:
+                    vals = {
+                        'remote_uid': remote_uid,
+                        'uuid': uuid,
+                        'article_doc_id': rec.id,
+                    }
+                else:
+                    vals = {
+                        'user_id': rec._uid,
+                        'article_doc_id': rec.id,
+                    }
+                status_obj.create(vals)
+            elif not rec.read_status and status:
+                status.unlink()
 
     @api.multi
     # sacamos depends para que no de error con cache y newid
     # @api.depends('parent_id')
     def _compute_url(self):
+        uuid = self._context.get('uuid')
+        remote_uid = self._context.get('remote_uid')
         for rec in self:
             rec.url_suffix = '/doc/%s/%s' % (rec.documentation_id.id, rec.id)
+            if remote_uid and uuid:
+                rec.url_suffix = '%s/%s/%s' % (
+                    rec.url_suffix, uuid, remote_uid)
 
     @api.multi
     @api.depends('is_article', 'parent_id')
@@ -219,3 +273,25 @@ google_doc_template = """
     </script>
 </div>
 """
+
+
+class DocumentationStatusDoc(models.Model):
+    _name = 'website.doc.status'
+    _description = 'Documentation Status'
+
+    user_id = fields.Many2one(
+        'res.users',
+        'User',
+    )
+    uuid = fields.Char(
+        'Database UUID',
+    )
+    remote_uid = fields.Char(
+        'User remote Id',
+    )
+    article_doc_id = fields.Many2one(
+        'website.doc.toc',
+        'Article',
+        required=True,
+        ondelete='cascade',
+    )
