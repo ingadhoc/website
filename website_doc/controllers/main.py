@@ -85,7 +85,6 @@ class WebsiteDoc(http.Controller):
             'read_status_enable': read_status_enable,
             'uuid': uuid,
             'remote_uid': remote_uid,
-            'remote_uid': remote_uid,
         }
         return request.website.render(
             "website_doc.documentation_post", value)
