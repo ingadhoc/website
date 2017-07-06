@@ -78,8 +78,9 @@ class WebsiteDoc(http.Controller):
                 ('is_article', '=', False)])
 
         # por ahora read status activado si usuario no es public user
-        read_status_enable = (remote_uid and uuid) or (
-            request.uid != request.website.user_id.id)
+        read_status_enable = request.uid != request.website.user_id.id
+        # read_status_enable = (remote_uid and uuid) or (
+        #     request.uid != request.website.user_id.id)
         value = {
             'toc': toc,
             'titles': titles,

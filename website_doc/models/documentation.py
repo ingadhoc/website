@@ -168,10 +168,12 @@ class Documentation(models.Model):
     @api.multi
     def _get_doc_status(self, remote_uid, uuid):
         self.ensure_one()
-        if remote_uid and uuid:
-            domain = [('remote_uid', '=', remote_uid), ('uuid', '=', uuid)]
-        else:
-            domain = [('user_id', '=', self._uid)]
+        # if remote_uid and uuid:
+        #     domain = [('remote_uid', '=', remote_uid), ('uuid', '=', uuid)]
+        # else:
+        #     domain = [('user_id', '=', self._uid)]
+        # POR ahora hacemos que esta sea la unica forma
+        domain = [('user_id', '=', self._uid)]
         return self.env['website.doc.status'].search(
             domain + [('article_doc_id', '=', self.id)], limit=1)
 
@@ -206,17 +208,22 @@ class Documentation(models.Model):
         for rec in self:
             status = rec._get_doc_status(remote_uid, uuid)
             if rec.read_status and not status:
-                if uuid and remote_uid:
-                    vals = {
-                        'remote_uid': remote_uid,
-                        'uuid': uuid,
-                        'article_doc_id': rec.id,
-                    }
-                else:
-                    vals = {
-                        'user_id': rec._uid,
-                        'article_doc_id': rec.id,
-                    }
+                # if uuid and remote_uid:
+                #     vals = {
+                #         'remote_uid': remote_uid,
+                #         'uuid': uuid,
+                #         'article_doc_id': rec.id,
+                #     }
+                # else:
+                #     vals = {
+                #         'user_id': rec._uid,
+                #         'article_doc_id': rec.id,
+                #     }
+                # Por ahora hacemos solamente para usuarios logueados
+                vals = {
+                    'user_id': rec._uid,
+                    'article_doc_id': rec.id,
+                }
                 status_obj.create(vals)
             elif not rec.read_status and status:
                 status.unlink()
