@@ -50,6 +50,9 @@
                     <div class="col-sm-3 mt8">
                         <a t-att-href="title.url_suffix">  
                             <div class="well well-sm oe_slides_thumbnail_container text-center">
+                                <div class="text-right" t-if="read_status_enable">
+                                    <span t-field="title.reading_percentage"/>%
+                                </div>
                                 <i t-att-class="'fa fa-2x mt4 %s' % title.icon"/>
                                 <h5 t-field="title.name"/>
                             </div>

@@ -160,6 +160,10 @@ class Documentation(models.Model):
         compute='_compute_read',
         inverse='_inverse_read'
     )
+    reading_percentage = fields.Integer(
+        'Reading percentage',
+        compute="_compute_reading_percentage",
+    )
 
     @api.multi
     def _get_doc_status(self, remote_uid, uuid):
@@ -170,6 +174,18 @@ class Documentation(models.Model):
             domain = [('user_id', '=', self._uid)]
         return self.env['website.doc.status'].search(
             domain + [('article_doc_id', '=', self.id)], limit=1)
+
+    @api.multi
+    def _compute_reading_percentage(self):
+        for rec in self:
+            child_articules = self.search(
+                [('is_article', '=', True), ('id', 'child_of', rec.id)])
+            if child_articules:
+                total = len(child_articules)
+                child_read = len(child_articules.filtered(
+                    lambda p: p.read_status))
+                rec.reading_percentage = int((
+                    float(child_read) / float(total)) * 100)
 
     @api.multi
     def _compute_read(self):
