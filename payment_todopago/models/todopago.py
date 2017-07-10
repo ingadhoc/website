@@ -75,6 +75,10 @@ class AcquirerMercadopago(models.Model):
 
     @api.multi
     def todopago_form_generate_values(self, values):
+        """
+        Por ahora stamos haciendo que si no vienen datos se usen datos del
+        commercial partner, pero esto seguro lo podriamos mejorar
+        """
         # return {}, tx_values
         # return values, tx_values
         self.ensure_one()
@@ -136,21 +140,26 @@ class AcquirerMercadopago(models.Model):
         onlydigits = string_all.translate(string_all, string.digits)
         onlyletters = string_all.translate(string_all, string.letters)
         phone = values["billing_partner_phone"]
+        phone = phone or commercial_partner.phone
         phone = str(phone).translate(string_all, onlydigits) or "12345678"
         # todopago no nos acepta mas de 13 caraceteres
         phone = phone[:13]
         amount = "%.2f" % round(tx_values['amount'], 2)
         # parse address
         email = parseaddr(values["partner_email"])[1]
+        email = email or commercial_partner.email
         if not email or '@' not in email:
             email = 'dummy@email.com'
         email = email.strip().encode("utf8")
         # mandatorio, ya es mandatorio en ecommerce
-        city = values["billing_partner_city"] or 'DUMMY CITY'
+        city = values["billing_partner_city"]
+        city = city or commercial_partner.city or 'DUMMY CITY'
         city = city.encode("utf8")
-        street = values["billing_partner_address"] or 'DUMMY STREET'
+        street = values["billing_partner_address"]
+        street = street or commercial_partner.street or 'DUMMY STREET'
         street = street.encode("utf8")
-        postal_code = values["billing_partner_zip"] or '1000'
+        postal_code = values["billing_partner_zip"]
+        postal_code = (postal_code or commercial_partner.postal_code or '1000')
         postal_code = postal_code.encode("utf8")
         first_name = values["billing_partner_first_name"]
         last_name = values["billing_partner_last_name"]
