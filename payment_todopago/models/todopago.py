@@ -267,12 +267,19 @@ class AcquirerMercadopago(models.Model):
         response = tpc.sendAuthorizeRequest(
             optionsSAR_comercio, optionsSAR_operacion)
         _logger.info('Preference Result: %s' % response)
+        transactions = self.env['payment.transaction'].search([
+            ('reference', '=', optionsSAR_operacion['OPERATIONID'])])
+
         if response.StatusCode != -1:
             _logger.error('Error: StatusCode "%s", StatusMessage "%s"' % (
                 response.StatusCode, response.StatusMessage))
-            return "/"
-        transactions = self.env['payment.transaction'].search([
-            ('reference', '=', optionsSAR_operacion['OPERATIONID'])])
+            # escribimos la return url en la transaccion, ya que es usada
+            # luego de procesar el error, seguramente seria mejor en otro lado
+            transactions.write({'todopago_Return_url': return_url})
+            # si tenemos una url de error disponible, la devolvemos
+            # esto pasa por ej cuando no esta todopago configurado
+            # return "/"
+            return optionsSAR_comercio.get('URL_ERROR', "/")
         tr_vals = {
             'todopago_RequestKey': response.RequestKey,
             'todopago_PublicRequestKey': response.PublicRequestKey,
@@ -328,7 +335,7 @@ class TxTodoPago(models.Model):
     def _todopago_form_get_tx_from_data(self, data):
         Answer = data.get('Answer')
         reference = data.get('OPERATIONID')
-        if not Answer or not reference:
+        if not reference:
             error_msg = (
                 'TodoPago: received data with missing reference (%s) or '
                 'collection_id (%s)' % (Answer, reference))
@@ -357,6 +364,16 @@ class TxTodoPago(models.Model):
         """
         _logger.info('Todo pago form validate for tx %s with data %s' % (
             tx, data))
+        # si no hubo answer en _todopago_form_get_tx_from_data entonces
+        # es probable que ni siquiera nos pudimos comunicar con todopago
+        if not tx.todopago_Answer or not tx.todopago_RequestKey:
+            _logger.info(
+                'Received notification for TodoPago payment %s: '
+                'set as errored' % (tx.reference))
+            return tx.write({
+                'state': 'error',
+                'state_message': 'No obtuvimos respuesta de Todopago.'
+            })
         # we need to get answer form todopago
         answer_data = {
             'Security': str(tx.acquirer_id.todopago_secret_key),
