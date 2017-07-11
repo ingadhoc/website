@@ -159,7 +159,7 @@ class AcquirerMercadopago(models.Model):
         street = street or commercial_partner.street or 'DUMMY STREET'
         street = street.encode("utf8")
         postal_code = values["billing_partner_zip"]
-        postal_code = (postal_code or commercial_partner.postal_code or '1000')
+        postal_code = (postal_code or commercial_partner.zip or '1000')
         postal_code = postal_code.encode("utf8")
         first_name = values["billing_partner_first_name"]
         last_name = values["billing_partner_last_name"]
