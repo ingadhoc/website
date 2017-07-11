@@ -279,12 +279,18 @@ class AcquirerMercadopago(models.Model):
         transactions = self.env['payment.transaction'].search([
             ('reference', '=', optionsSAR_operacion['OPERATIONID'])])
 
+        # TODO tal vez deberiamos agregar un try por si el error no esta
+        # atrapado y obtenemos una respuesta no contemplada
         if response.StatusCode != -1:
             _logger.error('Error: StatusCode "%s", StatusMessage "%s"' % (
                 response.StatusCode, response.StatusMessage))
             # escribimos la return url en la transaccion, ya que es usada
             # luego de procesar el error, seguramente seria mejor en otro lado
-            transactions.write({'todopago_Return_url': return_url})
+            transactions.write({
+                'todopago_Return_url': return_url,
+                'state_message': 'Error %s: %s' % (
+                    response.StatusCode, response.StatusMessage),
+            })
             # si tenemos una url de error disponible, la devolvemos
             # esto pasa por ej cuando no esta todopago configurado
             # return "/"
@@ -379,9 +385,11 @@ class TxTodoPago(models.Model):
             _logger.info(
                 'Received notification for TodoPago payment %s: '
                 'set as errored' % (tx.reference))
+            # el mensaje de error ya lo escribimos antes, aca solamente
+            # terminamos de stear el estado de error, aunque ya se podria
+            # haber hecho todo junto arriba
             return tx.write({
                 'state': 'error',
-                'state_message': 'No obtuvimos respuesta de Todopago.'
             })
         # we need to get answer form todopago
         answer_data = {
