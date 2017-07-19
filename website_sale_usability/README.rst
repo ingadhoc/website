@@ -6,8 +6,8 @@
 Website Usability Improvements
 ==============================
 
-Several improovements to project:
-#. Make Dates and Analytic Account fields visible on project form view.
+Several improovements to wesbite:
+#. In the "Contact Details" website view, the "Company Name" field is removed and it is arranged to take the "street" field instead of "street2".
 
 
 Installation
