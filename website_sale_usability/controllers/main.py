@@ -14,7 +14,6 @@ class WebsiteSale(website_sale):
 
     def _get_mandatory_billing_fields(self):
         res = super(WebsiteSale, self)._get_mandatory_billing_fields()
-        print 'res', res
         if 'street2' in res:
             res.remove('street2')
         if 'street' not in res:
