@@ -27,4 +27,4 @@ from openupgradelib import openupgrade
 def migrate(cr, version):
     # because this module is renamed, we need to inforce load of this data
     openupgrade.load_data(
-        cr, 'website_security', 'migrations/9.0.1.1.0/mig_data.xml')
+        cr, 'website_security', 'migrations/9.0.1.0.0/mig_data.xml')

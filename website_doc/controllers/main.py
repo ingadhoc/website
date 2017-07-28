@@ -22,7 +22,7 @@ class WebsiteDoc(http.Controller):
     @http.route([
         '/doc/how-to',
     ],
-        type='http', auth="public", website=True)
+        type='http', auth="user", website=True)
     def old_how_to_redirect(self, **kwargs):
         # just in case some old link to how-to remains active
         return werkzeug.utils.redirect('/doc')
@@ -35,7 +35,7 @@ class WebsiteDoc(http.Controller):
         # this for old links
         '/doc/how-to/<model("website.doc.toc"):toc>',
     ],
-        type='http', auth="public", website=True)
+        type='http', auth="user", website=True)
     def article_doc_redirect(self, toc, **kwargs):
         return werkzeug.utils.redirect(toc.url_suffix)
 
@@ -48,7 +48,7 @@ class WebsiteDoc(http.Controller):
         '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>/'
         '<string:uuid>/<string:remote_uid>',
     ],
-        type='http', auth="public", website=True)
+        type='http', auth="user", website=True)
     def article_doc_render(
             self, doc=None, toc=None, uuid=None, remote_uid=None, **kwargs):
         # TODO restringir acceso (lo ve juan)
@@ -95,7 +95,7 @@ class WebsiteDoc(http.Controller):
         '/doc/read',
         '/doc/read/<string:uuid>',
         '/doc/read/<string:uuid>/<string:remote_uid>',
-    ], type='json', auth="public", website=True)
+    ], type='json', auth="user", website=True)
     def read(self, id, object, uuid=None, remote_uid=None, **kwargs):
         _id = int(id)
         obj = request.registry[object].browse(request.cr, request.uid, _id)
