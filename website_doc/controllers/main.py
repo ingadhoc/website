@@ -22,7 +22,7 @@ class WebsiteDoc(http.Controller):
     @http.route([
         '/doc/how-to',
     ],
-        type='http', auth="user", website=True)
+        type='http', auth="public", website=True)
     def old_how_to_redirect(self, **kwargs):
         # just in case some old link to how-to remains active
         return werkzeug.utils.redirect('/doc')
@@ -35,7 +35,7 @@ class WebsiteDoc(http.Controller):
         # this for old links
         '/doc/how-to/<model("website.doc.toc"):toc>',
     ],
-        type='http', auth="user", website=True)
+        type='http', auth="public", website=True)
     def article_doc_redirect(self, toc, **kwargs):
         return werkzeug.utils.redirect(toc.url_suffix)
 
@@ -43,14 +43,12 @@ class WebsiteDoc(http.Controller):
         # '/doc/how-to',
         '/doc',
         '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>',
-        '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>/'
-        '<string:uuid>',
-        '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>/'
-        '<string:uuid>/<string:remote_uid>',
+        # '/doc/<model("website.doc.toc"):doc>/<model("website.doc.toc"):toc>/'
+        # '<string:uuid>',
     ],
-        type='http', auth="user", website=True)
+        type='http', auth="public", website=True)
     def article_doc_render(
-            self, doc=None, toc=None, uuid=None, remote_uid=None, **kwargs):
+            self, doc=None, toc=None, **kwargs):
         # TODO restringir acceso (lo ve juan)
         # account_res = request.env['sale.subscription']
         # if uuid:
@@ -65,9 +63,6 @@ class WebsiteDoc(http.Controller):
         if not toc:
             toc = request.env['website.doc.toc']
 
-        if remote_uid and uuid:
-            toc = toc.with_context(uuid=uuid, remote_uid=remote_uid)
-
         # si estamos buscando en root los articulos son todos los que no tengan
         # padre, si no, son los hijos del toc
         if toc:
@@ -77,29 +72,19 @@ class WebsiteDoc(http.Controller):
                 ('parent_id', '=', False),
                 ('is_article', '=', False)])
 
-        # por ahora read status activado si usuario no es public user
-        read_status_enable = request.uid != request.website.user_id.id
-        # read_status_enable = (remote_uid and uuid) or (
-        #     request.uid != request.website.user_id.id)
         value = {
             'toc': toc,
             'titles': titles,
-            'read_status_enable': read_status_enable,
-            'uuid': uuid,
-            'remote_uid': remote_uid,
         }
         return request.website.render(
             "website_doc.documentation_post", value)
 
     @http.route([
         '/doc/read',
-        '/doc/read/<string:uuid>',
-        '/doc/read/<string:uuid>/<string:remote_uid>',
-    ], type='json', auth="user", website=True)
-    def read(self, id, object, uuid=None, remote_uid=None, **kwargs):
+    ], type='json', auth="public", website=True)
+    def read(self, id, object, **kwargs):
         _id = int(id)
-        obj = request.registry[object].browse(request.cr, request.uid, _id)
-        if uuid and remote_uid:
-            obj = obj.with_context(uuid=uuid, remote_uid=remote_uid)
-        obj.read_status = not obj.read_status
-        return bool(obj.read_status)
+        rec = request.env[object].browse(_id)
+        # rec.read_status = not rec.read_status
+        rec.inverse_read(not rec.read_status)
+        return bool(rec.read_status)

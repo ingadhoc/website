@@ -31,7 +31,6 @@
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="parent_id"/>
-                    <field name="partner_id"/>
                     <field name="article_ids"/>
                     <field name="state"/>
                 </tree>
@@ -47,7 +46,6 @@
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="parent_id"/>
-                    <field name="partner_id"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -70,8 +68,6 @@
                         <!-- <field name="parent_id" invisible="'from_parent' in context" attrs="{'invisible':[('is_article', '=', True)]}"/> -->
                         <field name="icon" attrs="{'invisible':[('dont_show_childs', '=', False)]}"/>
                         <field name="dont_show_childs" attrs="{'invisible':[('is_article', '=', True)]}"/>
-                        <!-- por ahora no lo usamos, usamos el published, probablemente los grupos terminen siendo grupos de infra o algo asi -->
-                        <!-- <field name="group_ids" widget="many2many_tags" attrs="{'invisible':[('is_article', '=', False)]}"/> -->
                         <field name="add_google_doc" attrs="{'invisible':[('is_article', '=', False)]}"/>
                     </group>
                     <group attrs="{'invisible':[('add_google_doc', '=', False)]}">

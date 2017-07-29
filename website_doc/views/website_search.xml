@@ -6,7 +6,7 @@
 <template id="breadcrumb_search" inherit_id="website_doc.documentation_post" name="Documentation breadcrumb search">
     <xpath expr="//li" position="before">
         <!-- hasta que hagamos la busqueda tmb compatible con no estar en un doc -->
-          <li class="dropdown" t-if="toc">
+          <li class="dropdown" t-if="toc" groups="base.group_user,base.group_portal">
             <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-search"></span></a>
             <ul class="dropdown-menu" style="padding:12px;">
                 <form class="form-inline" t-attf-action="/doc/#{slug(toc.documentation_id)}/search_results" method="get">
@@ -21,7 +21,7 @@
 
 <!-- Search form -->
 <template id="search_form" name="Search Form">
-    <form class="navbar-form col-md-offset-1" id="search_form" role="search" t-attf-action="/doc/#{slug(doc)}/search_results" method="get">
+    <form groups="base.group_user,base.group_portal" class="navbar-form col-md-offset-1" id="search_form" role="search" t-attf-action="/doc/#{slug(doc)}/search_results" method="get">
         <div class="form-group col-md-8">
             <input type="search" class="form-control"
                 name="search" placeholder="Search word..."

@@ -28,7 +28,7 @@ class WebsiteDoc(http.Controller):
     @http.route([
         '/doc/<model("website.doc.toc"):doc>/search_results',
         '/doc/<model("website.doc.toc"):doc>/search_results/page/<int:page>',
-    ], type='http', auth="public", website=True)
+    ], type='http', auth="user", website=True)
     def search_results(
             self, doc, page=1, search='', **post):
 
@@ -63,8 +63,6 @@ class WebsiteDoc(http.Controller):
 
         results_count = len(results)
         url = request.httprequest.url
-        print 'url', url
-        print 'url_root', request.httprequest.url_root
         url = "/doc/%i/search_results" % (doc.id)
         # url = "/search_results"
         url_args = {}

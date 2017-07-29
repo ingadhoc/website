@@ -3,8 +3,11 @@
 # For copyright and license notices, see __openerp__.py file in module root
 # directory
 ##############################################################################
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 from openerp.osv import osv
+from openerp.exceptions import UserError
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class Documentation(models.Model):
@@ -14,29 +17,6 @@ class Documentation(models.Model):
     _order = "sequence, parent_left"
     _parent_order = "sequence, name"
     _parent_store = True
-
-    def name_get(self, cr, uid, ids, context=None):
-        if isinstance(ids, (list, tuple)) and not len(ids):
-            return []
-        if isinstance(ids, (long, int)):
-            ids = [ids]
-        reads = self.read(
-            cr, uid, ids, ['name', 'parent_id'],
-            context=context)
-        res = []
-        for record in reads:
-            name = record['name']
-            if record['parent_id']:
-                name = record['parent_id'][1] + ' / ' + name
-            res.append((record['id'], name))
-        return res
-
-    # TODO master remove me
-    def _name_get_fnc(
-            self, cr, uid, ids,
-            prop, unknow_none, context=None):
-        res = self.name_get(cr, uid, ids, context=context)
-        return dict(res)
 
     sequence = fields.Integer(
         'Sequence',
@@ -56,6 +36,7 @@ class Documentation(models.Model):
         ondelete='set null',
         # ondelete='cascade',
         domain=[('is_article', '=', False)],
+        auto_join=True,
     )
     child_ids = fields.One2many(
         'website.doc.toc',
@@ -63,6 +44,7 @@ class Documentation(models.Model):
         'Children Table Of Content',
         copy=True,
         domain=[('is_article', '=', False)],
+        auto_join=True,
     )
     parent_left = fields.Integer(
         'Left Parent',
@@ -75,20 +57,14 @@ class Documentation(models.Model):
     is_article = fields.Boolean(
         'Is Article?'
     )
-    # article_toc_id = fields.Many2one(
-    #     'website.doc.toc',
-    #     'Documentation ToC',
-    #     ondelete='set null',
-    #     domain=[('is_article', '=', False)],
-    # )
     article_ids = fields.One2many(
         'website.doc.toc',
         'parent_id',
-        # 'article_toc_id',
         'Articles',
         domain=[('is_article', '=', True)],
         context={'default_is_article': 1},
         copy=True,
+        auto_join=True,
     )
     add_google_doc = fields.Boolean(
         'Add Google Doc?',
@@ -105,38 +81,23 @@ class Documentation(models.Model):
         default='1050px'
     )
     content = fields.Html(
-        'Content', sanitize=False,
+        'Content',
+        sanitize=False,
     )
     google_doc = fields.Text(
         'Google Content',
         compute='_get_google_doc',
     )
-    group_ids = fields.Many2many(
-        'res.groups',
-        'website_doc_toc_group_rel',
-        'website_toc_id', 'gid', 'Groups',
-        help="If you have groups, "
-             "the visibility of this TOC will "
-             "be based on these groups. "
-        # "If this field is empty, Odoo will compute
-        # visibility based on the "
-        # related object's read access."
-    )
-    state = fields.Selection(
-        [('private', 'Is Private'),
-         ('published', 'Published')],
+    state = fields.Selection([
+        ('private', 'Is Private'),
+        ('portal', 'Portal'),
+        ('published', 'Published'),
+    ],
         'State',
         required=True,
         default='private',
-        # default='private',
         help="If private, then it wont be accesible "
              "by portal or public users"
-    )
-    partner_id = fields.Many2one(
-        'res.partner',
-        'Partner',
-        help='If partner is set, only this partner will be able '
-        'to see this item (except documentation managers)',
     )
     dont_show_childs = fields.Boolean(
     )
@@ -150,6 +111,8 @@ class Documentation(models.Model):
         compute_sudo=True,
         compute='_compute_documentation',
         help='First documentation toc',
+        # lo almacenamos para mejoras de performance
+        store=True,
     )
     icon = fields.Char(
         help='fa-icon name, you can use any of the icons on '
@@ -158,27 +121,54 @@ class Documentation(models.Model):
     read_status = fields.Boolean(
         'Read Status',
         compute='_compute_read',
-        inverse='_inverse_read'
+        # inverse='_inverse_read'
     )
     reading_percentage = fields.Integer(
         'Reading percentage',
         compute="_compute_reading_percentage",
     )
 
+    @api.constrains('state')
+    def check_published(self):
+        for rec in self:
+            if rec.state == 'published':
+                parents_not_published = rec.search([
+                    ('id', 'parent_of', rec.id), ('state', '!=', 'published')])
+                if parents_not_published:
+                    raise UserError(_(
+                        'No puede publicar este articulo porque hay articulos'
+                        ' padres no publicados'))
+            elif rec.state == 'portal':
+                parents_private = rec.search([
+                    ('id', 'parent_of', rec.id), ('state', '=', 'private')])
+                if parents_private:
+                    raise UserError(_(
+                        'No puede publicar este articulo porque hay articulos'
+                        ' padres privados'))
+                childs_published = rec.search([
+                    ('id', 'child_of', rec.id), ('state', '=', 'published')])
+                if childs_published:
+                    raise UserError(_(
+                        'No puede pasar a portal este articulo porque hay '
+                        ' publicados'))
+            else:
+                childs_published = rec.search([
+                    ('id', 'child_of', rec.id), ('state', '!=', 'private')])
+                if childs_published:
+                    raise UserError(_(
+                        'No puede despublicr este articulo porque hay hijos'
+                        ' publicados'))
+
     @api.multi
-    def _get_doc_status(self, remote_uid, uuid):
+    def _get_doc_status(self):
         self.ensure_one()
-        # if remote_uid and uuid:
-        #     domain = [('remote_uid', '=', remote_uid), ('uuid', '=', uuid)]
-        # else:
-        #     domain = [('user_id', '=', self._uid)]
-        # POR ahora hacemos que esta sea la unica forma
         domain = [('user_id', '=', self._uid)]
         return self.env['website.doc.status'].search(
             domain + [('article_doc_id', '=', self.id)], limit=1)
 
     @api.multi
     def _compute_reading_percentage(self):
+        _logger.info('Computing reading percentage')
         for rec in self:
             child_articules = self.search(
                 [('is_article', '=', True), ('id', 'child_of', rec.id)])
@@ -191,60 +181,61 @@ class Documentation(models.Model):
 
     @api.multi
     def _compute_read(self):
-        uuid = self._context.get('uuid')
-        remote_uid = self._context.get('remote_uid')
+        _logger.info('Computing read status')
         for rec in self:
-            status = rec._get_doc_status(remote_uid, uuid)
+            status = rec._get_doc_status()
             if status:
                 rec.read_status = True
             else:
                 rec.read_status = False
 
+    # lo implementamos sin funcion inverse del campo porque si no requeria
+    # que usuarios portal tengan permiso de escritura sobre este objeto si
+    # bien era un dummy write
     @api.multi
-    def _inverse_read(self):
-        uuid = self._context.get('uuid')
-        remote_uid = self._context.get('remote_uid')
+    def inverse_read(self, read_status):
         status_obj = self.env['website.doc.status']
         for rec in self:
-            status = rec._get_doc_status(remote_uid, uuid)
-            if rec.read_status and not status:
-                # if uuid and remote_uid:
-                #     vals = {
-                #         'remote_uid': remote_uid,
-                #         'uuid': uuid,
-                #         'article_doc_id': rec.id,
-                #     }
-                # else:
-                #     vals = {
-                #         'user_id': rec._uid,
-                #         'article_doc_id': rec.id,
-                #     }
-                # Por ahora hacemos solamente para usuarios logueados
+            status = rec._get_doc_status()
+            if read_status and not status:
                 vals = {
                     'user_id': rec._uid,
                     'article_doc_id': rec.id,
                 }
                 status_obj.create(vals)
-            elif not rec.read_status and status:
+            elif not read_status and status:
                 status.unlink()
+
+    # @api.multi
+    # def _inverse_read(self):
+    #     status_obj = self.env['website.doc.status']
+    #     for rec in self:
+    #         status = rec._get_doc_status()
+    #         if rec.read_status and not status:
+    #             vals = {
+    #                 'user_id': rec._uid,
+    #                 'article_doc_id': rec.id,
+    #             }
+    #             status_obj.create(vals)
+    #         elif not rec.read_status and status:
+    #             status.unlink()
 
     @api.multi
     # sacamos depends para que no de error con cache y newid
     # @api.depends('parent_id')
     def _compute_url(self):
-        uuid = self._context.get('uuid')
-        remote_uid = self._context.get('remote_uid')
+        _logger.info('Computing doc urls')
+        # uuid = self._context.get('uuid')
         for rec in self:
             rec.url_suffix = '/doc/%s/%s' % (rec.documentation_id.id, rec.id)
-            if remote_uid and uuid:
-                rec.url_suffix = '%s/%s/%s' % (
-                    rec.url_suffix, uuid, remote_uid)
+            # if uuid:
+            #     rec.url_suffix = '%s/%s/%s' % (
+            #         rec.url_suffix, uuid)
 
     @api.multi
     @api.depends('is_article', 'parent_id')
     def _compute_documentation(self):
-        # si estamos en un articulo, el padre es el article_toc_id si no el
-        # mismo
+        _logger.info('Computing documentation')
         for rec in self:
             # if rec.is_article:
             #     parent_toc = rec.article_toc_id
@@ -306,15 +297,10 @@ class DocumentationStatusDoc(models.Model):
         'res.users',
         'User',
     )
-    uuid = fields.Char(
-        'Database UUID',
-    )
-    remote_uid = fields.Char(
-        'User remote Id',
-    )
     article_doc_id = fields.Many2one(
         'website.doc.toc',
         'Article',
         required=True,
         ondelete='cascade',
+        auto_join=True,
     )
