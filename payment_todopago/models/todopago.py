@@ -136,31 +136,50 @@ class AcquirerMercadopago(models.Model):
             return tx_values
 
         # clean phone, only numbers
+        # con esto obtenemos listas de reemplazo para lo que queremos limpiar
         string_all = string.maketrans('', '')
         onlydigits = string_all.translate(string_all, string.digits)
-        onlyletters = string_all.translate(string_all, string.letters)
+        onlyletters = string_all.translate(string_all, string.letters + ' ')
+        letters_digits = string_all.translate(
+            string_all, string.letters + string.digits + ' ')
+
         phone = values["billing_partner_phone"]
         phone = phone or commercial_partner.phone
         phone = str(phone).translate(string_all, onlydigits) or "12345678"
         # todopago no nos acepta mas de 13 caraceteres
         phone = phone[:13]
+
         amount = "%.2f" % round(tx_values['amount'], 2)
-        # parse address
+
+        # parse emil address
         email = parseaddr(values["partner_email"])[1]
         email = email or commercial_partner.email
         if not email or '@' not in email:
             email = 'dummy@email.com'
         email = email.strip().encode("utf8")
+        # no acepta mas de 100
+        email = email[:100]
+
         # mandatorio, ya es mandatorio en ecommerce
         city = values["billing_partner_city"]
         city = city or commercial_partner.city or 'DUMMY CITY'
-        city = city.encode("utf8")
+        city = city.encode("utf8").translate(string_all, letters_digits)
+        # no acepta mas de 50
+        city = city[:50]
+
         street = values["billing_partner_address"]
         street = street or commercial_partner.street or 'DUMMY STREET'
-        street = street.encode("utf8")
+        street = street.encode("utf8").translate(string_all, letters_digits)
+        # no acepta mas de 60
+        street = street[:60]
+
         postal_code = values["billing_partner_zip"]
         postal_code = (postal_code or commercial_partner.zip or '1000')
-        postal_code = postal_code.encode("utf8")
+        postal_code = postal_code.encode("utf8").translate(
+            string_all, letters_digits)
+        # no acepta mas de 10
+        postal_code = postal_code[:10]
+
         first_name = values["billing_partner_first_name"]
         last_name = values["billing_partner_last_name"]
         # todopago only accept lettters
@@ -168,6 +187,10 @@ class AcquirerMercadopago(models.Model):
             string_all, onlyletters)
         last_name = str(last_name.encode("utf8")).translate(
             string_all, onlyletters)
+        # no acepta mas de 60
+        first_name = first_name[:10]
+        last_name = last_name[:10]
+
         # TODO tal vez necesitariamos separar primer y segundo nombre
         # en el caso que solo haya una palabra
         if not first_name:
