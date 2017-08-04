@@ -14,6 +14,7 @@
                 <search string="Documentation TOC">
                     <field name="name"/>
                     <field name="parent_id"/>
+                    <field name="documentation_id" domain="[('parent_id', '=', False)]"/>
                     <filter string="Root TOC" name="root_toc" domain="[('parent_id', '=', False)]"/>
                     <group expand="0" string="Group By">
                         <filter name="parent_id" string="Parent" context="{'group_by':'parent_id'}"/>
@@ -31,6 +32,7 @@
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="parent_id"/>
+                    <field name="documentation_id"/>
                     <field name="article_ids"/>
                     <field name="state"/>
                 </tree>
@@ -46,6 +48,7 @@
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="parent_id"/>
+                    <field name="documentation_id"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -65,6 +68,7 @@
                         <field name="name"/>
                         <field name="url_suffix" widget="url"/>
                         <field name="parent_id" invisible="'from_parent' in context"/>
+                        <field name="documentation_id"/>
                         <!-- <field name="parent_id" invisible="'from_parent' in context" attrs="{'invisible':[('is_article', '=', True)]}"/> -->
                         <field name="icon" attrs="{'invisible':[('dont_show_childs', '=', False)]}"/>
                         <field name="dont_show_childs" attrs="{'invisible':[('is_article', '=', True)]}"/>
