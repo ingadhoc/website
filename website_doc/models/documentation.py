@@ -242,6 +242,8 @@ class Documentation(models.Model):
             # else:
             #     parent_toc = rec
             # the first parent is the documentation
+            if not isinstance(rec.id, int):
+                continue
             rec.documentation_id = rec.search([
                 # ('id', 'parent_of', parent_toc.id),
                 ('id', 'parent_of', rec.id),

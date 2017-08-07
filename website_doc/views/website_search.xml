@@ -4,18 +4,14 @@
 
 <!-- search icon on documntation breadcrumb -->
 <template id="breadcrumb_search" inherit_id="website_doc.documentation_post" name="Documentation breadcrumb search">
-    <xpath expr="//li" position="before">
+     <xpath expr="//h1[@class='page-header mt16']" position="before">
         <!-- hasta que hagamos la busqueda tmb compatible con no estar en un doc -->
-          <li class="dropdown" t-if="toc" groups="base.group_user,base.group_portal">
-            <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-search"></span></a>
-            <ul class="dropdown-menu" style="padding:12px;">
-                <form class="form-inline" t-attf-action="/doc/#{slug(toc.documentation_id)}/search_results" method="get">
-                    <div class="input-group">
-                        <input type="search" t-att-value="search or ''" name="search" class="form-control pull-left input-sm" placeholder="Search word..."/>
-                    </div>
-                </form>
-            </ul>
-          </li>
+        <form class="navbar-form col-md-offset-1 text-center" id="search_form" role="search" t-attf-action="/doc/#{slug(toc.documentation_id)}/search_results" method="get" t-if="toc">
+            <div class="input-group col-md-4">
+                <!-- <span class="input-group"><span class="fa fa-search"/></span> -->
+                <input  class="form-control" type="search" name="search" placeholder="Buscar..." t-att-value="search or ''"/>
+            </div>
+        </form>
     </xpath>
 </template>
 
@@ -23,10 +19,11 @@
 <template id="search_form" name="Search Form">
     <form groups="base.group_user,base.group_portal" class="navbar-form col-md-offset-1" id="search_form" role="search" t-attf-action="/doc/#{slug(doc)}/search_results" method="get">
         <div class="form-group col-md-8">
+            <!-- <span class="input-group-addon"><span class="fa fa-search"/></span> -->
             <input type="search" class="form-control"
-                name="search" placeholder="Search word..."
+                name="search" placeholder="Buscar..."
                 t-att-value="search or ''"/>
-       </div>
+        </div>
         <div class="form-group col-md-8">
         </div>
     </form>
@@ -106,7 +103,7 @@
                     <div class="col-md-8">
                         <t t-if="results_count==0"><span>No se encontraron resultados</span></t>
                         <t t-if="results_count==1"><t t-esc="results_count"/><span> resultado encontrado</span></t>
-                        <t t-if="results_count&gt;1"><t t-esc="results_count"/><span> resultados encontrados, mostrando del <t t-esc="pager['offset']+1"/> al <t t-esc="last_result_showing"/></span></t>
+                        <t t-if="results_count&gt;1"><t t-esc="results_count"/><span> resultados encontrados, mostrando del <t t-esc="pager['offset']+1"/><span> al </span><t t-esc="last_result_showing"/></span></t>
                     </div>
                 </div>
             </div>
