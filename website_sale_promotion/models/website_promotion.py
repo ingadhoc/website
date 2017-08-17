@@ -3,7 +3,7 @@
 # For copyright and license notices, see __openerp__.py file in module root
 # directory
 ##############################################################################
-from openerp import models, fields, api, _
+from openerp import models, fields, api
 
 
 class website_promotion(models.Model):
@@ -12,6 +12,13 @@ class website_promotion(models.Model):
 
     name = fields.Char(
         'Name',
+        required=True,
+        readonly=True,
+        states={'draft': [('readonly', False)]}
+    )
+    pricelist_id = fields.Many2one(
+        'product.pricelist',
+        'Pricelist',
         required=True,
         readonly=True,
         states={'draft': [('readonly', False)]}
@@ -47,6 +54,15 @@ class website_promotion(models.Model):
         default='draft',
         string='State'
     )
+    base = fields.Selection([
+        ('list_price', 'Public Price'),
+        ('standard_price', 'Cost'),
+        ('pricelist', 'Other Pricelist')],
+        'Based on',
+        required=True,
+        readonly=True,
+        states={'draft': [('readonly', False)]}
+    )
     price_discount = fields.Float(
         'Price Discount',
         readonly=True,
@@ -59,7 +75,6 @@ class website_promotion(models.Model):
         'product.pricelist',
         'Other Pricelist',
         readonly=True,
-        required=True,
         states={'draft': [('readonly', False)]})
 
     @api.one
@@ -79,10 +94,11 @@ class website_promotion(models.Model):
                 'name': self.name,
                 'product_tmpl_id': product.id,
                 'sequence': 0,
-                'base': 'pricelist',
+                'base': self.base,
                 'base_pricelist_id': self.base_pricelist_id.id,
-                # 'price_version_id': self.pricelist_version_id.id,
+                'pricelist_id': self.pricelist_id.id,
                 'price_discount': self.price_discount,
+                'compute_price': 'formula',
                 'price_surcharge': self.price_surcharge,
             }
             self.env['product.pricelist.item'].create(vals)
@@ -93,8 +109,8 @@ class website_promotion(models.Model):
         prod_pricelist_item_obj = self.env['product.pricelist.item']
         domain = [
             ('name', '=', self.name),
-            # ('price_version_id', '=', self.pricelist_version_id.id),
             ('sequence', '=', 0),
+            ('pricelist_id', '=', self.pricelist_id.id),
             ('product_tmpl_id', 'in', self.template_ids.ids)
         ]
         items = prod_pricelist_item_obj.search(domain)
