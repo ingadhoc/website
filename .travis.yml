@@ -71,6 +71,7 @@ before_install:
   - if [[ "${OCA_RUNBOT}" != "1" ]]; then rvm install ruby --latest; fi
   - if [[ "${OCA_RUNBOT}" != "1" ]]; then gem install bootstrap-sass; fi
   - if [[ "${OCA_RUNBOT}" != "1" ]]; then gem install compass --pre; fi
+  - rm -rf ${HOME}/dependencies/ingadhoc-patches/base_name_search_improved
 
 install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools

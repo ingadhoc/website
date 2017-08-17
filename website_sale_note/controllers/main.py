@@ -13,9 +13,6 @@ class website_sale(website_sale):
     @http.route(
         ['/shop/payment/add_note'], type='json', auth="public", website=True)
     def add_note(self, internal_notes, **post):
-        print 'aaaaaaaaa'
-        print 'bbbbbbbbb'
-        print 'aaaaaaaaa', internal_notes
         context = request.context
         order = request.website.sale_get_order(context=context)
         if order:
