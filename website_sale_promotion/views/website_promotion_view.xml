@@ -9,8 +9,8 @@
             <field name="arch" type="xml">
                 <tree string="Promotion">
                     <field name="name"/>
+                    <field name="pricelist_id"/>
                     <field name="state" invisible="1"/>
-                    <!--<field name="pricelist_version_id"/>-->
                     <field name="public_category_id"/>
                     <field name="website_style_id"/>
                 </tree>
@@ -30,17 +30,20 @@
                     </header>
                     <sheet>
                         <group>
-                            <field name="name"/>
-                            <!--<field name="pricelist_version_id"/>-->
-                            <field name="base_pricelist_id"/>
-                            <field name="public_category_id"/>
-                            <field name="website_style_id"/>
+                            <group>
+                                <field name="name"/>
+                                <field name="pricelist_id"/>
+                                <field name="public_category_id"/>
+                                <field name="website_style_id"/>
+                            </group>
+                            <group >
+                                <field name="base"/>
+                                <field name="base_pricelist_id" attrs="{'invisible': [('base','!=','pricelist')],'required': [('base','=','pricelist')]}"/>
+                                <field name="price_discount"/>
+                                <field name="price_surcharge"/>
+                            </group>
                         </group>
-                        <group >
-                            <field name="template_ids"/>
-                            <field name="price_discount"/>
-                            <field name="price_surcharge"/>
-                        </group>
+                        <field name="template_ids"/>
                     </sheet>
                 </form>
             </field>
