@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
-<!-- we should improove this and show original invoice report -->
-<template id="invoices" inherit_id="website_portal_sale.invoices" name="Invoices and Payments Without link">
-  <xpath expr="//a" position="replace">
-    <!-- <t t-esc="invoice.number"/> -->
-    <t t-esc="invoice.display_name"/>
-  </xpath>
-</template>
-
 
 <template id="orders_followup" inherit_id="website_portal_sale.orders_followup" name="Sales Order with Report Prices">
   <xpath expr="//span[@t-field='ol.price_unit']" position="attributes">
