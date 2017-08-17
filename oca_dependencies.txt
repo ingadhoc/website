@@ -3,3 +3,4 @@ ingadhoc-project https://github.com/ingadhoc/project.git
 #comentamos porque da error de travis, por dependencias trae el de la oca
 #ingadhoc-patches https://github.com/ingadhoc/patches.git
 ingadhoc-argentina-sale https://github.com/ingadhoc/argentina-sale.git
+ingadhoc-reporting-engine https://github.com/ingadhoc/reporting-engine.git
