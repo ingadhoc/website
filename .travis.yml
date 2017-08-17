@@ -71,13 +71,13 @@ before_install:
   - if [[ "${OCA_RUNBOT}" != "1" ]]; then rvm install ruby --latest; fi
   - if [[ "${OCA_RUNBOT}" != "1" ]]; then gem install bootstrap-sass; fi
   - if [[ "${OCA_RUNBOT}" != "1" ]]; then gem install compass --pre; fi
-  # hacemos esto porque este modulo tiene un error que no pudimos arreglar todavia
-  - rm -rf ${HOME}/dependencies/ingadhoc-patches/base_name_search_improved
 
 install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
+  # hacemos esto porque este modulo tiene un error que no pudimos arreglar todavia
+  - rm -rf ${HOME}/dependencies/ingadhoc-patches/base_name_search_improved
 
 script:
   - travis_run_tests
