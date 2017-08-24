@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
+# emiquinodoz <eq@ingadhoc.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-29 22:29+0000\n"
-"PO-Revision-Date: 2017-07-29 22:29+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
+"POT-Creation-Date: 2017-08-18 19:31+0000\n"
+"PO-Revision-Date: 2017-08-18 19:31+0000\n"
+"Last-Translator: emiquinodoz <eq@ingadhoc.com>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,24 +21,30 @@ msgstr ""
 
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.search_results
+msgid "<span> al </span>"
+msgstr "<span> al </span>"
+
+#. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.search_results
 msgid "<span> resultado encontrado</span>"
-msgstr ""
+msgstr "<span> resultado encontrado</span>"
 
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.error_search_len
 msgid ""
 "<span>La palabra a buscar debe tener como mínimo 3 caracteres...</span>"
 msgstr ""
+"<span>La palabra a buscar debe tener como mínimo 3 caracteres...</span>"
 
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.search_results
 msgid "<span>No se encontraron resultados</span>"
-msgstr ""
+msgstr "<span>No se encontraron resultados</span>"
 
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.search_results
 msgid "<span>Search</span>"
-msgstr ""
+msgstr "<span>Buscar</span>"
 
 #. module: website_doc
 #: model:ir.model.fields,help:website_doc.field_website_doc_toc_add_google_doc
@@ -61,6 +68,12 @@ msgstr "Artículo"
 #: model:ir.ui.view,arch_db:website_doc.view_documentation_toc_form
 msgid "Articles"
 msgstr "Artículos"
+
+#. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.breadcrumb_search
+#: model:ir.ui.view,arch_db:website_doc.search_form
+msgid "Buscar..."
+msgstr "Buscar..."
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_child_ids
@@ -129,7 +142,7 @@ msgstr "Items de Documentación"
 #. module: website_doc
 #: model:ir.model,name:website_doc.model_website_doc_status
 msgid "Documentation Status"
-msgstr ""
+msgstr "Estado de la documentación"
 
 #. module: website_doc
 #: model:ir.actions.act_window,name:website_doc.action_documentation_toc
@@ -163,12 +176,12 @@ msgstr "¡Error! No puede crear categorías recursivas."
 #. module: website_doc
 #: model:ir.model.fields,help:website_doc.field_website_doc_toc_documentation_id
 msgid "First documentation toc"
-msgstr ""
+msgstr "Primera documentación toc"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_google_doc
 msgid "Google Content"
-msgstr ""
+msgstr "Contenido de Google"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_google_doc_code
@@ -195,7 +208,7 @@ msgstr "ID"
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_icon
 msgid "Icon"
-msgstr ""
+msgstr "Icono"
 
 #. module: website_doc
 #: model:ir.model.fields,help:website_doc.field_website_doc_toc_state
@@ -240,12 +253,12 @@ msgstr "Padre Izquierdo"
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.article_read_status
 msgid "Marcar este artículo como NO leído"
-msgstr ""
+msgstr "Marcar este artículo como NO leído"
 
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.article_read_status
 msgid "Marcar este artículo como leído"
-msgstr ""
+msgstr "Marcar este artículo como leído"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_name
@@ -256,13 +269,13 @@ msgstr "Nombre"
 #: code:addons/website_doc/models/documentation.py:158
 #, python-format
 msgid "No puede despublicr este articulo porque hay hijos publicados"
-msgstr ""
+msgstr "No puede despublicar este artículo porque hay hijos publicados"
 
 #. module: website_doc
 #: code:addons/website_doc/models/documentation.py:151
 #, python-format
 msgid "No puede pasar a portal este articulo porque hay  publicados"
-msgstr ""
+msgstr "No puede pasar a portal este articulo porque hay  publicados"
 
 #. module: website_doc
 #: code:addons/website_doc/models/documentation.py:138
@@ -270,12 +283,13 @@ msgstr ""
 msgid ""
 "No puede publicar este articulo porque hay articulos padres no publicados"
 msgstr ""
+"No puede publicar este articulo porque hay articulos padres no publicados"
 
 #. module: website_doc
 #: code:addons/website_doc/models/documentation.py:145
 #, python-format
 msgid "No puede publicar este articulo porque hay articulos padres privados"
-msgstr ""
+msgstr "No puede publicar este articulo porque hay articulos padres privados"
 
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.view_documentation_toc_filter
@@ -290,7 +304,7 @@ msgstr "Tabla de contenido principal"
 #. module: website_doc
 #: selection:website.doc.toc,state:0
 msgid "Portal"
-msgstr ""
+msgstr "Portal"
 
 #. module: website_doc
 #: selection:website.doc.toc,state:0
@@ -300,12 +314,12 @@ msgstr "Publicado"
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_read_status
 msgid "Read Status"
-msgstr ""
+msgstr "Leer estado"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_reading_percentage
 msgid "Reading percentage"
-msgstr ""
+msgstr "Porcentaje de lectura"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_parent_right
@@ -316,12 +330,6 @@ msgstr "Padre Derecho"
 #: model:ir.ui.view,arch_db:website_doc.view_documentation_toc_filter
 msgid "Root TOC"
 msgstr "Root TOC"
-
-#. module: website_doc
-#: model:ir.ui.view,arch_db:website_doc.breadcrumb_search
-#: model:ir.ui.view,arch_db:website_doc.search_form
-msgid "Search word..."
-msgstr ""
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_sequence
@@ -336,23 +344,23 @@ msgstr "Estado"
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.documentation_post
 msgid "También dentro de \""
-msgstr ""
+msgstr "También dentro de \""
 
 #. module: website_doc
 #: code:addons/website_doc/controllers/website_search.py:104
 #, python-format
 msgid "Unable to get text page"
-msgstr ""
+msgstr "No se puede obtener la página de texto"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_url_suffix
 msgid "Url suffix"
-msgstr ""
+msgstr "Sufijo de la URL"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_status_user_id
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_website_meta_description
@@ -370,18 +378,15 @@ msgid "Website meta title"
 msgstr "Meta título del sitio web"
 
 #. module: website_doc
-#: model:ir.ui.view,arch_db:website_doc.search_results
-msgid "al"
-msgstr ""
-
-#. module: website_doc
 #: model:ir.model.fields,help:website_doc.field_website_doc_toc_icon
 msgid ""
 "fa-icon name, you can use any of the icons on http://fontawesome.io/icons/, "
 "for eg. \"fa-pencil-square-o\""
 msgstr ""
+"Fa-icon nombre, puede utilizar cualquiera de los iconos en "
+"http://fontawesome.io/icons/, por ejemplo.  \"fa-pencil-square-o\""
 
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.search_results
 msgid "resultados encontrados, mostrando del"
-msgstr ""
+msgstr "resultados encontrados, mostrando del"
