@@ -74,16 +74,20 @@ class website_sale(website_sale):
             request.cr, request.uid, request.context, request.registry)
         if search:
             for srch in search.split(" "):
-                public_categ_ids = pool['product.public.category'].search(
-                    cr, uid, [('name', 'ilike', srch)], context=context)
-                domain += [
-                    '|', '|', '|', '|', '|', '|', ('name', 'ilike', srch),
+                sub_domain = [
+                    '|', '|', '|', '|', '|', ('name', 'ilike', srch),
                     ('barcode', 'ilike', srch),
                     ('description', 'ilike', srch),
                     ('description_sale', 'ilike', srch),
-                    ('public_categ_ids', 'child_of', public_categ_ids),
                     ('attribute_line_ids.value_ids.name', 'ilike', srch),
                     ('product_variant_ids.default_code', 'ilike', srch)]
+
+                public_categ_ids = pool['product.public.category'].search(
+                    cr, uid, [('name', 'ilike', srch)], context=context)
+                if public_categ_ids:
+                    sub_domain = ['|'] + sub_domain + [
+                        ('public_categ_ids', 'child_of', public_categ_ids)]
+                domain += sub_domain
         # fin cambio
 
         if category:
