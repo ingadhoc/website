@@ -33,7 +33,7 @@ class WebsiteSale(website_sale):
             request.env['res.partner.id_category'].sudo().browse(
                 data.get('main_id_category_id')).validate_id_number(
                 data.get('main_id_number'))
-        except:
+        except Exception:
             error_message.append(_('Numero de documento invalido'))
 
         # only make state required if there are states on choosen country

@@ -23,6 +23,9 @@
   <xpath expr="//div[@id='order_total_taxes']" position="attributes">
     <attribute name="t-if">False</attribute>
   </xpath>
+  <xpath expr="//div[@id='order_total_untaxed']" position="attributes">
+    <attribute name="t-if">False</attribute>
+  </xpath>
 </template>
 
 <!-- Ocultar detalle de impuestos en columna checkout de la derecha -->
