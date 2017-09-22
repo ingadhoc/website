@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_website_config_settings" model="ir.ui.view">
+        <field name="name">website.config.settings.inherit</field>
+        <field name="model">website.config.settings</field>
+        <field name="inherit_id" ref="website_sale.website_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <group name="delivery">
+                <div>
+                    <label string="Sale Order Type" for="sale_order_type_id"/>
+                </div>
+                <div>
+                    <field name="sale_order_type_id" class="oe_inline"/>
+                </div>
+            </group>
+        </field>
+    </record>
+</odoo>
