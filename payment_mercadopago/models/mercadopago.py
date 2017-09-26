@@ -38,15 +38,15 @@ class AcquirerMercadopago(models.Model):
         help='Yo need to use %s to indicate '
              'where SO number must go',
         default='Orden Ecommerce %s',
-        )
+    )
     mercadopago_client_id = fields.Char(
         'MercadoPago Client Id',
         required_if_provider='mercadopago',
-        )
+    )
     mercadopago_secret_key = fields.Char(
         'MercadoPago Secret Key',
         required_if_provider='mercadopago',
-        )
+    )
 
     @api.multi
     def mercadopago_compute_fees(
@@ -76,13 +76,13 @@ class AcquirerMercadopago(models.Model):
         return fees
 
     @api.multi
-    def mercadopago_form_generate_values(self, partner_values, tx_values):
+    def mercadopago_form_generate_values(self, values):
         self.ensure_one()
+        tx_values = dict(values)
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         if (
                 not self.mercadopago_client_id or
-                not self.mercadopago_secret_key
-                ):
+                not self.mercadopago_secret_key):
             raise ValidationError(_(
                 'YOU MUST COMPLETE acquirer.mercadopago_client_id and '
                 'acquirer.mercadopago_secret_key'))
@@ -111,8 +111,7 @@ class AcquirerMercadopago(models.Model):
         # else:
         if (
                 not self.mercadopago_item_title or
-                "%s" not in self.mercadopago_item_title
-                ):
+                "%s" not in self.mercadopago_item_title):
             raise Warning(_(
                 'No generic message defined for mercadopago or message '
                 'does not contains %/s!'))
@@ -130,10 +129,10 @@ class AcquirerMercadopago(models.Model):
         preference = {
             "items": items,
             "payer": {
-                "name": partner_values["first_name"],
-                "surname": partner_values["last_name"],
-                "email": partner_values["email"],
-                },
+                "name": values["billing_partner_first_name"],
+                "surname": values["billing_partner_last_name"],
+                "email": values["partner_email"],
+            },
             "back_urls": {
                 "success": '%s' % urlparse.urljoin(
                     base_url, success_url),
@@ -141,20 +140,22 @@ class AcquirerMercadopago(models.Model):
                     base_url, failure_url),
                 "pending": '%s' % urlparse.urljoin(
                     base_url, pending_url)
-                },
+            },
             # "notification_url": '%s' % urlparse.urljoin(
             #     base_url, MercadoPagoController._notify_url),
             "auto_return": "approved",
             "external_reference": tx_values["reference"],
             "expires": False,
-            }
-        tx_values['mercadopago_data'] = {
-            'mercadopago_preference': preference,
-            'mercadopago_client_id': self.mercadopago_client_id,
-            'mercadopago_secret_key': self.mercadopago_secret_key,
-            'environment': self.environment,
-            }
-        return partner_values, tx_values
+        }
+        # tx_values['mercadopago_data'] = {
+        tx_values.update({
+            'mercadopago_data': {
+                'mercadopago_preference': preference,
+                'mercadopago_client_id': self.mercadopago_client_id,
+                'mercadopago_secret_key': self.mercadopago_secret_key,
+                'environment': self.environment,
+            }})
+        return tx_values
 
     @api.multi
     def mercadopago_get_form_action_url(self):
@@ -167,11 +168,11 @@ class TxMercadoPago(models.Model):
 
     mercadopago_txn_id = fields.Char(
         'Transaction ID'
-        )
+    )
     mercadopago_txn_type = fields.Char(
         'Transaction type',
         help='Informative field computed after payment',
-        )
+    )
 
     @api.model
     def _mercadopago_form_get_tx_from_data(self, data):

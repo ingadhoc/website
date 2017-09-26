@@ -28,8 +28,8 @@ class MercadoPagoController(http.Controller):
 
     @http.route([
         '/payment/mercadopago/create_preference',
-        ],
-        type='http', auth="none")
+    ],
+        type='http', auth="none", csrf=False)
     def mercadopago_create_preference(self, **post):
         _logger.info(
             'Mercadopago: create preference with post data %s',
@@ -51,7 +51,7 @@ class MercadoPagoController(http.Controller):
                 not mercadopago_preference or
                 not mercadopago_secret_key or
                 not mercadopago_client_id
-                ):
+        ):
             _logger.warning('Missing parameters!')
             return werkzeug.utils.redirect("/")
         MPago = mercadopago.MP(
@@ -84,8 +84,8 @@ class MercadoPagoController(http.Controller):
     @http.route([
         '/payment/mercadopago/success_no_return',
         '/payment/mercadopago/pending_no_return',
-        ],
-        type='http', auth="none")
+    ],
+        type='http', auth="none", csrf=False)
     def mercadopago_back_no_return(self, **post):
         """
         Odoo, si usas el boton de pago desde una sale order o email, no manda
@@ -102,8 +102,8 @@ class MercadoPagoController(http.Controller):
     @http.route([
         '/payment/mercadopago/success',
         '/payment/mercadopago/pending',
-        ],
-        type='http', auth="none")
+    ],
+        type='http', auth="none", csrf=False)
     def mercadopago_back(self, **post):
         _logger.info(
             'Mercadopago: entering mecadopago_back with post data %s',
@@ -113,8 +113,8 @@ class MercadoPagoController(http.Controller):
 
     @http.route([
         '/payment/mercadopago/failure'
-        ],
-        type='http', auth="none")
+    ],
+        type='http', auth="none", csrf=False)
     def mercadopago_back_failure(self, **post):
         """
         If failure is return is because user has cancelled the payment

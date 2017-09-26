@@ -3,8 +3,8 @@
     <data noupdate="1">
 
         <template id="mercadopago_acquirer_button">
-            <form t-if="acquirer.mercadopago_secret_key and acquirer.mercadopago_client_id" t-att-action="tx_url" method="post" target="_self">
-                <input type="hidden" name="mercadopago_data" t-att-value="tx_values['mercadopago_data']"/>
+            <form t-if="acquirer.mercadopago_secret_key and acquirer.mercadopago_client_id and mercadopago_data" t-att-action="tx_url" method="post" target="_self">
+                <input type="hidden" name="mercadopago_data" t-att-value="mercadopago_data"/>
                 <button type="submit" width="100px"
                     t-att-class="submit_class">
                     <img t-if="not submit_txt" src="/payment_mercadopago/static/src/img/mercadopago_icon.png"/>
