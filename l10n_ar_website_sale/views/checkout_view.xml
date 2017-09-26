@@ -12,7 +12,7 @@
                 <select name="main_id_category_id" class="form-control">
                     <option value="">Tipo de Documento...</option>
                     <t t-foreach="document_categories or []" t-as="document_category">
-                      <option t-att-value="document_category.id" t-att-selected="document_category.id == checkout.get('main_id_category_id')"><t t-esc="document_category.name"/></option>
+                      <option t-att-value="document_category.id" t-att-selected="document_category.id == checkout.get('main_id_category_id')"><t t-esc="document_category.code"/></option>
                     </t>
                 </select>
             </div>
