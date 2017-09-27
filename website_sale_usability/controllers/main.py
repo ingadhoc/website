@@ -18,7 +18,7 @@ class WebsiteSale(website_sale):
             res.remove('street2')
         if 'street' not in res:
             res.append('street')
-        return self.mandatory_billing_fields
+        return res
 
     def _get_optional_billing_fields(self):
         res = super(WebsiteSale, self)._get_optional_billing_fields()
@@ -26,7 +26,7 @@ class WebsiteSale(website_sale):
             res.remove('street')
         if 'street2' not in res:
             res.append('street2')
-        return self.optional_billing_fields
+        return res
 
 
 class WebsiteAccount(website_account):
