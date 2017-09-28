@@ -32,12 +32,17 @@ class WebsiteSale(website_sale):
 
         # validate document number
         try:
+            number = request.env['res.partner.id_category'].new({
+                'name': data.get('main_id_number'),
+                'category_id': data.get('main_id_category_id'),
+            })
             request.env['res.partner.id_category'].sudo().browse(
                 data.get('main_id_category_id')).validate_id_number(
-                data.get('main_id_number'))
+                number)
         except Exception, e:
             _logger.info(
                 'Documento invalido en checkout ecommerce, error: %s' % e)
+            error['main_id_number'] = 'error'
             error_message.append(_('Numero de documento invalido'))
 
         # only make state required if there are states on choosen country
