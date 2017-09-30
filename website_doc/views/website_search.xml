@@ -4,15 +4,19 @@
 
 <!-- search icon on documntation breadcrumb -->
 <template id="breadcrumb_search" inherit_id="website_doc.documentation_post" name="Documentation breadcrumb search">
-     <xpath expr="//h1[@class='page-header mt16']" position="before">
-        <!-- hasta que hagamos la busqueda tmb compatible con no estar en un doc -->
-        <form class="navbar-form col-md-offset-1 text-center" id="search_form" role="search" t-attf-action="/doc/#{slug(toc.documentation_id)}/search_results" method="get" t-if="toc">
-            <div class="input-group col-md-4">
-                <!-- <span class="input-group"><span class="fa fa-search"/></span> -->
-                <input  class="form-control" type="search" name="search" placeholder="Buscar..." t-att-value="search or ''"/>
-            </div>
-        </form>
-    </xpath>
+     <!-- <xpath expr="//h1[@class='page-header mt16']" position="before"> -->
+     <section id="doc-page" position="before">
+        <section class="container" >
+            <!-- hasta que hagamos la busqueda tmb compatible con no estar en un doc -->
+            <form class="navbar-form col-md-offset-1 text-center" id="search_form" role="search" t-attf-action="/doc/#{slug(toc.documentation_id)}/search_results" method="get" t-if="toc">
+                <div class="input-group input-group-lg">
+                    <!-- <span class="input-group"><span class="fa fa-search"/></span> -->
+                    <input  class="form-control" type="search" name="search" placeholder="Buscar..." t-att-value="search or ''"/>
+                </div>
+            </form>
+        </section>
+    </section>
+    <!-- </xpath> -->
 </template>
 
 <!-- Search form -->
@@ -71,7 +75,15 @@
 
 <!-- Search Results Layout -->
 <template id="search_results" name="Search Results">
-        <t t-call="website.layout">
+    <t t-call="website.layout">
+        <t t-set="head">
+            <script type="text/javascript" src="/web/static/lib/ckeditor/ckeditor.js"/>
+            <script type="text/javascript">
+                CKEDITOR.config.toolbar = [['Bold','Italic','Underline','Strike'],['NumberedList','BulletedList', 'Blockquote']
+                ,['Outdent','Indent','Link','Unlink','Image'],] ;
+            </script>
+        </t>
+        <div id="wrap" class="oe_structure">
             <!-- agregamos breadcrumb -->
             <section class="container mt16">
                 <div class="row">
@@ -88,36 +100,32 @@
                     </ol>
                 </div>
             </section>
+            <section class="container mt16">
 
-         <t t-set="head">
-            <script type="text/javascript" src="/web/static/lib/ckeditor/ckeditor.js"/>
-            <script type="text/javascript">
-                CKEDITOR.config.toolbar = [['Bold','Italic','Underline','Strike'],['NumberedList','BulletedList', 'Blockquote']
-                ,['Outdent','Indent','Link','Unlink','Image'],] ;
-            </script>
-         </t>
-         <div class="container mt16 mb16 website_forum">
-            <div class="navbar navbar-default">
-                <t t-call="website_doc.search_form"/>
-                <div class="form-group col-md-8">
-                    <div class="col-md-8">
-                        <t t-if="results_count==0"><span>No se encontraron resultados</span></t>
-                        <t t-if="results_count==1"><t t-esc="results_count"/><span> resultado encontrado</span></t>
-                        <t t-if="results_count&gt;1"><t t-esc="results_count"/><span> resultados encontrados, mostrando del <t t-esc="pager['offset']+1"/><span> al </span><t t-esc="last_result_showing"/></span></t>
+         <!-- <div class="container mt16 mb16 website_forum"> -->
+                <div class="navbar navbar-default">
+                    <t t-call="website_doc.search_form"/>
+                    <div class="form-group col-md-8">
+                        <div class="col-md-8">
+                            <t t-if="results_count==0"><span>No se encontraron resultados</span></t>
+                            <t t-if="results_count==1"><t t-esc="results_count"/><span> resultado encontrado</span></t>
+                            <t t-if="results_count&gt;1"><t t-esc="results_count"/><span> resultados encontrados, mostrando del <t t-esc="pager['offset']+1"/><span> al </span><t t-esc="last_result_showing"/></span></t>
+                        </div>
                     </div>
                 </div>
-            </div>
-         </div>
+            </section>
+         <!-- </div> -->
+            <section class="container mt16">
 
-         <div class="container mt16 mb16">
-            <div t-foreach="results" t-as="result" class="mb16">
-                <t t-call="website_doc.display_result"/>
-            </div>
-            <div class="text-center">
-                <t t-call="website.pager"/>
-            </div>
-         </div>
-        </t>
+                <div t-foreach="results" t-as="result" class="mb16">
+                    <t t-call="website_doc.display_result"/>
+                </div>
+                <div class="text-center">
+                    <t t-call="website.pager"/>
+                </div>
+            </section>
+        </div>
+    </t>
 
 </template>
 
