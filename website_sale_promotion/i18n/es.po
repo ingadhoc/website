@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-17 16:25+0000\n"
-"PO-Revision-Date: 2017-08-17 16:25+0000\n"
+"POT-Creation-Date: 2017-09-29 16:32+0000\n"
+"PO-Revision-Date: 2017-09-29 16:32+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -122,6 +122,7 @@ msgid "Products Promotion"
 msgstr "Promociones en Productos"
 
 #. module: website_sale_promotion
+#: model:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_filter
 #: model:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_form
 #: model:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_tree
 msgid "Promotion"
@@ -139,6 +140,7 @@ msgstr ""
 
 #. module: website_sale_promotion
 #: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion_state
+#: model:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_filter
 msgid "State"
 msgstr "Estado"
 
