@@ -27,8 +27,9 @@
         <template id="article_read_status" name="Article Read Status">
             <!-- lo mostramos solo para usuarios portal o empleados, asi no recae la performance admeas -->
             <div groups="base.group_user,base.group_portal" style="display: inline-block;" t-attf-class="js_publish_management oe_inline #{article.read_status and 'css_published' or 'css_unpublished'}" t-att-data-id="article.id" t-att-data-object="article._name" t-att-data-controller="(uuid and remote_uid) and '/doc/read/%s/%s' % (uuid, remote_uid) or '/doc/read/'">
-                <button class="btn btn-s fa fa-circle-o btn-danger js_publish_btn btn-link" title="Marcar este artículo como leído"/>
-                <button class="btn btn-s fa fa-check-circle-o btn-success js_publish_btn btn-link" title="Marcar este artículo como NO leído"/>
+                <!-- ponemos style con important porque algunos temas pisan con important lo que hace oe_link -->
+                <button style="background-color: transparent !important; color: #337ab7 !important;" class="btn btn-s fa fa-circle-o btn-danger js_publish_btn btn-link" title="Marcar este artículo como leído"/>
+                <button style="background-color: transparent !important; color: #337ab7 !important;" class="btn btn-s fa fa-check-circle-o btn-success js_publish_btn btn-link" title="Marcar este artículo como NO leído"/>
             </div>
         </template>
 
