@@ -13,6 +13,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     todopago_max_insallments = fields.Integer(
+        copy=False,
         help='If no value is configured here, then default todopago value is '
         'going to be used.'
     )
