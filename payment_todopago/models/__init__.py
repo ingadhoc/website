@@ -4,3 +4,4 @@
 # directory
 ##############################################################################
 from . import todopago
+from . import sale_order

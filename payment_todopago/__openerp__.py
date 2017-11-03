@@ -22,11 +22,15 @@
     'name': 'TodoPago Payment Acquirer',
     'category': 'Hidden',
     'summary': 'Payment Acquirer: TodoPago Implementation',
-    'version': '9.0.1.1.0',
+    'version': '9.0.1.2.0',
     'author': 'Moldeo Interactive - www.moldeo.coop,ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
-    'depends': ['payment'],
+    'depends': [
+        'payment',
+        # agregamos sale para poder definir el máximo de cuotas
+        'sale',
+    ],
     'images': [
     ],
     'external_dependencies': {
@@ -36,6 +40,7 @@
     'data': [
         'views/todopago_view.xml',
         'views/payment_acquirer.xml',
+        'views/sale_order_view.xml',
         'data/todopago.xml',
     ],
     'installable': True,

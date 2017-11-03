@@ -294,13 +294,20 @@ class AcquirerMercadopago(models.Model):
         return_url = todopago_data.get(
             'return_url')
 
+        transactions = self.env['payment.transaction'].search([
+            ('reference', '=', optionsSAR_operacion['OPERATIONID'])])
+
+        # la unica manera que vimos de sacar un campo de la sale order es acá
+        sale = transactions and transactions[0].sale_order_id
+        if sale.todopago_max_insallments:
+            optionsSAR_operacion['MAXINSTALLMENTS'] = \
+                str(sale.todopago_max_insallments)
+
         tpc = self.get_TodoPagoConnector()
         _logger.info('Sending sendAuthorizeRequest')
         response = tpc.sendAuthorizeRequest(
             optionsSAR_comercio, optionsSAR_operacion)
         _logger.info('Preference Result: %s' % response)
-        transactions = self.env['payment.transaction'].search([
-            ('reference', '=', optionsSAR_operacion['OPERATIONID'])])
 
         # TODO tal vez deberiamos agregar un try por si el error no esta
         # atrapado y obtenemos una respuesta no contemplada
