@@ -5,8 +5,8 @@
 <!-- search icon on documntation breadcrumb -->
 <template id="breadcrumb_search" inherit_id="website_doc.documentation_post" name="Documentation breadcrumb search">
      <!-- <xpath expr="//h1[@class='page-header mt16']" position="before"> -->
-     <section id="doc-page" position="before">
-        <section class="container" >
+     <div id="doc-page" position="before">
+        <div class="container" >
             <!-- hasta que hagamos la busqueda tmb compatible con no estar en un doc -->
             <form class="navbar-form col-md-offset-1 text-center" id="search_form" role="search" t-attf-action="/doc/#{slug(toc.documentation_id)}/search_results" method="get" t-if="toc">
                 <div class="input-group input-group-lg">
@@ -14,8 +14,8 @@
                     <input  class="form-control" type="search" name="search" placeholder="Buscar..." t-att-value="search or ''"/>
                 </div>
             </form>
-        </section>
-    </section>
+        </div>
+    </div>
     <!-- </xpath> -->
 </template>
 
