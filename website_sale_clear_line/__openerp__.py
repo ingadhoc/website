@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'e-Commerce Clear Line On Cart',
-    'version': '9.0.1.0.0',
+    'version': '9.0.1.1.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
