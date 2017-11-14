@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-<data>
+    <data>
 
-    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Cart Clear Line">
-        <xpath expr="." position="inside">
-            <script type="text/javascript" src="/website_sale_clear_line/static/src/js/website_sale_clear_line.js"></script>
-        </xpath>
-    </template>
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Cart Clear Line">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/website_sale_clear_line/static/src/js/website_sale_clear_line.js"></script>
+            </xpath>
+        </template>
 
-    <!-- priority 99 for compatibility with sale options, first load sale options view and then this one -->
-    <template id="cart" inherit_id="website_sale.cart_lines" priority="99" name="Cart Clear Line">
-        <xpath expr="//t[@t-foreach='website_sale_order.website_order_line']/tr" position="inside">
-            <td>
-                <a href="" id="clear_cart_line_button" t-att-data-line-id="line.id" class="btn btn-default mb32"><span class="fa fa-trash-o"/></a>
-            </td>
-        </xpath>
-    </template>
+        <!-- priority 99 for compatibility with sale options, first load sale options view and then this one -->
+        <template id="cart" inherit_id="website_sale.cart_lines" priority="99" name="Cart Clear Line">
+            <xpath expr="//t[@t-foreach='website_sale_order.website_order_line']//tr//td[3]//div" position="after">
+                <a href="" id="clear_cart_line_button" t-att-data-line-id="line.id" class="xs no-decoration">
+                    <small><i class="fa fa-trash-o"/> Remove</small>
+                </a>
+            </xpath>
+        </template>
 
-</data>
+    </data>
 </openerp>
