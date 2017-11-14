@@ -126,6 +126,16 @@ class AcquirerMercadopago(models.Model):
             "unit_price": tx_values["amount"],
         }]
 
+        if self.fees_active:
+            items.append({
+                "title": _('Recargo por Mercadopago'),
+                "quantity": 1,
+                "currency_id": (
+                    tx_values['currency'] and
+                    tx_values['currency'].name or ''),
+                "unit_price": tx_values.pop('fees', 0.0),
+            })
+
         preference = {
             "items": items,
             "payer": {
