@@ -237,6 +237,25 @@ class AcquirerMercadopago(models.Model):
             'CSITQUANTITY': "1",
             'CSITUNITPRICE': amount,
         }
+
+        # agregamos cargos si está activo
+        if self.fees_active:
+            fee_amount = "%.2f" % round(tx_values.get('fees', 0.0), 2)
+            total_amount = "%.2f" % round(
+                tx_values['amount'] + tx_values.pop('fees', 0.0), 2)
+            optionsSAR_operacion.update({
+                'CSITPRODUCTCODE': "generic_product#recargo",
+                'CSITPRODUCTDESCRIPTION': (
+                    "Generic Description#Recargo por uso Todopago"),
+                'CSITPRODUCTNAME': "GenericProduct#Recargo",
+                'CSITPRODUCTSKU': "GENPROD#RECARGO",
+                'CSITTOTALAMOUNT': '%s#%s' % (amount, fee_amount),
+                'CSITQUANTITY': "1#1",
+                'CSITUNITPRICE': '%s#%s' % (amount, fee_amount),
+                'CSPTGRANDTOTALAMOUNT': total_amount,
+                'AMOUNT': total_amount,
+            })
+
         URL_ERROR = "%s?%s" % (
             urlparse.urljoin(base_url, failure_url),
             url_encode({'OPERATIONID': OPERATIONID}))
