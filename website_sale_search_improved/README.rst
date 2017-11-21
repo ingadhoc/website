@@ -8,8 +8,6 @@ Website Sale Search Improved
 
 This module makes some modifications on e-Commerce search
 * search by smart search
-* search by attributes
-* search by public categories
 * reset search when clicking on a category
 
 
