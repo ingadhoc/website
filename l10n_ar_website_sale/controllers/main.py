@@ -28,7 +28,7 @@ class WebsiteSale(website_sale):
             request.cr, SUPERUSER_ID, request.uid, request.context).partner_id
 
         # Phantomjs test steps from website_sale don't enter the VAT field.
-        if partner.type != 'contact':
+        if partner.commercial_partner_id == partner:
             if not data.get('main_id_number') and not config['test_enable']:
                 error['main_id_number'] = 'missing'
             if not data.get(
