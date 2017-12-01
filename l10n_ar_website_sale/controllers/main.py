@@ -24,39 +24,42 @@ class WebsiteSale(website_sale):
         error, error_message = super(
             WebsiteSale, self).checkout_form_validate(data)
 
-        # Phantomjs test steps from website_sale don't enter the VAT field.
-        if not data.get('main_id_number') and not config['test_enable']:
-            error['main_id_number'] = 'missing'
-        if not data.get('main_id_category_id') and not config['test_enable']:
-            error['main_id_category_id'] = 'missing'
-
         partner = request.registry.get('res.users').browse(
             request.cr, SUPERUSER_ID, request.uid, request.context).partner_id
-        number = request.env['res.partner.id_number'].sudo().new({
-            'name': data.get('main_id_number'),
-            'partner_id': partner.id,
-            'category_id': data.get('main_id_category_id'),
-        })
-        # validate document number
-        try:
-            request.env['res.partner.id_category'].sudo().browse(
-                data.get('main_id_category_id')).validate_id_number(
-                number)
-        except Exception, e:
-            _logger.info(
-                'Documento invalido en checkout ecommerce, error: %s' % e)
-            error['main_id_number'] = 'error'
-            error_message.append(_('Numero de documento invalido'))
 
-        try:
-            number.check()
-        except Exception, e:
-            _logger.info(
-                'Ya existe una empresa con ese número de documento, error:'
-                '%s' % e)
-            error['main_id_number'] = 'error'
-            error_message.append(_(
-                'Ya existe una empresa con ese número de documento'))
+        # Phantomjs test steps from website_sale don't enter the VAT field.
+        if partner.commercial_partner_id == partner:
+            if not data.get('main_id_number') and not config['test_enable']:
+                error['main_id_number'] = 'missing'
+            if not data.get(
+                    'main_id_category_id') and not config['test_enable']:
+                error['main_id_category_id'] = 'missing'
+
+            number = request.env['res.partner.id_number'].sudo().new({
+                'name': data.get('main_id_number'),
+                'partner_id': partner.id,
+                'category_id': data.get('main_id_category_id'),
+            })
+            # validate document number
+            try:
+                request.env['res.partner.id_category'].sudo().browse(
+                    data.get('main_id_category_id')).validate_id_number(
+                    number)
+            except Exception, e:
+                _logger.info(
+                    'Documento invalido en checkout ecommerce, error: %s' % e)
+                error['main_id_number'] = 'error'
+                error_message.append(_('Numero de documento invalido'))
+
+            try:
+                number.check()
+            except Exception, e:
+                _logger.info(
+                    'Ya existe una empresa con ese número de documento, error:'
+                    '%s' % e)
+                error['main_id_number'] = 'error'
+                error_message.append(_(
+                    'Ya existe una empresa con ese número de documento'))
 
         # only make state required if there are states on choosen country
         cr, context, pool = (
