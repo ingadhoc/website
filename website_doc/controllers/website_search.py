@@ -28,7 +28,7 @@ class WebsiteDoc(http.Controller):
     @http.route([
         '/doc/<model("website.doc.toc"):doc>/search_results',
         '/doc/<model("website.doc.toc"):doc>/search_results/page/<int:page>',
-    ], type='http', auth="user", website=True)
+    ], type='http', auth="public", website=True)
     def search_results(
             self, doc, page=1, search='', **post):
 
