@@ -61,6 +61,8 @@ class WebsiteDoc(http.Controller):
                 ], order="similarity(%s.%s, '%s') DESC" % (
                     doc_table, field, search))
 
+        # hacemos esto para filtar por los articulos que puede ver el usuario
+        results = results.exists()
         results_count = len(results)
         url = request.httprequest.url
         url = "/doc/%i/search_results" % (doc.id)
