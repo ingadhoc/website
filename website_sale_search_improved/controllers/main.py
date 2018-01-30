@@ -20,21 +20,9 @@ class website_sale(website_sale):
         domain = request.website.sale_product_domain()
         # inicio cambio
         if search:
-            sub_domain = request.env['product.template']._search_smart_search(
+            domain += request.env['product.template']._search_smart_search(
                 'ilike', search)
-            # buscamos categorias publicas con las palabras de la busqueda
-            public_categs = request.env['product.public.category']
-            for srch in search.split(" "):
-                public_categs |= public_categs.search(
-                    [('name', 'ilike', srch)])
-            if public_categs:
-                sub_domain = ['|'] + sub_domain + [
-                    ('public_categ_ids', 'child_of', public_categs.ids)]
-                # domain = [
-                #     '|',
-                #     ('public_categ_ids', 'child_of', public_categs.ids)
-                # ] + domain
-            domain += sub_domain
+
         if category:
             domain += [('public_categ_ids', 'child_of', int(category))]
 
