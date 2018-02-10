@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class User:
 	def __init__(self, user, password):
 		self.user = user

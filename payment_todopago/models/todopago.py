@@ -201,6 +201,7 @@ class AcquirerMercadopago(models.Model):
         # we use str o encode because not unicode supported
         optionsSAR_operacion = {
             "MERCHANT": str(self.todopago_client_id),
+            "EMAILCLIENTE": email,
             "OPERATIONID": OPERATIONID,
             "CURRENCYCODE": str("032"),
             "AMOUNT": str(tx_values["amount"]),
@@ -263,12 +264,13 @@ class AcquirerMercadopago(models.Model):
             urlparse.urljoin(base_url, success_url),
             url_encode({'OPERATIONID': OPERATIONID}))
         optionsSAR_comercio = {
-            "Session": "ABCDEF-1234-12221-FDE1-00000200",
+            # "Session": "ABCDEF-1234-12221-FDE1-00000200",
             "Security": str(self.todopago_secret_key),
             "EncodingMethod": "XML",
             "URL_OK": str(URL_OK),
             "URL_ERROR": str(URL_ERROR),
-            "EMAILCLIENTE": email,
+            # "EMAILCLIENTE": email,
+            "Merchant":  str(self.todopago_client_id),
         }
 
         tx_values.update({
