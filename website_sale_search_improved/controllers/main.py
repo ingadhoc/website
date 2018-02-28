@@ -50,7 +50,8 @@ class website_sale(website_sale):
         """
         if category and search:
             category = None
-        return super(website_sale, self).shop(page, category, search, **post)
+        return super(website_sale, self).shop(
+            page=page, category=category, search=search, **post)
 
 
 class QueryURL(object):
