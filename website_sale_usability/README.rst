@@ -8,7 +8,7 @@ Website Usability Improvements
 
 Several improovements to wesbite:
 #. In the "Contact Details" website view, the "Company Name" field is removed and it is arranged to take the "street" field instead of "street2".
-
+#. Backport from v11 posibility to use default warehouse on ecommerce
 
 Installation
 ============
