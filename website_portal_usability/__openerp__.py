@@ -30,6 +30,8 @@
     'images': [
     ],
     'depends': [
+        # porque website_portal no tiene dependencia a portal
+        'portal',
         'website_portal',
     ],
     'data': [
