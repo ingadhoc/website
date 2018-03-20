@@ -3,14 +3,14 @@
 # * payment_todopago
 # 
 # Translators:
-# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 19:21+0000\n"
-"PO-Revision-Date: 2017-02-06 19:21+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2016\n"
+"POT-Creation-Date: 2018-03-20 12:49+0000\n"
+"PO-Revision-Date: 2018-03-20 12:49+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018\n"
 "Language-Team: Dutch (https://www.transifex.com/adhoc/teams/46451/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,6 +71,19 @@ msgid "For eg. TODOPAGO 4C841713E65FBC7719D666CCAC531234"
 msgstr ""
 
 #. module: payment_todopago
+#: model:ir.model.fields,help:payment_todopago.field_sale_order_todopago_max_insallments
+msgid ""
+"If no value is configured here, then default todopago value is going to be "
+"used."
+msgstr ""
+
+#. module: payment_todopago
+#: code:addons/payment_todopago/models/sale_order.py:27
+#, python-format
+msgid "Max installments must be between 0 and 12"
+msgstr ""
+
+#. module: payment_todopago
 #: model:payment.acquirer,pre_msg:payment_todopago.payment_acquirer_todopago
 msgid ""
 "Only available in Argentina and in ARS. You will be redirected to the "
@@ -90,7 +103,7 @@ msgstr "Betaling verwerver"
 #. module: payment_todopago
 #: model:ir.model,name:payment_todopago.model_payment_transaction
 msgid "Payment Transaction"
-msgstr ""
+msgstr "Betalingstransactie"
 
 #. module: payment_todopago
 #: model:ir.ui.view,arch_db:payment_todopago.payment_error
@@ -110,6 +123,11 @@ msgstr ""
 #. module: payment_todopago
 #: model:ir.ui.view,arch_db:payment_todopago.payment_error
 msgid "Review Order<span class=\"chevron\"/>"
+msgstr ""
+
+#. module: payment_todopago
+#: model:ir.model,name:payment_todopago.model_sale_order
+msgid "Sales Order"
 msgstr ""
 
 #. module: payment_todopago
@@ -143,6 +161,11 @@ msgid "Todopago"
 msgstr ""
 
 #. module: payment_todopago
+#: model:ir.model.fields,field_description:payment_todopago.field_sale_order_todopago_max_insallments
+msgid "Todopago max insallments"
+msgstr ""
+
+#. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction_todopago_Return_url
 msgid "Todopago return url"
 msgstr ""
@@ -155,7 +178,7 @@ msgid ""
 msgstr ""
 
 #. module: payment_todopago
-#: code:addons/payment_todopago/models/todopago.py:85
+#: code:addons/payment_todopago/models/todopago.py:90
 #, python-format
 msgid ""
 "YOU MUST COMPLETE acquirer.todopago_client_id and "
