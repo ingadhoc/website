@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 <data>
 
 <template id="cart_lines" inherit_id="website_sale.cart_lines" name="Taxes Included Shopping Cart">
@@ -58,4 +58,4 @@
   </xpath>
 </template>
 </data>
-</openerp>
+</odoo>

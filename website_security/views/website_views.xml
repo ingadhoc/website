@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
 
         <!-- <menuitem id="website_main_menu" name="Website" sequence="400"/> -->
@@ -67,4 +67,4 @@
         </record>
 
     </data>
-</openerp>
+</odoo>

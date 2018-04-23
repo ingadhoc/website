@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import requests
 import os.path, sys, warnings, copy, json
 from suds.client import Client

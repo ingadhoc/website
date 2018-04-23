@@ -51,8 +51,7 @@ env:
   - TRANSIFEX_TEAM='46451'
 
   matrix:
-  # por todopago no podemos activarlo 
-  # - LINT_CHECK="1"
+  - LINT_CHECK="1"
   - TRANSIFEX="1"
   - TESTS="1" ODOO_REPO="odoo/odoo" 
 # either use the two lines above or the two below. Don't change the default if
@@ -72,6 +71,7 @@ before_install:
 
 install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - sed -i 's/manifest_required_author\=.*/manifest_required_author="ADHOC SA"/g' ${HOME}/maintainer-quality-tools/travis/cfg/travis_run_pylint_pr.cfg
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
   # hacemos esto porque este modulo tiene un error que no pudimos arreglar todavia

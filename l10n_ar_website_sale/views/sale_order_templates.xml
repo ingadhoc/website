@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 <data>
 <!-- we should improove this and show original invoice report -->
 <template id="invoices" inherit_id="website_portal_sale.invoices" name="Invoices and Payments Without link">
@@ -27,4 +27,4 @@
 </template>
 
 </data>
-</openerp>
+</odoo>

@@ -1,16 +1,15 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
-# For copyright and license notices, see __openerp__.py file in module root
+# For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from openerp import http
-from openerp.http import request
+from odoo import http
+from odoo.http import request
 import logging
 import werkzeug.utils
-# from openerp.addons.web import http
-# from openerp.addons.web.http import request
-from openerp.addons.website.controllers.main import Website as controllers
-# from openerp.addons.website.models.website import slugify
+# from odoo.addons.web import http
+# from odoo.addons.web.http import request
+from odoo.addons.website.controllers.main import Website as controllers
+# from odoo.addons.website.models.website import slugify
 
 logger = logging.getLogger(__name__)
 

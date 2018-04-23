@@ -1,4 +1,4 @@
-html2text
-mercadopago
-suds-jurko
-requests
+# html2text
+# mercadopago
+# suds-jurko
+# requests

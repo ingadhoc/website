@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 <data>
 
 <template id="product_attributes" inherit_id="website_sale.product_attributes" name="Product attributes Link">
@@ -16,4 +16,4 @@
 </template>
 
 </data>
-</openerp>
+</odoo>

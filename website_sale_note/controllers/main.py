@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
-# For copyright and license notices, see __openerp__.py file in module root
+# For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from openerp import http
-from openerp.http import request
-from openerp.addons.website_sale.controllers.main import website_sale
+from odoo import http
+from odoo.http import request
+from odoo.addons.website_sale.controllers.main import website_sale
 
 
 class website_sale(website_sale):

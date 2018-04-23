@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
-# For copyright and license notices, see __openerp__.py file in module root
+# For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from openerp import models, fields, api, _
-from openerp.addons.payment.models.payment_acquirer import ValidationError
+from odoo import models, fields, api, _
+from odoo.addons.payment.models.payment_acquirer import ValidationError
 import logging
 _logger = logging.getLogger(__name__)
 

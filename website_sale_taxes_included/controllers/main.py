@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
-# For copyright and license notices, see __openerp__.py file in module root
+# For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-# from openerp import SUPERUSER_ID
-from openerp import http
-from openerp.http import request
-# from openerp.tools.translate import _
-# from openerp.addons.website.models.website import slug
-from openerp.addons.website_sale.controllers.main import website_sale
+# from odoo import SUPERUSER_ID
+from odoo import http
+from odoo.http import request
+# from odoo.tools.translate import _
+# from odoo.addons.website.models.website import slug
+from odoo.addons.website_sale.controllers.main import website_sale
 
 # PPG = 20 # Products Per Page
 # PPR = 4  # Products Per Row

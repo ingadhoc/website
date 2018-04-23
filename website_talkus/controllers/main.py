@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
-import openerp
-from openerp.addons.web import http
-from openerp.http import request
+import odoo
+from odoo.addons.web import http
+from odoo.http import request
 import random
 
 
-class WebsiteChat(openerp.addons.web.controllers.main.Home):
+class WebsiteChat(odoo.addons.web.controllers.main.Home):
     # Create the talkus website model.
     @http.route('/website_talkus/get_values',
                 type='json', auth='public', website=True)

@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
-# For copyright and license notices, see __openerp__.py file in module root
+# For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from openerp import http
-from openerp.addons.website_portal.controllers.main import website_account
-from openerp.http import request
+from odoo import http
+from odoo.addons.website_portal.controllers.main import website_account
+from odoo.http import request
 
 
 class WebsiteAccount(website_account):

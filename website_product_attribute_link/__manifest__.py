@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Copyright (C) 2016  ADHOC SA  (http://www.adhoc.com.ar)
@@ -38,8 +37,6 @@
         'data/product_group_data.xml',
     ],
     'demo': [
-    ],
-    'test': [
     ],
     'installable': False,
     'auto_install': False,

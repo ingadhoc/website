@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
-# For copyright and license notices, see __openerp__.py file in module root
+# For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from openerp.addons.website_sale.controllers.main import website_sale
-from openerp import SUPERUSER_ID, _
-from openerp.http import request
-from openerp.tools import config
-from openerp import http
-from openerp.addons.website_portal.controllers.main import website_account
+from odoo.addons.website_sale.controllers.main import website_sale
+from odoo import SUPERUSER_ID, _
+from odoo.http import request
+from odoo.tools import config
+from odoo import http
+from odoo.addons.website_portal.controllers.main import website_account
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -45,7 +44,7 @@ class WebsiteSale(website_sale):
                 request.env['res.partner.id_category'].sudo().browse(
                     data.get('main_id_category_id')).validate_id_number(
                     number)
-            except Exception, e:
+            except Exception as e:
                 _logger.info(
                     'Documento invalido en checkout ecommerce, error: %s' % e)
                 error['main_id_number'] = 'error'
@@ -53,7 +52,7 @@ class WebsiteSale(website_sale):
 
             try:
                 number.check()
-            except Exception, e:
+            except Exception as e:
                 _logger.info(
                     'Ya existe una empresa con ese número de documento, error:'
                     '%s' % e)

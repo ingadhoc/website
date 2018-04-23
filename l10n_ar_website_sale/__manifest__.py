@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Copyright (C) 2015  ADHOC SA  (http://www.adhoc.com.ar)
@@ -38,6 +37,5 @@
     ],
     'installable': False,
     'name': 'e-Commerce Argentina Partner Document',
-    'test': [],
     'version': '9.0.1.4.0',
 }
