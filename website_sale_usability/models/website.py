@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import SUPERUSER_ID, models, api
 # from odoo.osv import orm
 
