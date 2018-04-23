@@ -45,7 +45,7 @@ class WebsiteSale(website_sale):
                 request.env['res.partner.id_category'].sudo().browse(
                     data.get('main_id_category_id')).validate_id_number(
                     number)
-            except Exception, e:
+            except Exception as e:
                 _logger.info(
                     'Documento invalido en checkout ecommerce, error: %s' % e)
                 error['main_id_number'] = 'error'
@@ -53,7 +53,7 @@ class WebsiteSale(website_sale):
 
             try:
                 number.check()
-            except Exception, e:
+            except Exception as e:
                 _logger.info(
                     'Ya existe una empresa con ese número de documento, error:'
                     '%s' % e)
