@@ -4,7 +4,7 @@
 # directory
 ##############################################################################
 
-from openerp import api, models
+from odoo import api, models
 
 
 class ProjectTask(models.Model):

@@ -4,8 +4,8 @@
 # directory
 ##############################################################################
 
-from openerp import api, models
-from openerp import SUPERUSER_ID
+from odoo import api, models
+from odoo import SUPERUSER_ID
 
 
 class SaleOrder(models.Model):

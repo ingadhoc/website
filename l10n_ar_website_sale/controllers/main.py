@@ -3,12 +3,12 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from openerp.addons.website_sale.controllers.main import website_sale
-from openerp import SUPERUSER_ID, _
-from openerp.http import request
-from openerp.tools import config
-from openerp import http
-from openerp.addons.website_portal.controllers.main import website_account
+from odoo.addons.website_sale.controllers.main import website_sale
+from odoo import SUPERUSER_ID, _
+from odoo.http import request
+from odoo.tools import config
+from odoo import http
+from odoo.addons.website_portal.controllers.main import website_account
 import logging
 _logger = logging.getLogger(__name__)
 

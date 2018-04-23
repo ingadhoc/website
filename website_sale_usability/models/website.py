@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import SUPERUSER_ID, models, api
-# from openerp.osv import orm
+from odoo import SUPERUSER_ID, models, api
+# from odoo.osv import orm
 
 
 class Website(models.Model):

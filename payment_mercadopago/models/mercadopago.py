@@ -5,11 +5,11 @@
 ##############################################################################
 import logging
 import urllib.parse as urlparse
-from openerp.exceptions import Warning
-from openerp.addons.payment.models.payment_acquirer import ValidationError
-from openerp.addons.payment_mercadopago.controllers.main import (
+from odoo.exceptions import Warning
+from odoo.addons.payment.models.payment_acquirer import ValidationError
+from odoo.addons.payment_mercadopago.controllers.main import (
     MercadoPagoController)
-from openerp import api, fields, models, _
+from odoo import api, fields, models, _
 
 _logger = logging.getLogger(__name__)
 

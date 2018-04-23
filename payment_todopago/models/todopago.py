@@ -6,15 +6,15 @@
 import logging
 import urllib.parse as urlparse
 from werkzeug import url_encode
-from openerp.addons.payment.models.payment_acquirer import ValidationError
-from openerp.addons.payment_todopago.controllers.main import (
+from odoo.addons.payment.models.payment_acquirer import ValidationError
+from odoo.addons.payment_todopago.controllers.main import (
     TodoPagoController)
-from openerp import api, fields, models, _
+from odoo import api, fields, models, _
 import string
 from ast import literal_eval
-from openerp.http import request
+from odoo.http import request
 from email.utils import parseaddr
-from openerp.addons.payment_todopago.todopago import todopagoconnector as tp
+from odoo.addons.payment_todopago.todopago import todopagoconnector as tp
 _logger = logging.getLogger(__name__)
 
 

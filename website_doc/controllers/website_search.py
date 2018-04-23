@@ -3,13 +3,13 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from openerp import http
-from openerp.http import request
+from odoo import http
+from odoo.http import request
 import logging
 
-from openerp.tools.translate import _
-from openerp.tools import html2text
-from openerp.addons.website.controllers.main import Website as controllers
+from odoo.tools.translate import _
+from odoo.tools import html2text
+from odoo.addons.website.controllers.main import Website as controllers
 
 logger = logging.getLogger(__name__)
 
