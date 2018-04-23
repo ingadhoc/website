@@ -27,7 +27,7 @@
     'data': [
         'views/project_task_templates.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'category': 'Hidden',
 }

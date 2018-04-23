@@ -37,5 +37,5 @@
         'views/payment_acquirer.xml',
         'data/mercadopago.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

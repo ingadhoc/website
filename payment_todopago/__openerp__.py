@@ -43,5 +43,5 @@
         'views/sale_order_view.xml',
         'data/todopago.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

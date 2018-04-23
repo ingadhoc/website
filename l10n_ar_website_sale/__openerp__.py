@@ -36,7 +36,7 @@
         'website_portal',
         'l10n_ar_sale',
     ],
-    'installable': True,
+    'installable': False,
     'name': 'e-Commerce Argentina Partner Document',
     'test': [],
     'version': '9.0.1.4.0',

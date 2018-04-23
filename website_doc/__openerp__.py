@@ -48,6 +48,6 @@
     'qweb': [
         'static/src/xml/website_doc.xml'
     ],
-    'installable': True,
+    'installable': False,
     'application': True,
 }
