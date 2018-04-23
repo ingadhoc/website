@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data noupdate="1">
 
     <!-- Default template user for new users signing in -->
@@ -22,5 +22,5 @@
         </record>
 
     </data>
-</openerp>
+</odoo>
 

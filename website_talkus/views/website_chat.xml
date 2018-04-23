@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <!--<template id="layout_talkus_js" inherit_id="web.webclient_bootstrap" name="add talkus to main layout">-->
         <template id="layout_website_talkus_js" inherit_id="website.layout" name="add talkus to website">
@@ -10,4 +10,4 @@
             </xpath>
         </template>
     </data>
-</openerp>
+</odoo>

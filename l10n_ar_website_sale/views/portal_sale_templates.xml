@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 <data>
 
 <template id="orders_followup" inherit_id="website_portal_sale.orders_followup" name="Sales Order with Report Prices">
@@ -20,4 +20,4 @@
 </template>
 
 </data>
-</openerp>
+</odoo>

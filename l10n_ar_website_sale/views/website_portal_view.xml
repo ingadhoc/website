@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data> 
 
     <template id="details" name="l10n_ar website_portal" inherit_id="website_portal.details">
@@ -32,4 +32,4 @@
     </template>
 
     </data>
-</openerp>
+</odoo>
