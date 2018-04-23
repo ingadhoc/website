@@ -6,7 +6,7 @@ cache:
     - $HOME/.cache/pip
 
 python:
-  - "2.7"
+  - "3.5"
 
 addons:
   apt:
@@ -37,16 +37,16 @@ addons:
 
 # set up an X server to run wkhtmltopdf.
 #before_install:
-#  - "export DISPLAY=:99.0"
+#  - "export DISPLAY=:911.0"
 #  - "sh -e /etc/init.d/xvfb start"
 
 env:
   global:
-  - VERSION="9.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
+  - VERSION="11.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
   - TRANSIFEX_USER='jjscarafia'
   # to get secure, run 'travis encrypt TRANSIFEX_PASSWORD=[transifex_password] -r [github_repo]'
   # example of github repo 'ingadhoc/odoo-infrastructure'
-  - secure: paV32Mnt1ZLsr2YZNUYFt6TbOfJtV+fqElATUAL2kG6TccFh0cjDzvLTt4xCJ3iok8ElLydKX0gGdtD6NuhZaoXV1heXlnSBNA0NkBjD4DD64aQQafFGO/Lqh1BC60eWAWrKxoHiLRxH3YBLpjNWYMfgjHhbJELzFaGg5bExWtBZSZ7W3x58ol6lEnO2qr2lqMbkEKQ5S6zl297BP4oadRo2VFxiDxi86p7XNCHC1EPOP/0GQZgM80BzP1Dz87R8NnQ8K28rbf2HeLzyxauRNBFvitBndR1fsAZww3KJtfdqkhKVfI6eghAOHJPt6VEz8VkxKesTmyyBhvQFko4UzWn+OFEAFdcU9qVA6nZK60sN53ENUz20YHP+36MgGIBGwRNduKF8V13Xc9bHLkCSL6AmHNNRn4lx+zDcPkjj7Bkw+rMB/aPUnQHkM/NkFhvbLluCQ7aLuyrLLrF72RNVNTmNiPt+UWu/4mshi9U3nsULXZWK9XX7rR8/iEZuBilLBftTT3tmi+3/w8Qo9mOBmZhGAK5UAT8eGPu6xh1KC7wh2F681LwFN1Y4FvY/fH3uM7qGCENumZGBSkCplMaxjgGhi6fg9QsdKXsQ9cvFNTWRRdcl1p3wX0fXp9CISZE8O9zqD2pk/o9p0kXL8PTGKcJwgQA/WDYRGsVkSGzxFPA=
+  - secure: paV32Mnt1ZLsr2YZNUYFt6TbOfJtV+fqElATUAL2kG6TccFh0cjDzvLTt4xCJ3iok8ElLydKX0gGdtD6NuhZaoXV1heXlnSBNA0NkBjD4DD64aQQafFGO/Lqh1BC60eWAWrKxoHiLRxH3YBLpjNWYMfgjHhbJELzFaGg5bExWtBZSZ7W3x58ol6lEnO2qr2lqMbkEKQ5S6zl3.5BP4oadRo2VFxiDxi86p7XNCHC1EPOP/0GQZgM80BzP1Dz87R8NnQ8K28rbf2HeLzyxauRNBFvitBndR1fsAZww3KJtfdqkhKVfI6eghAOHJPt6VEz8VkxKesTmyyBhvQFko4UzWn+OFEAFdcU9qVA6nZK60sN53ENUz20YHP+36MgGIBGwRNduKF8V13Xc9bHLkCSL6AmHNNRn4lx+zDcPkjj7Bkw+rMB/aPUnQHkM/NkFhvbLluCQ7aLuyrLLrF72RNVNTmNiPt+UWu/4mshi9U3nsULXZWK9XX7rR8/iEZuBilLBftTT3tmi+3/w8Qo9mOBmZhGAK5UAT8eGPu6xh1KC7wh2F681LwFN1Y4FvY/fH3uM7qGCENumZGBSkCplMaxjgGhi6fg9QsdKXsQ9cvFNTWRRdcl1p3wX0fXp9CISZE8O9zqD2pk/o9p0kXL8PTGKcJwgQA/WDYRGsVkSGzxFPA=
   - TRANSIFEX_ORGANIZATION='adhoc'
   - TRANSIFEX_TEAM='46451'
 
@@ -59,11 +59,9 @@ env:
 # it's not necessary (it is only necessary if modules in your repository can't
 # be installed in the same database. And you get a huge speed penalty in your
 # tests)
-#  - TESTS="1.0" ODOO_REPO="odoo/odoo" UNIT_TEST="1"
 #  - TESTS="1.0" ODOO_REPO="OCA/OCB" UNIT_TEST="1"
+#  - TESTS="1.0" ODOO_REPO="odoo/odoo" UNIT_TEST="1"
 
-virtualenv:
-  system_site_packages: true
 
 # Enable this if your repository needs sass command (needed for website related repos)
 before_install:
