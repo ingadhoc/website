@@ -43,8 +43,6 @@
     'demo': [
         'demo/talkus_demo.xml',
     ],
-    'test': [
-    ],
     'installable': False,
     'auto_install': False,
     'application': True,

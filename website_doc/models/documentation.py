@@ -47,11 +47,11 @@ class Documentation(models.Model):
     )
     parent_left = fields.Integer(
         'Left Parent',
-        select=True
+        index=True,
     )
     parent_right = fields.Integer(
         'Right Parent',
-        select=True
+        index=True,
     )
     is_article = fields.Boolean(
         'Is Article?'
