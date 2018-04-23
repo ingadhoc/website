@@ -7,7 +7,7 @@ reload(sys)    # to re-enable sys.setdefaultencoding()
 sys.setdefaultencoding('utf-8')
 #import urllib para version 2 o 3
 if sys.version_info[0] >= 3 :
-	from urllib.parse import urlparse
+	from urllib.parse import urllib.parse as urlparse
 else:
 	import urllib	
 

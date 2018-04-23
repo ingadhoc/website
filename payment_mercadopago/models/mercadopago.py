@@ -4,7 +4,7 @@
 # directory
 ##############################################################################
 import logging
-import urlparse
+import urllib.parse as urlparse
 from openerp.exceptions import Warning
 from openerp.addons.payment.models.payment_acquirer import ValidationError
 from openerp.addons.payment_mercadopago.controllers.main import (

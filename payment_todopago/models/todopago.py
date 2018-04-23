@@ -4,7 +4,7 @@
 # directory
 ##############################################################################
 import logging
-import urlparse
+import urllib.parse as urlparse
 from werkzeug import url_encode
 from openerp.addons.payment.models.payment_acquirer import ValidationError
 from openerp.addons.payment_todopago.controllers.main import (
