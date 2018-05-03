@@ -92,6 +92,7 @@ class website_promotion(models.Model):
         for product in self.template_ids:
             vals = {
                 'name': self.name,
+                'applied_on': '1_product',
                 'product_tmpl_id': product.id,
                 'sequence': 0,
                 'base': self.base,
