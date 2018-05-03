@@ -1,8 +1,0 @@
-<odoo>
-    <record id="portal.portal_menu" model="ir.ui.menu">
-        <field name="groups_id" eval="[(4, ref('base.group_no_one')), (3, ref('base.group_portal'), False)]"/>
-    </record>
-    <record id="website.menu_website" model="ir.ui.menu">
-        <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
-    </record>
-</odoo>
