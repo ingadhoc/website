@@ -5,7 +5,7 @@
 from odoo import api, fields, models
 
 
-class website_menu(models.Model):
+class WebsiteMenu(models.Model):
     _inherit = "website.menu"
 
     related_view_id = fields.Many2one(
@@ -36,7 +36,7 @@ class website_menu(models.Model):
 
     @api.multi
     def write(self, vals):
-        res = super(website_menu, self).write(vals)
+        res = super(WebsiteMenu, self).write(vals)
         self.add_rights_submenu()
         return res
 
