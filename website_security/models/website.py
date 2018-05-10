@@ -27,12 +27,13 @@ class WebsiteMenu(models.Model):
         "related object's read access."
     )
 
-    @api.one
+    @api.multi
     @api.onchange('group_ids')
     def change_groups(self):
-        if self.related_view_id and not self.related_view_id.groups_id:
-            self.related_view_id.write(
-                {'groups_id': [(6, False, self.group_ids.ids)]})
+        for rec in self:
+            if rec.related_view_id and not rec.related_view_id.groups_id:
+                rec.related_view_id.write(
+                    {'groups_id': [(6, False, rec.group_ids.ids)]})
 
     @api.multi
     def write(self, vals):
@@ -47,17 +48,18 @@ class WebsiteMenu(models.Model):
             self.related_view_id.write(
                 {'groups_id': [(6, False, self.group_ids.ids)]})
 
-    @api.one
+    @api.multi
     @api.depends('url')
     def get_related_view(self):
-        if not self.url:
-            return
-        view = False
-        page = self.url.split('/')
-        page = page and page[-1] or False
-        if page:
-            if 'website.' not in page:
-                page = 'website.' + page
-            page_name = page[8:]
-            view = self.env['ir.ui.view'].search([('name', '=', page_name)])
-        self.related_view_id = view
+        for rec in self:
+            if not rec.url:
+                return
+            view = False
+            page = rec.url.split('/')
+            page = page and page[-1] or False
+            if page:
+                if 'website.' not in page:
+                    page = 'website.' + page
+                page_name = page[8:]
+                view = self.env['ir.ui.view'].search([('name', '=', page_name)])
+            rec.related_view_id = view
