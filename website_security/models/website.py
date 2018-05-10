@@ -11,7 +11,7 @@ class WebsiteMenu(models.Model):
     related_view_id = fields.Many2one(
         'ir.ui.view',
         string='Related View',
-        compute='get_related_view',
+        compute='_compute_related_view',
     )
     group_ids = fields.Many2many(
         'res.groups',
@@ -48,9 +48,8 @@ class WebsiteMenu(models.Model):
             self.related_view_id.write(
                 {'groups_id': [(6, False, self.group_ids.ids)]})
 
-    @api.multi
     @api.depends('url')
-    def get_related_view(self):
+    def _compute_related_view(self):
         for rec in self:
             if not rec.url:
                 return
@@ -61,5 +60,6 @@ class WebsiteMenu(models.Model):
                 if 'website.' not in page:
                     page = 'website.' + page
                 page_name = page[8:]
-                view = self.env['ir.ui.view'].search([('name', '=', page_name)])
+                view = self.env['ir.ui.view'].search([
+                    ('name', '=', page_name)])
             rec.related_view_id = view
