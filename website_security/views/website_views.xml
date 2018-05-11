@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <!--<menuitem id="website_main_menu" name="Website" sequence="400"/> -->
+  <!-- <menuitem id="website_main_menu" name="Website" sequence="400"/>  -->
 
-    <menuitem id="website_sub_menu" name="Website" parent="website.menu_website_configuration" sequence="10"/>
+    <menuitem 
+        name="Security"
+        id="website_sub_menu"
+        parent="website.menu_website_configuration"
+        sequence="10"
+    />
 
     <record id="website_action_ui_view" model="ir.actions.act_window">
-        <field name="name">Website Views</field>
+        <field name="name">Views</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">ir.ui.view</field>
         <!-- <field name="view_id" ref="view_view_tree"/> -->
@@ -13,16 +18,30 @@
         <field name="domain">[('type', '=', 'qweb')]</field>
     </record>
 
-    <menuitem action="website_action_ui_view" id="menu_website_view" groups="website.group_website_designer" parent="website_security.website_sub_menu" sequence="20"/>
+    <menuitem
+        name="Views"
+        action="website_action_ui_view"
+        id="menu_website_view"
+        groups="website.group_website_designer"
+        parent="website_sub_menu"
+        sequence="20"
+    />
 
     <!-- Website menu menu -->
     <record id="action_website_menu" model="ir.actions.act_window">
-        <field name="name">Website Menu</field>
+        <field name="name">Menu</field>
         <field name="res_model">website.menu</field>
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="website_menu_menu" action="action_website_menu" groups="website.group_website_designer" parent="website_security.website_sub_menu" sequence="10"/>
+    <menuitem
+        name="Menus"
+        id="website_menu_menu"
+        action="action_website_menu"
+        groups="website.group_website_designer"
+        parent="website_sub_menu"
+        sequence="10"
+    />
 
     <record id="menu_tree" model="ir.ui.view">
         <field name="name">website.menu.tree</field>

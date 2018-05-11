@@ -9,10 +9,10 @@ class WebsiteMenu(models.Model):
     _inherit = "website.menu"
 
     related_view_id = fields.Many2one(
-        'ir.ui.view',
-        string='Related View',
-        compute='_compute_related_view',
+        related='page_id.view_id',
+        readonly=True
     )
+
     group_ids = fields.Many2many(
         'res.groups',
         'website_menu_group_rel',
@@ -47,19 +47,3 @@ class WebsiteMenu(models.Model):
         if self.related_view_id and not self.related_view_id.groups_id:
             self.related_view_id.write(
                 {'groups_id': [(6, False, self.group_ids.ids)]})
-
-    @api.depends('url')
-    def _compute_related_view(self):
-        for rec in self:
-            if not rec.url:
-                return
-            view = False
-            page = rec.url.split('/')
-            page = page and page[-1] or False
-            if page:
-                if 'website.' not in page:
-                    page = 'website.' + page
-                page_name = page[8:]
-                view = self.env['ir.ui.view'].search([
-                    ('name', '=', page_name)])
-            rec.related_view_id = view
