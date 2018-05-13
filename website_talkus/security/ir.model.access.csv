@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_website_talkus_all,access_website_talkus_all,model_website_talkus,,1,0,0,0
-access_website_talkus_bubble_all,access_website_talkus_bubble_all,model_website_talkus_bubble,,1,0,0,0
-access_website_talkus_admin,access_website_talkus_admin,model_website_talkus,base.group_system,1,1,1,1
-access_website_talkus_bubble_admin,access_website_talkus_bubble_admin,model_website_talkus_bubble,base.group_system,1,1,1,1
