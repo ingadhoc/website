@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <odoo>
-      
     <record id="view_website_promotion_filter" model="ir.ui.view">
         <field name="name">website.promotion.filter</field>
         <field name="model">website.promotion</field>
@@ -75,7 +74,9 @@
     </record>
 
     <menuitem id="menu_website_promotion"
-        parent="product.prod_config_main"
-        name="Products Promotion" action="action_website_promotion" sequence="50"/>
-
+        parent="sale.prod_config_main"
+        name="Products Promotion"
+        action="action_website_promotion"
+        sequence="50"
+    />
 </odoo>
