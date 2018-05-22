@@ -34,7 +34,7 @@
     'data': [
         'views/product_attribute_views.xml',
         'views/product_attributes_templates.xml',
-        'data/product_group_data.xml',
+        'security/product_group_security.xml',
     ],
     'installable': True,
     'auto_install': False,
