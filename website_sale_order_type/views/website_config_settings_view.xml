@@ -5,7 +5,7 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website_sale.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@id='sale_shipping_settings']" possition="inside">
+            <xpath expr="//div[@id='sale_checkout_settings']" possition="inside">
                 <div class="col-xs-12 col-md-6 o_setting_box" id="sale_order_type_setting">
                    
                     <div class="o_setting_right_pane">

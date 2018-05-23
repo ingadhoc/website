@@ -3,6 +3,7 @@
 # directory
 ##############################################################################
 from odoo import models, fields, api
+from odoo.http import request
 
 
 class Website(models.Model):
@@ -13,12 +14,12 @@ class Website(models.Model):
         string='Sale Order Type',
     )
 
-    @api.model
-    def _prepare_sale_order_values(self, w, partner, pricelist):
+    @api.multi
+    def _prepare_sale_order_values(self, partner, pricelist):
         res = super(Website, self)._prepare_sale_order_values(
-            w=w, partner=partner, pricelist=pricelist)
+            partner=partner, pricelist=pricelist)
         if partner.sale_type:
             res['type_id'] = partner.sale_type.id
-        elif w.sale_order_type_id:
-            res['type_id'] = w.sale_order_type_id.id
+        elif request.website.sale_order_type_id:
+            res['type_id'] = request.website.sale_order_type_id.id
         return res
