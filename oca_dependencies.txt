@@ -2,4 +2,4 @@
 # ingadhoc-project https://github.com/ingadhoc/project.git
 # ingadhoc-argentina-sale https://github.com/ingadhoc/argentina-sale.git
 # ingadhoc-reporting-engine https://github.com/ingadhoc/reporting-engine.git
-# oca-sale_workflow https://github.com/OCA/sale-workflow.git
+oca-sale_workflow https://github.com/OCA/sale-workflow.git
