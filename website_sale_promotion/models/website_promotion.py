@@ -78,7 +78,8 @@ class WebsitePromotion(models.Model):
 
     @api.multi
     def to_draft(self):
-        self.state = 'draft'
+        for rec in self:
+            rec.state = 'draft'
 
     @api.multi
     def confirm(self):
@@ -105,18 +106,19 @@ class WebsitePromotion(models.Model):
 
     @api.multi
     def finished(self):
-        self.state = 'finished'
-        prod_pricelist_item_obj = self.env['product.pricelist.item']
-        domain = [
-            ('name', '=', self.name),
-            ('pricelist_id', '=', self.pricelist_id.id),
-            ('product_tmpl_id', 'in', self.template_ids.ids)
-        ]
-        items = prod_pricelist_item_obj.search(domain)
-        if items:
-            items.unlink()
-        if self.website_style_id:
-            self.template_ids.write(
-                {'website_style_ids': [(3, self.website_style_id.id)]})
-        self.template_ids.write(
-            {'public_categ_ids': [(3, self.public_category_id.id)]})
+        for rec in self:
+            rec.state = 'finished'
+            prod_pricelist_item_obj = self.env['product.pricelist.item']
+            domain = [
+                ('name', '=', rec.name),
+                ('pricelist_id', '=', rec.pricelist_id.id),
+                ('product_tmpl_id', 'in', rec.template_ids.ids)
+            ]
+            items = prod_pricelist_item_obj.search(domain)
+            if items:
+                items.unlink()
+            if rec.website_style_id:
+                rec.template_ids.write(
+                    {'website_style_ids': [(3, rec.website_style_id.id)]})
+            rec.template_ids.write(
+                {'public_categ_ids': [(3, rec.public_category_id.id)]})
