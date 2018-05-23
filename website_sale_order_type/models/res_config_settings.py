@@ -5,8 +5,8 @@
 from odoo import models, fields
 
 
-class WebsiteConfigSettings(models.TransientModel):
-    _inherit = 'website.config.settings'
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
 
     sale_order_type_id = fields.Many2one(
         'sale.order.type',
