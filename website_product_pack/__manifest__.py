@@ -31,7 +31,6 @@
     ],
     'data': [
     ],
-    'category': 'Hidden',
     'installable': True,
     'auto_install': True,
 }
