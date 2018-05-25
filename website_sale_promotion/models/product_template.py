@@ -5,10 +5,11 @@
 from odoo import models, fields
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     website_promotion_id = fields.Many2one(
         'website.promotion',
         string='Website Promotion',
+        index=True,
     )

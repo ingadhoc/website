@@ -5,7 +5,7 @@
 from odoo import models, fields, api
 
 
-class website_promotion(models.Model):
+class WebsitePromotion(models.Model):
     _name = 'website.promotion'
     _description = 'Website Promotion'
 
@@ -76,48 +76,49 @@ class website_promotion(models.Model):
         readonly=True,
         states={'draft': [('readonly', False)]})
 
-    @api.one
+    @api.multi
     def to_draft(self):
-        self.state = 'draft'
+        for rec in self:
+            rec.state = 'draft'
 
-    @api.one
+    @api.multi
     def confirm(self):
-        self.state = 'confirm'
-        if self.website_style_id:
-            self.template_ids.write(
-                {'website_style_ids': [(4, self.website_style_id.id)]})
-        self.template_ids.write(
-            {'public_categ_ids': [(4, self.public_category_id.id)]})
-        for product in self.template_ids:
-            vals = {
-                'name': self.name,
-                'applied_on': '1_product',
-                'product_tmpl_id': product.id,
-                'sequence': 0,
-                'base': self.base,
-                'base_pricelist_id': self.base_pricelist_id.id,
-                'pricelist_id': self.pricelist_id.id,
-                'price_discount': self.price_discount,
-                'compute_price': 'formula',
-                'price_surcharge': self.price_surcharge,
-            }
-            self.env['product.pricelist.item'].create(vals)
+        for rec in self:
+            rec.state = 'confirm'
+            if rec.website_style_id:
+                rec.template_ids.write(
+                    {'website_style_ids': [(4, rec.website_style_id.id)]})
+            rec.template_ids.write(
+                {'public_categ_ids': [(4, rec.public_category_id.id)]})
+            for product in rec.template_ids:
+                vals = {
+                    'name': rec.name,
+                    'applied_on': '1_product',
+                    'product_tmpl_id': product.id,
+                    'base': rec.base,
+                    'base_pricelist_id': rec.base_pricelist_id.id,
+                    'pricelist_id': rec.pricelist_id.id,
+                    'price_discount': rec.price_discount,
+                    'compute_price': 'formula',
+                    'price_surcharge': rec.price_surcharge,
+                }
+                self.env['product.pricelist.item'].create(vals)
 
-    @api.one
+    @api.multi
     def finished(self):
-        self.state = 'finished'
-        prod_pricelist_item_obj = self.env['product.pricelist.item']
-        domain = [
-            ('name', '=', self.name),
-            ('sequence', '=', 0),
-            ('pricelist_id', '=', self.pricelist_id.id),
-            ('product_tmpl_id', 'in', self.template_ids.ids)
-        ]
-        items = prod_pricelist_item_obj.search(domain)
-        if items:
-            items.unlink()
-        if self.website_style_id:
-            self.template_ids.write(
-                {'website_style_ids': [(3, self.website_style_id.id)]})
-        self.template_ids.write(
-            {'public_categ_ids': [(3, self.public_category_id.id)]})
+        for rec in self:
+            rec.state = 'finished'
+            prod_pricelist_item_obj = self.env['product.pricelist.item']
+            domain = [
+                ('name', '=', rec.name),
+                ('pricelist_id', '=', rec.pricelist_id.id),
+                ('product_tmpl_id', 'in', rec.template_ids.ids)
+            ]
+            items = prod_pricelist_item_obj.search(domain)
+            if items:
+                items.unlink()
+            if rec.website_style_id:
+                rec.template_ids.write(
+                    {'website_style_ids': [(3, rec.website_style_id.id)]})
+            rec.template_ids.write(
+                {'public_categ_ids': [(3, rec.public_category_id.id)]})
