@@ -1,4 +1,4 @@
-# ingadhoc-product https://github.com/ingadhoc/product.git
+ingadhoc-product https://github.com/ingadhoc/product.git
 # ingadhoc-project https://github.com/ingadhoc/project.git
 # ingadhoc-argentina-sale https://github.com/ingadhoc/argentina-sale.git
 # ingadhoc-reporting-engine https://github.com/ingadhoc/reporting-engine.git

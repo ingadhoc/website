@@ -4,7 +4,6 @@
 ##############################################################################
 
 from odoo import api, models
-from odoo import SUPERUSER_ID
 
 
 class SaleOrder(models.Model):
@@ -23,19 +22,18 @@ class SaleOrder(models.Model):
             product_id=product_id, line_id=line_id,
             add_qty=add_qty, set_qty=set_qty, **kwargs)
 
-    def _cart_find_product_line(
-            self, cr, uid, ids,
-            product_id=None, line_id=None, context=None, **kwargs):
-        # la funcion no es muy heredable, podriamos agarrar estos resultados
-        # y buscar sobre ellos pero esto haria que se ejecuten dos sql
-        # line_ids = super(SaleOrder, self)._cart_find_product_line(
-        #     cr, uid, ids, product_id=product_id, line_id=line_id,
-        #     context=context, **kwargs)
-        for so in self.browse(cr, uid, ids, context=context):
+    @api.multi
+    def _cart_find_product_line(self, product_id=None, line_id=None, **kwargs):
+        """ the function is not very inheritable, we can grab these
+        results and look over them but this would make them run two sql
+        line_ids = super(SaleOrder, self)._cart_find_product_line(
+            cr, uid, ids, product_id=product_id, line_id=line_id,
+            context=context, **kwargs)
+        """
+        for so in self:
             domain = [('order_id', '=', so.id),
                       ('product_id', '=', product_id),
                       ('pack_parent_line_id', '=', False)]
             if line_id:
                 domain += [('id', '=', line_id)]
-            return self.pool.get('sale.order.line').search(
-                cr, SUPERUSER_ID, domain, context=context)
+            return self.env['sale.order.line'].sudo().search(domain)
