@@ -7,7 +7,6 @@ from odoo import fields, models
 _logger = logging.getLogger(__name__)
 
 
-# configAuthorization.set('PRISMA f3d8b72c94ab4a06be2ef7c95490f7d3')
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
