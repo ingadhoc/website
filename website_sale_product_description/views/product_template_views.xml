@@ -5,10 +5,9 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
-            <group name="email_template_and_project" position="after">
-                <group>
-                    <separator string="Description for Website"/>
-                    <field name="description_website" placeholder="Note to be displayed on website..."/>
+            <group name="description" position="inside">
+                <group string="Description for Website">
+                    <field name="description_website" nolabel="1" placeholder="Note to be displayed on e-commerce..."/>
                 </group>
             </group>
         </field>

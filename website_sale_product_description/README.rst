@@ -36,7 +36,7 @@ Usage
 
 To use this module, you need to:
 
-#. Go to a Product, and you will see in 'Sale' page a 'Description for Website' title with a Description field.
+#. Go to a Product, and you will see in 'Notes' page a 'Description for Website' text field
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
