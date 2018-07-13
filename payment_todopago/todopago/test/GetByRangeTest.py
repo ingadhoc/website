@@ -1,48 +1,52 @@
+# pylint: disable-all
+# flake8: noqa
 import sys
 sys.path.append("..")
 from todopagoconnector import TodoPagoConnector
 from GetByRangeData import GetByRangeDateTime
 import unittest
 from unittest import TestCase
-if sys.version_info[0] >= 3 :
-	from unittest.mock import patch, Mock
+if sys.version_info[0] >= 3:
+    from unittest.mock import patch, Mock
 else:
-	from mock import patch, Mock, MagicMock
+    from mock import patch, Mock, MagicMock
 
 
 class GetByRangeMethod(TestCase):
-	
-	@patch('todopagoconnector.TodoPagoConnector')
-	def test_get_credentials_ok(self, MockTodoPagoConnector):
-		j_header_http = {
-			'Authorization':'TODOPAGO 18ea370805e7471da5ea8c6879b61f22'
-		}
 
-		MTPConnector = MockTodoPagoConnector(j_header_http, "test")
+    @patch('todopagoconnector.TodoPagoConnector')
+    def test_get_credentials_ok(self, MockTodoPagoConnector):
+        j_header_http = {
+            'Authorization': 'TODOPAGO 18ea370805e7471da5ea8c6879b61f22'
+        }
 
-		instancesGetByRange = GetByRangeDateTime()
+        MTPConnector = MockTodoPagoConnector(j_header_http, "test")
 
-		MTPConnector.getAllPaymentMethods.return_value = instancesGetByRange.get_request_ok_response()
+        instancesGetByRange = GetByRangeDateTime()
 
-		responseGetByRange = MTPConnector.getAllPaymentMethods(instancesGetByRange.get_by_range_method_params())
+        MTPConnector.getAllPaymentMethods.return_value = instancesGetByRange.get_request_ok_response()
 
-		self.assertTrue(len(responseGetByRange))
+        responseGetByRange = MTPConnector.getAllPaymentMethods(
+            instancesGetByRange.get_by_range_method_params())
 
-	@patch('todopagoconnector.TodoPagoConnector')
-	def test_get_credentials_fail_conection(self, MockTodoPagoConnector):
-		j_header_http = {
-			'Authorization':'TODOPAGO 18ea370805e7471da5ea8c6879b61f22'
-		}
+        self.assertTrue(len(responseGetByRange))
 
-		MTPConnector = MockTodoPagoConnector(j_header_http, "test")
+    @patch('todopagoconnector.TodoPagoConnector')
+    def test_get_credentials_fail_conection(self, MockTodoPagoConnector):
+        j_header_http = {
+            'Authorization': 'TODOPAGO 18ea370805e7471da5ea8c6879b61f22'
+        }
 
-		instancesGetByRange = GetByRangeDateTime()
+        MTPConnector = MockTodoPagoConnector(j_header_http, "test")
 
-		MTPConnector.getByRangeDateTime.return_value = ""
+        instancesGetByRange = GetByRangeDateTime()
 
-		responseGetByRange = MTPConnector.getByRangeDateTime(instancesGetByRange.get_by_range_method_params())
-		
-		self.assertFalse(len(responseGetByRange))
+        MTPConnector.getByRangeDateTime.return_value = ""
+
+        responseGetByRange = MTPConnector.getByRangeDateTime(
+            instancesGetByRange.get_by_range_method_params())
+
+        self.assertFalse(len(responseGetByRange))
 
 if __name__ == '__main__':
-	unittest.main()
+    unittest.main()
