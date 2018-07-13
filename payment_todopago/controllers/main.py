@@ -6,9 +6,11 @@
 import logging
 import pprint
 import werkzeug
-from odoo import http, SUPERUSER_ID
+
+from odoo import http
 from odoo.http import request
-from ast import literal_eval
+from odoo.tools.safe_eval import safe_eval
+
 _logger = logging.getLogger(__name__)
 
 
@@ -26,15 +28,13 @@ class TodoPagoController(http.Controller):
             'todopago: create preference with post data %s',
             pprint.pformat(post))
         # TODO podriamos pasar cada elemento por separado para no necesitar
-        # el literal eval
-        todopago_data = literal_eval(post.get('todopago_data', {}))
+        # el safe_eval
+        todopago_data = safe_eval(post.get('todopago_data', {}))
         if not todopago_data:
             return werkzeug.utils.redirect("/")
         acquirer_id = todopago_data.get('acquirer_id')
-        cr, uid, context = request.cr, SUPERUSER_ID, request.context
-        request_url = request.registry[
-            'payment.acquirer']._todopago_create_transaction(
-            cr, uid, acquirer_id, post, context)
+        request_url = request.env['payment.acquirer'].sudo().browse(
+            acquirer_id)._todopago_create_transaction(post)
         return werkzeug.utils.redirect(request_url)
 
     def todopago_validate(self, **post):
@@ -42,9 +42,8 @@ class TodoPagoController(http.Controller):
         _logger.info(
             'Validating todopago payment with post data %s',
             pprint.pformat(post))
-        cr, uid, context = request.cr, SUPERUSER_ID, request.context
-        request.registry['payment.transaction'].form_feedback(
-            cr, uid, post, 'todopago', context)
+        request.env['payment.transaction'].sudo().form_feedback(
+            post, 'todopago')
         return None
 
     @http.route([
@@ -54,14 +53,10 @@ class TodoPagoController(http.Controller):
         type='http', auth="public", csrf=False)
     def todopago_back_with_return(self, **post):
         _logger.info(
-            'todopago: entering todopago failure with post data %s',
+            'todopago: returning data %s',
             pprint.pformat(post))
         self.todopago_validate(**post)
-        # buscamos la transaccion y mostramos el error
         reference = post.get('OPERATIONID')
-        cr, uid, context = request.cr, SUPERUSER_ID, request.context
-        transaction_id = request.registry['payment.transaction'].search(
-            cr, uid, [('reference', '=', reference)], context=context)
-        transaction = request.registry['payment.transaction'].browse(
-            cr, uid, transaction_id, context=context)
+        transaction = request.env['payment.transaction'].sudo().search(
+            [('reference', '=', reference)])
         return werkzeug.utils.redirect(transaction.todopago_Return_url or '/')

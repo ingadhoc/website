@@ -21,7 +21,7 @@
     'name': 'TodoPago Payment Acquirer',
     'category': 'Hidden',
     'summary': 'Payment Acquirer: TodoPago Implementation',
-    'version': '9.0.1.2.0',
+    'version': '11.0.1.0.0',
     'author': 'Moldeo Interactive - www.moldeo.coop,ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -33,14 +33,21 @@
     'images': [
     ],
     'external_dependencies': {
-        'python': ['suds', 'requests']
-        # EN REALIDAD REQUIERE suds-jurko
+        'python': [
+            'suds',   # TODO K: If we put suds-jurko fail do not know why
+            'requests',
+            ]
     },
     'data': [
-        'views/todopago_view.xml',
-        'views/payment_acquirer.xml',
-        'views/sale_order_view.xml',
-        'data/todopago.xml',
+        'views/todopago_templates.xml',
+        'views/payment_acquirer_views.xml',
+        'views/payment_transaction_views.xml',
+        'views/sale_order_views.xml',
+        'data/payment_acquirer_data.xml',
     ],
-    'installable': False,
+    'demo': [
+        'demo/payment_acquirer_demo.xml',
+    ],
+    'installable': True,
+    'post_init_hook': 'create_missing_journal_for_acquirers',
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_acquirer_todopago" model="payment.acquirer">
+        <field name="todopago_client_id">2159</field>
+        <field name="todopago_secret_key">PRISMA A793D307441615AF6AAAD7497A75DE59</field>
+    </record>
+
+</odoo>

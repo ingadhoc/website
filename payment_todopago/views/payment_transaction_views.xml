@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="transaction_form_todopago" model="ir.ui.view">
+        <field name="name">acquirer.transaction.form.todopago</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.transaction_form"/>
+        <field name="arch" type="xml">
+            <field name='provider' position='after'>
+                <group name="todopago_tx" attrs="{'invisible': [('provider', '!=', 'todopago')]}">
+                    <field name="todopago_RequestKey"/>
+                    <field name="todopago_PublicRequestKey"/>
+                    <field name="todopago_Answer"/>
+                    <field name="todopago_Return_url"/>
+                </group>
+            </field>
+        </field>
+    </record>
+
+</odoo>
