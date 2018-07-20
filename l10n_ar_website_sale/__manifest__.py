@@ -23,19 +23,17 @@
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'data': [
-        'views/checkout_view.xml',
-        'views/portal_sale_templates.xml',
-        'views/website_portal_view.xml',
+        'views/website_sale_templates.xml',
     ],
     'demo': [],
     'images': [
     ],
     'depends': [
         'website_sale',
-        'website_portal',
-        'l10n_ar_sale',
+        'l10n_ar_account',
+        # 'l10n_ar_sale',
     ],
-    'installable': False,
+    'installable': True,
     'name': 'e-Commerce Argentina Partner Document',
-    'version': '9.0.1.4.0',
+    'version': '11.0.1.0.0',
 }
