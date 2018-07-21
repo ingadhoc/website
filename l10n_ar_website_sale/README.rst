@@ -8,7 +8,6 @@ e-Commerce adaptado para Argentina
 
 1. Add Argentina Partner document on ecommerce checkout.
 2. We also made state and CP required to get right delivery amounts
-3. Use taxes included or not on sale orders and quoatations
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
