@@ -2,13 +2,16 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-===================================
-Product Price Taxes Included or Not
-===================================
+========================================
+Prices with taxes included on E-Commerce
+========================================
 
 Show prices on ecommerce with taxes included.
+This module use new odoo grupo "group_show_price_total" to show prices with taxes on ecommerce (this options should be hided to the users on the configuration)
 
-TODO: habria que ver que de este modulo llevamos a l10n_ar_website_sale o si se aprovecha la posibilidad de elegir lista de precios o lo que fuese
+TODO:
+#. por ahora es bien simple lo que hace, solo activa lo nativo de odoo, a medida que requieran vamos a ver de incorporar más cosas
+#. habria que hacer que se incluyan impuestos o no en función a si el partner es RI o no. Tal vez podemos hacerlo con algún tipo de constraint o grupo dinamico que setee los grupos correspondientes de odoo (group_show_price_total o group_show_price_subtotal)
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot

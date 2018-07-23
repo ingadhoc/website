@@ -18,8 +18,8 @@
 #
 ##############################################################################
 {
-    'name': 'Product Price Taxes Included or Not',
-    'version': '9.0.1.1.0',
+    'name': 'Prices with taxes included on E-Commerce',
+    'version': '11.0.1.1.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
@@ -30,15 +30,13 @@
     ],
     'depends': [
         'website_sale',
-        'product_price_taxes_included',
     ],
     'data': [
-        'views/templates.xml',
-        'security/ir.model.access.csv',
+        'security/website_sale_taxes_included_security.xml',
     ],
     'demo': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': False,
 }

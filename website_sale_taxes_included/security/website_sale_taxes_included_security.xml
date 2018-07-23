@@ -1,0 +1,12 @@
+<odoo>
+
+    <record id="base.group_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('sale.group_show_price_total')), (3, ref('sale.group_show_price_subtotal'))]"/>
+    </record>
+
+    <!-- after applying grous remove users from price subtotal (B2B) group -->
+    <record id="sale.group_show_price_subtotal" model="res.groups">
+        <field name="users" eval="[(5, 0, 0)]"/>
+    </record>
+
+</odoo>
