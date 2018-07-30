@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<odoo>
-    <data noupdate="1">
+<odoo noupdate="1">
 
     <record id="documentation_toc_portal_public_access" model="ir.rule">
         <field name="name">Documentation TOC portal and public access</field>
@@ -16,5 +15,4 @@
         <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
     </record>
 
-    </data>
 </odoo>

@@ -3,13 +3,12 @@
 # directory
 ##############################################################################
 from odoo import models, fields, api, _
-from odoo.osv import osv
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 import logging
 _logger = logging.getLogger(__name__)
 
 
-class Documentation(models.Model):
+class WebsiteDocToc(models.Model):
     _name = 'website.doc.toc'
     _description = 'Documentation ToC'
     _inherit = ['website.seo.metadata']
@@ -18,11 +17,9 @@ class Documentation(models.Model):
     _parent_store = True
 
     sequence = fields.Integer(
-        'Sequence',
         default=10,
     )
     name = fields.Char(
-        'Name',
         required=True,
         # to avoid complications we disable translation
         # translate=True,
@@ -54,7 +51,8 @@ class Documentation(models.Model):
         index=True,
     )
     is_article = fields.Boolean(
-        'Is Article?'
+        'Is Article?',
+        index=True,
     )
     article_ids = fields.One2many(
         'website.doc.toc',
@@ -67,7 +65,7 @@ class Documentation(models.Model):
     )
     add_google_doc = fields.Boolean(
         'Add Google Doc?',
-        help="Add Google Doc after Page Content?"
+        help="Add Google Doc after Page Content?",
     )
     google_doc_link = fields.Char(
         'Google Document Code',
@@ -77,7 +75,7 @@ class Documentation(models.Model):
     )
     google_doc_height = fields.Char(
         'Google Document Height',
-        default='1050px'
+        default='1050px',
     )
     content = fields.Html(
         'Content',
@@ -85,7 +83,7 @@ class Documentation(models.Model):
     )
     google_doc = fields.Text(
         'Google Content',
-        compute='_get_google_doc',
+        compute='_compute_google_doc',
     )
     state = fields.Selection([
         ('private', 'Is Private'),
@@ -96,7 +94,8 @@ class Documentation(models.Model):
         required=True,
         default='private',
         help="If private, then it wont be accesible "
-             "by portal or public users"
+             "by portal or public users",
+        index=True,
     )
     dont_show_childs = fields.Boolean(
     )
@@ -115,7 +114,7 @@ class Documentation(models.Model):
     )
     icon = fields.Char(
         help='fa-icon name, you can use any of the icons on '
-        'http://fontawesome.io/icons/, for eg. "fa-pencil-square-o"'
+        'http://fontawesome.io/icons/, for eg. "fa-pencil-square-o"',
     )
     read_status = fields.Boolean(
         'Read Status',
@@ -134,36 +133,36 @@ class Documentation(models.Model):
                 parents_not_published = rec.search([
                     ('id', 'parent_of', rec.id), ('state', '!=', 'published')])
                 if parents_not_published:
-                    raise UserError(_(
+                    raise ValidationError(_(
                         'No puede publicar este articulo porque hay articulos'
                         ' padres no publicados'))
             elif rec.state == 'portal':
                 parents_private = rec.search([
                     ('id', 'parent_of', rec.id), ('state', '=', 'private')])
                 if parents_private:
-                    raise UserError(_(
+                    raise ValidationError(_(
                         'No puede publicar este articulo porque hay articulos'
                         ' padres privados'))
                 childs_published = rec.search([
                     ('id', 'child_of', rec.id), ('state', '=', 'published')])
                 if childs_published:
-                    raise UserError(_(
+                    raise ValidationError(_(
                         'No puede pasar a portal este articulo porque hay '
                         ' publicados'))
             else:
                 childs_published = rec.search([
                     ('id', 'child_of', rec.id), ('state', '!=', 'private')])
                 if childs_published:
-                    raise UserError(_(
+                    raise ValidationError(_(
                         'No puede despublicr este articulo porque hay hijos'
                         ' publicados'))
 
     @api.multi
     def _get_doc_status(self):
         self.ensure_one()
-        domain = [('user_id', '=', self._uid)]
         return self.env['website.doc.status'].search(
-            domain + [('article_doc_id', '=', self.id)], limit=1)
+            [('user_id', '=', self._uid), ('article_doc_id', '=', self.id)],
+            limit=1)
 
     @api.multi
     def _compute_reading_percentage(self):
@@ -182,11 +181,7 @@ class Documentation(models.Model):
     def _compute_read(self):
         _logger.info('Computing read status')
         for rec in self:
-            status = rec._get_doc_status()
-            if status:
-                rec.read_status = True
-            else:
-                rec.read_status = False
+            rec.read_status = True if rec._get_doc_status() else False
 
     # lo implementamos sin funcion inverse del campo porque si no requeria
     # que usuarios portal tengan permiso de escritura sobre este objeto si
@@ -205,20 +200,6 @@ class Documentation(models.Model):
             elif not read_status and status:
                 status.unlink()
 
-    # @api.multi
-    # def _inverse_read(self):
-    #     status_obj = self.env['website.doc.status']
-    #     for rec in self:
-    #         status = rec._get_doc_status()
-    #         if rec.read_status and not status:
-    #             vals = {
-    #                 'user_id': rec._uid,
-    #                 'article_doc_id': rec.id,
-    #             }
-    #             status_obj.create(vals)
-    #         elif not rec.read_status and status:
-    #             status.unlink()
-
     @api.multi
     # sacamos depends para que no de error con cache y newid
     # @api.depends('parent_id')
@@ -231,7 +212,6 @@ class Documentation(models.Model):
             #     rec.url_suffix = '%s/%s/%s' % (
             #         rec.url_suffix, uuid)
 
-    @api.multi
     @api.depends('is_article', 'parent_id')
     def _compute_documentation(self):
         _logger.info('Computing documentation')
@@ -249,19 +229,20 @@ class Documentation(models.Model):
                 ('is_article', '=', False),
                 ('parent_id', '=', False)], limit=1).id
 
-    @api.one
     @api.depends('google_doc_code', 'google_doc_height')
-    def _get_google_doc(self):
-        self.google_doc = False
-        if self.google_doc_height and self.google_doc_code:
-            google_doc = google_doc_template % (
-                self.google_doc_height, self.google_doc_code)
-            self.google_doc = google_doc
+    def _compute_google_doc(self):
+        for rec in self:
+            rec.google_doc = False
+            if rec.google_doc_height and rec.google_doc_code:
+                google_doc = google_doc_template % (
+                    rec.google_doc_height, rec.google_doc_code)
+                rec.google_doc = google_doc
 
-    _constraints = [
-        (osv.osv._check_recursion,
-            'Error ! You cannot create recursive categories.', ['parent_id'])
-    ]
+    @api.constrains('parent_id')
+    def _check_parent_id(self):
+        if not self._check_recursion():
+            raise ValidationError(
+                _('Error! You cannot create recursive categories.'))
 
 
 google_doc_template = """
@@ -288,20 +269,3 @@ google_doc_template = """
     </script>
 </div>
 """
-
-
-class DocumentationStatusDoc(models.Model):
-    _name = 'website.doc.status'
-    _description = 'Documentation Status'
-
-    user_id = fields.Many2one(
-        'res.users',
-        'User',
-    )
-    article_doc_id = fields.Many2one(
-        'website.doc.toc',
-        'Article',
-        required=True,
-        ondelete='cascade',
-        auto_join=True,
-    )

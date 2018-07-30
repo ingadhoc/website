@@ -4,13 +4,12 @@
 ##############################################################################
 from odoo import http
 from odoo.http import request
-import logging
-
 from odoo.tools.translate import _
-from odoo.tools import html2text
+try:
+    import html2text
+except ImportError:
+    _logger.debug('Cannot import external_dependency html2text')
 from odoo.addons.website.controllers.main import Website as controllers
-
-logger = logging.getLogger(__name__)
 
 controllers = controllers()
 
@@ -32,7 +31,7 @@ class WebsiteDoc(http.Controller):
             self, doc, page=1, search='', **post):
 
         if len(search) < self._min_search_len:
-            return request.website.render("website_doc.error_search_len", None)
+            return request.render("website_doc.error_search_len", None)
 
         env = request.env
         doc_table = env['website.doc.toc']._table
@@ -111,13 +110,14 @@ class WebsiteDoc(http.Controller):
 
             # Convert to text, eliminate all tags and #, \n, [, ] symbols,
             # and text between []
-            html = html2text(html.decode('utf-8')).encode('utf-8')
+
+            html = html2text.html2text(html)
             html = self._removeSymbols(
-                html.decode('utf-8'), '[', ']').encode('utf-8')
+                html, '[', ']')
             html = self._removeSymbols(
-                html.decode('utf-8'), '\n').encode('utf-8')
+                html, '\n')
             html = self._removeSymbols(
-                html.decode('utf-8'), '#').encode('utf-8')
+                html, '#')
 
             # If not case sensitive search, apply lower function to search
             # term and html
@@ -163,7 +163,7 @@ class WebsiteDoc(http.Controller):
             result_data['ocurrences'] = ocurrences
             values['results'].append(result_data)
 
-        return request.website.render("website_doc.search_results", values)
+        return request.render("website_doc.search_results", values)
 
     def _removeSymbols(self, html_txt, symbol1, symbol2=False):
 
