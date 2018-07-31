@@ -21,7 +21,7 @@
     'name': 'Website Documentation',
     'category': 'Website',
     'summary': 'Website, Documentation',
-    'version': '9.0.1.13.0',
+    'version': '11.0.1.0.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -37,16 +37,12 @@
         'data/doc_data.xml',
         'data/ir_model_data.xml',
         'security/ir.model.access.csv',
-        'security/security.xml',
-        'views/doc.xml',
-        'views/website_doc.xml',
-        'views/website_search.xml',
+        'security/website_doc_security.xml',
+        'views/website_doc_toc_views.xml',
+        'views/website_doc_toc_templates.xml',
     ],
     'demo': [
     ],
-    'qweb': [
-        'static/src/xml/website_doc.xml'
-    ],
-    'installable': False,
+    'installable': True,
     'application': True,
 }

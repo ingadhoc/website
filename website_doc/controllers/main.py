@@ -4,14 +4,8 @@
 ##############################################################################
 from odoo import http
 from odoo.http import request
-import logging
 import werkzeug.utils
-# from odoo.addons.web import http
-# from odoo.addons.web.http import request
 from odoo.addons.website.controllers.main import Website as controllers
-# from odoo.addons.website.models.website import slugify
-
-logger = logging.getLogger(__name__)
 
 controllers = controllers()
 
@@ -75,15 +69,14 @@ class WebsiteDoc(http.Controller):
             'toc': toc,
             'titles': titles,
         }
-        return request.website.render(
+        return request.render(
             "website_doc.documentation_post", value)
 
     @http.route([
         '/doc/read',
     ], type='json', auth="public", website=True)
-    def read(self, id, object, **kwargs):
+    def read_status(self, id, object, **kwargs):
         _id = int(id)
         rec = request.env[object].browse(_id)
-        # rec.read_status = not rec.read_status
         rec.inverse_read(not rec.read_status)
         return bool(rec.read_status)
