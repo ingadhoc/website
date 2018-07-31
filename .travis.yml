@@ -74,8 +74,6 @@ install:
   - sed -i 's/manifest_required_author\=.*/manifest_required_author="ADHOC SA"/g' ${HOME}/maintainer-quality-tools/travis/cfg/travis_run_pylint_pr.cfg
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
-  # hacemos esto porque este modulo tiene un error que no pudimos arreglar todavia
-  - rm -rf ${HOME}/dependencies/ingadhoc-patches/base_name_search_improved
 
 script:
   - travis_run_tests
