@@ -5,6 +5,8 @@
 from odoo import http
 from odoo.http import request
 from odoo.tools.translate import _
+import logging
+_logger = logging.getLogger(__name__)
 try:
     import html2text
 except ImportError:

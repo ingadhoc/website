@@ -28,9 +28,7 @@ class WebsiteDocToc(models.Model):
     parent_id = fields.Many2one(
         'website.doc.toc',
         'Parent Table Of Content',
-        # por ahora preferimos no perder y borrar todo por error
-        ondelete='set null',
-        # ondelete='cascade',
+        ondelete='cascade',
         domain=[('is_article', '=', False)],
         auto_join=True,
     )
