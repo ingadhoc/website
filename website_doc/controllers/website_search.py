@@ -11,9 +11,6 @@ try:
     import html2text
 except ImportError:
     _logger.debug('Cannot import external_dependency html2text')
-from odoo.addons.website.controllers.main import Website as controllers
-
-controllers = controllers()
 
 
 class WebsiteDoc(http.Controller):
@@ -48,7 +45,10 @@ class WebsiteDoc(http.Controller):
                 # usamos smart search
                 if operator == '%' and field == 'content':
                     operator = 'ilike'
-                    results += doc.search([
+                    # buscamosc copn sudo porque ahora ir.model esta solo
+                    # para empleados y entonces si no da error al buscar
+                    # con usuarios portal
+                    results += doc.sudo().search([
                         ('id', 'child_of', doc.id),
                         ('id', 'not in', results.ids),
                         ('smart_search', operator, search),
