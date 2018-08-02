@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <template id="todopago_form">
+        <div>
+            <input type="hidden" name="data_set" t-att-data-action-url="tx_url" data-remove-me=""/>
+            <input type="hidden" name="cmd" t-att-value="cmd"/>
+            <input type="hidden" name="todopago_data" t-att-value="todopago_data"/>
+        </div>
+    </template>
+
+</odoo>

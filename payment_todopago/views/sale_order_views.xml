@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='client_order_ref']" position="after">
-                <field name="todopago_max_insallments"/>
+                <field name="todopago_max_installments"/>
             </xpath>
         </field>
     </record>

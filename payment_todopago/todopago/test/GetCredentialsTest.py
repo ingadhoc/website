@@ -1,87 +1,98 @@
+# pylint: disable-all
+# flake8: noqa
 import sys
 sys.path.append("..")
 from todopagoconnector import TodoPagoConnector
 from CredentialsData import CredentialsData
 import unittest
 from unittest import TestCase
-if sys.version_info[0] >= 3 :
-	from unittest.mock import patch, Mock
+if sys.version_info[0] >= 3:
+    from unittest.mock import patch, Mock
 else:
-	from mock import patch, Mock, MagicMock
+    from mock import patch, Mock, MagicMock
 
 
 class CredentialsTest(TestCase):
-	
-	@patch('todopagoconnector.TodoPagoConnector')
-	def test_get_credentials_ok(self, MockTodoPagoConnector):
-		j_header_http = {
-			'Authorization':'TODOPAGO f3d8b72c94ab4a06be2ef7c95490f7d3'
-		}
 
-		MTPConnector = MockTodoPagoConnector(j_header_http, "test")
+    @patch('todopagoconnector.TodoPagoConnector')
+    def test_get_credentials_ok(self, MockTodoPagoConnector):
+        j_header_http = {
+            'Authorization': 'TODOPAGO f3d8b72c94ab4a06be2ef7c95490f7d3'
+        }
 
-		instanceCredential = CredentialsData()
+        MTPConnector = MockTodoPagoConnector(j_header_http, "test")
 
-		MTPConnector.getCredentials.return_value = instanceCredential.get_credentials_ok_response()
+        instanceCredential = CredentialsData()
 
-		UserAccount = {
-			'USUARIO' : "usuario@gmail.com", 
-			'CLAVE' : "1970Stk!"
-		}
+        MTPConnector.getCredentials.return_value = instanceCredential.get_credentials_ok_response()
 
-		responseGetCredential = MTPConnector.getCredentials(UserAccount)
+        UserAccount = {
+            'USUARIO': "usuario@gmail.com",
+            'CLAVE': "1970Stk!"
+        }
 
-		self.assertEquals(responseGetCredential['Credentials']['resultado']['codigoResultado'], 0)
-		self.assertTrue(len(responseGetCredential['Credentials']['merchantId']))
-		self.assertTrue(len(responseGetCredential['Credentials']['APIKey']))
-	
-		
-	@patch('todopagoconnector.TodoPagoConnector')	
-	def test_get_credentials_user_empty(self, MockTodoPagoConnector):
-		j_header_http = {
-			'Authorization':'TODOPAGO f3d8b72c94ab4a06be2ef7c95490f7d3'
-		}
+        responseGetCredential = MTPConnector.getCredentials(UserAccount)
 
-		MTPConnector = MockTodoPagoConnector(j_header_http, "test")
+        self.assertEquals(
+            responseGetCredential['Credentials']['resultado']
+            ['codigoResultado'],
+            0)
+        self.assertTrue(len(responseGetCredential['Credentials']['merchantId']))
+        self.assertTrue(len(responseGetCredential['Credentials']['APIKey']))
 
-		instanceCredential = CredentialsData()
+    @patch('todopagoconnector.TodoPagoConnector')
+    def test_get_credentials_user_empty(self, MockTodoPagoConnector):
+        j_header_http = {
+            'Authorization': 'TODOPAGO f3d8b72c94ab4a06be2ef7c95490f7d3'
+        }
 
-		MTPConnector.getCredentials.return_value = instanceCredential.get_credentials_wrong_user_response()
+        MTPConnector = MockTodoPagoConnector(j_header_http, "test")
 
-		UserAccount = {
-			'USUARIO' : "usuario@gmail.com", 
-			'CLAVE' : "pass123"
-		}
+        instanceCredential = CredentialsData()
 
-		responseGetCredential = MTPConnector.getCredentials(UserAccount)
+        MTPConnector.getCredentials.return_value = instanceCredential.get_credentials_wrong_user_response()
 
-		self.assertEquals(responseGetCredential['Credentials']['resultado']['codigoResultado'], 1050)
-		self.assertFalse(len(responseGetCredential['Credentials']['merchantId']))
-		self.assertFalse(len(responseGetCredential['Credentials']['APIKey']))
+        UserAccount = {
+            'USUARIO': "usuario@gmail.com",
+            'CLAVE': "pass123"
+        }
 
-	
-	@patch('todopagoconnector.TodoPagoConnector')
-	def test_get_credentials_pass_empty(self, MockTodoPagoConnector):		
-		j_header_http = {
-			'Authorization':'TODOPAGO f3d8b72c94ab4a06be2ef7c95490f7d3'
-		}
+        responseGetCredential = MTPConnector.getCredentials(UserAccount)
 
-		MTPConnector = MockTodoPagoConnector(j_header_http, "test")
+        self.assertEquals(
+            responseGetCredential['Credentials']['resultado']
+            ['codigoResultado'],
+            1050)
+        self.assertFalse(
+            len(responseGetCredential['Credentials']['merchantId']))
+        self.assertFalse(len(responseGetCredential['Credentials']['APIKey']))
 
-		instanceCredential = CredentialsData()
-		
-		MTPConnector.getCredentials.return_value = instanceCredential.get_credentials_wrong_password_response()
+    @patch('todopagoconnector.TodoPagoConnector')
+    def test_get_credentials_pass_empty(self, MockTodoPagoConnector):
+        j_header_http = {
+            'Authorization': 'TODOPAGO f3d8b72c94ab4a06be2ef7c95490f7d3'
+        }
 
-		UserAccount = {
-			'USUARIO' : "usuario@gmail.com", 
-			'CLAVE' : ""
-		}
+        MTPConnector = MockTodoPagoConnector(j_header_http, "test")
 
-		responseGetCredential = MTPConnector.getCredentials(UserAccount)
-		
-		self.assertEquals(responseGetCredential['Credentials']['resultado']['codigoResultado'], 1055)
-		self.assertFalse(len(responseGetCredential['Credentials']['merchantId']))
-		self.assertFalse(len(responseGetCredential['Credentials']['APIKey']))
-		
+        instanceCredential = CredentialsData()
+
+        MTPConnector.getCredentials.return_value = instanceCredential.get_credentials_wrong_password_response()
+
+        UserAccount = {
+            'USUARIO': "usuario@gmail.com",
+            'CLAVE': ""
+        }
+
+        responseGetCredential = MTPConnector.getCredentials(UserAccount)
+
+        self.assertEquals(
+            responseGetCredential['Credentials']['resultado']
+            ['codigoResultado'],
+            1055)
+        self.assertFalse(
+            len(responseGetCredential['Credentials']['merchantId']))
+        self.assertFalse(len(responseGetCredential['Credentials']['APIKey']))
+
 if __name__ == '__main__':
-	unittest.main()
+    unittest.main()
