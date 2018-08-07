@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products_categories" inherit_id="website_sale.products_categories">
+        <!-- <xpath expr="//a[@t-att-href='keep('/shop',category=0)']" position="attributes"> -->
+        <xpath expr="//a" position="attributes">
+            <attribute name="t-att-href">keep('/shop',category=0, search=0)</attribute>
+        </xpath>
+    </template>
+</odoo>
