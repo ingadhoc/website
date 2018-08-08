@@ -2,14 +2,14 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from odoo.addons.website_sale.controllers.main import website_sale
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.http import request
 from odoo import http
 from odoo.addons.website_sale.controllers import main as main_file
 import werkzeug
 
 
-class website_sale(website_sale):
+class WebsiteSaleCustom(WebsiteSale):
 
     def _get_search_domain(self, search, category, attrib_values):
         # TODO ver si usamos modulo de la oca de buscar por atributos
@@ -49,7 +49,7 @@ class website_sale(website_sale):
         """
         if category and search:
             category = None
-        return super(website_sale, self).shop(
+        return super(WebsiteSaleCustom, self).shop(
             page=page, category=category, search=search, **post)
 
 
