@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="acquirer_form_mercadopago" model="ir.ui.view">
+        <field name="name">acquirer.form.mercadopago</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//group[@name="acquirer_left"]' position='after'>
+                <group attrs="{'invisible': [('provider', '!=', 'mercadopago')]}">
+                    <label for="mercadopago_client_id" string="You can get this values from:"/>
+                    <a href="https://www.mercadopago.com/mla/account/credentials" target="_blank">https://www.mercadopago.com/mla/account/credentials</a>
+                    <field name="mercadopago_client_id"/>
+                    <field name="mercadopago_secret_key"/>
+                    <!-- <field name="mercadopago_description" attrs="{'required': [('provider', '=', 'mercadopago')]}"/> -->
+                    <field name="mercadopago_item_title" attrs="{'required': [('provider', '=', 'mercadopago')]}"/>
+                    <!-- <field name="mercadopago_generic_message" attrs="{'required': [('mercadopago_description', '=', 'generic_message'), ('provider', '=', 'mercadopago')], 'invisible': [('mercadopago_description', '!=', 'generic_message')]}"/> -->
+                    <!-- TODO terminar de implementar ipn -->
+<!--                         <label for="mercadopago_client_id" string="If you also want to receive notifications by ipn go to:"/>
+                    <a href="https://www.mercadopago.com/mla/herramientas/notificaciones" target="_blank">https://www.mercadopago.com/mla/herramientas/notificaciones</a> -->
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="transaction_form_mercadopago" model="ir.ui.view">
+        <field name="name">acquirer.transaction.form.mercadopago</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.transaction_form"/>
+        <field name="arch" type="xml">
+            <field name='provider' position='after'>
+                <group name="mercadopago_tx" attrs="{'invisible': [('provider', '!=', 'mercadopago')]}">
+                    <field name="mercadopago_txn_id"/>
+                    <field name="mercadopago_txn_type"/>
+                </group>
+            </field>
+        </field>
+    </record>
+
+</odoo>

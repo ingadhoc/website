@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <template id="mercadopago_form">
+        <div>
+            <input type="hidden" name="data_set" t-att-data-action-url="tx_url" data-remove-me=""/>
+            <input type="hidden" name="cmd" t-att-value="cmd"/>
+            <input type="hidden" name="mercadopago_data" t-att-value="mercadopago_data"/>
+        </div>
+    </template>
+
+</odoo>

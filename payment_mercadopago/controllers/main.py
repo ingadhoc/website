@@ -6,9 +6,9 @@
 import logging
 import pprint
 import werkzeug
-from odoo import http, SUPERUSER_ID
+from odoo import http
 from odoo.http import request
-from ast import literal_eval
+from odoo.tools.safe_eval import safe_eval
 _logger = logging.getLogger(__name__)
 try:
     from mercadopago import mercadopago
@@ -18,9 +18,7 @@ except ImportError:
 
 class MercadoPagoController(http.Controller):
     _success_url = '/payment/mercadopago/success/'
-    _success_no_return_url = '/payment/mercadopago/success_no_return/'
     _pending_url = '/payment/mercadopago/pending/'
-    _pending_no_return_url = '/payment/mercadopago/pending_no_return/'
     _failure_url = '/payment/mercadopago/failure/'
     # _notify_url = '/payment/mercadopago/notify/'
     _create_preference_url = '/payment/mercadopago/create_preference'
@@ -35,7 +33,7 @@ class MercadoPagoController(http.Controller):
             pprint.pformat(post))
         # TODO podriamos pasar cada elemento por separado para no necesitar
         # el literal eval
-        mercadopago_data = literal_eval(post.get('mercadopago_data', {}))
+        mercadopago_data = safe_eval(post.get('mercadopago_data', {}))
         if not mercadopago_data:
             return werkzeug.utils.redirect("/")
         environment = mercadopago_data.get('environment')
@@ -70,21 +68,14 @@ class MercadoPagoController(http.Controller):
 
         return werkzeug.utils.redirect(linkpay)
 
-    def mercadopago_validate(self, **post):
-        "Validate mercado pago payment from a return URL or IPN"
-        _logger.info(
-            'Validating mercadopago payment with post data %s',
-            pprint.pformat(post))
-        cr, uid, context = request.cr, SUPERUSER_ID, request.context
-        request.registry['payment.transaction'].form_feedback(
-            cr, uid, post, 'mercadopago', context)
-        return False
-
     @http.route([
-        '/payment/mercadopago/success_no_return',
-        '/payment/mercadopago/pending_no_return',
+        '/payment/mercadopago/success',
+        '/payment/mercadopago/pending',
+        '/payment/mercadopago/failure'
     ],
-        type='http', auth="none", csrf=False)
+        type='http', auth="none",
+        # csrf=False,
+        )
     def mercadopago_back_no_return(self, **post):
         """
         Odoo, si usas el boton de pago desde una sale order o email, no manda
@@ -95,56 +86,7 @@ class MercadoPagoController(http.Controller):
         _logger.info(
             'Mercadopago: entering mecadopago_back with post data %s',
             pprint.pformat(post))
-        self.mercadopago_validate(**post)
-        return werkzeug.utils.redirect('/')
-
-    @http.route([
-        '/payment/mercadopago/success',
-        '/payment/mercadopago/pending',
-    ],
-        type='http', auth="none", csrf=False)
-    def mercadopago_back(self, **post):
-        _logger.info(
-            'Mercadopago: entering mecadopago_back with post data %s',
-            pprint.pformat(post))
-        self.mercadopago_validate(**post)
-        return werkzeug.utils.redirect('/shop/payment/validate')
-
-    @http.route([
-        '/payment/mercadopago/failure'
-    ],
-        type='http', auth="none", csrf=False)
-    def mercadopago_back_failure(self, **post):
-        """
-        If failure is return is because user has cancelled the payment
-        if a collection_status has return, then we call mercadopago_validate
-        to post payment failure reason.
-        If no collection_status user has return before triying to pay
-        """
-        _logger.info(
-            'Mercadopago: entering mercadopago_back_failure with post data %s',
-            pprint.pformat(post))
-        # por ahora, para simplificar, siempre que se cancele devolvemos
-        # a la pestana de pagos, ver observaciones de mas abajo
-        return werkzeug.utils.redirect('/shop/payment')
-        # # TODO para seguir con la logica de otros modulos deberiamos
-        # # redirigir a la redirect url y que ahí decida que hacer
-        # # el problema es que si gregresamos a esa url se nos esta limpiando
-        # # el pedido
-        # # return werkzeug.utils.redirect('/shop/payment/validate')
-        # if post.get('collection_status') == 'null':
-        #     return werkzeug.utils.redirect('/shop/payment')
-        # self.mercadopago_validate(**post)
-        # return werkzeug.utils.redirect('/shop/payment/validate')
-
-    # @http.route([
-    #     '/payment/mercadopago/notify'
-    #     ],
-    #     type='http', auth="none")
-    # def mercadopago_notify(self, **post):
-    #     """
-    #     This method is call when mercadopago notify us some event not in
-    #     in the return url
-    #     """
-    #     self.mercadopago_validate(**post)
-    #     return ''
+        request.env['payment.transaction'].sudo().form_feedback(
+            post, 'mercadopago')
+        return werkzeug.utils.redirect(werkzeug.url_unquote(
+            post.pop('return_url', '/')))
