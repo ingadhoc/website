@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_acquirer_mercadopago" model="payment.acquirer">
+        <field name="mercadopago_client_id">2285999378925428</field>
+        <field name="mercadopago_secret_key">BRiYAPa3QAozapMpIFcT1JmilVAYOHNz</field>
+    </record>
+
+</odoo>
