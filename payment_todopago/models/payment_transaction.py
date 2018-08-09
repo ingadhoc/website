@@ -22,6 +22,10 @@ class TxTodoPago(models.Model):
     todopago_Answer = fields.Char(
         'Answer',
     )
+    # TODO perhups we can do as we do on mercadopago and send this on
+    # the urls with the form_generate_values. But on todopago we still need to
+    # ensure we have a transaction before going to todpago to keep the
+    # todopago_RequestKey and todopago_PublicRequestKey
     todopago_Return_url = fields.Char(
         'Todopago return url',
     )
@@ -33,7 +37,7 @@ class TxTodoPago(models.Model):
         if not reference:
             error_msg = (
                 'TodoPago: received data with missing reference (%s) or '
-                'collection_id (%s)' % (Answer, reference))
+                'OPERATIONID (%s)' % (Answer, reference))
             _logger.error(error_msg)
             raise ValidationError(error_msg)
         transaction = self.search([
