@@ -5,7 +5,7 @@
         <!-- TODO ver de mejorar, nosotros agregamos el cuit antes de esto para -->
         <div id="div_phone" position="after">
             <!-- agregamos document type -->
-            <div t-attf-class="form-group #{error.get('main_id_category_id') and 'has-error' or ''} col-lg-6">
+            <!-- <divt-attf-class="form-group #{error.get('main_id_category_id') and 'has-error' or ''} col-lg-6">
                 <label class="control-label" for="main_id_category_id">Tipo de Documento</label>
                 <select name="main_id_category_id" class="form-control">
                     <option value="">Tipo de Documento...</option>
@@ -13,14 +13,13 @@
                       <option t-att-value="document_category.id" t-att-selected="document_category.id == ('main_id_category_id' in checkout and checkout['main_id_category_id'] != '' and int(checkout['main_id_category_id']))"><t t-esc="document_category.code"/></option>
                     </t>
                 </select>
-            </div>
+            </div> -->
             <!-- agregamos document number -->
-            <div t-attf-class="form-group #{error.get('main_id_number') and 'has-error' or ''} col-lg-6">
+            <!-- <div t-attf-class="form-group #{error.get('main_id_number') and 'has-error' or ''} col-lg-6">
                 <label class="control-label" for="main_id_number">Número de Documento</label>
                 <input type="text" name="main_id_number" class="form-control" t-att-value="'main_id_number' in checkout and checkout['main_id_number']" t-att-readonly="'readonly' if 'invoices' in checkout and checkout['invoice_ids'] else None"/>
             </div>
-            <!-- agregamos espacio -->
-            <div class="clearfix"/>
+            <div class="clearfix"/> -->
         </div>
 
         <!-- sacamos vat -->

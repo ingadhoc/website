@@ -9,12 +9,14 @@ from odoo.tools import config
 
 class L10nArWebsiteSale(WebsiteSale):
 
-    def _get_mandatory_billing_fields(self):
-        # para no romper los test de odoo
-        res = super(L10nArWebsiteSale, self)._get_mandatory_billing_fields()
-        if not config['test_enable']:
-            res += ["zip"]
-        return res + ["main_id_category_id", "main_id_number"]
+    # por ahora no los hacemos obligatorios porque deberian ser solo para el
+    # commercial partner id, TODO encontrarle la vuelta y mejroarlo
+    # def _get_mandatory_billing_fields(self):
+    #     # para no romper los test de odoo
+    #     res = super(L10nArWebsiteSale, self)._get_mandatory_billing_fields()
+    #     if not config['test_enable']:
+    #         res += ["zip"]
+    #     return res + ["main_id_category_id", "main_id_number"]
 
     @route()
     def address(self, **kw):
