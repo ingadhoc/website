@@ -62,7 +62,10 @@ class WebsiteDoc(http.Controller):
                     doc_table, field, search))
 
         # hacemos esto para filtar por los articulos que puede ver el usuario
-        results = results.exists()
+        # el exists no funciona porque se ve que al usar doc.sudo() en el
+        # recordset ya queda mal
+        # results = results.exists()
+        results = doc.search([('id', 'in', results.ids)])
         results_count = len(results)
         url = request.httprequest.url
         url = "/doc/%i/search_results" % (doc.id)
