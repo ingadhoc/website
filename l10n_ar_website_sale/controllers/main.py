@@ -4,7 +4,7 @@
 ##############################################################################
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.http import request, route
-from odoo.tools import config
+# from odoo.tools import config
 
 
 class L10nArWebsiteSale(WebsiteSale):
