@@ -242,6 +242,18 @@ class WebsiteDocToc(models.Model):
             raise ValidationError(
                 _('Error! You cannot create recursive categories.'))
 
+    @api.multi
+    def action_open_childs(self):
+        return {
+            'name': _('Childs TOC'),
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': self._name,
+            'view_id': False,
+            'type': 'ir.actions.act_window',
+            'domain': [('parent_id', '=', self.id)],
+        }
+
 
 google_doc_template = """
  <div class="row">

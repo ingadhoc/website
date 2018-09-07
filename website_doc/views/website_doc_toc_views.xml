@@ -61,6 +61,11 @@
                 <header>
                     <field name="state" widget="statusbar" clickable="True"/>
                 </header>
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" name="action_open_childs" type="object" icon="fa-list" attrs="{'invisible': [('is_article', '!=', False)]}">
+                        <span>Childs</span>
+                    </button>
+                </div>
                 <field name="is_article" invisible="1"/>
                 <group>
                     <field name="name"/>
