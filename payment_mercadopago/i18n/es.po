@@ -4,15 +4,13 @@
 # 
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018
-# Nicolas Mac Rouillon <nmr@ingadhoc.com>, 2018
-# Lisandro Boggio <lboggio@ingenieriaboggio.com.ar>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-20 12:49+0000\n"
-"PO-Revision-Date: 2018-03-20 12:49+0000\n"
-"Last-Translator: Lisandro Boggio <lboggio@ingenieriaboggio.com.ar>, 2018\n"
+"POT-Creation-Date: 2018-09-07 20:32+0000\n"
+"PO-Revision-Date: 2018-09-07 20:32+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,24 +34,8 @@ msgstr ""
 
 #. module: payment_mercadopago
 #: model:payment.acquirer,error_msg:payment_mercadopago.payment_acquirer_mercadopago
-msgid ""
-"<span><i>Error,</i> Please be aware that an error occurred during the "
-"transaction. The order has been confirmed but won't be paid. Don't hesitate "
-"to contact us if you have any questions on the status of your order.</span>"
+msgid "Error: Hubo un error en el pago, por favor comuniquese con nosotros."
 msgstr ""
-"<span><i>Error,</i> Tenga en cuenta que se ha producido un error durante la "
-"transacción. El pedido se ha confirmado pero no se pagará. No dude en "
-"ponerse en contacto con nosotros si tiene alguna pregunta sobre el estado de"
-" su pedido.</span> "
-
-#. module: payment_mercadopago
-#: model:payment.acquirer,pending_msg:payment_mercadopago.payment_acquirer_mercadopago
-msgid ""
-"<span><i>Pending,</i> Your online payment has been successfully processed. "
-"But your order is not validated yet.</span>"
-msgstr ""
-"<span><i>Pending,</i>Su pago en línea se ha procesado correctamente. Pero tu"
-" pedido aún no ha sido validado.</span> "
 
 #. module: payment_mercadopago
 #: model:ir.model.fields,help:payment_mercadopago.field_payment_transaction_mercadopago_txn_type
@@ -81,12 +63,7 @@ msgid "MercadoPago Secret Key"
 msgstr "MercadoPago Secret Key"
 
 #. module: payment_mercadopago
-#: model:ir.ui.view,arch_db:payment_mercadopago.transaction_form_mercadopago
-msgid "MercadoPago TX Details"
-msgstr "MercadoPago TX Details"
-
-#. module: payment_mercadopago
-#: code:addons/payment_mercadopago/models/mercadopago.py:115
+#: code:addons/payment_mercadopago/models/payment_acquirer.py:75
 #, python-format
 msgid ""
 "No generic message defined for mercadopago or message does not contains %/s!"
@@ -105,7 +82,14 @@ msgid "Payment Transaction"
 msgstr "Transacción de pago"
 
 #. module: payment_mercadopago
-#: code:addons/payment_mercadopago/models/mercadopago.py:131
+#: model:payment.acquirer,pending_msg:payment_mercadopago.payment_acquirer_mercadopago
+msgid ""
+"Pendiente de acreditación. Su pago todavía no ha sido confirmado por "
+"Mercadopago, le informaremos cuando esto suceda y validaremos el pedido."
+msgstr ""
+
+#. module: payment_mercadopago
+#: code:addons/payment_mercadopago/models/payment_acquirer.py:90
 #, python-format
 msgid "Recargo por Mercadopago"
 msgstr ""
@@ -121,7 +105,7 @@ msgid "Transaction type"
 msgstr "Tipo de transacción"
 
 #. module: payment_mercadopago
-#: code:addons/payment_mercadopago/models/mercadopago.py:86
+#: code:addons/payment_mercadopago/models/payment_acquirer.py:41
 #, python-format
 msgid ""
 "YOU MUST COMPLETE acquirer.mercadopago_client_id and "
