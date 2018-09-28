@@ -29,7 +29,7 @@
     'images': [
     ],
     'depends': [
-        'website_sale_taxes_included',
+        'l10n_ar_website_sale',
         'website_sale_delivery',
     ],
     'data': [
