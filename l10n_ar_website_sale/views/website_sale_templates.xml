@@ -37,4 +37,46 @@
         </xpath>
     </template>
 
+    <template id="cart_lines" name="Shopping Cart Lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//span[@t-field='line.price_reduce_taxexcl']" position="attributes">
+            <attribute name="t-field">line.report_price_unit</attribute>
+            <attribute name="groups"/>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_reduce_taxinc']" position="replace">
+        </xpath>
+    </template>
+
+    <template id="total" name="Taxes Included Cart Total" inherit_id="website_sale.total">
+        <xpath expr="//span[@t-field='website_sale_order.amount_untaxed']/../.." position="attributes">
+            <attribute name="t-if">website_sale_order.vat_discriminated</attribute>
+        </xpath>
+        <xpath expr="//div[@id='order_total_taxes']" position="attributes">
+            <attribute name="t-if">website_sale_order.vat_discriminated</attribute>
+        </xpath>
+    </template>
+
+    <template id="confirmation" name="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr="//div[@t-field='line.price_unit']" position="attributes">
+            <attribute name="t-field">line.report_price_unit</attribute>
+        </xpath>
+        <xpath expr="//div[@t-field='line.price_subtotal']" position="attributes">
+            <attribute name="t-field">line.report_price_subtotal</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='order.amount_untaxed']/../.." position="attributes">
+            <attribute name="t-if">order.vat_discriminated</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='order.amount_tax']/../.." position="attributes">
+            <attribute name="t-if">order.vat_discriminated</attribute>
+        </xpath>
+    </template>
+
+    <template id="payment" name="Payment" inherit_id="website_sale.payment">
+        <xpath expr="//span[@t-field='line.price_reduce_taxexcl']" position="attributes">
+            <attribute name="t-field">line.report_price_unit</attribute>
+            <attribute name="groups"/>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_reduce_taxinc']" position="replace">
+        </xpath>
+    </template>
+
 </odoo>
