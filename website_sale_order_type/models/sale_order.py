@@ -15,6 +15,8 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).onchange_partner_id()
         website_id = self._context.get('website_id', False)
         if website_id:
-            self.type_id = self.env['website'].browse(
+            sale_order_type = self.env['website'].browse(
                 website_id).sale_order_type_id
+            if sale_order_type:
+                self.type_id = sale_order_type
         return res
