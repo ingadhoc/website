@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'eCommerce Delivery with taxes included',
-    'version': '9.0.1.0.0',
+    'version': '11.0.1.0.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
@@ -33,11 +33,11 @@
         'website_sale_delivery',
     ],
     'data': [
-        'views/templates.xml',
+        'views/l10n_ar_website_sale_delivery_templates.xml',
     ],
     'demo': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': True,
     'application': False,
 }
