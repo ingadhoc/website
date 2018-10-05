@@ -52,7 +52,8 @@ class L10nArWebsiteSale(WebsiteSale):
             'res.partner.id_category'].sudo().search([])
         afip_responsabilities = request.env[
             'afip.responsability.type'].sudo().search([])
-        Partner, _website_company = self.get_partner_company()
+        uid = request.session.uid or request.env.ref('base.public_user').id
+        Partner = request.env['res.users'].browse(uid).partner_id
         Partner = Partner.with_context(show_address=1).sudo()
         response.qcontext.update({
             'document_categories': document_categories,
@@ -61,34 +62,7 @@ class L10nArWebsiteSale(WebsiteSale):
         })
         return response
 
-    def get_partner_company(self):
-        """ Extract partner info from current user, and company information
-        from website company
-        """
-        uid = request.session.uid or request.env.ref('base.public_user').id
-        partner = request.env['res.users'].browse(uid).partner_id
-        company = request.env['website'].browse(
-            request.context.get('website_id')).company_id
-        return partner, company
-
-    def _get_vat_discriminated(self):
-        vat_discriminated = True
-        partner, company = self.get_partner_company()
-        company_vat_type = company.sale_allow_vat_no_discrimination
-        if company_vat_type and company_vat_type != 'discriminate_default':
-            letters = request.env['account.journal']._get_journal_letter(
-                'sale', company,
-                partner.commercial_partner_id)
-            if letters:
-                vat_discriminated = not letters[0].taxes_included
-            # if no responsability or no letters
-            if not letters and \
-                    company_vat_type == 'no_discriminate_default':
-                vat_discriminated = False
-        return vat_discriminated
-
-    # TODO review
-    # Aca podria ser necesario pasar el afip_responsabilities
+    # TODO review: Aca podria ser necesario pasar el afip_responsabilities
     @route()
     def checkout(self, **post):
         _response = super(L10nArWebsiteSale, self).checkout(**post)
