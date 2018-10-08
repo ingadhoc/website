@@ -5,6 +5,21 @@ class ResPartner(models.Model):
 
     _inherit = 'res.partner'
 
+    def get_company_partner(self):
+        # Get company
+        website_id = self._context.get('website_id', False)
+        if website_id:
+            company_id = self.env['website'].browse(website_id).company_id.id
+        else:
+            company_id = self._context.get(
+                'company_id', self.env.user.company_id.id)
+        company = self.env['res.company'].browse(company_id)
+
+        # Get parter
+        user_id = self._context.get('uid', self.env.user.id)
+        partner = self.env['res.users'].browse(user_id).partner_id
+        return company, partner
+
     @api.model
     def _get_vat_discriminated(self, partner, company):
         vat_discriminated = True

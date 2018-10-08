@@ -71,4 +71,13 @@
         </xpath>
     </template>
 
+    <template id="variants" name="variants" inherit_id="website_sale.variants">
+        <xpath expr="//span[@t-if='value_id.price_extra']/span[@t-field='value_id.price_extra']" position="attributes">
+            <attribute name="t-field">value_id.report_price_extra</attribute>
+        </xpath>
+        <xpath expr="//span[@t-if='value_id.price_extra' and hasclass('badge')]/span[@t-field='value_id.price_extra']" position="attributes">
+            <attribute name="t-field">value_id.report_price_extra</attribute>
+        </xpath>
+    </template>
+
 </odoo>
