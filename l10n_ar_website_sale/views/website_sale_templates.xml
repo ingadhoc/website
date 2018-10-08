@@ -19,14 +19,24 @@
 
         <!-- mostramos negrita para zip -->
         <!-- TODO arreglar que hay dos zip y no estamos seteando bold correctamente, no lo encontramos -->
-        <xpath expr="//label[@for='zip']" position="attributes">
-            <attribute name="class">control-label</attribute>
-        </xpath>
 
-        <xpath expr="//label[@for='zip'][1]" position="attributes">
-            <attribute name="class">control-label</attribute>
-        </xpath>
+        <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')" position="replace">
+            <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')" position="replace">
+                <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
+                    <label class="control-label" for="zip">Zip Code</label>
+                    <input type="text" name="zip" class="form-control" t-att-value="'zip' in checkout and checkout['zip']"/>
+                </div>
+            </t>
+        </t>
 
+        <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')" position="replace">
+            <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')" position="replace">
+                <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
+                    <label class="control-label" for="zip">Zip Code</label>
+                    <input type="text" name="zip" class="form-control" t-att-value="'zip' in checkout and checkout['zip']"/>
+                </div>
+            </t>
+        </t>
     </template>
 
     <template id="cart_lines" name="Shopping Cart Lines" inherit_id="website_sale.cart_lines">
