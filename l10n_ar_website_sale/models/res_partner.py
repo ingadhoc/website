@@ -16,10 +16,11 @@ class ResPartner(models.Model):
         company = self.env['res.company'].browse(company_id)
 
         # Get parter
-        user_id = self._context.get('uid', self.env.user.id)
-        partner = self.env['res.users'].browse(
-            user_id).partner_id.commercial_partner_id
-        return company, partner
+        partner = self._context.get('partner', False)
+        if not partner:
+            user_id = self._context.get('uid', self.env.user.id)
+            partner = self.env['res.users'].browse(user_id).partner_id
+        return company, partner.commercial_partner_id
 
     @api.model
     def _get_vat_discriminated(self, partner, company):
@@ -29,7 +30,7 @@ class ResPartner(models.Model):
         company_vat_type = company.sale_allow_vat_no_discrimination
         if company_vat_type and company_vat_type != 'discriminate_default':
             letters = self.env['account.journal']._get_journal_letter(
-                'sale', company, partner)
+                'sale', company, partner.commercial_partner_id)
             if letters:
                 vat_discriminated = not letters[0].taxes_included
             # if no responsability or no letters

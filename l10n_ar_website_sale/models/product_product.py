@@ -15,7 +15,7 @@ class ProductProduct(models.Model):
         self2 = self.with_context(context) if self._context != context else self
 
         # Us
-        company_id, partner = partner.get_company_partner()
+        # company_id, partner = partner.get_company_partner()
         taxes_included = not partner._get_vat_discriminated(partner, company_id)
         ret = 'total_included' if taxes_included else 'total_excluded'
         # Odoo original code
@@ -23,7 +23,7 @@ class ProductProduct(models.Model):
 
         for p, p2 in pycompat.izip(self, self2):
             taxes = partner.property_account_position_id.map_tax(
-                p.sudo().taxes_id.filtered(
+                p.taxes_id.filtered(
                     lambda x: x.company_id == company_id))
             p.website_price = taxes.compute_all(
                 p2.price, pricelist.currency_id, quantity=qty, product=p2,
