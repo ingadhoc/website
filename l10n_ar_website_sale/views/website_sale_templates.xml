@@ -80,4 +80,8 @@
         </xpath>
     </template>
 
+  <!-- TODO esto deberia ir al l10n_ar.. website y opcional segun el partner y demas-->
+  <!-- tmb deberiamos cambiar el sbutotal por report subtotal -->
+  <!-- Ocultar detalle de impuestos en subtotal -->
+
 </odoo>
