@@ -27,6 +27,7 @@
     'data': [
         'views/website_sale_templates.xml',
         'data/formbuilder_whitelist_data.xml',
+        'security/ir.model.access.csv',
     ],
     'demo': [],
     'images': [
