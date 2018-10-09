@@ -2,7 +2,6 @@
 <odoo>
 
     <template id="address" name="Address Management" inherit_id="website_sale.address">
-        <!-- TODO ver de mejorar, nosotros agregamos el cuit antes de esto para -->
         <div id="div_phone" position="after">
             <t t-if="mode[1] == 'billing'">
                 <t t-set="main_id_category_id" t-value="'main_id_category_id' in checkout and checkout['main_id_category_id']"/>
@@ -18,8 +17,6 @@
         </div>
 
         <!-- mostramos negrita para zip -->
-        <!-- TODO arreglar que hay dos zip y no estamos seteando bold correctamente, no lo encontramos -->
-
         <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')" position="replace">
             <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')" position="replace">
                 <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
@@ -28,7 +25,6 @@
                 </div>
             </t>
         </t>
-
         <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')" position="replace">
             <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')" position="replace">
                 <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
@@ -90,8 +86,7 @@
         </xpath>
     </template>
 
-  <!-- TODO esto deberia ir al l10n_ar.. website y opcional segun el partner y demas-->
-  <!-- tmb deberiamos cambiar el sbutotal por report subtotal -->
+  <!-- TODO deberiamos cambiar el sbutotal por report subtotal -->
   <!-- Ocultar detalle de impuestos en subtotal -->
 
 </odoo>

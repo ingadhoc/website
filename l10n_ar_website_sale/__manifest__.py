@@ -25,7 +25,7 @@
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'data': [
-        'views/website_sale_templates.xml',
+        'views/l10n_ar_website_sale_templates.xml',
         'data/formbuilder_whitelist_data.xml',
         'security/ir.model.access.csv',
     ],
