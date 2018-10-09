@@ -3,4 +3,4 @@
 # directory
 ##############################################################################
 from . import sale_order
-from . import delivery
+from . import delivery_carrier
