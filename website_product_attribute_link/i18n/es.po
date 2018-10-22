@@ -3,14 +3,14 @@
 # * website_product_attribute_link
 # 
 # Translators:
-# Nicolas Mac Rouillon <nmr@ingadhoc.com>, 2017
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-16 17:24+0000\n"
-"PO-Revision-Date: 2017-03-16 17:24+0000\n"
-"Last-Translator: Nicolas Mac Rouillon <nmr@ingadhoc.com>, 2017\n"
+"POT-Creation-Date: 2018-09-07 20:32+0000\n"
+"PO-Revision-Date: 2018-09-07 20:32+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,5 +35,5 @@ msgstr "Atributo de producto"
 
 #. module: website_product_attribute_link
 #: model:ir.model.fields,field_description:website_product_attribute_link.field_product_attribute_website_link_on_product
-msgid "Website link on product"
-msgstr "Enlace del sitio web en el producto"
+msgid "Website Link On Product"
+msgstr ""
