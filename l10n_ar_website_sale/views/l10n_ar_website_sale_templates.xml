@@ -2,14 +2,15 @@
 <odoo>
 
     <template id="address" name="Address Management" inherit_id="website_sale.address">
-        <div id="div_phone" position="after">
+
+        <xpath expr="//input[@name='field_required']" position="before">
             <t t-if="mode[1] == 'billing'">
                 <t t-set="main_id_category_id" t-value="'main_id_category_id' in checkout and checkout['main_id_category_id']"/>
                 <t t-set="main_id_number" t-value="'main_id_number' in checkout and checkout['main_id_number']"/>
                 <t t-set="afip_responsability_type_id" t-value="'afip_responsability_type_id' in checkout and checkout['afip_responsability_type_id']"/>
                 <t t-call="l10n_ar_partner.partner_info"/>
             </t>
-        </div>
+        </xpath>
 
         <!-- sacamos vat -->
         <div t-attf-class="form-group #{error.get('vat') and 'has-error' or ''} col-md-6 div_vat" position="attributes">
