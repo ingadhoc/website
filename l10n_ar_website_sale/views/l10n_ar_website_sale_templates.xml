@@ -3,6 +3,9 @@
 
     <template id="address" name="Address Management" inherit_id="website_sale.address">
 
+        <xpath expr="//label[@for='company_name']/.." position="replace">
+        </xpath>
+
         <xpath expr="//input[@name='field_required']" position="before">
             <t t-if="mode[1] == 'billing'">
                 <t t-set="main_id_category_id" t-value="'main_id_category_id' in checkout and checkout['main_id_category_id']"/>
