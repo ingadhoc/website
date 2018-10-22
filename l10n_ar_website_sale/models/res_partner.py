@@ -24,8 +24,12 @@ class ResPartner(models.Model):
 
     @api.model
     def _get_vat_discriminated(self, partner, company):
-        """ parter expected commercial_partner.
+        """ partner expected commercial_partner.
         """
+        if self.env['website'].is_public_user():
+            default_tax = self.env['ir.config_parameter'].sudo().get_param(
+                'sale.sale_show_tax', default='total')
+            return True if default_tax == 'subtotal' else False
         vat_discriminated = True
         company_vat_type = company.sale_allow_vat_no_discrimination
         if company_vat_type and company_vat_type != 'discriminate_default':
