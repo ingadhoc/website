@@ -27,6 +27,7 @@
     'data': [
         'views/l10n_ar_website_sale_templates.xml',
         'data/formbuilder_whitelist_data.xml',
+        'data/ir_config_parameter_data.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
