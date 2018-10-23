@@ -11,13 +11,13 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     report_amount_delivery = fields.Float(
-        compute='compute_report_amount_delivery',
+        compute='_compute_report_amount_delivery',
         string='Delivery Amount',
         digits=dp.get_precision('Account'),
     )
 
     @api.depends()
-    def compute_report_amount_delivery(self):
+    def _compute_report_amount_delivery(self):
         for rec in self:
             taxes_included = not rec.vat_discriminated
             if taxes_included:

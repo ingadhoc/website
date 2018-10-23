@@ -2,7 +2,8 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from odoo.addons.website_sale_delivery.controllers.main import WebsiteSaleDelivery
+from odoo.addons.website_sale_delivery.controllers.main \
+    import WebsiteSaleDelivery
 from odoo.http import request, route
 
 
@@ -20,8 +21,9 @@ class L10nArWebsiteSale(WebsiteSaleDelivery):
         return res
 
     def order_2_return_dict(self, order):
-        """ Returns the tracking_cart dict of the order for Google analytics """
-        res = super(WebsiteSaleDelivery, self).order_2_return_dict(order)
+        """ Returns the tracking_cart dict of the order for Google analytics
+        """
+        res = super(L10nArWebsiteSale, self).order_2_return_dict(order)
         for line in order.order_line:
             if line.is_delivery:
                 res['transaction']['shipping'] = line.report_price_unit

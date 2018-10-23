@@ -5,7 +5,6 @@
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.http import request, route
 from odoo.tools import config
-from odoo import http
 
 
 class L10nArWebsiteSale(WebsiteSale):
@@ -65,7 +64,8 @@ class L10nArWebsiteSale(WebsiteSale):
     # TODO review: Aca podria ser necesario pasar el afip_responsabilities
     @route()
     def checkout(self, **post):
-        _response = super(L10nArWebsiteSale, self).checkout(**post)
+        super(L10nArWebsiteSale, self).checkout(**post)
+        # _response = super(L10nArWebsiteSale, self).checkout(**post)
         order = request.website.sale_get_order()
         redirection = self.checkout_redirection(order)
         if redirection:
@@ -89,8 +89,8 @@ class L10nArWebsiteSale(WebsiteSale):
 
         for f in mandatory_billing_fields:
             if not order.partner_id[f]:
-                return request.redirect
-                ('/shop/address?partner_id=%d' % order.partner_id.id)
+                return request.redirect(
+                    '/shop/address?partner_id=%d' % order.partner_id.id)
         for f in commercial_billing_fields:
             if not order.partner_id.commercial_partner_id[f]:
                 return request.redirect(

@@ -11,13 +11,13 @@ class DeliveryCarrier(models.Model):
     _inherit = 'delivery.carrier'
 
     report_fixed_price = fields.Float(
-        compute='compute_report_fixed_price',
+        compute='_compute_report_fixed_price',
         string='Taxed Price',
         digits=dp.get_precision('Account'),
     )
 
     @api.depends()
-    def compute_report_fixed_price(self):
+    def _compute_report_fixed_price(self):
         company, partner = self.env['res.partner'].get_company_partner()
         taxes_included = not partner._get_vat_discriminated(partner, company)
         res_type = 'total_included' if taxes_included else 'total_excluded'
