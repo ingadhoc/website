@@ -1,5 +1,6 @@
 from odoo import models, api
 from odoo.tools import float_is_zero, pycompat
+from odoo.http import request
 
 class ProductProduct(models.Model):
 
@@ -7,7 +8,8 @@ class ProductProduct(models.Model):
 
     def _website_price(self):
         qty = self._context.get('quantity', 1.0)
-        partner = self.env.user.partner_id
+        # partner = self.env.user.partner_id
+        partner = request.env.user.partner_id.commercial_partner_id
         current_website = self.env['website'].get_current_website()
         pricelist = current_website.get_current_pricelist()
         company_id = current_website.company_id
