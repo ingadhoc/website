@@ -28,8 +28,8 @@ class ResPartner(models.Model):
         """
         if self.env['website'].is_public_user():
             default_tax = self.env['ir.config_parameter'].sudo().get_param(
-                'sale.sale_show_tax', default='total')
-            return True if default_tax == 'subtotal' else False
+                'l10n_ar_website_sale.sale_use_taxes_default', default='b2c')
+            return True if default_tax == 'b2b' else False
         vat_discriminated = True
         company_vat_type = company.sale_allow_vat_no_discrimination
         if company_vat_type and company_vat_type != 'discriminate_default':

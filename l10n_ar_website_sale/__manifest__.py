@@ -28,6 +28,7 @@
         'views/l10n_ar_website_sale_templates.xml',
         'data/formbuilder_whitelist_data.xml',
         'data/ir_config_parameter_data.xml',
+        'wizards/res_config_settings_views.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],

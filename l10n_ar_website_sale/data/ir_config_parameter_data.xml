@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
 
-    <function model="ir.config_parameter" name="unlink">
-        <function eval="[[('key','=','sale.sale_show_tax')]]" model="ir.config_parameter" name="search"/>
-    </function>
-
-    <record id="sale_show_tax" model="ir.config_parameter">
-        <field name="key">sale.sale_show_tax</field>
-        <field name="value">total</field>
+    <record id="sale_use_taxes_default" model="ir.config_parameter">
+        <field name="key">l10n_ar_website_sale.sale_use_taxes_default</field>
+        <field name="value">b2c</field>
     </record>
 
 </odoo>
-
