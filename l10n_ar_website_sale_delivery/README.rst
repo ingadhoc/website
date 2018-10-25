@@ -10,13 +10,13 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-==================================
-e-Commerce adaptado para Argentina
-==================================
+======================================
+eCommerce Delivery with taxes included
+======================================
 
-1. Add Argentina Partner document on ecommerce checkout.
-2. We also made state and CP required to get right delivery amounts.
-3. Show prices on ecommerce with taxes included/excluded taking into account the customer afip responsability category.
+This module include taxes on delivery costs of ecommerce, this by taking into
+account the customer afip responsability categories (should not or should see
+detailed taxes).
 
 Installation
 ============

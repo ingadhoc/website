@@ -18,13 +18,18 @@
 #
 ##############################################################################
 {
+    'name': 'e-Commerce Argentina Partner Document',
+    'version': '11.0.1.2.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'data': [
-        'views/website_sale_templates.xml',
+        'views/l10n_ar_website_sale_templates.xml',
         'data/formbuilder_whitelist_data.xml',
+        'data/ir_config_parameter_data.xml',
+        'wizards/res_config_settings_views.xml',
+        'security/ir.model.access.csv',
     ],
     'demo': [],
     'images': [
@@ -32,9 +37,8 @@
     'depends': [
         'website_sale',
         'l10n_ar_account',
-        # 'l10n_ar_sale',
+        'l10n_ar_sale',
+        'product_price_taxes_included',
     ],
     'installable': True,
-    'name': 'e-Commerce Argentina Partner Document',
-    'version': '11.0.1.1.0',
 }

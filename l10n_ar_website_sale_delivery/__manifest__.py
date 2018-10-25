@@ -18,8 +18,8 @@
 #
 ##############################################################################
 {
-    'name': 'Product Price Taxes Included or Not',
-    'version': '9.0.1.1.0',
+    'name': 'eCommerce Delivery with taxes included',
+    'version': '11.0.1.0.0',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
@@ -29,16 +29,15 @@
     'images': [
     ],
     'depends': [
-        'website_sale',
-        'product_price_taxes_included',
+        'l10n_ar_website_sale',
+        'website_sale_delivery',
     ],
     'data': [
-        'views/templates.xml',
-        'security/ir.model.access.csv',
+        'views/l10n_ar_website_sale_delivery_templates.xml',
     ],
     'demo': [
     ],
-    'installable': False,
-    'auto_install': False,
+    'installable': True,
+    'auto_install': True,
     'application': False,
 }

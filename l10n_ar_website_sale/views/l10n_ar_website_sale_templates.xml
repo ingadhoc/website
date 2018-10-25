@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="address" name="Address Management" inherit_id="website_sale.address">
+
+        <xpath expr="//label[@for='company_name']/.." position="replace">
+        </xpath>
+
+        <xpath expr="//input[@name='field_required']" position="before">
+            <t t-if="mode[1] == 'billing'">
+                <t t-set="main_id_category_id" t-value="'main_id_category_id' in checkout and checkout['main_id_category_id']"/>
+                <t t-set="main_id_number" t-value="'main_id_number' in checkout and checkout['main_id_number']"/>
+                <t t-set="afip_responsability_type_id" t-value="'afip_responsability_type_id' in checkout and checkout['afip_responsability_type_id']"/>
+                <t t-call="l10n_ar_partner.partner_info"/>
+            </t>
+        </xpath>
+
+        <!-- sacamos vat -->
+        <div t-attf-class="form-group #{error.get('vat') and 'has-error' or ''} col-md-6 div_vat" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </div>
+
+        <!-- mostramos negrita para zip -->
+        <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')" position="replace">
+            <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')" position="replace">
+                <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
+                    <label class="control-label" for="zip">Zip Code</label>
+                    <input type="text" name="zip" class="form-control" t-att-value="'zip' in checkout and checkout['zip']"/>
+                </div>
+            </t>
+        </t>
+        <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')" position="replace">
+            <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')" position="replace">
+                <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
+                    <label class="control-label" for="zip">Zip Code</label>
+                    <input type="text" name="zip" class="form-control" t-att-value="'zip' in checkout and checkout['zip']"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="cart_lines" name="Shopping Cart Lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//span[@t-field='line.price_reduce_taxexcl']" position="attributes">
+            <attribute name="t-field">line.report_price_unit</attribute>
+            <attribute name="groups"/>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_reduce_taxinc']" position="replace">
+        </xpath>
+    </template>
+
+    <template id="total" name="Taxes Included Cart Total" inherit_id="website_sale.total">
+        <xpath expr="//span[@t-field='website_sale_order.amount_untaxed']/../.." position="attributes">
+            <attribute name="t-if">website_sale_order.vat_discriminated</attribute>
+        </xpath>
+        <xpath expr="//div[@id='order_total_taxes']" position="attributes">
+            <attribute name="t-if">website_sale_order.vat_discriminated</attribute>
+        </xpath>
+    </template>
+
+    <template id="confirmation" name="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr="//div[@t-field='line.price_unit']" position="attributes">
+            <attribute name="t-field">line.report_price_unit</attribute>
+        </xpath>
+        <xpath expr="//div[@t-field='line.price_subtotal']" position="attributes">
+            <attribute name="t-field">line.report_price_subtotal</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='order.amount_untaxed']/../.." position="attributes">
+            <attribute name="t-if">order.vat_discriminated</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='order.amount_tax']/../.." position="attributes">
+            <attribute name="t-if">order.vat_discriminated</attribute>
+        </xpath>
+    </template>
+
+    <template id="payment" name="Payment" inherit_id="website_sale.payment">
+        <xpath expr="//span[@t-field='line.price_reduce_taxexcl']" position="attributes">
+            <attribute name="t-field">line.report_price_unit</attribute>
+            <attribute name="groups"/>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_reduce_taxinc']" position="replace">
+        </xpath>
+    </template>
+
+    <template id="variants" name="variants" inherit_id="website_sale.variants">
+        <xpath expr="//span[@t-if='value_id.price_extra']/span[@t-field='value_id.price_extra']" position="attributes">
+            <attribute name="t-field">value_id.report_price_extra</attribute>
+        </xpath>
+        <xpath expr="//span[@t-if='value_id.price_extra' and hasclass('badge')]/span[@t-field='value_id.price_extra']" position="attributes">
+            <attribute name="t-field">value_id.report_price_extra</attribute>
+        </xpath>
+    </template>
+
+  <!-- TODO deberiamos cambiar el sbutotal por report subtotal -->
+  <!-- Ocultar detalle de impuestos en subtotal -->
+
+</odoo>
