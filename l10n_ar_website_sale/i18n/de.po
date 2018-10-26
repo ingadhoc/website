@@ -1,0 +1,87 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * l10n_ar_website_sale
+# 
+# Translators:
+# Rudolf Schnapka <rs@techno-flex.de>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-25 16:14+0000\n"
+"PO-Revision-Date: 2018-10-25 16:14+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>, 2018\n"
+"Language-Team: German (https://www.transifex.com/adhoc/teams/46451/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_ar_website_sale
+#: model:ir.model.fields,help:l10n_ar_website_sale.field_res_config_settings_sale_use_taxes_default
+msgid ""
+"* Consumidor Final: Impuesto incluido en precio (B2C)\n"
+"* Empresa: Impuestos detallados por separado (B2B)"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.model.fields,field_description:l10n_ar_website_sale.field_product_attribute_value_report_price_extra
+msgid "Attribute Price Extra"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.ui.view,arch_db:l10n_ar_website_sale.res_config_settings_view_form
+msgid ""
+"Como se mostrarán los productos y sus precios para los usuarios no logeados"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: selection:res.config.settings,sale_use_taxes_default:0
+msgid "Consumidor Final (B2C)"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.model,name:l10n_ar_website_sale.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.model.fields,field_description:l10n_ar_website_sale.field_sale_order_line_report_discount
+msgid "Discount (%)"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: selection:res.config.settings,sale_use_taxes_default:0
+msgid "Empresa (B2B)"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.model,name:l10n_ar_website_sale.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.model,name:l10n_ar_website_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.model.fields,field_description:l10n_ar_website_sale.field_res_config_settings_sale_use_taxes_default
+msgid "Tipo de venta al publico"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.ui.view,arch_db:l10n_ar_website_sale.address
+msgid "Zip Code"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.model,name:l10n_ar_website_sale.model_product_attribute_value
+msgid "product.attribute.value"
+msgstr ""
+
+#. module: l10n_ar_website_sale
+#: model:ir.model,name:l10n_ar_website_sale.model_res_config_settings
+msgid "res.config.settings"
+msgstr "res.config.settings"
