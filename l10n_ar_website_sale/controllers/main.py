@@ -106,3 +106,13 @@ class L10nArWebsiteSale(WebsiteSale):
         if post.get('xhr'):
             return 'ok'
         return request.render("website_sale.checkout", values)
+
+    @route()
+    def product(self, product, category='', search='', **kwargs):
+        response = super(L10nArWebsiteSale, self).product(
+            product=product, category=category, search=search, **kwargs)
+        vat_discriminated = request.env['res.partner']._get_vat_discriminated(
+            request.env.user.partner_id,
+            request.env.user.company_id)
+        response.qcontext.update({'vat_discriminated': vat_discriminated})
+        return response
