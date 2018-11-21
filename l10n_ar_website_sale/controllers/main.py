@@ -41,8 +41,41 @@ class L10nArWebsiteSale(WebsiteSale):
         if post_process:
             commercial_partner = request.env['res.partner'].browse(
                 int(commercial_partner_id))
-            commercial_partner.sudo().write(values)
+            values = self.remove_readonly_required_fields(
+                commercial_partner, commercial_fields, values)
+            if values:
+                commercial_partner.sudo().write(values)
         return res
+
+    def remove_readonly_required_fields(
+        self, record, required_fields, values):
+        """ In some cases we have information showed to the user in the form
+        that is required but that is already set and reaadonly.
+        We do not really update this fields and then here we are trying to
+        write them: the problem is that this fields has a constraint if
+        we are trying to re-write them (even when is the same value).
+
+        This method remove this (field, values) for the values to write in
+        order to do avoid the constraint and not re-writed again when they
+        has been already writed.
+
+        param: @record (recordset) the recorset to compore
+        param: @required_fields: (list) fields of the fields that we want to
+               check
+        param: @values (dict) the values of the web form
+
+        return: the same values to write and they do not include
+        required/readonly fields.
+        """
+        for r_field in required_fields:
+            value = values.get(r_field)
+            if r_field.endswith('_id'):
+                if str(record[r_field].id) == value:
+                    values.pop(r_field, False)
+            else:
+                if record[r_field] == value:
+                    values.pop(r_field, False)
+        return values
 
     @route()
     def address(self, **kw):
