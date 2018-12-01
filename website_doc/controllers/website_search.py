@@ -30,7 +30,11 @@ class WebsiteDoc(http.Controller):
             self, doc, page=1, search='', **post):
 
         if len(search) < self._min_search_len:
-            return request.render("website_doc.error_search_len", None)
+            values = {
+                'doc': doc,
+                'search': search,
+            }
+            return request.render("website_doc.error_search_len", values)
 
         env = request.env
         doc_table = env['website.doc.toc']._table
