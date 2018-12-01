@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018
+# Daniel Blanco <daniel@blancomartin.com.ar>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-07 20:32+0000\n"
-"PO-Revision-Date: 2018-09-07 20:32+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018\n"
+"POT-Creation-Date: 2018-10-25 16:14+0000\n"
+"PO-Revision-Date: 2018-10-25 16:14+0000\n"
+"Last-Translator: Daniel Blanco <daniel@blancomartin.com.ar>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -99,7 +100,7 @@ msgstr "PublicRequestKey"
 #. module: payment_todopago
 #: model:ir.model,name:payment_todopago.model_sale_order
 msgid "Quotation"
-msgstr ""
+msgstr "Cotización"
 
 #. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction_todopago_RequestKey

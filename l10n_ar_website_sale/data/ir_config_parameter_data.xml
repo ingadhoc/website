@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="sale_use_taxes_default" model="ir.config_parameter">
+        <field name="key">l10n_ar_website_sale.sale_use_taxes_default</field>
+        <field name="value">b2c</field>
+    </record>
+
+</odoo>

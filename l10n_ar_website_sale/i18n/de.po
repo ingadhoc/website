@@ -3,20 +3,19 @@
 # * l10n_ar_website_sale
 # 
 # Translators:
-# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018
-# 
+# Rudolf Schnapka <rs@techno-flex.de>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-09 19:02+0000\n"
-"PO-Revision-Date: 2018-08-23 20:45+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018\n"
-"Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
+"POT-Creation-Date: 2018-10-25 16:14+0000\n"
+"PO-Revision-Date: 2018-10-25 16:14+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>, 2018\n"
+"Language-Team: German (https://www.transifex.com/adhoc/teams/46451/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_ar_website_sale
@@ -63,11 +62,6 @@ msgid "Product"
 msgstr ""
 
 #. module: l10n_ar_website_sale
-#: model:ir.model,name:l10n_ar_website_sale.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
-
-#. module: l10n_ar_website_sale
 #: model:ir.model,name:l10n_ar_website_sale.model_sale_order_line
 msgid "Sales Order Line"
 msgstr ""
@@ -75,12 +69,6 @@ msgstr ""
 #. module: l10n_ar_website_sale
 #: model:ir.model.fields,field_description:l10n_ar_website_sale.field_res_config_settings_sale_use_taxes_default
 msgid "Tipo de venta al publico"
-msgstr ""
-
-#. module: l10n_ar_website_sale
-#: model:ir.model.fields,field_description:l10n_ar_website_sale.field_product_product_vat_tax_id
-#: model:ir.model.fields,field_description:l10n_ar_website_sale.field_product_template_vat_tax_id
-msgid "Vat Tax"
 msgstr ""
 
 #. module: l10n_ar_website_sale
@@ -96,4 +84,4 @@ msgstr ""
 #. module: l10n_ar_website_sale
 #: model:ir.model,name:l10n_ar_website_sale.model_res_config_settings
 msgid "res.config.settings"
-msgstr ""
+msgstr "res.config.settings"
