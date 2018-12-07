@@ -20,62 +20,28 @@ class L10nArWebsiteSale(WebsiteSale):
         ]
 
     def _checkout_form_save(self, mode, checkout, all_values):
-        post_process = False
-        commercial_partner_id = all_values.get('commercial_partner_id', False)
-        if commercial_partner_id:
-            post_process = True
+        if all_values.get('commercial_partner_id', False):
             commercial_fields = [
-                'main_id_number',
-                'main_id_category_id',
-                'afip_responsability_type_id',
-            ]
-            values = {}
+                'main_id_number', 'main_id_category_id',
+                'afip_responsability_type_id']
             for item in commercial_fields:
-                values.update({
-                    item: checkout.pop(item, all_values.pop(item))
-                })
-
+                checkout.pop(item, False)
+                all_values.pop(item, False)
         res = super(L10nArWebsiteSale, self)._checkout_form_save(
             mode=mode, checkout=checkout, all_values=all_values)
-
-        if post_process:
-            commercial_partner = request.env['res.partner'].browse(
-                int(commercial_partner_id))
-            values = self.remove_readonly_required_fields(
-                commercial_partner, commercial_fields, values)
-            if values:
-                commercial_partner.sudo().write(values)
         return res
 
-    def remove_readonly_required_fields(
-        self, record, required_fields, values):
-        """ In some cases we have information showed to the user in the form
-        that is required but that is already set and reaadonly.
-        We do not really update this fields and then here we are trying to
-        write them: the problem is that this fields has a constraint if
-        we are trying to re-write them (even when is the same value).
-
-        This method remove this (field, values) for the values to write in
-        order to do avoid the constraint and not re-writed again when they
-        has been already writed.
-
-        param: @record (recordset) the recorset to compore
-        param: @required_fields: (list) fields of the fields that we want to
-               check
-        param: @values (dict) the values of the web form
-
-        return: the same values to write and they do not include
-        required/readonly fields.
-        """
-        for r_field in required_fields:
-            value = values.get(r_field)
-            if r_field.endswith('_id'):
-                if str(record[r_field].id) == value:
-                    values.pop(r_field, False)
-            else:
-                if record[r_field] == value:
-                    values.pop(r_field, False)
-        return values
+    def checkout_form_validate(self, mode, all_form_values, data):
+        error, error_message = super(
+            L10nArWebsiteSale, self).checkout_form_validate(
+                mode=mode, all_form_values=all_form_values, data=data)
+        write_error, write_message = \
+            request.env['res.partner'].sudo().try_write_commercial(
+                all_form_values)
+        if write_error:
+            error.update(write_error)
+            error_message.extend(write_message)
+        return error, error_message
 
     @route()
     def address(self, **kw):
