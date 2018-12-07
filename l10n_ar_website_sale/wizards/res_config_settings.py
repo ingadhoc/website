@@ -18,11 +18,10 @@ class ResConfigSettings(models.TransientModel):
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
-        res.update(
-            sale_use_taxes_default=
+        res.update({'sale_use_taxes_default':
             self.env['ir.config_parameter'].sudo().get_param(
                 'l10n_ar_website_sale.sale_use_taxes_default', 'b2c'),
-        )
+        })
         return res
 
     @api.multi
