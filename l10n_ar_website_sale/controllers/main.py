@@ -21,9 +21,12 @@ class L10nArWebsiteSale(WebsiteSale):
 
     def _checkout_form_save(self, mode, checkout, all_values):
         # Extract data from commercial partner
-        commercial_partner, commercial_fields, values = checkout.pop(
-            'commercial_data', all_values.pop('commercial_data', False))
+        post_process = False
+        commercial_partner, commercial_fields, values = \
+            request.env['res.partner'].sudo().get_commercial_data(
+                all_values)
         if commercial_partner:
+            post_process = True
             for item in commercial_fields:
                 checkout.pop(item, False)
                 all_values.pop(item, False)
@@ -32,8 +35,9 @@ class L10nArWebsiteSale(WebsiteSale):
             mode=mode, checkout=checkout, all_values=all_values)
 
         # Write data on commercial partner
-        if commercial_partner and values:
-            commercial_partner.sudo().write(values)
+        if post_process:
+            if commercial_partner and values:
+                commercial_partner.sudo().write(values)
         return res
 
     def checkout_form_validate(self, mode, all_form_values, data):
@@ -42,39 +46,34 @@ class L10nArWebsiteSale(WebsiteSale):
                 mode=mode, all_form_values=all_form_values, data=data)
 
         # Validate commercial partner
-        commercial_partner, _cf, values = all_form_values.pop(
-            'commercial_data', data.pop('commercial_data', False))
-        exc_error, exc_message = \
-            commercial_partner.sudo().catch_number_id_exceptions(values)
-        if exc_error:
-            error.update(exc_error)
-            error_message.extend(exc_message)
+        main_id_number = data.get('main_id_number', all_form_values)
+        main_id_category_id = data.get('main_id_category_id', all_form_values)
+        if main_id_number and main_id_category_id:
+            commercial_partner, _commercial_fields, values = \
+                request.env['res.partner'].sudo().get_commercial_data(
+                    all_form_values, data)
+            exc_error, exc_message = \
+                commercial_partner.sudo().catch_number_id_exceptions(values)
+            if exc_error:
+                error.update(exc_error)
+                error_message.extend(exc_message)
         return error, error_message
 
     @route()
     def address(self, **kw):
-        try:
-            commercial_data = \
-                request.env['res.partner'].sudo().get_commercial_data(kw)
-            kw.update({'commercial_data': commercial_data})
-
-            response = super(L10nArWebsiteSale, self).address(**kw)
-
-            document_categories = request.env[
-                'res.partner.id_category'].sudo().search([])
-            afip_responsabilities = request.env[
-                'afip.responsability.type'].sudo().search([])
-            uid = request.session.uid or request.env.ref('base.public_user').id
-            Partner = request.env['res.users'].browse(uid).partner_id
-            Partner = Partner.with_context(show_address=1).sudo()
-            response.qcontext.update({
-                'document_categories': document_categories,
-                'afip_responsabilities': afip_responsabilities,
-                'partner': Partner,
-            })
-        except Exception as error:
-            print("ERROR: %s" % error)
-            import pdb; pdb.post_mortem()
+        response = super(L10nArWebsiteSale, self).address(**kw)
+        document_categories = request.env[
+            'res.partner.id_category'].sudo().search([])
+        afip_responsabilities = request.env[
+            'afip.responsability.type'].sudo().search([])
+        uid = request.session.uid or request.env.ref('base.public_user').id
+        Partner = request.env['res.users'].browse(uid).partner_id
+        Partner = Partner.with_context(show_address=1).sudo()
+        response.qcontext.update({
+            'document_categories': document_categories,
+            'afip_responsabilities': afip_responsabilities,
+            'partner': Partner,
+        })
         return response
 
     # TODO review: Aca podria ser necesario pasar el afip_responsabilities
