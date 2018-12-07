@@ -20,27 +20,33 @@ class L10nArWebsiteSale(WebsiteSale):
         ]
 
     def _checkout_form_save(self, mode, checkout, all_values):
-        if all_values.get('commercial_partner_id', False):
-            commercial_fields = [
-                'main_id_number', 'main_id_category_id',
-                'afip_responsability_type_id']
+        # Extract data from commercial partner
+        commercial_partner, commercial_fields, values = \
+            request.env['res.partner'].get_commercial_data(
+                all_values, checkout)
+        if commercial_partner:
             for item in commercial_fields:
                 checkout.pop(item, False)
                 all_values.pop(item, False)
+
         res = super(L10nArWebsiteSale, self)._checkout_form_save(
             mode=mode, checkout=checkout, all_values=all_values)
+
+        # Write data on commercial partner
+        if commercial_partner and values:
+            commercial_partner.sudo().write(values)
         return res
 
     def checkout_form_validate(self, mode, all_form_values, data):
         error, error_message = super(
             L10nArWebsiteSale, self).checkout_form_validate(
                 mode=mode, all_form_values=all_form_values, data=data)
-        write_error, write_message = \
-            request.env['res.partner'].sudo().try_write_commercial(
+        exc_error, exc_message = \
+            request.env['res.partner'].sudo().catch_number_id_exceptions(
                 all_form_values)
-        if write_error:
-            error.update(write_error)
-            error_message.extend(write_message)
+        if exc_error:
+            error.update(exc_error)
+            error_message.extend(exc_message)
         return error, error_message
 
     @route()
