@@ -21,9 +21,8 @@ class L10nArWebsiteSale(WebsiteSale):
 
     def _checkout_form_save(self, mode, checkout, all_values):
         # Extract data from commercial partner
-        commercial_partner, commercial_fields, values = \
-            request.env['res.partner'].get_commercial_data(
-                all_values, checkout)
+        commercial_partner, commercial_fields, values = checkout.pop(
+            'commercial_data', all_values.pop('commercial_data', False))
         if commercial_partner:
             for item in commercial_fields:
                 checkout.pop(item, False)
@@ -41,9 +40,12 @@ class L10nArWebsiteSale(WebsiteSale):
         error, error_message = super(
             L10nArWebsiteSale, self).checkout_form_validate(
                 mode=mode, all_form_values=all_form_values, data=data)
+
+        # Validate commercial partner
+        commercial_partner, _cf, values = all_form_values.pop(
+            'commercial_data', data.pop('commercial_data', False))
         exc_error, exc_message = \
-            request.env['res.partner'].sudo().catch_number_id_exceptions(
-                all_form_values)
+            commercial_partner.sudo().catch_number_id_exceptions(values)
         if exc_error:
             error.update(exc_error)
             error_message.extend(exc_message)
@@ -51,19 +53,28 @@ class L10nArWebsiteSale(WebsiteSale):
 
     @route()
     def address(self, **kw):
-        response = super(L10nArWebsiteSale, self).address(**kw)
-        document_categories = request.env[
-            'res.partner.id_category'].sudo().search([])
-        afip_responsabilities = request.env[
-            'afip.responsability.type'].sudo().search([])
-        uid = request.session.uid or request.env.ref('base.public_user').id
-        Partner = request.env['res.users'].browse(uid).partner_id
-        Partner = Partner.with_context(show_address=1).sudo()
-        response.qcontext.update({
-            'document_categories': document_categories,
-            'afip_responsabilities': afip_responsabilities,
-            'partner': Partner,
-        })
+        try:
+            commercial_data = \
+                request.env['res.partner'].sudo().get_commercial_data(kw)
+            kw.update({'commercial_data': commercial_data})
+
+            response = super(L10nArWebsiteSale, self).address(**kw)
+
+            document_categories = request.env[
+                'res.partner.id_category'].sudo().search([])
+            afip_responsabilities = request.env[
+                'afip.responsability.type'].sudo().search([])
+            uid = request.session.uid or request.env.ref('base.public_user').id
+            Partner = request.env['res.users'].browse(uid).partner_id
+            Partner = Partner.with_context(show_address=1).sudo()
+            response.qcontext.update({
+                'document_categories': document_categories,
+                'afip_responsabilities': afip_responsabilities,
+                'partner': Partner,
+            })
+        except Exception as error:
+            print("ERROR: %s" % error)
+            import pdb; pdb.post_mortem()
         return response
 
     # TODO review: Aca podria ser necesario pasar el afip_responsabilities
