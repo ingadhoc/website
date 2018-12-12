@@ -33,11 +33,22 @@ class AcquirerTodopago(models.Model):
         help='For eg. TODOPAGO 4C841713E65FBC7719D666CCAC531234',
         required_if_provider='todopago',
     )
+    todopago_test_client_id = fields.Char(
+        'TodoPago Merchant Id',
+        help='For eg. 11123',
+        required_if_provider='todopago',
+    )
+    todopago_test_secret_key = fields.Char(
+        'TodoPago Secret Key',
+        required_if_provider='todopago',
+    )
 
     @api.multi
     def get_TodoPagoConnector(self):
         self.ensure_one()
-        j_header_http = {"Authorization": self.todopago_secret_key}
+        todopago_secret_key = self.todopago_secret_key \
+            if self.environment == 'prod' else self.todopago_test_secret_key
+        j_header_http = {"Authorization": todopago_secret_key}
         return tp.TodoPagoConnector(j_header_http, self.environment)
 
     @api.multi
@@ -48,11 +59,15 @@ class AcquirerTodopago(models.Model):
         """
         # return {}, tx_values
         # return values, tx_values
+        todopago_client_id = self.todopago_client_id \
+            if self.environment == 'prod' else self.todopago_test_client_id
+        todopago_secret_key = self.todopago_secret_key \
+            if self.environment == 'prod' else self.todopago_test_secret_key
         self.ensure_one()
         tx_values = dict(values)
         if (
-                not self.todopago_client_id or
-                not self.todopago_secret_key
+                not todopago_client_id or
+                not todopago_secret_key
         ):
             raise ValidationError(_(
                 'YOU MUST COMPLETE acquirer.todopago_client_id and '
@@ -171,7 +186,7 @@ class AcquirerTodopago(models.Model):
         # y de los prioductos
         # we use str o encode because not unicode supported
         optionsSAR_operacion = {
-            "MERCHANT": str(self.todopago_client_id),
+            "MERCHANT": str(todopago_client_id),
             # "EMAILCLIENTE": email,
             "OPERATIONID": OPERATIONID,
             "CURRENCYCODE": str("032"),
@@ -236,20 +251,20 @@ class AcquirerTodopago(models.Model):
             urls.url_encode({'OPERATIONID': OPERATIONID}))
         optionsSAR_comercio = {
             # "Session": "ABCDEF-1234-12221-FDE1-00000200",
-            "Security": str(self.todopago_secret_key),
+            "Security": str(todopago_secret_key),
             "EncodingMethod": "XML",
             "URL_OK": str(URL_OK),
             "URL_ERROR": str(URL_ERROR),
             # "EMAILCLIENTE": email,
-            "Merchant":  str(self.todopago_client_id),
+            "Merchant":  str(todopago_client_id),
         }
 
         tx_values.update({
             'todopago_data': {
                 'optionsSAR_operacion': optionsSAR_operacion,
                 'optionsSAR_comercio': optionsSAR_comercio,
-                'todopago_client_id': self.todopago_client_id,
-                'todopago_secret_key': self.todopago_secret_key,
+                'todopago_client_id': todopago_client_id,
+                'todopago_secret_key': todopago_secret_key,
                 # 'environment': self.environment,
                 'acquirer_id': self.id,
                 'partner_id': commercial_partner.id,
