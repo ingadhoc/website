@@ -11,6 +11,8 @@
         <!--<field name="validation">automatic</field>-->
         <field name="todopago_client_id">dummy</field>
         <field name="todopago_secret_key">dummy</field>
+        <field name="todopago_test_client_id">2159</field>
+        <field name="todopago_test_secret_key">PRISMA A793D307441615AF6AAAD7497A75DE59</field>
         <field name="pre_msg"><![CDATA[
 <p>Only available in Argentina and in ARS. You will be redirected to the Todopago website after cliking on the payment button.</p>]]></field>
         <field name="pending_msg"><![CDATA[

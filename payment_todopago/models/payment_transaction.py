@@ -77,9 +77,16 @@ class TxTodoPago(models.Model):
                 'state': 'error',
             })
         # we need to get answer form todopago
+        todopago_client_id = tx.acquirer_id.todopago_client_id \
+            if tx.acquirer_id.environment == 'prod' \
+            else tx.acquirer_id.todopago_test_client_id
+        todopago_secret_key = tx.acquirer_id.todopago_secret_key \
+            if tx.acquirer_id.environment == 'prod' \
+            else tx.acquirer_id.todopago_test_secret_key
+
         answer_data = {
-            'Security': str(tx.acquirer_id.todopago_secret_key),
-            'Merchant': str(tx.acquirer_id.todopago_client_id),
+            'Security': str(todopago_secret_key),
+            'Merchant': str(todopago_client_id),
             'RequestKey': str(tx.todopago_RequestKey),
             'AnswerKey': str(tx.todopago_Answer),
         }

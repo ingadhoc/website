@@ -21,7 +21,7 @@
     'name': 'TodoPago Payment Acquirer',
     'category': 'Hidden',
     'summary': 'Payment Acquirer: TodoPago Implementation',
-    'version': '11.0.1.0.0',
+    'version': '11.0.1.1.0',
     'author': 'Moldeo Interactive - www.moldeo.coop,ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -46,7 +46,6 @@
         'data/payment_acquirer_data.xml',
     ],
     'demo': [
-        'demo/payment_acquirer_demo.xml',
     ],
     'installable': True,
     'post_init_hook': 'create_missing_journal_for_acquirers',
