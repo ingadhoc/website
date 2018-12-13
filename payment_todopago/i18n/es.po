@@ -5,12 +5,13 @@
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018
 # Daniel Blanco <daniel@blancomartin.com.ar>, 2018
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-25 16:14+0000\n"
-"PO-Revision-Date: 2018-10-25 16:14+0000\n"
+"POT-Creation-Date: 2018-12-13 00:32+0000\n"
+"PO-Revision-Date: 2018-08-23 20:45+0000\n"
 "Last-Translator: Daniel Blanco <daniel@blancomartin.com.ar>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -45,6 +46,7 @@ msgstr ""
 
 #. module: payment_todopago
 #: model:ir.model.fields,help:payment_todopago.field_payment_acquirer_todopago_client_id
+#: model:ir.model.fields,help:payment_todopago.field_payment_acquirer_todopago_test_client_id
 msgid "For eg. 11123"
 msgstr "Por ej. 11123"
 
@@ -93,6 +95,11 @@ msgid ""
 msgstr ""
 
 #. module: payment_todopago
+#: model:ir.ui.view,arch_db:payment_todopago.acquirer_form_todopago
+msgid "Production"
+msgstr ""
+
+#. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction_todopago_PublicRequestKey
 msgid "PublicRequestKey"
 msgstr "PublicRequestKey"
@@ -108,12 +115,19 @@ msgid "RequestKey"
 msgstr "RequestKey"
 
 #. module: payment_todopago
+#: model:ir.ui.view,arch_db:payment_todopago.acquirer_form_todopago
+msgid "Test"
+msgstr ""
+
+#. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_acquirer_todopago_client_id
+#: model:ir.model.fields,field_description:payment_todopago.field_payment_acquirer_todopago_test_client_id
 msgid "TodoPago Merchant Id"
 msgstr "TodoPago Merchant Id"
 
 #. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_acquirer_todopago_secret_key
+#: model:ir.model.fields,field_description:payment_todopago.field_payment_acquirer_todopago_test_secret_key
 msgid "TodoPago Secret Key"
 msgstr "TodoPago Secret Key"
 
@@ -133,7 +147,7 @@ msgid "Todopago return url"
 msgstr "Todopago devolver url"
 
 #. module: payment_todopago
-#: code:addons/payment_todopago/models/payment_acquirer.py:57
+#: code:addons/payment_todopago/models/payment_acquirer.py:72
 #, python-format
 msgid ""
 "YOU MUST COMPLETE acquirer.todopago_client_id and "
