@@ -7,6 +7,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="view_template_id" ref="todopago_form"/>
         <field name="environment">test</field>
+        <field name="fees_active" eval="True"/>
         <!-- till we fix this button in sales orders -->
         <!--<field name="validation">automatic</field>-->
         <field name="todopago_client_id">dummy</field>

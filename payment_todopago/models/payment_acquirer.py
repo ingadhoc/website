@@ -42,6 +42,11 @@ class AcquirerTodopago(models.Model):
         'TodoPago Secret Key',
         required_if_provider='todopago',
     )
+    # Default paypal fees
+    fees_dom_fixed = fields.Float(default=0)
+    fees_dom_var = fields.Float(default=10)
+    fees_int_fixed = fields.Float(default=0)
+    fees_int_var = fields.Float(default=10)
 
     @api.multi
     def get_TodoPagoConnector(self):
@@ -50,6 +55,26 @@ class AcquirerTodopago(models.Model):
             if self.environment == 'prod' else self.todopago_test_secret_key
         j_header_http = {"Authorization": todopago_secret_key}
         return tp.TodoPagoConnector(j_header_http, self.environment)
+
+    def _get_feature_support(self):
+        res = super(AcquirerTodopago, self)._get_feature_support()
+        res['fees'].append('todopago')
+        return res
+
+    @api.multi
+    def todopago_compute_fees(self, amount, currency_id, country_id):
+        self.ensure_one()
+        if not self.fees_active:
+            return 0.0
+        country = self.env['res.country'].browse(country_id)
+        if country and self.company_id.country_id.id == country.id:
+            percentage = self.fees_dom_var
+            fixed = self.fees_dom_fixed
+        else:
+            percentage = self.fees_int_var
+            fixed = self.fees_int_fixed
+        fees = percentage / 100.0 * amount + fixed
+        return fees
 
     @api.multi
     def todopago_form_generate_values(self, values):
