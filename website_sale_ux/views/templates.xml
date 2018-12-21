@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- TODO remove this when migrating to v 12.0 odoo already fix this part in the odoo/odoo code -->
+    <template id="payment_confirmation_status" inherit_id="website_sale.payment_confirmation_status">
+        <xpath expr="//div[@t-if='order.payment_acquirer_id.post_msg']" position="attributes">
+            <attribute name="t-if">order.payment_acquirer_id.post_msg and order.payment_tx_id and order.payment_tx_id.state in ['done', 'pending', 'authorized']</attribute>
+        </xpath>
+    </template>
+
+</odoo>
