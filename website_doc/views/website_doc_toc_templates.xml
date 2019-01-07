@@ -93,6 +93,9 @@
                     </div>
                 </div>
                 <div class="container" id="doc-page">
+                    <div class="pull-right css_editable_mode_hidden">
+                      <div t-field='toc.state'/>
+                    </div>
                     <h1 class="page-header">
                         <t t-esc="toc and toc.name or 'Documentation'"/>
                         <t t-if="toc.is_article">
