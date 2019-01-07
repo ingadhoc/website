@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class WebsiteDocToc(models.Model):
     _name = 'website.doc.toc'
     _description = 'Documentation ToC'
-    _inherit = ['website.seo.metadata']
+    _inherit = ['website.seo.metadata', 'mail.thread']
     _order = "sequence, parent_left"
     _parent_order = "sequence, name"
     _parent_store = True
