@@ -93,6 +93,16 @@
                     </div>
                 </div>
                 <div class="container" id="doc-page">
+                    <div class="pull-right css_editable_mode_hidden" groups="base.group_user">
+                      <ul class="list-inline">
+                        <li>
+                          <p t-field='toc.state'/>
+                        </li>
+                        <li>
+                          <a class="btn btn-info" target="_blank" t-att-href="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (toc._name, toc.id, request.env.ref('website_doc.action_documentation_article').id)">Edit Backend</a>
+                        </li>
+                      </ul>
+                    </div>
                     <h1 class="page-header">
                         <t t-esc="toc and toc.name or 'Documentation'"/>
                         <t t-if="toc.is_article">
