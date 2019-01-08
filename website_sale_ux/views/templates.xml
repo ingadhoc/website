@@ -8,4 +8,21 @@
         </xpath>
     </template>
 
+    <template id="list_view_with_ribbon" name="List View with ribbon" inherit_id="website_sale.products_list_view">
+        <xpath expr="//t[@t-foreach='products']" position="replace">
+            <t t-foreach="bins" t-as="tr_product">
+                <t t-foreach="tr_product" t-as="td_product">
+                    <t t-if="td_product">
+                        <t t-set="product" t-value="td_product['product']"/>
+                        <div t-attf-class="oe_product oe_list #{ td_product['class'] }" t-att-data-publish="product.website_published and 'on' or 'off'">
+                            <t t-call="website_sale.products_item">
+                                <t t-set="show_publish" t-value="True"/>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
 </odoo>
