@@ -3,16 +3,17 @@
 # * payment_todopago
 # 
 # Translators:
-# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018
 # Daniel Blanco <daniel@blancomartin.com.ar>, 2018
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2019
+# Katherine Zaoral <katherine.zaoral@gmail.com>, 2019
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-13 00:32+0000\n"
+"POT-Creation-Date: 2019-01-08 23:15+0000\n"
 "PO-Revision-Date: 2018-08-23 20:45+0000\n"
-"Last-Translator: Daniel Blanco <daniel@blancomartin.com.ar>, 2018\n"
+"Last-Translator: Katherine Zaoral <katherine.zaoral@gmail.com>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +43,7 @@ msgstr "Pregunta"
 #. module: payment_todopago
 #: model:payment.acquirer,error_msg:payment_todopago.payment_acquirer_todopago
 msgid "Error: Hubo un error en el pago, por favor comuniquese con nosotros."
-msgstr ""
+msgstr "Error: Hubo un error en el pago, por favor comuniquese con nosotros."
 
 #. module: payment_todopago
 #: model:ir.model.fields,help:payment_todopago.field_payment_acquirer_todopago_client_id
@@ -61,12 +62,14 @@ msgid ""
 "If no value is configured here, then default todopago value is going to be "
 "used."
 msgstr ""
+"Si no hay valor configurado acá entonces usaremos el valor por defecto de "
+"todopago."
 
 #. module: payment_todopago
 #: code:addons/payment_todopago/models/sale_order.py:30
 #, python-format
 msgid "Max installments must be between 0 and %s"
-msgstr ""
+msgstr "Máxima cantidad de cuotas debe estar entre 0 y %s"
 
 #. module: payment_todopago
 #: model:payment.acquirer,pre_msg:payment_todopago.payment_acquirer_todopago
@@ -93,11 +96,13 @@ msgid ""
 "Pendiente de acreditación. Su pago todavía no ha sido confirmado por "
 "Mercadopago, le informaremos cuando esto suceda y validaremos el pedido."
 msgstr ""
+"Pendiente de acreditación. Su pago todavía no ha sido confirmado por "
+"Mercadopago, le informaremos cuando esto suceda y validaremos el pedido."
 
 #. module: payment_todopago
 #: model:ir.ui.view,arch_db:payment_todopago.acquirer_form_todopago
 msgid "Production"
-msgstr ""
+msgstr "Producción"
 
 #. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction_todopago_PublicRequestKey
@@ -117,7 +122,7 @@ msgstr "RequestKey"
 #. module: payment_todopago
 #: model:ir.ui.view,arch_db:payment_todopago.acquirer_form_todopago
 msgid "Test"
-msgstr ""
+msgstr "Prueba"
 
 #. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_acquirer_todopago_client_id
@@ -139,7 +144,7 @@ msgstr "Todopago"
 #. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_sale_order_todopago_max_installments
 msgid "Todopago Max Installments"
-msgstr ""
+msgstr "Máximo de cuotas de Todopago"
 
 #. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction_todopago_Return_url
@@ -147,7 +152,7 @@ msgid "Todopago return url"
 msgstr "Todopago devolver url"
 
 #. module: payment_todopago
-#: code:addons/payment_todopago/models/payment_acquirer.py:72
+#: code:addons/payment_todopago/models/payment_acquirer.py:97
 #, python-format
 msgid ""
 "YOU MUST COMPLETE acquirer.todopago_client_id and "

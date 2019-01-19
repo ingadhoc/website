@@ -4,13 +4,15 @@
 # 
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018
+# Katherine Zaoral <katherine.zaoral@gmail.com>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-07 20:32+0000\n"
-"PO-Revision-Date: 2018-09-07 20:32+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2018\n"
+"POT-Creation-Date: 2019-01-08 23:15+0000\n"
+"PO-Revision-Date: 2018-08-23 20:45+0000\n"
+"Last-Translator: Katherine Zaoral <katherine.zaoral@gmail.com>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +33,7 @@ msgstr "<span> resultado encontrado</span>"
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.view_documentation_toc_form
 msgid "<span>Childs</span>"
-msgstr ""
+msgstr "<span>Hijos</span>"
 
 #. module: website_doc
 #: model:ir.ui.view,arch_db:website_doc.error_search_len
@@ -93,7 +95,7 @@ msgstr "Hijas"
 #: code:addons/website_doc/models/website_doc_toc.py:248
 #, python-format
 msgid "Childs TOC"
-msgstr ""
+msgstr "Hijos TdC"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_content
@@ -176,13 +178,18 @@ msgstr "Documentation ToC"
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_dont_show_childs
 msgid "Dont Show Childs"
-msgstr ""
+msgstr "No mostrar hijos"
+
+#. module: website_doc
+#: model:ir.ui.view,arch_db:website_doc.documentation_post
+msgid "Edit Backend"
+msgstr "Editar en Backend"
 
 #. module: website_doc
 #: code:addons/website_doc/models/website_doc_toc.py:243
 #, python-format
 msgid "Error! You cannot create recursive categories."
-msgstr ""
+msgstr "Error! No puedes crear categorías recursivas."
 
 #. module: website_doc
 #: model:ir.model.fields,help:website_doc.field_website_doc_toc_documentation_id
@@ -351,7 +358,7 @@ msgstr "Secuencia"
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_status_smart_search
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_smart_search
 msgid "Smart Search"
-msgstr ""
+msgstr "Búsqueda Inteligente"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_state
@@ -364,7 +371,7 @@ msgid "También dentro de \""
 msgstr "También dentro de \""
 
 #. module: website_doc
-#: code:addons/website_doc/controllers/website_search.py:109
+#: code:addons/website_doc/controllers/website_search.py:113
 #, python-format
 msgid "Unable to get text page"
 msgstr "No se puede obtener la página de texto"
@@ -372,7 +379,7 @@ msgstr "No se puede obtener la página de texto"
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc_url_suffix
 msgid "Url Suffix"
-msgstr ""
+msgstr "Sufijo URL"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_status_user_id
