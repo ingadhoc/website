@@ -14,7 +14,8 @@ class SaleOrder(models.Model):
         self, product_id=None,
             line_id=None, add_qty=0, set_qty=0, **kwargs):
         sale_order_line = self.env['sale.order.line'].browse(line_id)
-        if sale_order_line.pack_parent_line_id:
+        if sale_order_line.pack_parent_line_id and not \
+           sale_order_line.pack_parent_line_id.product_id.allow_modify_pack:
             return {
                 'line_id': line_id,
                 'quantity': sale_order_line.product_uom_qty}
