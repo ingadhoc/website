@@ -16,6 +16,8 @@ Website Product Pack
 
 This module extend packs funcionality to website sale.
 
+NOTE: We highly recommend to install l10n_ar_website_sale module in order to fix problem with the product price (will use lst_price instead of list_price)
+
 Installation
 ============
 
