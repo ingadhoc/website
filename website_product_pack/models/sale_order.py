@@ -21,19 +21,3 @@ class SaleOrder(models.Model):
         return super(SaleOrder, self)._cart_update(
             product_id=product_id, line_id=line_id,
             add_qty=add_qty, set_qty=set_qty, **kwargs)
-
-    @api.multi
-    def _cart_find_product_line(self, product_id=None, line_id=None, **kwargs):
-        """ the function is not very inheritable, we can grab these
-        results and look over them but this would make them run two sql
-        line_ids = super(SaleOrder, self)._cart_find_product_line(
-            cr, uid, ids, product_id=product_id, line_id=line_id,
-            context=context, **kwargs)
-        """
-        for so in self:
-            domain = [('order_id', '=', so.id),
-                      ('product_id', '=', product_id),
-                      ('pack_parent_line_id', '=', False)]
-            if line_id:
-                domain += [('id', '=', line_id)]
-            return self.env['sale.order.line'].sudo().search(domain)
