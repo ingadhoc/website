@@ -17,6 +17,7 @@ e-Commerce adaptado para Argentina
 1. Add Argentina Partner document on ecommerce checkout.
 2. We also made state and CP required to get right delivery amounts.
 3. Show prices on ecommerce with taxes included/excluded taking into account the customer afip responsability category.
+4. Show information about the product related taxes in the products view at shop
 
 Installation
 ============

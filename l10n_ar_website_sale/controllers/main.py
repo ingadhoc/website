@@ -115,3 +115,13 @@ class L10nArWebsiteSale(WebsiteSale):
             request.env.user.company_id)
         response.qcontext.update({'vat_discriminated': vat_discriminated})
         return response
+
+    @route()
+    def shop(self, page=0, category=None, search='', ppg=False, **post):
+        response = super(L10nArWebsiteSale, self).shop(
+            page=page, category=category, search=search, ppg=ppg, **post)
+        vat_discriminated = request.env['res.partner']._get_vat_discriminated(
+            request.env.user.partner_id,
+            request.env.user.company_id)
+        response.qcontext.update({'vat_discriminated': vat_discriminated})
+        return response
