@@ -96,15 +96,15 @@
     <template id="product" name="Product" inherit_id="website_sale.product_price">
         <xpath expr="//b[hasclass('oe_price')]" position="after">
             <t t-if="vat_discriminated == True">
-               <span style="white-space: nowrap; font-size:medium; padding-left: 10px" t-if="product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.name + ')'"/>
+               <span style="white-space: nowrap; font-size:medium; padding-left: 10px" t-if="product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.description + ')'"/>
             </t>
         </xpath>
     </template>
 
     <template id="products_item" name="Products item" inherit_id="website_sale.products_item">
-        <xpath expr="//div[hasclass('product_price')]/b" position="after">
+        <xpath expr="//div[hasclass('product_price')]/b" position="inside">
             <t t-if="vat_discriminated == True">
-               <span style="white-space: nowrap; padding-left: 5px" t-if="product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.name + ')'"/>
+               <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.description + ')'"/>
             </t>
         </xpath>
     </template>
