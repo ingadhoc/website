@@ -20,7 +20,7 @@
 
 {
     'name': 'Website Product Pack',
-    'version': '11.0.1.1.1',
+    'version': '11.0.1.2.0',
     'category': 'Website',
     'author': 'ADHOC SA, Odoo Community Association (OCA)',
     'website': 'www.adhoc.com.ar',
