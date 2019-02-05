@@ -16,7 +16,7 @@ class ProductTemplate(models.Model):
                 {'website_published': True})
         # for product who used in product pack set the parent unpublished
         for rec in self.filtered(
-                lambda x: x.used_pack_line_ids and not x.website_published):
+                lambda x: not x.website_published and x.used_pack_line_ids):
             rec.used_pack_line_ids.mapped('parent_product_id').filtered(
                 'website_published').write(
                 {'website_published': False})
