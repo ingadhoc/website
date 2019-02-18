@@ -12,8 +12,10 @@ class ProductTemplate(models.Model):
     def set_website_published_for_packs_lines_products(self):
         for rec in self.filtered(lambda x: x.pack and x.website_published):
             rec.pack_line_ids.mapped('product_id').filtered(
-                lambda p: not p.website_published).write(
-                {'website_published': True})
+                lambda p: not p.website_published).write({
+                    'website_published': True,
+                    'sale_ok': True,
+                })
         # for product who used in product pack set the parent unpublished
         for rec in self.filtered(
                 lambda x: not x.website_published and x.used_pack_line_ids):
