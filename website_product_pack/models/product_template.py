@@ -12,7 +12,7 @@ class ProductTemplate(models.Model):
     def set_website_published_for_packs_lines_products(self):
         for rec in self.filtered(lambda x: x.pack and x.website_published):
             rec.pack_line_ids.mapped('product_id').filtered(
-                lambda p: not p.website_published).write({
+                lambda p: not p.website_published or not p.sale_ok).write({
                     'website_published': True,
                     'sale_ok': True,
                 })
