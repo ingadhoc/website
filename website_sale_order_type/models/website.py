@@ -18,8 +18,15 @@ class Website(models.Model):
     def _prepare_sale_order_values(self, partner, pricelist):
         res = super(Website, self)._prepare_sale_order_values(
             partner=partner, pricelist=pricelist)
+        sale_type = False
         if partner.sale_type:
-            res['type_id'] = partner.sale_type.id
+            sale_type = partner.sale_type.sudo()
         elif request.website.sale_order_type_id:
-            res['type_id'] = request.website.sale_order_type_id.id
+            sale_type = request.website.sale_order_type_id.sudo()
+
+        if sale_type:
+            res['type_id'] = sale_type.id
+            if sale_type.warehouse_id:
+                res['warehouse_id'] = sale_type.warehouse_id.id
+                res['company_id'] = sale_type.warehouse_id.company_id.id
         return res
