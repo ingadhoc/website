@@ -41,7 +41,7 @@
 
     <template id="cart_lines" name="Shopping Cart Lines" inherit_id="website_sale.cart_lines">
         <xpath expr="//span[@t-field='line.price_reduce_taxexcl']" position="attributes">
-            <attribute name="t-field">line.report_price_unit</attribute>
+            <attribute name="t-field">line.report_price_reduce</attribute>
             <attribute name="groups"/>
         </xpath>
         <xpath expr="//span[@t-field='line.price_reduce_taxinc']" position="replace">
@@ -74,7 +74,7 @@
 
     <template id="payment" name="Payment" inherit_id="website_sale.payment">
         <xpath expr="//span[@t-field='line.price_reduce_taxexcl']" position="attributes">
-            <attribute name="t-field">line.report_price_unit</attribute>
+            <attribute name="t-field">line.report_price_reduce</attribute>
             <attribute name="groups"/>
         </xpath>
         <xpath expr="//span[@t-field='line.price_reduce_taxinc']" position="replace">
