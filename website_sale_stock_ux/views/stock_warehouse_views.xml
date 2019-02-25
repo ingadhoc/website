@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_warehouse_inherited" model="ir.ui.view">
+        <field name="name">Stock Warehouse Inherited</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <div name="button_box">
+                <button name="toggle_website_published"
+                    class="oe_stat_button"
+                    type="object" icon="fa-globe">
+                    <field name="website_published" widget="boolean_button"
+                        options='{"terminology": {"string_true": "Published", "hover_false": "Publish"}}'/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>
