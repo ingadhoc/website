@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models
 
 
 class ProductProduct(models.Model):
@@ -12,8 +12,8 @@ class ProductProduct(models.Model):
         if not self._context.get('website_id') or \
            self._context.get('warehouse') or \
            self._context.get('location'):
-           return super(ProductProduct, self)._get_domain_locations()
-        location_ids = warehouse=self.env['stock.warehouse'].search(
+            return super(ProductProduct, self)._get_domain_locations()
+        location_ids = self.env['stock.warehouse'].search(
             [('website_published', '=', True)]).mapped('view_location_id').ids
         return self._get_domain_locations_new(
             location_ids,
