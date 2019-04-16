@@ -117,7 +117,7 @@
                     <t t-call="website_doc.toc"/>
                 </div>
                 <div class="container">
-                    <div t-field='toc.content' class="oe_structure"/>
+                    <div t-field='toc.content' class="oe_structure docpage"/>
                     <t t-raw="toc.google_doc"/>
                     <div t-if="toc.is_article">
                         <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>
