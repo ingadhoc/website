@@ -65,6 +65,11 @@ class WebsiteDoc(http.Controller):
                 ('parent_id', '=', False),
                 ('is_article', '=', False)])
 
+        if not titles:
+            articles = toc.article_ids
+            if len(articles) == 1:
+                return werkzeug.utils.redirect(articles.url_suffix)
+
         value = {
             'toc': toc,
             'titles': titles,
