@@ -21,7 +21,7 @@
     'name': 'Website Sale Promotion',
     'category': 'Website',
     'summary': 'Website Sale',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -32,6 +32,6 @@
         'security/ir.model.access.csv',
         'views/website_promotion_views.xml',
     ],
-    'installable': True,
+    'installable': False,
     'application': False,
 }

@@ -20,7 +20,7 @@
 {
     'name': 'Website Sale Search Improved',
     'category': 'Hidden',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -33,6 +33,6 @@
     'data': [
         'views/product_product_templates.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
