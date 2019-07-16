@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'e-Commerce Argentina Partner Document',
-    'version': '11.0.1.7.0',
+    'version': '12.0.1.0.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -40,5 +40,5 @@
         'l10n_ar_sale',
         'product_price_taxes_included',
     ],
-    'installable': True,
+    'installable': False,
 }
