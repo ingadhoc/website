@@ -34,6 +34,7 @@
     ],
     'data': [
         'views/website_views.xml',
+        'views/website_page_views.xml',
         'security/security.xml',
     ],
     'demo': [
