@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Website Security',
-    'version': '11.0.1.0.0',
+    'version': '11.0.1.1.0',
     'category': 'Website',
     'sequence': 14,
     'summary': '',
@@ -30,12 +30,9 @@
     ],
     'depends': [
         'website',
-        # 'portal',
     ],
     'data': [
-        'views/website_views.xml',
         'views/website_page_views.xml',
-        'security/security.xml',
     ],
     'demo': [
     ],
