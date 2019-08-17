@@ -14,7 +14,8 @@
 Website Sale UX
 ===============
 
-This module add search by public_categ_ids on product website category.
+#. This module add search by public_categ_ids on product website category.
+#. Add products ribbon also on shop list view
 
 Installation
 ============
