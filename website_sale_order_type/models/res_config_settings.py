@@ -12,4 +12,5 @@ class ResConfigSettings(models.TransientModel):
         'sale.order.type',
         related='website_id.sale_order_type_id',
         string='Sale Order Type',
+        readonly=False,
     )

@@ -7,7 +7,6 @@
         <field name="arch" type="xml">
             <xpath expr="//div[@id='sale_checkout_settings']" possition="inside">
                 <div class="col-xs-12 col-md-6 o_setting_box" id="sale_order_type_setting">
-                   
                     <div class="o_setting_right_pane">
                         <label for="sale_order_type_id"/>
                          <div class="text-muted">
