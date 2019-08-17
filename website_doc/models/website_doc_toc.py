@@ -12,7 +12,7 @@ class WebsiteDocToc(models.Model):
     _name = 'website.doc.toc'
     _description = 'Documentation ToC'
     _inherit = ['website.seo.metadata', 'mail.thread']
-    _order = "sequence, parent_left"
+    _order = "sequence, parent_path"
     _parent_order = "sequence, name"
     _parent_store = True
 
@@ -40,13 +40,8 @@ class WebsiteDocToc(models.Model):
         domain=[('is_article', '=', False)],
         auto_join=True,
     )
-    parent_left = fields.Integer(
-        'Left Parent',
-        index=True,
-    )
-    parent_right = fields.Integer(
-        'Right Parent',
-        index=True,
+    parent_path = fields.Char(
+        index=True
     )
     is_article = fields.Boolean(
         'Is Article?',
