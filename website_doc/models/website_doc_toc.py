@@ -61,7 +61,7 @@ class WebsiteDocToc(models.Model):
         help="Add Google Doc after Page Content?",
     )
     google_doc_link = fields.Char(
-        'Google Document Code',
+        'Google Document Link',
     )
     google_doc_code = fields.Char(
         'Google Document Code',
