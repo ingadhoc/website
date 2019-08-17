@@ -1,13 +1,5 @@
 <?xml version="1.0"?>
 <odoo>
-    <!-- Layout add nav and footer -->
-    <template id="header_footer_custom" inherit_id="website.footer_default" name="Footer Documentation Link">
-        <xpath expr="//ul[@id='products']" position="inside">
-            <li>
-                <a href="/doc">Documentation</a>
-            </li>
-        </xpath>
-    </template>
 
     <template id="article_read_status" name="Article Read Status">
         <!-- lo mostramos solo para usuarios portal o empleados, asi no recae la performance admeas -->
