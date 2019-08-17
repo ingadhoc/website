@@ -32,7 +32,7 @@
     'data': [
         'views/website_config_settings_view.xml',
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': True,
     'application': False,
 }
