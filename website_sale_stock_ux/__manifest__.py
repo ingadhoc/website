@@ -32,5 +32,5 @@
     'data': [
         'views/stock_warehouse_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
