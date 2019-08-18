@@ -88,5 +88,4 @@ class MercadoPagoController(http.Controller):
             pprint.pformat(post))
         request.env['payment.transaction'].sudo().form_feedback(
             post, 'mercadopago')
-        return werkzeug.utils.redirect(werkzeug.url_unquote(
-            post.pop('return_url', '/')))
+        return werkzeug.utils.redirect("/payment/process")

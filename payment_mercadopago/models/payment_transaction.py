@@ -61,7 +61,6 @@ class TxMercadoPago(models.Model):
         https://developers.mercadopago.com/documentacion/notificaciones-de-pago
         Por lo que vi nunca se devuelve la "cancel_reason" o "pending_reason"
         """
-        tx = self
         status = data.get('collection_status')
         data = {
             'acquirer_reference': data.get('external_reference'),
@@ -72,31 +71,32 @@ class TxMercadoPago(models.Model):
         if status in ['approved', 'processed']:
             _logger.info(
                 'Validated MercadoPago payment for tx %s: set as done' % (
-                    tx.reference))
-            data.update(
-                state='done',
-                date_validate=data.get('payment_date', fields.datetime.now()))
-            return tx.write(data)
+                    self.reference))
+            self.write(data)
+            self._set_transaction_done()
+            return True
         elif status in ['pending', 'in_process', 'in_mediation']:
             _logger.info(
                 'Received notification for MercadoPago payment %s: set as '
-                'pending' % (tx.reference))
-            data.update(
-                state='pending',
-                state_message=data.get('pending_reason', ''))
-            return tx.write(data)
+                'pending' % (self.reference))
+            data.update(state_message=data.get('pending_reason', ''))
+            self.write(data)
+            self._set_transaction_pending()
+            return True
         elif status in ['cancelled', 'refunded', 'charged_back', 'rejected']:
             _logger.info(
                 'Received notification for MercadoPago payment %s: '
-                'set as cancelled' % (tx.reference))
-            data.update(
-                state='cancel',
-                state_message=data.get('cancel_reason', ''))
-            return tx.write(data)
+                'set as cancelled' % (self.reference))
+            data.update(state_message=data.get('cancel_reason', ''))
+            self.write(data)
+            self._set_transaction_cancel()
+            return True
         else:
             error = (
                 'Received unrecognized status for MercadoPago payment %s: %s, '
-                'set as error' % (tx.reference, status))
+                'set as error' % (self.reference, status))
             _logger.info(error)
-            data.update(state='error', state_message=error)
-            return tx.write(data)
+            data.update(state_message=error)
+            self.write(data)
+            self._set_transaction_error(error)
+            return True
