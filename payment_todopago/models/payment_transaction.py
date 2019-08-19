@@ -22,6 +22,7 @@ class TxTodoPago(models.Model):
     todopago_Answer = fields.Char(
         'Answer',
     )
+    # TODO borrar este campo que no estariamos usando
     # TODO perhups we can do as we do on mercadopago and send this on
     # the urls with the form_generate_values. But on todopago we still need to
     # ensure we have a transaction before going to todpago to keep the
@@ -61,62 +62,59 @@ class TxTodoPago(models.Model):
     def _todopago_form_validate(self, data):
         """
         """
-        tx = self
-        _logger.info('Todo pago form validate for tx %s with data %s',
-                     tx, data)
+        _logger.info(
+            'Todo pago form validate for tx %s with data %s', self, data)
         # si no hubo answer en _todopago_form_get_tx_from_data entonces
         # es probable que ni siquiera nos pudimos comunicar con todopago
-        if not tx.todopago_Answer or not tx.todopago_RequestKey:
+        if not self.todopago_Answer or not self.todopago_RequestKey:
             _logger.info(
                 'Received notification for TodoPago payment %s: '
-                'set as errored', tx.reference)
+                'set as errored', self.reference)
             # el mensaje de error ya lo escribimos antes, aca solamente
             # terminamos de stear el estado de error, aunque ya se podria
             # haber hecho todo junto arriba
-            return tx.write({
-                'state': 'error',
-            })
+            self._set_transaction_error('No pudimos conectarnos con todopago')
+            return True
         # we need to get answer form todopago
-        todopago_client_id = tx.acquirer_id.todopago_client_id \
-            if tx.acquirer_id.environment == 'prod' \
-            else tx.acquirer_id.todopago_test_client_id
-        todopago_secret_key = tx.acquirer_id.todopago_secret_key \
-            if tx.acquirer_id.environment == 'prod' \
-            else tx.acquirer_id.todopago_test_secret_key
+        todopago_client_id = self.acquirer_id.todopago_client_id \
+            if self.acquirer_id.environment == 'prod' \
+            else self.acquirer_id.todopago_test_client_id
+        todopago_secret_key = self.acquirer_id.todopago_secret_key \
+            if self.acquirer_id.environment == 'prod' \
+            else self.acquirer_id.todopago_test_secret_key
 
         answer_data = {
             'Security': str(todopago_secret_key),
             'Merchant': str(todopago_client_id),
-            'RequestKey': str(tx.todopago_RequestKey),
-            'AnswerKey': str(tx.todopago_Answer),
+            'RequestKey': str(self.todopago_RequestKey),
+            'AnswerKey': str(self.todopago_Answer),
         }
-        tpc = tx.acquirer_id.get_TodoPagoConnector()
+        tpc = self.acquirer_id.get_TodoPagoConnector()
         AA = tpc.getAuthorizeAnswer(answer_data)
         status = AA.StatusCode
 
         vals = {
-            # 'todopago_RequestKey': str(tx.todopago_RequestKey),
-            # 'todopago_Answer': str(tx.todopago_Answer),
+            # 'todopago_RequestKey': str(self.todopago_RequestKey),
+            # 'todopago_Answer': str(self.todopago_Answer),
             'acquirer_reference': AA.AuthorizationKey,
             'state_message': '%s. %s' % (AA.StatusMessage, AA.Payload),
         }
         if status == -1:
             _logger.info(
                 'Validated TodoPago payment for tx %s: set as done',
-                tx.reference)
-            vals.update(
-                state='done',
-                # state_message='%s. %s' % (AA.StatusMessage, AA.Payload),
-                date_validate=vals.get('payment_date', fields.datetime.now())
-            )
-            return tx.write(vals)
+                self.reference)
+            self.write(vals)
+            self._set_transaction_done()
+            return True
         else:
             _logger.info(
                 'Received notification for TodoPago payment %s: '
-                'set as errored', tx.reference)
+                'set as errored', self.reference)
             vals.update(
                 state='error',
                 # state='cancel',
                 # state_message=AA.StatusMessage
             )
-            return tx.write(vals)
+            self.write(vals)
+            self._set_transaction_error('Error al validar pago')
+            return True
