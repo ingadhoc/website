@@ -56,7 +56,4 @@ class TodoPagoController(http.Controller):
             'todopago: returning data %s',
             pprint.pformat(post))
         self.todopago_validate(**post)
-        reference = post.get('OPERATIONID')
-        transaction = request.env['payment.transaction'].sudo().search(
-            [('reference', '=', reference)])
-        return werkzeug.utils.redirect(transaction.todopago_Return_url or '/')
+        return werkzeug.utils.redirect("/payment/process")

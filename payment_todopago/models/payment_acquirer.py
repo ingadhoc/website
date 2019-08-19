@@ -24,22 +24,22 @@ class AcquirerTodopago(models.Model):
 
     provider = fields.Selection(selection_add=[('todopago', 'TodoPago')])
     todopago_client_id = fields.Char(
-        'TodoPago Merchant Id',
+        'TodoPago Prod. Merchant Id',
         required_if_provider='todopago',
         help='For eg. 11123',
     )
     todopago_secret_key = fields.Char(
-        'TodoPago Secret Key',
+        'TodoPago Prod. Secret Key',
         help='For eg. TODOPAGO 4C841713E65FBC7719D666CCAC531234',
         required_if_provider='todopago',
     )
     todopago_test_client_id = fields.Char(
-        'TodoPago Merchant Id',
+        'TodoPago Test Merchant Id',
         help='For eg. 11123',
         required_if_provider='todopago',
     )
     todopago_test_secret_key = fields.Char(
-        'TodoPago Secret Key',
+        'TodoPago Test Secret Key',
         required_if_provider='todopago',
     )
     # Default paypal fees
@@ -111,8 +111,10 @@ class AcquirerTodopago(models.Model):
         country = (
             values['billing_partner_country'] and values[
                 'billing_partner_country'].code or 'AR')
-        if country != 'AR':
-            errors.append('Only Argentina Implemented for TODOPAGO')
+        # si bien seria obligatorio que sea argentina, como el error
+        # no lo tenemos bien atrapado, probamos seguir adelante
+        # if country != 'AR':
+        #     errors.append('Only Argentina Implemented for TODOPAGO')
 
         # mandatorio y exije que moneda sea ars segun
         # https://github.com/TodoPago/SDK-Python#generalidades
@@ -138,8 +140,8 @@ class AcquirerTodopago(models.Model):
         if errors:
             # if errors, then we dont send todopago_data and button is not
             # display
-            _logger.info('Todo pago method not avialble because of %s',
-                         errors)
+            _logger.error(
+                'Todo pago method not avialble because of %s', errors)
             return tx_values
 
         # clean phone, only numbers
@@ -330,10 +332,10 @@ class AcquirerTodopago(models.Model):
             ('reference', '=', optionsSAR_operacion['OPERATIONID'])])
 
         # la unica manera que vimos de sacar un campo de la sale order es acá
-        sale = transactions and transactions[0].sale_order_id
-        if sale.todopago_max_installments:
+        sales = transactions.mapped('sale_order_ids')
+        if sales and sales[0].todopago_max_installments:
             optionsSAR_operacion['MAXINSTALLMENTS'] = \
-                str(sale.todopago_max_installments)
+                str(sales[0].todopago_max_installments)
 
         tpc = self.get_TodoPagoConnector()
         _logger.info('Sending sendAuthorizeRequest')
