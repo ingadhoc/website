@@ -1,5 +1,15 @@
 <?xml version="1.0"?>
 <odoo>
+
+
+  <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website doc frontend assets">
+    <xpath expr="." position="inside">
+      <script type="text/javascript" src="/website_doc/static/src/js/toc_doc.js"></script>
+      <link rel='stylesheet' href='/website_doc/static/src/css/toc_doc.css'/>
+    </xpath>
+  </template>
+
+
     <!-- Layout add nav and footer -->
     <template id="header_footer_custom" inherit_id="website.footer_default" name="Footer Documentation Link">
         <xpath expr="//ul[@id='products']" position="inside">
@@ -73,9 +83,10 @@
         </li>
     </template>
 
-
     <template id="documentation_post" name="Documentation Page">
         <t t-call="website.layout">
+        <body data-spy="scroll" data-target=".navspy" data-offset="50">
+
             <div id="wrap" class="oe_structure mt16 mb16">
                 <div class="container">
                     <div class="row">
@@ -103,25 +114,36 @@
                         </li>
                       </ul>
                     </div>
-                    <h1 class="page-header">
+                    <span class="page-header">
                         <t t-esc="toc and toc.name or 'Documentation'"/>
                         <t t-if="toc.is_article">
                             <t t-call="website_doc.article_read_status">
                                 <t t-set="article" t-value="toc"/>
                             </t>
                         </t>
-                    </h1>
+                    </span>
                     <t t-set="level" t-value="toc and 1 or 0"/>
                     <t t-set="articles" t-value="toc.article_ids"/>
                     <t t-call="website_doc.articles"/>
                     <t t-call="website_doc.toc"/>
                 </div>
-                <div class="container">
-                    <div t-field='toc.content' class="oe_structure docpage"/>
-                    <t t-raw="toc.google_doc"/>
+                <div class="container o_website_doc">
+
+                    <!-- <t t-call="website_doc.navigation_menu"/> -->
+                    <div class="col-md-3 hidden-print">
+                        <div class="bs-sidebar">
+                            <div class="navspy" role="complementary" t-ignore="True">
+                                <ul class="nav bs-sidenav" data-id="doc_sidebar"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div t-field='toc.content' class="oe_structure docpage"/>
+                        <t t-raw="toc.google_doc"/>
+                    </div>
+
                     <div t-if="toc.is_article">
-                        <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>
-"</h2>
+                        <span class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>"</span>
                         <ul>
                             <t t-foreach="toc.parent_id.article_ids" t-as="topic">
                                 <li>
@@ -140,6 +162,7 @@
                     </div>
                 </div>
             </div>
+        </body>
         </t>
     </template>
 
