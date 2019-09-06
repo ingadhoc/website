@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- TODO maybe we can move this to to another module -->
+    <template id="portal_my_details" name="portal_my_details" inherit_id="portal.portal_my_details">
+        <div t-attf-class="form-group #{error.get('vat') and 'o_has_error' or ''} col-xl-6" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </div>
+
+        <label class="col-form-label label-optional" for="zipcode" position="attributes">
+            <attribute name="class">col-form-label</attribute>
+        </label>
+
+   </template>
+
+    <template id="address_b2b" name="Show b2b fields" inherit_id="website_sale.address_b2b">
+        <div t-attf-class="form-group #{error.get('vat') and 'o_has_error' or ''} col-lg-6 div_vat" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </div>
+    </template>
+
     <template id="address" name="Address Management" inherit_id="website_sale.address">
 
         <xpath expr="//label[@for='company_name']/.." position="replace">
@@ -15,28 +33,29 @@
             </t>
         </xpath>
 
-        <!-- sacamos vat -->
-        <div t-attf-class="form-group #{error.get('vat') and 'has-error' or ''} col-md-6 div_vat" position="attributes">
-            <attribute name="t-if">False</attribute>
-        </div>
-
         <!-- mostramos negrita para zip -->
         <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')" position="replace">
-            <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')" position="replace">
-                <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
-                    <label class="control-label" for="zip">Zip Code</label>
-                    <input type="text" name="zip" class="form-control" t-att-value="'zip' in checkout and checkout['zip']"/>
+            <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')">
+                <div t-attf-class="form-group #{error.get('zip') and 'o_has_error' or ''} col-md-4 div_zip">
+                    <label class="col-form-label" for="zip">Zip Code</label>
+                    <input type="text" name="zip" t-att-value="'zip' in checkout and checkout['zip']" class="form-control" t-attf-class="form-control #{error.get('zip') and 'is-invalid' or ''}"/>
                 </div>
             </t>
         </t>
         <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')" position="replace">
-            <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')" position="replace">
-                <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
-                    <label class="control-label" for="zip">Zip Code</label>
-                    <input type="text" name="zip" class="form-control" t-att-value="'zip' in checkout and checkout['zip']"/>
+            <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')">
+                <div t-attf-class="form-group #{error.get('zip') and 'o_has_error' or ''} col-md-4 div_zip">
+                    <label class="col-form-label" for="zip">Zip Code</label>
+                    <input type="text" name="zip" t-att-value="'zip' in checkout and checkout['zip']" class="form-control" t-attf-class="form-control #{error.get('zip') and 'is-invalid' or ''}"/>
                 </div>
             </t>
         </t>
+
+        <div t-attf-class="form-group #{error.get('city') and 'o_has_error' or ''} col-md-8 div_city">
+            <label class="col-form-label" for="city">City</label>
+            <input type="text" name="city" t-attf-class="form-control #{error.get('city') and 'is-invalid' or ''}" t-att-value="'city' in checkout and checkout['city']"/>
+        </div>
+
     </template>
 
     <template id="cart_lines" name="Shopping Cart Lines" inherit_id="website_sale.cart_lines">
@@ -45,6 +64,7 @@
             <attribute name="groups"/>
         </xpath>
         <xpath expr="//span[@t-field='line.price_reduce_taxinc']" position="replace">
+            <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="vat_discriminated == True and line.product_id.product_tmpl_id.sudo().vat_tax_id" t-esc="'(+' + line.product_id.product_tmpl_id.sudo().vat_tax_id.description + ')'"/>
         </xpath>
     </template>
 
@@ -52,27 +72,52 @@
         <xpath expr="//span[@t-field='website_sale_order.amount_untaxed']/../.." position="attributes">
             <attribute name="t-if">website_sale_order.vat_discriminated</attribute>
         </xpath>
-        <xpath expr="//div[@id='order_total_taxes']" position="attributes">
+        <xpath expr="//tr[@id='order_total_taxes']" position="attributes">
             <attribute name="t-if">website_sale_order.vat_discriminated</attribute>
         </xpath>
     </template>
 
-    <template id="confirmation" name="confirmation" inherit_id="website_sale.confirmation">
-        <xpath expr="//div[@t-field='line.price_unit']" position="attributes">
-            <attribute name="t-field">line.report_price_unit</attribute>
+    <template id="sale_order_portal_content" name="Sales Order Portal Content" inherit_id="l10n_ar_sale.sale_order_portal_content">
+
+        <!-- hide subtotal from totals -->
+        <xpath expr="//span[@t-field='sale_order.report_amount_untaxed']/../.." position="attributes">
+            <attribute name="t-if">sale_order.vat_discriminated</attribute>
         </xpath>
-        <xpath expr="//div[@t-field='line.price_subtotal']" position="attributes">
-            <attribute name="t-field">line.report_price_subtotal</attribute>
+
+        <!-- Hide taxes column -->
+        <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}" position="attributes">
+            <attribute name="t-if">sale_order.vat_discriminated</attribute>
+        </th>
+        <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"  position="attributes">
+            <attribute name="t-if">sale_order.vat_discriminated</attribute>
+        </td>
+
+    </template>
+
+    <!-- Add to Cart model without optionals -->
+    <template id="product_configurator_configure" name="Configure" inherit_id="sale.product_configurator_configure">
+        <span t-esc="combination_info['price']" position="after">
+            <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="vat_discriminated == True and product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.description + ')'"/>
+        </span>
+    </template>
+
+    <!-- Add to Cart model with optionals -->
+    <template id="product_configurator_configure_optional_products" name="Configure Optionals" inherit_id="sale.product_configurator_configure_optional_products">
+        <td name="price" position="inside">
+            <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="vat_discriminated == True and product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.description + ')'"/>
+        </td>
+    </template>
+
+    <template id="variants" name="variants" inherit_id="sale.variants">
+        <xpath expr="//option[@t-att-value='value_id.id']//span[@t-esc='abs(value_id.price_extra)']" position="attributes">
+            <attribute name="t-esc">abs(value_id.report_price_extra)</attribute>
         </xpath>
-        <xpath expr="//span[@t-field='order.amount_untaxed']/../.." position="attributes">
-            <attribute name="t-if">order.vat_discriminated</attribute>
-        </xpath>
-        <xpath expr="//span[@t-field='order.amount_tax']/../.." position="attributes">
-            <attribute name="t-if">order.vat_discriminated</attribute>
+        <xpath expr="//div[hasclass('radio_input_value')]/span[@t-if='value_id.price_extra' and hasclass('badge')]/span[@t-esc='abs(value_id.price_extra)']" position="attributes">
+            <attribute name="t-esc">abs(value_id.report_price_extra)</attribute>
         </xpath>
     </template>
 
-    <template id="payment" name="Payment" inherit_id="website_sale.payment">
+    <template id="Cart right column" name="Payment" inherit_id="website_sale.cart_summary">
         <xpath expr="//span[@t-field='line.price_reduce_taxexcl']" position="attributes">
             <attribute name="t-field">line.report_price_reduce</attribute>
             <attribute name="groups"/>
@@ -81,31 +126,15 @@
         </xpath>
     </template>
 
-    <template id="variants" name="variants" inherit_id="website_sale.variants">
-        <xpath expr="//span[@t-if='value_id.price_extra']/span[@t-field='value_id.price_extra']" position="attributes">
-            <attribute name="t-field">value_id.report_price_extra</attribute>
-        </xpath>
-        <xpath expr="//span[@t-if='value_id.price_extra' and hasclass('badge')]/span[@t-field='value_id.price_extra']" position="attributes">
-            <attribute name="t-field">value_id.report_price_extra</attribute>
-        </xpath>
-    </template>
-
-  <!-- TODO deberiamos cambiar el sbutotal por report subtotal -->
-  <!-- Ocultar detalle de impuestos en subtotal -->
-
     <template id="product" name="Product" inherit_id="website_sale.product_price">
         <xpath expr="//b[hasclass('oe_price')]" position="after">
-            <t t-if="vat_discriminated == True">
-               <span style="white-space: nowrap; font-size:medium; padding-left: 10px" t-if="product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.description + ')'"/>
-            </t>
+            <span style="white-space: nowrap; font-size:medium; padding-left: 10px" t-if="vat_discriminated == True and product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.description + ')'"/>
         </xpath>
     </template>
 
     <template id="products_item" name="Products item" inherit_id="website_sale.products_item">
         <xpath expr="//div[hasclass('product_price')]/b" position="inside">
-            <t t-if="vat_discriminated == True">
-               <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.description + ')'"/>
-            </t>
+            <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="vat_discriminated == True and product.sudo().vat_tax_id" t-esc="'(+' + product.sudo().vat_tax_id.description + ')'"/>
         </xpath>
     </template>
 

@@ -7,11 +7,14 @@ from odoo.http import request, route
 from odoo.tools import config
 
 
+# pylint: disable=pointless-string-statement
+
+
 class L10nArWebsiteSale(WebsiteSale):
 
     def _get_mandatory_billing_fields(self):
-        # para no romper los test de odoo
-        res = super(L10nArWebsiteSale, self)._get_mandatory_billing_fields()
+        """Inherit method in order to do not break Odoo tests"""
+        res = super()._get_mandatory_billing_fields()
         if not config['test_enable']:
             res += ["zip"]
         return res + [
@@ -27,14 +30,13 @@ class L10nArWebsiteSale(WebsiteSale):
             for item in commercial_fields:
                 checkout.pop(item, False)
                 all_values.pop(item, False)
-        res = super(L10nArWebsiteSale, self)._checkout_form_save(
+        res = super()._checkout_form_save(
             mode=mode, checkout=checkout, all_values=all_values)
         return res
 
     def checkout_form_validate(self, mode, all_form_values, data):
-        error, error_message = super(
-            L10nArWebsiteSale, self).checkout_form_validate(
-                mode=mode, all_form_values=all_form_values, data=data)
+        error, error_message = super().checkout_form_validate(
+            mode=mode, all_form_values=all_form_values, data=data)
         write_error, write_message = \
             request.env['res.partner'].sudo().try_write_commercial(
                 all_form_values)
@@ -45,7 +47,7 @@ class L10nArWebsiteSale(WebsiteSale):
 
     @route()
     def address(self, **kw):
-        response = super(L10nArWebsiteSale, self).address(**kw)
+        response = super().address(**kw)
         document_categories = request.env[
             'res.partner.id_category'].sudo().search([])
         afip_responsabilities = request.env[
@@ -60,12 +62,14 @@ class L10nArWebsiteSale(WebsiteSale):
         })
         return response
 
-    # TODO review: Aca podria ser necesario pasar el afip_responsabilities
+    # NOTE this a copy of original odoo code that was added and edited here
+    # because it was not able to inherit in other way.
     @route()
     def checkout(self, **post):
-        super(L10nArWebsiteSale, self).checkout(**post)
-        # _response = super(L10nArWebsiteSale, self).checkout(**post)
+        super().checkout(**post)
+
         order = request.website.sale_get_order()
+
         redirection = self.checkout_redirection(order)
         if redirection:
             return redirection
@@ -73,13 +77,13 @@ class L10nArWebsiteSale(WebsiteSale):
         if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
             return request.redirect('/shop/address')
 
-        # --------------------------------------------------------------------
-        # Odoo original code
-        # for f in self._get_mandatory_billing_fields():
-        #     if not order.partner_id[f]:
-        #         return request.redirect('/shop/address?partner_id=%d' %
-        #             order.partner_id.id)
-        # Our code
+        # ODOO ORIGINAL CODE
+        """
+        for f in self._get_mandatory_billing_fields():
+            if not order.partner_id[f]:
+                return request.redirect('/shop/address?partner_id=%d' % order.partner_id.id)
+        """
+        # OUR CODE START
         mandatory_billing_fields = self._get_mandatory_billing_fields()
         commercial_billing_fields = ["main_id_category_id", "main_id_number",
                                      "afip_responsability_type_id"]
@@ -94,10 +98,12 @@ class L10nArWebsiteSale(WebsiteSale):
             if not order.partner_id.commercial_partner_id[f]:
                 return request.redirect(
                     '/shop/address?partner_id=%d' % order.partner_id.id)
-        # end
-        # --------------------------------------------------------------------
+        # OUR CODE END
 
         values = self.checkout_values(**post)
+
+        if post.get('express'):
+            return request.redirect('/shop/confirm_order')
 
         values.update({'website_sale_order': order})
 
@@ -108,7 +114,7 @@ class L10nArWebsiteSale(WebsiteSale):
 
     @route()
     def product(self, product, category='', search='', **kwargs):
-        response = super(L10nArWebsiteSale, self).product(
+        response = super().product(
             product=product, category=category, search=search, **kwargs)
         vat_discriminated = request.env['res.partner']._get_vat_discriminated(
             request.env.user.partner_id,
@@ -118,7 +124,7 @@ class L10nArWebsiteSale(WebsiteSale):
 
     @route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):
-        response = super(L10nArWebsiteSale, self).shop(
+        response = super().shop(
             page=page, category=category, search=search, ppg=ppg, **post)
         vat_discriminated = request.env['res.partner']._get_vat_discriminated(
             request.env.user.partner_id,
