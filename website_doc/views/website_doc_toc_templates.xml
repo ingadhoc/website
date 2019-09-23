@@ -106,7 +106,10 @@
                     <t t-set="level" t-value="toc and 1 or 0"/>
                     <t t-set="articles" t-value="toc.article_ids"/>
                     <t t-call="website_doc.articles"/>
-                    <t t-call="website_doc.toc"/>
+                    <div t-if="titles and titles[0].dont_show_childs" class="row mt32">
+                        <t t-call="website_doc.toc"/>
+                    </div>
+                    <t t-if="not titles or not titles[0].dont_show_childs" t-call="website_doc.toc"/>
                 </div>
                 <div class="container">
                     <div t-field='toc.content' class="oe_structure docpage"/>
