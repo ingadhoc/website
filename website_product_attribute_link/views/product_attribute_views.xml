@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="product.attribute_tree_view"></field>
         <field name="arch" type="xml">
             <tree>
-                <field name="website_link_on_product"/>
+                <field name="website_link_on_product" widget="boolean_toggle"/>
             </tree>
         </field>
     </record>

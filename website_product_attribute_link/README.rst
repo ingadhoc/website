@@ -29,7 +29,7 @@ Configuration
 To configure this module, you need to:
 
 #. Set with attributes you want to show with links on website
-#. Set website link on product = True on attributes form
+#. Set website link on product = True on attributes list
 
 Usage
 =====
