@@ -130,32 +130,4 @@
     <menuitem id="menu_documentation_article"
         parent="menu_documentation"
         name="Article" action="action_documentation_article" sequence="30"/>
-
-    <!-- Tree type view -->
-
- 
-    <!-- The tree view doesn't work in v11, there is an issue reported to odoo with that bug. -->
-    <record id="action_documentation_toc_tree" model="ir.actions.act_window">
-        <field name="name">Documentation Items</field>
-        <field name="res_model">website.doc.toc</field>
-        <!-- <field name="view_type">tree</field> -->
-        <field name="view_type">form</field>
-        <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_documentation_toc_list"/>
-        <field name="domain">[('parent_id', '=', False), ('is_article', '=', False)]</field>
-    </record>
-
-    <menuitem id="menu_documentation_toc_tree"
-        parent="menu_documentation"
-        name="Documentation TOC Structure" action="action_documentation_toc_tree" sequence="20"/>
-
-    <act_window
-        id="action_documentation_toc_tree_article"
-        name="Articles"
-        context="{'search_default_parent_id': [active_id]}"
-        res_model="website.doc.toc"
-        src_model="website.doc.toc"
-        view_id="view_documentation_article_list"
-        view_mode="tree,form"
-        key2="tree_but_open"/>
 </odoo>
