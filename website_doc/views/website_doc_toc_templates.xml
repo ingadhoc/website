@@ -68,7 +68,7 @@
 
     <template id="documentation_post" name="Documentation Page">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure mt16 mb16">
+            <div id="wrap" class="oe_structure mt16 mb16 docpage">
                 <div class="container">
                     <div class="row">
                         <ol class="breadcrumb mb0">
@@ -112,7 +112,7 @@
                     <t t-if="not titles or not titles[0].dont_show_childs" t-call="website_doc.toc"/>
                 </div>
                 <div class="container">
-                    <div t-field='toc.content' class="oe_structure docpage"/>
+                    <div t-field='toc.content' class="oe_structure"/>
                     <t t-raw="toc.google_doc"/>
                     <div t-if="toc.is_article">
                         <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>
