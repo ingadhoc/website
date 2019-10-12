@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="container" id="doc-page">
-                    <div class="pull-right css_editable_mode_hidden" groups="base.group_user">
+                    <div class="row mt32 pull-right css_editable_mode_hidden" groups="base.group_user">
                       <ul class="list-inline">
                         <li>
                           <p t-field='toc.state'/>
@@ -95,7 +95,7 @@
                         </li>
                       </ul>
                     </div>
-                    <h1 class="page-header">
+                    <h1 class="page-header row mt32" style="margin-top: 40px !important;">
                         <t t-esc="toc and toc.name or 'Documentation'"/>
                         <t t-if="toc.is_article">
                             <t t-call="website_doc.article_read_status">
