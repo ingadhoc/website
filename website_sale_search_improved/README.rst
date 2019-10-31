@@ -14,10 +14,9 @@
 Website Sale Search Improved
 ============================
 
-This module makes some modifications on e-Commerce search:
+This module makes the following modifications on e-Commerce search:
 
-* search by smart search
-* reset search when clicking on a category
+* search by smart search.
 
 Installation
 ============
