@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class WebsiteDocToc(models.Model):
     _name = 'website.doc.toc'
     _description = 'Documentation ToC'
-    _inherit = ['website.seo.metadata', 'mail.thread']
+    _inherit = ['website.seo.metadata', 'mail.thread', 'mail.activity.mixin']
     _order = "sequence, parent_path"
     _parent_order = "sequence, name"
     _parent_store = True
@@ -118,6 +118,13 @@ class WebsiteDocToc(models.Model):
         'Reading percentage',
         compute="_compute_reading_percentage",
     )
+
+    @api.multi
+    def write(self, vals):
+        if 'content' in vals:
+            for rec in self:
+                rec.message_post(body='Contenido actualizado')
+        return super().write(vals)
 
     @api.constrains('state')
     def check_published(self):

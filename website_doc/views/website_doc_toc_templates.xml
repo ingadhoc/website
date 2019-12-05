@@ -68,7 +68,7 @@
 
     <template id="documentation_post" name="Documentation Page">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure mt16 mb16">
+            <div id="wrap" class="oe_structure mt16 mb16 docpage">
                 <div class="container">
                     <div class="row">
                         <ol class="breadcrumb mb0">
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="container" id="doc-page">
-                    <div class="pull-right css_editable_mode_hidden" groups="base.group_user">
+                    <div class="row mt32 pull-right css_editable_mode_hidden" groups="base.group_user">
                       <ul class="list-inline">
                         <li>
                           <p t-field='toc.state'/>
@@ -95,7 +95,7 @@
                         </li>
                       </ul>
                     </div>
-                    <h1 class="page-header">
+                    <h1 class="page-header row mt32" style="margin-top: 40px !important;">
                         <t t-esc="toc and toc.name or 'Documentation'"/>
                         <t t-if="toc.is_article">
                             <t t-call="website_doc.article_read_status">
@@ -106,10 +106,13 @@
                     <t t-set="level" t-value="toc and 1 or 0"/>
                     <t t-set="articles" t-value="toc.article_ids"/>
                     <t t-call="website_doc.articles"/>
-                    <t t-call="website_doc.toc"/>
+                    <div t-if="titles and titles[0].dont_show_childs" class="row mt32">
+                        <t t-call="website_doc.toc"/>
+                    </div>
+                    <t t-if="not titles or not titles[0].dont_show_childs" t-call="website_doc.toc"/>
                 </div>
                 <div class="container">
-                    <div t-field='toc.content' class="oe_structure docpage"/>
+                    <div t-field='toc.content' class="oe_structure"/>
                     <t t-raw="toc.google_doc"/>
                     <div t-if="toc.is_article">
                         <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>

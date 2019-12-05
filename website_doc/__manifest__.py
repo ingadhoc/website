@@ -21,7 +21,7 @@
     'name': 'Website Documentation',
     'category': 'Website',
     'summary': 'Website, Documentation',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.2.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
