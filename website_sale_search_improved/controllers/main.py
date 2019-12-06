@@ -4,9 +4,6 @@
 ##############################################################################
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.http import request
-from odoo import http
-from odoo.addons.website_sale.controllers import main as main_file
-import werkzeug
 
 
 def new_get_search_domain(self, search, category, attrib_values):
@@ -47,44 +44,3 @@ def new_get_search_domain(self, search, category, attrib_values):
 
 
 WebsiteSale._get_search_domain = new_get_search_domain
-
-
-class WebsiteSaleCustom(WebsiteSale):
-
-    @http.route()
-    def shop(self, page=0, category=None, search='', **post):
-        """
-        If we have a search and category, clean category
-        """
-        if category and search:
-            category = None
-        return super(WebsiteSaleCustom, self).shop(
-            page=page, category=category, search=search, **post)
-
-
-class QueryURL(object):
-    def __init__(self, path='', **args):
-        self.path = path
-        self.args = args
-
-    def __call__(self, path=None, **kw):
-        if not path:
-            path = self.path
-        is_category = path.startswith('/shop/category/')
-        for k, v in self.args.items():
-            if is_category and k == 'search':
-                continue
-            kw.setdefault(k, v)
-        l = []
-        for k, v in kw.items():
-            if v:
-                if isinstance(v, list) or isinstance(v, set):
-                    l.append(werkzeug.url_encode([(k, i) for i in v]))
-                else:
-                    l.append(werkzeug.url_encode([(k, v)]))
-        if l:
-            path += '?' + '&'.join(l)
-        return path
-
-
-main_file.QueryURL = QueryURL
