@@ -90,8 +90,8 @@ class WebsitePromotion(models.Model):
                     {'website_style_ids': [(4, rec.website_style_id.id)]})
             rec.template_ids.write(
                 {'public_categ_ids': [(4, rec.public_category_id.id)]})
-            for product in rec.template_ids:
-                vals = {
+            vals_list = [
+                {
                     'name': rec.name,
                     'applied_on': '1_product',
                     'product_tmpl_id': product.id,
@@ -101,8 +101,8 @@ class WebsitePromotion(models.Model):
                     'price_discount': rec.price_discount,
                     'compute_price': 'formula',
                     'price_surcharge': rec.price_surcharge,
-                }
-                self.env['product.pricelist.item'].create(vals)
+                } for product in rec.template_ids]
+            self.env['product.pricelist.item'].create(vals_list)
 
     @api.multi
     def finished(self):
