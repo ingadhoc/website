@@ -17,7 +17,7 @@ class Website(models.Model):
             from_cart=1,
             update_pricelist=update_pricelist,
         )
-        res = super(Website, self).sale_get_order(
+        res = super().sale_get_order(
             force_create=force_create, code=code,
             update_pricelist=update_pricelist, force_pricelist=force_pricelist)
         return res
