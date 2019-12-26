@@ -7,10 +7,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-08 23:15+0000\n"
-"PO-Revision-Date: 2018-08-23 20:45+0000\n"
+"POT-Creation-Date: 2019-12-26 00:44+0000\n"
+"PO-Revision-Date: 2019-08-19 13:09+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: payment_mercadopago
-#: model:payment.acquirer,cancel_msg:payment_mercadopago.payment_acquirer_mercadopago
+#: model_terms:payment.acquirer,cancel_msg:payment_mercadopago.payment_acquirer_mercadopago
 msgid "<span><i>Cancel,</i> Your payment has been cancelled.</span>"
 msgstr "<span><i>Cancelar,</i> Su pago ha sido cancelado.</span>"
 
 #. module: payment_mercadopago
-#: model:payment.acquirer,done_msg:payment_mercadopago.payment_acquirer_mercadopago
+#: model_terms:payment.acquirer,done_msg:payment_mercadopago.payment_acquirer_mercadopago
 msgid ""
 "<span><i>Done,</i> Your online payment has been successfully processed. "
 "Thank you for your order.</span>"
@@ -34,32 +34,38 @@ msgstr ""
 "por su pedido.</span> "
 
 #. module: payment_mercadopago
-#: model:payment.acquirer,error_msg:payment_mercadopago.payment_acquirer_mercadopago
+#: model_terms:payment.acquirer,error_msg:payment_mercadopago.payment_acquirer_mercadopago
 msgid "Error: Hubo un error en el pago, por favor comuniquese con nosotros."
 msgstr "Error: Hubo un error en el pago, por favor comuniquese con nosotros."
 
 #. module: payment_mercadopago
-#: model:ir.model.fields,help:payment_mercadopago.field_payment_transaction_mercadopago_txn_type
+#: model:ir.model.fields,help:payment_mercadopago.field_payment_transaction__mercadopago_txn_type
 msgid "Informative field computed after payment"
 msgstr "Campo informativo computado luego del pago"
 
 #. module: payment_mercadopago
+#: selection:payment.acquirer,provider:0
+msgid "Manual Configuration"
+msgstr ""
+
+#. module: payment_mercadopago
 #: model:payment.acquirer,name:payment_mercadopago.payment_acquirer_mercadopago
+#: selection:payment.acquirer,provider:0
 msgid "MercadoPago"
 msgstr "MercadoPago"
 
 #. module: payment_mercadopago
-#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_acquirer_mercadopago_client_id
+#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_acquirer__mercadopago_client_id
 msgid "MercadoPago Client Id"
 msgstr "MercadoPago Client Id"
 
 #. module: payment_mercadopago
-#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_acquirer_mercadopago_item_title
+#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_acquirer__mercadopago_item_title
 msgid "MercadoPago Item Title"
 msgstr "Título de Item de MercadoPago"
 
 #. module: payment_mercadopago
-#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_acquirer_mercadopago_secret_key
+#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_acquirer__mercadopago_secret_key
 msgid "MercadoPago Secret Key"
 msgstr "MercadoPago Secret Key"
 
@@ -83,7 +89,7 @@ msgid "Payment Transaction"
 msgstr "Transacción de pago"
 
 #. module: payment_mercadopago
-#: model:payment.acquirer,pending_msg:payment_mercadopago.payment_acquirer_mercadopago
+#: model_terms:payment.acquirer,pending_msg:payment_mercadopago.payment_acquirer_mercadopago
 msgid ""
 "Pendiente de acreditación. Su pago todavía no ha sido confirmado por "
 "Mercadopago, le informaremos cuando esto suceda y validaremos el pedido."
@@ -92,20 +98,35 @@ msgstr ""
 "Mercadopago, le informaremos cuando esto suceda y validaremos el pedido."
 
 #. module: payment_mercadopago
+#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_acquirer__provider
+msgid "Provider"
+msgstr ""
+
+#. module: payment_mercadopago
 #: code:addons/payment_mercadopago/models/payment_acquirer.py:111
 #, python-format
 msgid "Recargo por Mercadopago"
 msgstr "Recargo por Mercadopago"
 
 #. module: payment_mercadopago
-#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_transaction_mercadopago_txn_id
+#: selection:payment.acquirer,provider:0
+msgid "TodoPago"
+msgstr ""
+
+#. module: payment_mercadopago
+#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_transaction__mercadopago_txn_id
 msgid "Transaction ID"
 msgstr "ID de la transacción"
 
 #. module: payment_mercadopago
-#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_transaction_mercadopago_txn_type
+#: model:ir.model.fields,field_description:payment_mercadopago.field_payment_transaction__mercadopago_txn_type
 msgid "Transaction type"
 msgstr "Tipo de transacción"
+
+#. module: payment_mercadopago
+#: selection:payment.acquirer,provider:0
+msgid "Wire Transfer"
+msgstr ""
 
 #. module: payment_mercadopago
 #: code:addons/payment_mercadopago/models/payment_acquirer.py:62
@@ -118,17 +139,17 @@ msgstr ""
 "acquirer.mercadopago_secret_key"
 
 #. module: payment_mercadopago
-#: model:ir.model.fields,help:payment_mercadopago.field_payment_acquirer_mercadopago_item_title
+#: model:ir.model.fields,help:payment_mercadopago.field_payment_acquirer__mercadopago_item_title
 msgid "Yo need to use %s to indicate where SO number must go"
 msgstr "Debe usar %s para indicar donde debe ir el número de la OV"
 
 #. module: payment_mercadopago
-#: model:ir.ui.view,arch_db:payment_mercadopago.acquirer_form_mercadopago
+#: model_terms:ir.ui.view,arch_db:payment_mercadopago.acquirer_form_mercadopago
 msgid "You can get this values from:"
 msgstr "Puede obtener este valor desde:"
 
 #. module: payment_mercadopago
-#: model:payment.acquirer,pre_msg:payment_mercadopago.payment_acquirer_mercadopago
+#: model_terms:payment.acquirer,pre_msg:payment_mercadopago.payment_acquirer_mercadopago
 msgid ""
 "You will be redirected to the MercadoPago website after cliking on the "
 "payment button."
@@ -137,6 +158,6 @@ msgstr ""
 "en el botón de pago."
 
 #. module: payment_mercadopago
-#: model:ir.ui.view,arch_db:payment_mercadopago.acquirer_form_mercadopago
+#: model_terms:ir.ui.view,arch_db:payment_mercadopago.acquirer_form_mercadopago
 msgid "https://www.mercadopago.com/mla/account/credentials"
 msgstr "https://www.mercadopago.com/mla/account/credentials"

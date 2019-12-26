@@ -3,15 +3,14 @@
 # * website_sale_order_type
 # 
 # Translators:
-# Katherine Zaoral <katherine.zaoral@gmail.com>, 2019
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2019
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-08 23:15+0000\n"
-"PO-Revision-Date: 2018-05-23 19:46+0000\n"
+"POT-Creation-Date: 2019-12-26 00:44+0000\n"
+"PO-Revision-Date: 2019-08-18 00:05+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -21,13 +20,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_order_type
-#: model:ir.ui.view,arch_db:website_sale_order_type.view_website_config_settings
+#: model:ir.model,name:website_sale_order_type.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: website_sale_order_type
+#: model_terms:ir.ui.view,arch_db:website_sale_order_type.view_website_config_settings
 msgid "Configure Sale order type to use on Website"
 msgstr "Configurar tipo de venta a ser utilizado en comercio electrónico"
 
 #. module: website_sale_order_type
-#: model:ir.model.fields,field_description:website_sale_order_type.field_res_config_settings_sale_order_type_id
-#: model:ir.model.fields,field_description:website_sale_order_type.field_website_sale_order_type_id
+#: model:ir.model.fields,field_description:website_sale_order_type.field_res_config_settings__sale_order_type_id
+#: model:ir.model.fields,field_description:website_sale_order_type.field_website__sale_order_type_id
 msgid "Sale Order Type"
 msgstr "Tipo de pedido de venta"
 
@@ -35,8 +39,3 @@ msgstr "Tipo de pedido de venta"
 #: model:ir.model,name:website_sale_order_type.model_website
 msgid "Website"
 msgstr "Sitio web"
-
-#. module: website_sale_order_type
-#: model:ir.model,name:website_sale_order_type.model_res_config_settings
-msgid "res.config.settings"
-msgstr "res.config.settings"

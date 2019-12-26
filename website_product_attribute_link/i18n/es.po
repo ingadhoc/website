@@ -7,10 +7,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-08 23:15+0000\n"
-"PO-Revision-Date: 2018-05-30 23:14+0000\n"
+"POT-Creation-Date: 2019-12-26 00:44+0000\n"
+"PO-Revision-Date: 2019-09-25 20:31+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_product_attribute_link
-#: model:ir.model.fields,help:website_product_attribute_link.field_product_attribute_website_link_on_product
+#: model:ir.model.fields,help:website_product_attribute_link.field_product_attribute__website_link_on_product
 msgid ""
 "Add a link on website product view so that user can click on an attribute "
 "value and go to a search of products of that value"
@@ -35,6 +35,6 @@ msgid "Product Attribute"
 msgstr "Atributo de producto"
 
 #. module: website_product_attribute_link
-#: model:ir.model.fields,field_description:website_product_attribute_link.field_product_attribute_website_link_on_product
+#: model:ir.model.fields,field_description:website_product_attribute_link.field_product_attribute__website_link_on_product
 msgid "Website Link On Product"
 msgstr "Enlace al sitio web en el producto"

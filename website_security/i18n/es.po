@@ -7,10 +7,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-08 23:15+0000\n"
-"PO-Revision-Date: 2019-01-05 12:09+0000\n"
+"POT-Creation-Date: 2019-12-26 00:45+0000\n"
+"PO-Revision-Date: 2019-12-13 01:03+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -20,53 +20,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_security
-#: model:ir.model.fields,field_description:website_security.field_website_menu_group_ids
+#: model:ir.model.fields,field_description:website_security.field_website_page__groups_id
 msgid "Groups"
 msgstr "Grupos"
 
 #. module: website_security
-#: model:ir.model.fields,help:website_security.field_website_menu_group_ids
-msgid ""
-"If you have groups, the visibility of this menu will be based on these "
-"groups. If this field is empty, Odoo will compute visibility based on the "
-"related object's read access."
+#: model:ir.model,name:website_security.model_website_page
+msgid "Page"
 msgstr ""
-"Si tiene grupos definidos, la visibilidad de este menú se basará en estos "
-"grupos. Si el campo está vacío, Odoo calculará la visibilidad basada en los "
-"permisos de lectura del objeto relacionado."
 
 #. module: website_security
-#: model:ir.actions.act_window,name:website_security.action_website_menu
-msgid "Menu"
-msgstr "Menú"
+#: model:ir.ui.menu,name:website_security.website_page_menu
+msgid "Pages"
+msgstr ""
 
 #. module: website_security
-#: model:ir.ui.menu,name:website_security.website_menu_menu
-msgid "Menus"
-msgstr "Menús"
-
-#. module: website_security
-#: model:ir.ui.menu,name:website_security.website_sub_menu
-msgid "Security"
-msgstr "Seguridad"
-
-#. module: website_security
-#: model:ir.model.fields,field_description:website_security.field_website_menu_related_view_id
-msgid "View"
-msgstr "Ver"
-
-#. module: website_security
-#: model:ir.actions.act_window,name:website_security.website_action_ui_view
-#: model:ir.ui.menu,name:website_security.menu_website_view
-msgid "Views"
-msgstr "Vistas"
-
-#. module: website_security
-#: model:ir.model,name:website_security.model_website_menu
-msgid "Website Menu"
-msgstr "Menú del sitio web"
-
-#. module: website_security
-#: model:ir.ui.view,arch_db:website_security.menu_form
-msgid "Website Menus"
-msgstr "Website Menus"
+#: model:ir.model.fields,help:website_security.field_website_page__groups_id
+msgid "Si elige algun grupo, solo sera visible para usuarios de ese grupo"
+msgstr ""
