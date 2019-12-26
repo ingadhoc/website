@@ -30,9 +30,6 @@
     ],
     'images': [
     ],
-    'data': [
-        'views/product_product_templates.xml',
-    ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }

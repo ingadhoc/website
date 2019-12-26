@@ -30,15 +30,13 @@
     ],
     'depends': [
         'website',
-        # 'portal',
     ],
     'data': [
-        'views/website_views.xml',
-        'security/security.xml',
+        'views/website_page_views.xml',
     ],
     'demo': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': False,
 }

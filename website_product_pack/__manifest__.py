@@ -28,10 +28,11 @@
     'depends': [
         'website_sale',
         'product_pack',
+        'sale_product_pack',
     ],
     'data': [
         'views/templates.xml',
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': True,
 }
