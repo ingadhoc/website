@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2019
+# Nicolas Robles <nr@adhoc.com.ar>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-26 00:44+0000\n"
+"POT-Creation-Date: 2019-12-26 01:52+0000\n"
 "PO-Revision-Date: 2019-08-19 13:10+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2019\n"
+"Last-Translator: Nicolas Robles <nr@adhoc.com.ar>, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,7 +77,7 @@ msgstr ""
 #. module: payment_todopago
 #: selection:payment.acquirer,provider:0
 msgid "Manual Configuration"
-msgstr ""
+msgstr "Configuración Manual"
 
 #. module: payment_todopago
 #: code:addons/payment_todopago/models/sale_order.py:30
@@ -125,7 +126,7 @@ msgstr "Producción"
 #. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_acquirer__provider
 msgid "Provider"
-msgstr ""
+msgstr "Proveedor"
 
 #. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_transaction__todopago_PublicRequestKey
@@ -140,7 +141,7 @@ msgstr "RequestKey"
 #. module: payment_todopago
 #: model:ir.model,name:payment_todopago.model_sale_order
 msgid "Sale Order"
-msgstr ""
+msgstr "Orden de venta"
 
 #. module: payment_todopago
 #: model_terms:ir.ui.view,arch_db:payment_todopago.acquirer_form_todopago
@@ -150,7 +151,7 @@ msgstr "Prueba"
 #. module: payment_todopago
 #: selection:payment.acquirer,provider:0
 msgid "TodoPago"
-msgstr ""
+msgstr "TodoPago"
 
 #. module: payment_todopago
 #: model:ir.model.fields,field_description:payment_todopago.field_payment_acquirer__todopago_client_id
@@ -200,7 +201,7 @@ msgstr ""
 #. module: payment_todopago
 #: selection:payment.acquirer,provider:0
 msgid "Wire Transfer"
-msgstr ""
+msgstr "Transferencia Bancaria"
 
 #. module: payment_todopago
 #: code:addons/payment_todopago/models/payment_acquirer.py:97
