@@ -85,7 +85,6 @@ class WebsiteDocToc(models.Model):
     ],
         'State',
         required=True,
-        default='private',
         help="If private, then it wont be accesible "
              "by portal or public users",
         index=True,
@@ -118,6 +117,17 @@ class WebsiteDocToc(models.Model):
         'Reading percentage',
         compute="_compute_reading_percentage",
     )
+
+    @api.model
+    def default_get(self, fields):
+        vals = super().default_get(fields)
+        if not self._context.get('from_copy'):
+            vals['state'] = 'private'
+        return vals
+
+    @api.multi
+    def copy(self, default=None):
+        return super(WebsiteDocToc, self.with_context(from_copy=True)).copy(default=default)
 
     @api.multi
     def write(self, vals):
