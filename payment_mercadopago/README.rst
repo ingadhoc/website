@@ -51,13 +51,10 @@ Formas de pagar:
 * Dinero en cuenta: El monto de dinero en cuenta es fijo. No se agota si lo usas en más de un pago y tampoco afecta tu saldo real. Para probar, ingresa cualquier clave y el estado será: approved.
 * Tarjetas de crédito: Puedes usar cualquier código de seguridad. Para probar, elige una de las siguientes tarjetas de acuerdo al estado que quieras obtener:
 
-IMPORTANTE: el sandbox parece no estar andando bien como se dice acá https://www.mercadopago.com.ar/developers/es/solutions/payments/basic-checkout/test y recomiendan usar estas tarjetas para probar https://www.mercadopago.com.ar/developers/es/solutions/payments/basic-checkout/test/test-payments/
-
-  * Visa Nº 4444 4444 4444 0008: approved.
-  * Mastercard Nº 5031 1111 1111 6619: approved.
-  * Mastercard Nº 5031 1111 1111 6601: pending.
-  * American Express Nº 37000 00000 02461: rejected.
-  * Visa Nº 4444 4444 4444 0024: rejected.
+  * Visa N°4170 0688 1010 8020 (cvv 123, fecha vencimiento 11/25)
+  * Mastercard N° 5031 7557 3453 0604 (cvv 123, fecha vencimiento 11/25)
+  * American Express N° 3711 8030 3257 522 (cvv 1234, fecha vencimiento 11/25)
+  * Más tarjetas de pruebas en https://www.mercadopago.com.ar/developers/es/guides/localization/local-cards/
 
 * Boleto, depósito o cupón: Al probar, obtendrás el estado: pending.
 
