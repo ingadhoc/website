@@ -239,10 +239,10 @@ class TodoPagoConnector:
 
         return xmlpayload
 
-    def _sort_rest_params(self, dict, keys_order):
+    def _sort_rest_params(self, data, keys_order):
         sorted_list = []
         for key in keys_order:
-            sorted_list.append((key, dict[key]))
+            sorted_list.append((key, data[key]))
 
         return sorted_list
 
