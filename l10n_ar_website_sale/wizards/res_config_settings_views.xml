@@ -6,9 +6,6 @@
         <field name="priority" eval="10"/>
         <field name="inherit_id" ref="website_sale.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@id='website_tax_inclusion_setting']" position="attributes">
-                <attribute name="groups">saas_client.group_hidden_resources</attribute>
-            </xpath>
             <div id="website_tax_inclusion_setting" position="after">
                 <div class="col-xs-12 col-md-6 o_setting_box" id="website_sale_use_taxes_default">
                     <div class="o_setting_right_pane">
