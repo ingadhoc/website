@@ -32,13 +32,11 @@
         'security/ir.model.access.csv',
     ],
     'demo': [],
-    'images': [
-    ],
     'depends': [
         'website_sale',
         'l10n_ar_account',
         'l10n_ar_sale',
         'product_price_taxes_included',
     ],
-    'installable': False,
+    'installable': True,
 }

@@ -12,7 +12,6 @@ class SaleOrderLine(models.Model):
 
     report_discount = fields.Float(
         compute='_compute_report_discount',
-        string='Discount (%)',
         digits=dp.get_precision('Discount')
     )
 
