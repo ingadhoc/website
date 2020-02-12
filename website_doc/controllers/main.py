@@ -80,8 +80,8 @@ class WebsiteDoc(http.Controller):
     @http.route([
         '/doc/read',
     ], type='json', auth="public", website=True)
-    def read_status(self, id, object, **kwargs):
-        _id = int(id)
-        rec = request.env[object].browse(_id)
+    def read_status(self, record_id, model_name, **kwargs):
+        _id = int(record_id)
+        rec = request.env[model_name].browse(_id)
         rec.inverse_read(not rec.read_status)
         return bool(rec.read_status)

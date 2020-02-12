@@ -133,7 +133,7 @@ class WebsiteDocToc(models.Model):
     def write(self, vals):
         if 'content' in vals:
             for rec in self:
-                rec.message_post(body='Contenido actualizado')
+                rec.message_post(body=_('Contenido actualizado'))
         return super().write(vals)
 
     @api.constrains('state')
