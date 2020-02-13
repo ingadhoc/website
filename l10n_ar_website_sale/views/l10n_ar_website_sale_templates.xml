@@ -50,12 +50,6 @@
                 </div>
             </t>
         </t>
-
-        <div t-attf-class="form-group #{error.get('city') and 'o_has_error' or ''} col-md-8 div_city">
-            <label class="col-form-label" for="city">City</label>
-            <input type="text" name="city" t-attf-class="form-control #{error.get('city') and 'is-invalid' or ''}" t-att-value="'city' in checkout and checkout['city']"/>
-        </div>
-
     </template>
 
     <template id="cart_lines" name="Shopping Cart Lines" inherit_id="website_sale.cart_lines">
