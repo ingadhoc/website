@@ -9,9 +9,9 @@
     </template>
 
     <!-- recuadro antes de pagar que deja elegir entre distintos metodos de envio -->
-    <template id="payment_delivery" inherit_id="website_sale_delivery.payment_delivery" name="Delivery Costs">
-        <xpath expr="//span[@t-if='delivery.fixed_price > 0.0']//t[@t-esc='delivery.fixed_price' and @t-else='']" position="attributes">
-            <attribute name="t-esc">delivery.report_fixed_price</attribute>
+    <template id="payment_delivery_methods" inherit_id="website_sale_delivery.payment_delivery_methods">
+        <xpath expr="//span[@t-field='delivery.fixed_price']" position="attributes">
+            <attribute name="t-field">delivery.report_fixed_price</attribute>
         </xpath>
     </template>
 
