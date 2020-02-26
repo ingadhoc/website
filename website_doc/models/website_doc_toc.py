@@ -145,27 +145,27 @@ class WebsiteDocToc(models.Model):
                 if parents_not_published:
                     raise ValidationError(_(
                         'No puede publicar este articulo porque hay articulos'
-                        ' padres no publicados'))
+                        ' padres no publicados. Doc id %s, parents ids %s') % (rec.id, parents_not_published.ids))
             elif rec.state == 'portal':
                 parents_private = rec.search([
                     ('id', 'parent_of', rec.id), ('state', '=', 'private')])
                 if parents_private:
                     raise ValidationError(_(
                         'No puede publicar este articulo porque hay articulos'
-                        ' padres privados'))
+                        ' padres privados. Doc id %s, parents ids %s') % (rec.id, parents_private.ids))
                 childs_published = rec.search([
                     ('id', 'child_of', rec.id), ('state', '=', 'published')])
                 if childs_published:
                     raise ValidationError(_(
                         'No puede pasar a portal este articulo porque hay '
-                        ' publicados'))
+                        ' publicados. Doc id %s, childs ids %s') % (rec.id, childs_published.ids))
             else:
                 childs_published = rec.search([
                     ('id', 'child_of', rec.id), ('state', '!=', 'private')])
                 if childs_published:
                     raise ValidationError(_(
                         'No puede despublicr este articulo porque hay hijos'
-                        ' publicados'))
+                        ' publicados. Doc id %s, childs ids %s') % (rec.id, childs_published.ids))
 
     @api.multi
     def _get_doc_status(self):
