@@ -104,15 +104,6 @@ class WebsiteDocToc(models.Model):
         help='fa-icon name, you can use any of the icons on '
         'http://fontawesome.io/icons/, for eg. "fa-pencil-square-o"',
     )
-    read_status = fields.Boolean(
-        'Read Status',
-        compute='_compute_read',
-        # inverse='_inverse_read'
-    )
-    reading_percentage = fields.Integer(
-        'Reading percentage',
-        compute="_compute_reading_percentage",
-    )
 
     @api.model
     def default_get(self, fields):
@@ -171,42 +162,6 @@ class WebsiteDocToc(models.Model):
         return self.env['website.doc.status'].search(
             [('user_id', '=', self._uid), ('article_doc_id', '=', self.id)],
             limit=1)
-
-    @api.multi
-    def _compute_reading_percentage(self):
-        _logger.info('Computing reading percentage')
-        for rec in self:
-            child_articules = self.search(
-                [('is_article', '=', True), ('id', 'child_of', rec.id)])
-            if child_articules:
-                total = len(child_articules)
-                child_read = len(child_articules.filtered(
-                    lambda p: p.read_status))
-                rec.reading_percentage = int((
-                    float(child_read) / float(total)) * 100)
-
-    @api.multi
-    def _compute_read(self):
-        _logger.info('Computing read status')
-        for rec in self:
-            rec.read_status = True if rec._get_doc_status() else False
-
-    # lo implementamos sin funcion inverse del campo porque si no requeria
-    # que usuarios portal tengan permiso de escritura sobre este objeto si
-    # bien era un dummy write
-    @api.multi
-    def inverse_read(self, read_status):
-        status_obj = self.env['website.doc.status']
-        for rec in self:
-            status = rec._get_doc_status()
-            if read_status and not status:
-                vals = {
-                    'user_id': rec._uid,
-                    'article_doc_id': rec.id,
-                }
-                status_obj.create(vals)
-            elif not read_status and status:
-                status.unlink()
 
     @api.multi
     # sacamos depends para que no de error con cache y newid
