@@ -17,7 +17,7 @@
         <t t-foreach="titles" t-as="title">
             <t t-if="title.dont_show_childs">
                 <div class="col-sm-3 mt8">
-                    <a t-att-href="title.url_suffix" target="_blank">
+                    <a t-att-href="title.url_suffix">
                         <div class="well well-sm oe_slides_thumbnail_container text-center">
                             <i t-att-class="'fa fa-2x mt4 %s' % title.icon"/>
                             <h5 t-field="title.name"/>
@@ -26,8 +26,10 @@
                 </div>
             </t>
             <t t-if="not title.dont_show_childs">
-                <div t-attf-class="h#{str(level+2) + (level&lt;2 and ' page-header' or '')}">
-                    <a t-att-href="title.url_suffix" t-field="title.name"/>
+                <!-- <div t-attf-class="h#{str(level+2) + (level&lt;2 and ' page-header' or '')}"> -->
+                <div t-attf-class="h#{str(level) + (level&lt;2 and ' page-header' or '')}" t-att-style="level&lt;2 and 'border-bottom: 1px solid #777777; line-height: 2;' or ''">
+                    <!-- <a t-att-href="title.url_suffix" t-field="title.name"/> -->
+                    <t t-field="title.name"/>
                 </div>
                 <t t-set="articles" t-value="title.article_ids"/>
                 <t t-call="website_doc.articles"/>
@@ -80,10 +82,15 @@
                         </li>
                       </ul>
                     </div>
-                    <h1 class="page-header row mt32" style="margin-top: 40px !important;">
+
+                    <h1 t-if="not toc.is_article" class="page-header display-4 mt32" style="margin-top: 40px !important; text-align: center; font-size: 2.5rem;">
                         <t t-esc="toc and toc.name or 'Documentation'"/>
                     </h1>
-                    <t t-set="level" t-value="toc and 1 or 0"/>
+                    <h1 t-if="toc.is_article" class="page-header h1 mt32" style="margin-top: 40px !important;">
+                        <t t-esc="toc and toc.name or 'Documentation'"/>
+                    </h1>
+
+                    <t t-set="level" t-value="0"/>
                     <t t-set="articles" t-value="toc.article_ids"/>
                     <t t-call="website_doc.articles"/>
                     <div t-if="titles and titles[0].dont_show_childs" class="row mt32">
@@ -91,7 +98,7 @@
                     </div>
                     <t t-if="not titles or not titles[0].dont_show_childs" t-call="website_doc.toc"/>
                 </div>
-                <div class="container" t-if="toc.article_type == 'webpage'">
+                <div class="container">
                     <div t-field='toc.content' class="oe_structure"/>
                     <div t-if="toc.is_article">
                         <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>"</h2>
