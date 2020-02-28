@@ -38,5 +38,5 @@
         'l10n_ar_sale',
         'product_price_taxes_included',
     ],
-    'installable': True,
+    'installable': False,
 }

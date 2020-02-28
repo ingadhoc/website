@@ -36,7 +36,7 @@
         'views/product_attributes_templates.xml',
         'security/product_group_security.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }
