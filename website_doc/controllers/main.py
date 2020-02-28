@@ -53,6 +53,14 @@ class WebsiteDoc(http.Controller):
         # else:
         #     account = account_res.browse(account_id)
 
+        if toc and toc.is_article:
+            if toc.article_type == 'google_doc' and toc.google_doc_code:
+                google_doc_url_template = request.env['ir.config_parameter'].sudo().get_param(
+                    'website_doc.google_doc_url_template', default='https://docs.google.com/document/d/%s/view')
+                return werkzeug.utils.redirect(google_doc_url_template % toc.google_doc_code)
+            elif toc.article_type == 'url' and toc.article_url:
+                return werkzeug.utils.redirect(toc.article_url)
+
         if not toc:
             toc = request.env['website.doc.toc']
 

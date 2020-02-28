@@ -29,7 +29,10 @@ Configuration
 
 To configure this module, you need to:
 
-#. Nothing to configure
+#. Create ir with key "website_doc.google_doc_url_template" and value like:
+
+   * https://docs.google.com/document/d/%s/preview
+   * https://docs.google.com/document/d/%s/view
 
 Usage
 =====
