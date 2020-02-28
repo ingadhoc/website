@@ -16,7 +16,7 @@
         <ul t-if="articles">
             <li t-foreach="articles" t-as="article">
                 <!-- <a t-attf-href="/doc/#{slug(article)}" t-field="article.name"/> -->
-                <a t-att-href="article.url_suffix" t-field="article.name"/>
+                <a t-att-href="article.url_suffix" t-field="article.name" target="_blank"/>
                 <t t-call="website_doc.article_read_status"/>
             </li>
         </ul>
@@ -28,7 +28,7 @@
         <t t-foreach="titles" t-as="title">
             <t t-if="title.dont_show_childs">
                 <div class="col-sm-3 mt8">
-                    <a t-att-href="title.url_suffix">
+                    <a t-att-href="title.url_suffix" target="_blank">
                         <div class="well well-sm oe_slides_thumbnail_container text-center">
                             <div class="text-right" groups="base.group_user,base.group_portal">
                                 <span t-field="title.reading_percentage"/>
@@ -111,12 +111,10 @@
                     </div>
                     <t t-if="not titles or not titles[0].dont_show_childs" t-call="website_doc.toc"/>
                 </div>
-                <div class="container">
+                <div class="container" t-if="toc.article_type == 'webpage'">
                     <div t-field='toc.content' class="oe_structure"/>
-                    <t t-raw="toc.google_doc"/>
                     <div t-if="toc.is_article">
-                        <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>
-"</h2>
+                        <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>"</h2>
                         <ul>
                             <t t-foreach="toc.parent_id.article_ids" t-as="topic">
                                 <li>
@@ -124,7 +122,7 @@
                                         <span t-esc="topic.name"/>
                                     </t>
                                     <t t-if="toc.id != topic.id">
-                                        <a t-att-href="topic.url_suffix" t-field="topic.name"/>
+                                        <a t-att-href="topic.url_suffix" t-field="topic.name" target="_blank"/>
                                     </t>
                                     <t t-call="website_doc.article_read_status">
                                         <t t-set="article" t-value="topic"/>
