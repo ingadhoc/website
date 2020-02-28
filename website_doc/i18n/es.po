@@ -79,8 +79,8 @@ msgstr "Agregar a  Documentos de Google?"
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_status__article_doc_id
 #: model:ir.ui.menu,name:website_doc.menu_documentation_article
-msgid "Article"
-msgstr "Artículo"
+msgid "Articles"
+msgstr "Artículos"
 
 #. module: website_doc
 #: model:ir.actions.act_window,name:website_doc.action_documentation_toc_tree_article
@@ -179,19 +179,19 @@ msgstr "Estado de la documentación"
 #: model_terms:ir.ui.view,arch_db:website_doc.view_documentation_toc_filter
 #: model_terms:ir.ui.view,arch_db:website_doc.view_documentation_toc_form
 #: model_terms:ir.ui.view,arch_db:website_doc.view_documentation_toc_list
-msgid "Documentation TOC"
-msgstr "Documentación TOC"
+msgid "Table of Contents"
+msgstr "Tabla de Contenidos"
 
 #. module: website_doc
 #: model:ir.ui.menu,name:website_doc.menu_documentation_toc_tree
-msgid "Documentation TOC Structure"
-msgstr "Documentation TOC Structure"
+msgid "Table of Contents"
+msgstr "Tabla de Contenidos"
 
 #. module: website_doc
 #: model:ir.model,name:website_doc.model_website_doc_toc
 #: model:ir.ui.menu,name:website_doc.menu_documentation_toc
-msgid "Documentation ToC"
-msgstr "Documentation ToC"
+msgid "Table of Contents"
+msgstr "Tabla de Contenidos"
 
 #. module: website_doc
 #: model:ir.model.fields,field_description:website_doc.field_website_doc_toc__dont_show_childs

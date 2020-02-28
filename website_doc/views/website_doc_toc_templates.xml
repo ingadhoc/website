@@ -15,7 +15,7 @@
     <template id="toc" name="Documentation Index">
         <t t-set="level" t-value="level+1"/>
         <t t-foreach="titles" t-as="title">
-            <t t-if="title.dont_show_childs">
+            <t t-if="title.title_view_type == 'kanban'">
                 <div class="col-sm-3 mt8">
                     <a t-att-href="title.url_suffix">
                         <div class="well well-sm oe_slides_thumbnail_container text-center">
@@ -25,7 +25,7 @@
                     </a>
                 </div>
             </t>
-            <t t-if="not title.dont_show_childs">
+            <t t-if="title.title_view_type == 'toc'">
                 <!-- <div t-attf-class="h#{str(level+2) + (level&lt;2 and ' page-header' or '')}"> -->
                 <div t-attf-class="h#{str(level) + (level&lt;2 and ' page-header' or '')}" t-att-style="level&lt;2 and 'border-bottom: 1px solid #777777; line-height: 2;' or ''">
                     <!-- <a t-att-href="title.url_suffix" t-field="title.name"/> -->
@@ -47,7 +47,6 @@
             </t>
         </t>
         <li t-if="toc">
-            <!-- <a t-attf-href="/doc/#{slug(toc)}" t-field="toc.name"/> -->
             <a t-att-href="toc.url_suffix" t-field="toc.name"/>
         </li>
     </template>
@@ -93,10 +92,10 @@
                     <t t-set="level" t-value="0"/>
                     <t t-set="articles" t-value="toc.article_ids"/>
                     <t t-call="website_doc.articles"/>
-                    <div t-if="titles and titles[0].dont_show_childs" class="row mt32">
+                    <div t-if="titles and titles[0].title_view_type == 'kanban'" class="row mt32">
                         <t t-call="website_doc.toc"/>
                     </div>
-                    <t t-if="not titles or not titles[0].dont_show_childs" t-call="website_doc.toc"/>
+                    <t t-if="not titles or titles[0].title_view_type == 'toc'" t-call="website_doc.toc"/>
                 </div>
                 <div class="container">
                     <div t-field='toc.content' class="oe_structure"/>
@@ -123,7 +122,6 @@
     <!-- Search -->
     <!-- search icon on documntation breadcrumb -->
     <template id="breadcrumb_search" inherit_id="website_doc.documentation_post" name="Documentation breadcrumb search">
-        <!-- <xpath expr="//h1[@class='page-header mt16']" position="before"> -->
         <div id="doc-page" position="before">
             <div class="container">
                 <!-- hasta que hagamos la busqueda tmb compatible con no estar en un doc -->
