@@ -3,7 +3,10 @@
 # directory
 ##############################################################################
 from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
+from odoo.addons.google_account.models.google_service import TIMEOUT
+import requests
+import json
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -85,7 +88,15 @@ class WebsiteDocToc(models.Model):
              "by portal or public users",
         index=True,
     )
+    # TODO borrar. Para no renegar con script de migra y por las dudas por ahora lo dejamos
     dont_show_childs = fields.Boolean(
+    )
+    title_view_type = fields.Selection([
+        ('toc', 'Table Of Content'),
+        ('kanban', 'Kanban'),
+        ('invisible', 'Invisible'),
+    ],
+        default='toc',
     )
     url_suffix = fields.Char(
         compute='_compute_url',
@@ -208,4 +219,55 @@ class WebsiteDocToc(models.Model):
             'view_id': False,
             'type': 'ir.actions.act_window',
             'domain': [('parent_id', '=', self.id)],
+            'context': {'default_parent_id': self.id},
         }
+
+    def create_google_doc(self):
+        self.ensure_one()
+        template_id = self.env['ir.config_parameter'].sudo().get_param('website_doc.gdoc_template_id')
+        if not template_id:
+            raise ValidationError(_(
+                "You need to create an ir.config_parameter with key 'website_doc.gdoc_template_id' and the google"
+                " doc id of your template"))
+        res_id = self.id
+        res_model = self._name
+        name_gdocs = 'Articulo: %s' % self.name
+        google_web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        access_token = self.env['google.drive.config'].get_access_token()
+        # Copy template in to drive with help of new access token
+        request_url = "https://www.googleapis.com/drive/v2/files/%s?fields=parents/id&access_token=%s" % (
+            template_id, access_token)
+        headers = {"Content-type": "application/x-www-form-urlencoded"}
+        try:
+            req = requests.get(request_url, headers=headers, timeout=TIMEOUT)
+            req.raise_for_status()
+            parents_dict = req.json()
+        except requests.HTTPError:
+            raise UserError(_("The Google Template cannot be found. Maybe it has been deleted."))
+
+        record_url = "Click on link to open Record in Odoo\n %s/?db=%s#id=%s&model=%s" % (
+            google_web_base_url, self._cr.dbname, res_id, res_model)
+        data = {
+            "title": name_gdocs,
+            "description": record_url,
+            "parents": parents_dict['parents']
+        }
+        request_url = "https://www.googleapis.com/drive/v2/files/%s/copy?access_token=%s" % (template_id, access_token)
+        headers = {
+            'Content-type': 'application/json',
+            'Accept': 'text/plain'
+        }
+        # resp, content = Http().request(request_url, "POST", data_json, headers)
+        req = requests.post(request_url, data=json.dumps(data), headers=headers, timeout=TIMEOUT)
+        req.raise_for_status()
+        content = req.json()
+        res = {}
+        if content.get('alternateLink'):
+            self.google_doc_code = content['id']
+            res['id'] = self.env["ir.attachment"].create({
+                'res_model': res_model,
+                'name': name_gdocs,
+                'res_id': res_id,
+                'type': 'url',
+                'url': content['alternateLink']
+            }).id
