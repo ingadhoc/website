@@ -21,13 +21,14 @@
     'name': 'Website Documentation',
     'category': 'Website',
     'summary': 'Website, Documentation',
-    'version': '12.0.1.4.0',
+    'version': '12.0.1.5.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'depends': [
         'base_search_fuzzy',
         'base_name_search_improved',
+        'google_drive',
         'website',
     ],
     'external_dependencies': {
