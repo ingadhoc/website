@@ -56,27 +56,23 @@ class WebsiteDocToc(models.Model):
         copy=True,
         auto_join=True,
     )
-    add_google_doc = fields.Boolean(
-        'Add Google Doc?',
-        help="Add Google Doc after Page Content?",
+    article_type = fields.Selection([
+        ('webpage', 'Web Page'),
+        ('google_doc', 'Google Doc'),
+        ('url', 'URL'),
+    ],
+        string='Articule Type',
+        default='webpage',
     )
-    google_doc_link = fields.Char(
-        'Google Document Link',
+    article_url = fields.Char(
+        'Article URL',
     )
     google_doc_code = fields.Char(
         'Google Document Code',
     )
-    google_doc_height = fields.Char(
-        'Google Document Height',
-        default='1050px',
-    )
     content = fields.Html(
         'Content',
         sanitize=False,
-    )
-    google_doc = fields.Text(
-        'Google Content',
-        compute='_compute_google_doc',
     )
     state = fields.Selection([
         ('private', 'Is Private'),
@@ -241,15 +237,6 @@ class WebsiteDocToc(models.Model):
                 ('is_article', '=', False),
                 ('parent_id', '=', False)], limit=1).id
 
-    @api.depends('google_doc_code', 'google_doc_height')
-    def _compute_google_doc(self):
-        for rec in self:
-            rec.google_doc = False
-            if rec.google_doc_height and rec.google_doc_code:
-                google_doc = google_doc_template % (
-                    rec.google_doc_height, rec.google_doc_code)
-                rec.google_doc = google_doc
-
     @api.constrains('parent_id')
     def _check_parent_id(self):
         if not self._check_recursion():
@@ -267,29 +254,3 @@ class WebsiteDocToc(models.Model):
             'type': 'ir.actions.act_window',
             'domain': [('parent_id', '=', self.id)],
         }
-
-
-google_doc_template = """
- <div class="row">
-    <iframe id="google-doc-iframe" srcdoc="" style="height: %s; margin:
-     0 auto; padding-left: 20px; padding-right: 20px" align="middle"
-     frameborder="0" width="100%%" height="300" scrolling="no">
-    </iframe>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
-    </script>
-    <script>
-    $(function() {
-        $.get("https://docs.google.com/document/d/%s/pub?", function(html) {
-            $("#google-doc-iframe").attr("srcdoc", html);
-            setTimeout(function() {
-                $("#google-doc-iframe").contents().find(
-                'a[href^="http://"]').attr("target", "_blank");
-                $("#google-doc-iframe").contents().find(
-                'a[href^="https://"]').attr("target", "_blank");
-            }, 1000);
-        });
-    });
-    </script>
-</div>
-"""

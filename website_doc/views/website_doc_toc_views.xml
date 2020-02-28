@@ -76,12 +76,9 @@
                     <!-- <field name="parent_id" invisible="'from_parent' in context" attrs="{'invisible':[('is_article', '=', True)]}"/> -->
                     <field name="icon" attrs="{'invisible':[('dont_show_childs', '=', False)]}"/>
                     <field name="dont_show_childs" attrs="{'invisible':[('is_article', '=', True)]}"/>
-                    <field name="add_google_doc" attrs="{'invisible':[('is_article', '=', False)]}"/>
-                </group>
-                <group attrs="{'invisible':[('add_google_doc', '=', False)]}">
-                    <field name="google_doc_code" attrs="{'required':[('add_google_doc', '=', True)]}"/>
-                    <field name="google_doc_height" attrs="{'required':[('add_google_doc', '=', True)]}"/>
-                    <field name="google_doc_link" widget="url"/>
+                    <field name="article_type" attrs="{'invisible':[('is_article', '=', False)]}"/>
+                    <field name="google_doc_code" attrs="{'invisible':['|', ('is_article', '=', False), ('article_type', '!=', 'google_doc')], 'required':[('is_article', '=', True), ('article_type', '=', 'google_doc')]}"/>
+                    <field name="article_url" attrs="{'invisible':['|', ('is_article', '=', False), ('article_type', '!=', 'url')], 'required':[('is_article', '=', True), ('article_type', '=', 'url')]}" widget="url"/>
                 </group>
                 <notebook>
                     <page string="Articles" attrs="{'invisible':[('is_article', '=', True)]}">
