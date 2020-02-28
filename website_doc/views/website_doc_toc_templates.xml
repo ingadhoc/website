@@ -1,23 +1,12 @@
 <?xml version="1.0"?>
 <odoo>
 
-    <template id="article_read_status" name="Article Read Status">
-        <!-- lo mostramos solo para usuarios portal o empleados, asi no recae la performance admeas -->
-        <!-- ponemos style con important porque algunos temas pisan con important lo que hace oe_link -->
-        <div groups="base.group_user,base.group_portal" style="display: inline-block;" t-attf-class="js_publish_management oe_inline #{article.read_status and 'css_published' or 'css_unpublished'}" t-att-data-id="article.id" t-att-data-object="article._name" t-att-data-controller="(uuid and remote_uid) and '/doc/read/%s/%s' % (uuid, remote_uid) or '/doc/read/'">
-
-            <button style="background-color: transparent !important; color: #337ab7 !important;" class="btn btn-s fa fa-circle-o btn-danger js_publish_btn btn-link" title="Marcar este artículo como leído"/>
-            <button style="background-color: transparent !important; color: #337ab7 !important;" class="btn btn-s fa fa-check-circle-o btn-success js_publish_btn btn-link" title="Marcar este artículo como NO leído"/>
-        </div>
-    </template>
-
     <!-- Page Index -->
     <template id="articles" name="Documentation Articles">
         <ul t-if="articles">
             <li t-foreach="articles" t-as="article">
                 <!-- <a t-attf-href="/doc/#{slug(article)}" t-field="article.name"/> -->
                 <a t-att-href="article.url_suffix" t-field="article.name" target="_blank"/>
-                <t t-call="website_doc.article_read_status"/>
             </li>
         </ul>
     </template>
@@ -30,10 +19,6 @@
                 <div class="col-sm-3 mt8">
                     <a t-att-href="title.url_suffix" target="_blank">
                         <div class="well well-sm oe_slides_thumbnail_container text-center">
-                            <div class="text-right" groups="base.group_user,base.group_portal">
-                                <span t-field="title.reading_percentage"/>
-%
-                            </div>
                             <i t-att-class="'fa fa-2x mt4 %s' % title.icon"/>
                             <h5 t-field="title.name"/>
                         </div>
@@ -97,11 +82,6 @@
                     </div>
                     <h1 class="page-header row mt32" style="margin-top: 40px !important;">
                         <t t-esc="toc and toc.name or 'Documentation'"/>
-                        <t t-if="toc.is_article">
-                            <t t-call="website_doc.article_read_status">
-                                <t t-set="article" t-value="toc"/>
-                            </t>
-                        </t>
                     </h1>
                     <t t-set="level" t-value="toc and 1 or 0"/>
                     <t t-set="articles" t-value="toc.article_ids"/>
@@ -123,9 +103,6 @@
                                     </t>
                                     <t t-if="toc.id != topic.id">
                                         <a t-att-href="topic.url_suffix" t-field="topic.name" target="_blank"/>
-                                    </t>
-                                    <t t-call="website_doc.article_read_status">
-                                        <t t-set="article" t-value="topic"/>
                                     </t>
                                 </li>
                             </t>
