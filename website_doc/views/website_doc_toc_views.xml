@@ -65,10 +65,10 @@
                         <field name="article_url" attrs="{'invisible':['|', ('is_article', '=', False), ('article_type', '!=', 'url')], 'required':[('is_article', '=', True), ('article_type', '=', 'url')]}" widget="url"/>
                     </group>
                     <group>
-                        <field name="parent_id" invisible="'from_parent' in context" groups="base.group_no_one"/>
+                        <field name="parent_id" invisible="'from_parent' in context"/>
                         <field name="is_article" invisible="'from_parent' in context"/>
                         <field name="url_suffix" widget="url"/>
-                        <field name="documentation_id" groups="base.group_no_one"/>
+                        <field name="documentation_id"/>
                     </group>
                 </group>
                 <notebook>
