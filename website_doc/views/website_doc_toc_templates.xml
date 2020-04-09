@@ -97,9 +97,9 @@
                     </div>
                     <t t-if="not titles or titles[0].title_view_type == 'toc'" t-call="website_doc.toc"/>
                 </div>
-                <div class="container">
+                <div>
                     <div t-field='toc.content' class="oe_structure"/>
-                    <div t-if="toc.is_article">
+                    <div t-if="toc.is_article" class="container">
                         <h2 class="page-header">También dentro de "<span t-field="toc.parent_id.name"/>"</h2>
                         <ul>
                             <t t-foreach="toc.parent_id.article_ids" t-as="topic">
