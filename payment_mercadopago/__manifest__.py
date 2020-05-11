@@ -40,6 +40,6 @@
     'demo': [
         'demo/payment_acquirer_demo.xml',
     ],
-    'installable': False,
+    'installable': True,
     'post_init_hook': 'create_missing_journal_for_acquirers',
 }

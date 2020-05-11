@@ -35,7 +35,7 @@ class AcquirerMercadopago(models.Model):
         res['fees'].append('mercadopago')
         return res
 
-    @api.multi
+
     def mercadopago_compute_fees(self, amount, currency_id, country_id):
         self.ensure_one()
         if not self.fees_active:
@@ -50,7 +50,7 @@ class AcquirerMercadopago(models.Model):
         fees = percentage / 100.0 * amount + fixed
         return fees
 
-    @api.multi
+
     def mercadopago_form_generate_values(self, values):
         self.ensure_one()
         tx_values = dict(values)
@@ -135,16 +135,17 @@ class AcquirerMercadopago(models.Model):
             "external_reference": tx_values["reference"],
             "expires": False,
         }
+        environment = self.state == 'enabled' and 'prod' or 'test'
         tx_values.update({
             'mercadopago_data': {
                 'mercadopago_preference': preference,
                 'mercadopago_client_id': self.mercadopago_client_id,
                 'mercadopago_secret_key': self.mercadopago_secret_key,
-                'environment': self.environment,
+                'environment': environment,
             }})
         return tx_values
 
-    @api.multi
+
     def mercadopago_get_form_action_url(self):
         self.ensure_one()
         return MercadoPagoController._create_preference_url
