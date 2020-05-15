@@ -9,8 +9,7 @@
                 <button name="toggle_website_published"
                     class="oe_stat_button"
                     type="object" icon="fa-globe">
-                    <field name="website_published" widget="boolean_button"
-                        options='{"terminology": {"string_true": "Published", "hover_false": "Publish"}}'/>
+                    <field name="website_published" widget="website_publish_button"/>
                 </button>
             </div>
         </field>

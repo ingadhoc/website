@@ -20,7 +20,7 @@
 {
     'name': 'Website Sale Stock UX',
     'category': 'base.module_category_knowledge_management',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -32,5 +32,5 @@
     'data': [
         'views/stock_warehouse_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

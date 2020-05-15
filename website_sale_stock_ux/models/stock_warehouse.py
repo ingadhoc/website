@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class StockWarehouse(models.Model):
@@ -13,7 +13,6 @@ class StockWarehouse(models.Model):
         "e-commerce"
     )
 
-    @api.multi
     def toggle_website_published(self):
         self.ensure_one()
         self.website_published = not self.website_published
