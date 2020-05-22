@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<odoo noupdate="1">
-    <record model="ir.model" id="model_website_doc_toc">
-        <field name="add_smart_search" eval="True"/>
-        <field name="name_search_ids" eval="[(6, 0, [ref('website_doc.field_website_doc_toc__content'), ref('website_doc.field_website_doc_toc__name')])]"/>
-    </record>
-</odoo>
