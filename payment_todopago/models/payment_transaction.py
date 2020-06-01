@@ -53,12 +53,10 @@ class TxTodoPago(models.Model):
         transaction.todopago_Answer = Answer
         return transaction
 
-    @api.multi
     def _todopago_form_get_invalid_parameters(self, data):
         invalid_parameters = []
         return invalid_parameters
 
-    @api.multi
     def _todopago_form_validate(self, data):
         """
         """
@@ -77,10 +75,10 @@ class TxTodoPago(models.Model):
             return True
         # we need to get answer form todopago
         todopago_client_id = self.acquirer_id.todopago_client_id \
-            if self.acquirer_id.environment == 'prod' \
+            if self.acquirer_id.self.state == 'enabled' \
             else self.acquirer_id.todopago_test_client_id
         todopago_secret_key = self.acquirer_id.todopago_secret_key \
-            if self.acquirer_id.environment == 'prod' \
+            if self.acquirer_id.self.state == 'enabled' \
             else self.acquirer_id.todopago_test_secret_key
 
         answer_data = {

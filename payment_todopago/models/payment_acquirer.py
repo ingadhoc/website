@@ -9,7 +9,7 @@ from urllib.parse import urljoin
 from werkzeug import urls
 from email.utils import parseaddr
 
-from odoo import api, fields, models, _
+from odoo import fields, models, _
 from odoo.http import request
 from odoo.tools.safe_eval import safe_eval
 from odoo.addons.payment.models.payment_acquirer import ValidationError
@@ -48,20 +48,18 @@ class AcquirerTodopago(models.Model):
     fees_int_fixed = fields.Float(default=0)
     fees_int_var = fields.Float(default=10)
 
-    @api.multi
     def get_TodoPagoConnector(self):
         self.ensure_one()
         todopago_secret_key = self.todopago_secret_key \
-            if self.environment == 'prod' else self.todopago_test_secret_key
+            if self.state == 'enabled' else self.todopago_test_secret_key
         j_header_http = {"Authorization": todopago_secret_key}
-        return tp.TodoPagoConnector(j_header_http, self.environment)
+        return tp.TodoPagoConnector(j_header_http, 'prod' if self.state == 'enabled' else 'test')
 
     def _get_feature_support(self):
         res = super(AcquirerTodopago, self)._get_feature_support()
         res['fees'].append('todopago')
         return res
 
-    @api.multi
     def todopago_compute_fees(self, amount, currency_id, country_id):
         self.ensure_one()
         if not self.fees_active:
@@ -76,7 +74,6 @@ class AcquirerTodopago(models.Model):
         fees = percentage / 100.0 * amount + fixed
         return fees
 
-    @api.multi
     def todopago_form_generate_values(self, values):
         """
         Por ahora stamos haciendo que si no vienen datos se usen datos del
@@ -85,9 +82,9 @@ class AcquirerTodopago(models.Model):
         # return {}, tx_values
         # return values, tx_values
         todopago_client_id = self.todopago_client_id \
-            if self.environment == 'prod' else self.todopago_test_client_id
+            if self.state == 'enabled' else self.todopago_test_client_id
         todopago_secret_key = self.todopago_secret_key \
-            if self.environment == 'prod' else self.todopago_test_secret_key
+            if self.state == 'enabled' else self.todopago_test_secret_key
         self.ensure_one()
         tx_values = dict(values)
         if (
@@ -302,7 +299,6 @@ class AcquirerTodopago(models.Model):
         })
         return tx_values
 
-    @api.multi
     def todopago_get_form_action_url(self):
         """
         Este metodo se llama cada vez que se ve el boton asi que no
@@ -311,7 +307,6 @@ class AcquirerTodopago(models.Model):
         self.ensure_one()
         return TodoPagoController._create_preference_url
 
-    @api.multi
     def _todopago_create_transaction(self, data):
         # TODO en realidad podriamos consturir toda la data aca y no en
         # todopago_form_generate_values
