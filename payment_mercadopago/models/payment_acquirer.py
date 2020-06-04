@@ -5,7 +5,7 @@
 import urllib.parse as urlparse
 from odoo.addons.payment.models.payment_acquirer import ValidationError
 from ..controllers.main import MercadoPagoController
-from odoo import api, fields, models, _
+from odoo import fields, models, _
 import werkzeug
 
 
@@ -35,7 +35,6 @@ class AcquirerMercadopago(models.Model):
         res['fees'].append('mercadopago')
         return res
 
-
     def mercadopago_compute_fees(self, amount, currency_id, country_id):
         self.ensure_one()
         if not self.fees_active:
@@ -49,7 +48,6 @@ class AcquirerMercadopago(models.Model):
             fixed = self.fees_int_fixed
         fees = percentage / 100.0 * amount + fixed
         return fees
-
 
     def mercadopago_form_generate_values(self, values):
         self.ensure_one()
@@ -144,7 +142,6 @@ class AcquirerMercadopago(models.Model):
                 'environment': environment,
             }})
         return tx_values
-
 
     def mercadopago_get_form_action_url(self):
         self.ensure_one()
