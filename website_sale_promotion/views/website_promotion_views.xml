@@ -67,7 +67,6 @@
     <record id="action_website_promotion" model="ir.actions.act_window">
         <field name="name">Website Promotion</field>
         <field name="res_model">website.promotion</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="view_website_promotion_tree"/>
         <field name="domain">[]</field>
