@@ -2,7 +2,7 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class WebsitePromotion(models.Model):
@@ -76,12 +76,10 @@ class WebsitePromotion(models.Model):
         readonly=True,
         states={'draft': [('readonly', False)]})
 
-    @api.multi
     def to_draft(self):
         for rec in self:
             rec.state = 'draft'
 
-    @api.multi
     def confirm(self):
         for rec in self:
             rec.state = 'confirm'
@@ -104,7 +102,6 @@ class WebsitePromotion(models.Model):
                 } for product in rec.template_ids]
             self.env['product.pricelist.item'].create(vals_list)
 
-    @api.multi
     def finished(self):
         for rec in self:
             rec.state = 'finished'
