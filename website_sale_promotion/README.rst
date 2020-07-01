@@ -34,7 +34,7 @@ Usage
 
 To use this module, you need to:
 
-#. Go to ...
+#. Go to Sale > Configuration > Products Promotion, and create a new Website Promotion
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot

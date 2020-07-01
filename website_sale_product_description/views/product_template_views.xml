@@ -5,7 +5,7 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="website_sale.product_template_form_view"/>
         <field name="arch" type="xml">
-            <group name="extra_images" position="after">
+            <group name="product_template_images" position="after">
                 <group name="description_website" string="Description for Website">
                     <field name="description_website" nolabel="1" placeholder="Description to be displayed on product's page..."/>
                 </group>
