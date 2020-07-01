@@ -136,9 +136,8 @@ class AcquirerMercadopago(models.Model):
         environment = self.state == 'enabled' and 'prod' or 'test'
         tx_values.update({
             'mercadopago_data': {
+                'acquirer_id': self.id,
                 'mercadopago_preference': preference,
-                'mercadopago_client_id': self.mercadopago_client_id,
-                'mercadopago_secret_key': self.mercadopago_secret_key,
                 'environment': environment,
             }})
         return tx_values
