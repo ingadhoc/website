@@ -12,7 +12,6 @@ class SaleOrder(models.Model):
 
     report_amount_delivery = fields.Float(
         compute='_compute_report_amount_delivery',
-        string='Delivery Amount',
         digits=dp.get_precision('Account'),
     )
 

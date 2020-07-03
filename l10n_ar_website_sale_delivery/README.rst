@@ -15,7 +15,7 @@ eCommerce Delivery with taxes included
 ======================================
 
 This module include taxes on delivery costs of ecommerce, this by taking into
-account the customer afip responsability categories (should not or should see
+account the customer Afip Responsibility (should not or should see
 detailed taxes).
 
 Installation
