@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <template id="product_attributes" inherit_id="website_sale.product_attributes" name="Product attributes Link">
-    <xpath expr="//span[@t-field='variant_id.value_ids[0].name']" position="replace">
+  <template id="product" inherit_id="website_sale.product" name="Product attributes Link">
+    <xpath expr="//span[@t-field='ptal.product_template_value_ids._only_active().name']" position="replace">
       <!-- if website link we add link, on link we reset category and search -->
-      <a t-if="variant_id.attribute_id.website_link_on_product" t-att-href="keep('/shop/', attrib=['%s-%s' % (variant_id.attribute_id.id, variant_id.value_ids[0].id)], search='', category=0)">
-        <span t-field="variant_id.value_ids[0].name"/>
+      <t t-set="single_value" t-value="product.valid_product_template_attribute_line_ids._prepare_single_value()"/>
+      <a t-if="single_value.attribute_id.website_link_on_product" t-att-href="keep('/shop/', attrib=['%s-%s' % (attribute.id, single_value.value_ids[0].id)], search='', category=0)">
+        <span t-field="ptal.product_template_value_ids._only_active().name"/>
       </a>
       <!-- if no website link we keep original -->
-      <t t-if="not variant_id.attribute_id.website_link_on_product">
-        <span t-field="variant_id.value_ids[0].name" />
+      <t t-if="not single_value.attribute_id.website_link_on_product">
+        <span t-field="ptal.product_template_value_ids._only_active().name" />
       </t>
     </xpath>
   </template>
