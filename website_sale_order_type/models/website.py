@@ -2,7 +2,7 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from odoo import models, fields, api
+from odoo import models, fields
 from odoo.http import request
 
 
@@ -14,7 +14,6 @@ class Website(models.Model):
         string='Sale Order Type',
     )
 
-    @api.multi
     def _prepare_sale_order_values(self, partner, pricelist):
         res = super(Website, self)._prepare_sale_order_values(
             partner=partner, pricelist=pricelist)
