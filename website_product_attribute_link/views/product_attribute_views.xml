@@ -10,4 +10,15 @@
             </tree>
         </field>
     </record>
+
+    <record id="product_attribute_view_form" model="ir.ui.view">
+        <field name="name">product.attribute.form.type</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form"></field>
+        <field name="arch" type="xml">
+            <group>
+                <field name="website_link_on_product" widget="boolean_toggle"/>
+            </group>
+        </field>
+    </record>
 </odoo>
