@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="breadcrumb_recursive">
+            <t t-if="category.parent_id">
+                <t t-set="category" t-value="category.parent_id"/>
+                <t t-call="website_sale_breadcrumb.breadcrumb_recursive"/>
+                <li class="breadcrumb-item">
+                    <a t-att-href="keep('/shop/category/' + slug(category), category=0)" t-field="category.name"></a>
+                </li>
+            </t>
+        </template>
+
+        <template id="product_breadcrumb">
+            <ol class="breadcrumb">
+                <t t-if="len(product.public_categ_ids) > 0">
+                    <t t-set="category" t-value="product.public_categ_ids[0]"/>
+                    <li class="breadcrumb-item">
+                        <a t-att-href="keep('/shop',category=0)">Products</a>
+                    </li>
+                    <t t-call="website_sale_breadcrumb.breadcrumb_recursive"/>
+                    <li class="breadcrumb-item">
+                        <a t-att-href="keep('/shop/category/' + slug(category), category=0)" t-field="category.name"></a>
+                    </li>
+                </t>
+                <li class="breadcrumb-item active">
+                    <span t-esc="product.name"></span>
+                </li>
+            </ol>
+        </template>
+
+        <template id="category_breadcrumb">
+            <ol class="breadcrumb">
+                <t t-if="category">
+                    <li class="breadcrumb-item">
+                        <a t-att-href="keep('/shop',category=0)">Products</a>
+                    </li>
+                    <t t-call="website_sale_breadcrumb.breadcrumb_recursive"/>
+                    <li class="breadcrumb-item active"><span t-esc="category.name"></span></li>
+                </t>
+            </ol>
+        </template>
+
+        <template id="product" inherit_id="website_sale.product" customize_show="True" name="Full Route Breadcrumb">
+            <xpath expr="//ol[hasclass('breadcrumb')]" position="attributes">
+                <attribute name="t-if">False</attribute>
+            </xpath>
+            <xpath expr="//ol[hasclass('breadcrumb')]" position="before">
+                <t t-call="website_sale_breadcrumb.product_breadcrumb"/>
+            </xpath>
+        </template>
+
+        <template id="products" inherit_id="website_sale.products" customize_show="True" name="Full Route Breadcrumb">
+            <xpath expr="//div[hasclass('products_pager')]" position="before">
+                <t t-call="website_sale_breadcrumb.category_breadcrumb"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>
