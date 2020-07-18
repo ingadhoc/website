@@ -26,7 +26,8 @@ class ResPartner(models.Model):
     def _get_vat_discriminated(self, partner, company):
         """ partner expected commercial_partner.
         """
-        if self.env['website'].is_public_user():
+        # We validate that is call from the website not for other models
+        if getattr(self, 'website', None) and self.env['website'].is_public_user():
             default_tax = self.env['ir.config_parameter'].sudo().get_param(
                 'l10n_ar_website_sale.sale_use_taxes_default', default='b2c')
             return True if default_tax == 'b2b' else False
