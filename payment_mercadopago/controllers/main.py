@@ -28,21 +28,18 @@ class MercadoPagoController(http.Controller):
     ],
         type='http', auth="none", csrf=False)
     def mercadopago_create_preference(self, **post):
-        _logger.info(
-            'Mercadopago: create preference with post data %s',
-            pprint.pformat(post))
         # TODO podriamos pasar cada elemento por separado para no necesitar
         # el literal eval
         mercadopago_data = safe_eval(post.get('mercadopago_data', {}))
-        if not mercadopago_data:
+        acquirer = request.env['payment.acquirer'].browse(mercadopago_data.get('acquirer_id')).sudo()
+        if not acquirer:
             return werkzeug.utils.redirect("/")
+
         environment = mercadopago_data.get('environment')
         mercadopago_preference = mercadopago_data.get(
             'mercadopago_preference')
-        mercadopago_client_id = mercadopago_data.get(
-            'mercadopago_client_id')
-        mercadopago_secret_key = mercadopago_data.get(
-            'mercadopago_secret_key')
+        mercadopago_client_id = acquirer.mercadopago_client_id
+        mercadopago_secret_key = acquirer.mercadopago_secret_key
         if (
                 not environment or
                 not mercadopago_preference or
@@ -58,7 +55,8 @@ class MercadoPagoController(http.Controller):
         else:
             MPago.sandbox_mode(True)
         preferenceResult = MPago.create_preference(mercadopago_preference)
-        _logger.info('Preference Result: %s' % preferenceResult)
+        if environment != "prod":
+            _logger.info('Preference Result: %s' % preferenceResult)
 
         # # TODO validate preferenceResult response
         if environment == "prod":
@@ -75,7 +73,7 @@ class MercadoPagoController(http.Controller):
     ],
         type='http', auth="none",
         # csrf=False,
-        )
+    )
     def mercadopago_back_no_return(self, **post):
         """
         Odoo, si usas el boton de pago desde una sale order o email, no manda
