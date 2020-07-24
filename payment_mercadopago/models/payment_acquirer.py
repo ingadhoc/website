@@ -137,9 +137,8 @@ class AcquirerMercadopago(models.Model):
         }
         tx_values.update({
             'mercadopago_data': {
+                'acquirer_id': self.id,
                 'mercadopago_preference': preference,
-                'mercadopago_client_id': self.mercadopago_client_id,
-                'mercadopago_secret_key': self.mercadopago_secret_key,
                 'environment': self.environment,
             }})
         return tx_values
