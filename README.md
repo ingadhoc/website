@@ -5,7 +5,7 @@
 
 # ADHOC website
 
-ADHOC Odoo website Modules
+ADHOC Odoo website Modules - An Amazing Project
 
 [//]: # (addons)
 [//]: # (end addons)
