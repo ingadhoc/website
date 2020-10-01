@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/ingadhoc/website/badge.png?branch=13.0)](https://coveralls.io/r/ingadhoc/website?branch=13.0)
 [![Code Climate](https://codeclimate.com/github/ingadhoc/website/badges/gpa.svg)](https://codeclimate.com/github/ingadhoc/website)
 
-# ADHOC website
+# ADHOC website (PROJECTS)
 
 ADHOC Odoo website Modules
 
