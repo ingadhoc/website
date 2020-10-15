@@ -3,19 +3,19 @@
     <template id="cart_lines" name="Shopping Cart Lines" inherit_id="website_sale.cart_lines">
 
         <xpath expr="//i[hasclass('fa-minus')]/.." position="attributes">
-            <attribute name="t-if">(not line.pack_parent_line_id or (line.pack_parent_line_id and line.pack_parent_line_id.product_id.pack_modifiable == 'frontend_backend')) and True or False</attribute>
+            <attribute name="t-if">(not line.pack_parent_line_id or (line.pack_parent_line_id and line.pack_parent_line_id.product_id.pack_modifiable)) and True or False</attribute>
         </xpath>
 
         <xpath expr="//i[hasclass('fa-plus')]/.." position="attributes">
-            <attribute name="t-if">(not line.pack_parent_line_id or (line.pack_parent_line_id and line.pack_parent_line_id.product_id.pack_modifiable == 'frontend_backend')) and True or False</attribute>
+            <attribute name="t-if">(not line.pack_parent_line_id or (line.pack_parent_line_id and line.pack_parent_line_id.product_id.pack_modifiable)) and True or False</attribute>
         </xpath>
 
         <xpath expr="//input[hasclass('js_quantity')]" position="attributes">
-            <attribute name="t-att-readonly">(line.pack_parent_line_id and not line.pack_parent_line_id.product_id.pack_modifiable == 'frontend_backend') and 'readonly' or None</attribute>
+            <attribute name="t-att-readonly">(line.pack_parent_line_id and not line.pack_parent_line_id.product_id.pack_modifiable) and 'readonly' or None</attribute>
         </xpath>
 
         <xpath expr="//a[hasclass('js_delete_product')]" position="attributes">
-            <attribute name="t-if">not (line.pack_parent_line_id and not line.pack_parent_line_id.product_id.pack_modifiable == 'frontend_backend') and True or False</attribute>
+            <attribute name="t-if">not (line.pack_parent_line_id and not line.pack_parent_line_id.product_id.pack_modifiable) and True or False</attribute>
         </xpath>
 
     </template>

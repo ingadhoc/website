@@ -3,14 +3,13 @@
 # directory
 ##############################################################################
 
-from odoo import api, models
+from odoo import models
 
 
 class Website(models.Model):
 
     _inherit = 'website'
 
-    @api.multi
     def sale_get_order(self, force_create=False, code=None,
                        update_pricelist=False, force_pricelist=False):
         self = self.with_context(
