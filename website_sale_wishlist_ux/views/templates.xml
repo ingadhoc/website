@@ -5,8 +5,8 @@
             <attribute name="t-if">len(product.product_variant_ids) == 1</attribute>
         </xpath>
         <xpath expr="//button[@data-action='o_wishlist']" position="after">
-            <a class="btn btn-secondary btn-sm" t-att-disabled='in_wish or None' title="Add to Wishlist (Select attributes)" t-if="len(product.product_variant_ids) &gt; 1" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">
-                <span class="fa fa-heart"></span>
+            <a class="btn btn-secondary btn-m" t-att-disabled='in_wish or None' title="Add to Wishlist (Select attributes)" t-if="len(product.product_variant_ids) &gt; 1" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">
+                    <span class="fa fa-heart"></span>
             </a>
         </xpath>
     </template>
