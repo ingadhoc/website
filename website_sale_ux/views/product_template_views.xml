@@ -10,4 +10,17 @@
             </field>
         </field>
     </record>
+
+    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart" active="True" name="Add to Cart">
+        <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="attributes">
+            <attribute name="t-if">len(product.product_variant_ids) == 1</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="before">
+            <div class="o_wsale_product_btn">
+                <a class="btn btn-secondary btn-m" title="Shopping cart (Select attributes)" t-if="len(product.product_variant_ids) &gt; 1" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">
+                    <span class="fa fa-shopping-cart"/>
+                </a>
+            </div>
+        </xpath>
+    </template>
 </odoo>
