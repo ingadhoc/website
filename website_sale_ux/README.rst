@@ -16,6 +16,9 @@ Website Sale UX
 
 #. This module add search by public_categ_ids on product website category.
 #. Make the search products for all categories if you are stay in one.
+#. This module also change the functionality of the button "add to cart":
+    * If the product has variants, then it will send you to the products view so you can choose which variant do you want.
+    * Regardless if the product has optional items, the button will open a pop up to choose the quantity.
 
 Installation
 ============
