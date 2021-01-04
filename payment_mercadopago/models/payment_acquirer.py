@@ -52,8 +52,7 @@ class AcquirerMercadopago(models.Model):
     def mercadopago_form_generate_values(self, values):
         self.ensure_one()
         tx_values = dict(values)
-        base_url = self.env['ir.config_parameter'].sudo().get_param(
-            'web.base.url')
+        base_url = self.get_base_url()
         if (
                 not self.mercadopago_client_id or
                 not self.mercadopago_secret_key):
