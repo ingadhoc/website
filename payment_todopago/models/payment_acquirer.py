@@ -95,8 +95,7 @@ class AcquirerTodopago(models.Model):
                 'YOU MUST COMPLETE acquirer.todopago_client_id and '
                 'acquirer.todopago_secret_key'))
 
-        base_url = self.env['ir.config_parameter'].sudo().get_param(
-            'web.base.url')
+        base_url = self.get_base_url()
         success_url = TodoPagoController._success_url
         failure_url = TodoPagoController._failure_url
         commercial_partner = tx_values['partner'].commercial_partner_id
