@@ -19,7 +19,7 @@ class SaleOrder(models.Model):
                 'line_id': line_id,
                 'quantity': sale_order_line.product_uom_qty}
         # we force to remove the packs lines when the partent line is removed from the order.
-        if set_qty == 0 and sale_order_line.pack_child_line_ids:
+        if not self._context.get('update_pricelist', False) and set_qty == 0 and sale_order_line.pack_child_line_ids:
             sale_order_line.pack_child_line_ids.unlink()
         return super()._cart_update(
             product_id=product_id, line_id=line_id,
