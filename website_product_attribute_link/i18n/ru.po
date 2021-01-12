@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_product_attribute_link
+# 
+# Translators:
+# Ekaterina <nawsikaya@bk.ru>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-04 20:33+0000\n"
+"PO-Revision-Date: 2020-07-07 03:04+0000\n"
+"Last-Translator: Ekaterina <nawsikaya@bk.ru>, 2020\n"
+"Language-Team: Russian (https://www.transifex.com/adhoc/teams/46451/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: website_product_attribute_link
+#: model:ir.model.fields,help:website_product_attribute_link.field_product_attribute__website_link_on_product
+msgid ""
+"Add a link on website product view so that user can click on an attribute "
+"value and go to a search of products of that value"
+msgstr ""
+
+#. module: website_product_attribute_link
+#: model:ir.model,name:website_product_attribute_link.model_product_attribute
+msgid "Product Attribute"
+msgstr ""
+
+#. module: website_product_attribute_link
+#: model:ir.model.fields,field_description:website_product_attribute_link.field_product_attribute__website_link_on_product
+msgid "Website Link On Product"
+msgstr "Ссылка на продукт"

@@ -3,7 +3,7 @@
 # 	* website_product_pack
 # 
 # Translators:
-# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2020
+# Irina Fedulova <istartlin@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
@@ -11,36 +11,38 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-04 20:33+0000\n"
 "PO-Revision-Date: 2020-10-15 02:27+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2020\n"
-"Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
+"Last-Translator: Irina Fedulova <istartlin@gmail.com>, 2020\n"
+"Language-Team: Russian (https://www.transifex.com/adhoc/teams/46451/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: website_product_pack
 #: model:ir.model,name:website_product_pack.model_product_product
 msgid "Product"
-msgstr "Producto"
+msgstr "Товар"
 
 #. module: website_product_pack
 #: model:ir.model,name:website_product_pack.model_product_template
 msgid "Product Template"
-msgstr "Plantilla de producto"
+msgstr "Шаблон товара"
 
 #. module: website_product_pack
 #: model:ir.model,name:website_product_pack.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Заказ"
 
 #. module: website_product_pack
 #: model:ir.model,name:website_product_pack.model_website
 msgid "Website"
-msgstr "Sitio web"
+msgstr "Веб-сайт"
 
 #. module: website_product_pack
 #: code:addons/website_product_pack/models/product_product.py:0
 #, python-format
 msgid "You can't add unpublished products (%s) to a published pack (%s)"
 msgstr ""
+"Вы не можете добавить неопубликованные товары (%s) к опубликованной сборке "
+"(%s)"
