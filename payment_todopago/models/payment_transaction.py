@@ -75,10 +75,10 @@ class TxTodoPago(models.Model):
             return True
         # we need to get answer form todopago
         todopago_client_id = self.acquirer_id.todopago_client_id \
-            if self.acquirer_id.self.state == 'enabled' \
+            if self.acquirer_id.state == 'enabled' \
             else self.acquirer_id.todopago_test_client_id
         todopago_secret_key = self.acquirer_id.todopago_secret_key \
-            if self.acquirer_id.self.state == 'enabled' \
+            if self.acquirer_id.state == 'enabled' \
             else self.acquirer_id.todopago_test_secret_key
 
         answer_data = {
