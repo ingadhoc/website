@@ -68,7 +68,7 @@ class TxMercadoPago(models.Model):
             'mercadopago_txn_id': data.get('merchant_order_id', False),
             # otros parametros que vuevlven son 'collection_id'
         }
-        if status in ['approved', 'processed']:
+        if status in ['approved', 'approved,approved',  'processed', 'processed,processed']:
             _logger.info(
                 'Validated MercadoPago payment for tx %s: set as done' % (
                     self.reference))
