@@ -2,7 +2,7 @@
 <odoo>
   <template id="product" inherit_id="website_sale.product" name="Product attributes Link">
     <span t-field="ptal.product_template_value_ids._only_active().name" position="replace">
-      <a t-if="attribute.website_link_on_product" t-att-href="keep('/shop/', attrib=['%s-%s' % (attribute.id, ptal.product_template_value_ids._only_active().id)], search='', category=0)">
+      <a t-if="attribute.website_link_on_product" t-att-href="keep('/shop/', attrib=['%s-%s' % (attribute.id, ptal.product_template_value_ids._only_active().product_attribute_value_id.id)], search='', category=0)">
         <t>$0</t>
       </a>
       <t t-if="not attribute.website_link_on_product">$0</t>
