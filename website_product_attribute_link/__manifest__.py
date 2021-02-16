@@ -37,6 +37,5 @@
         'security/product_group_security.xml',
     ],
     'installable': True,
-    'auto_install': False,
     'application': False,
 }
