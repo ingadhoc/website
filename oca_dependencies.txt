@@ -1,6 +1,0 @@
-ingadhoc-product https://github.com/ingadhoc/product.git
-ingadhoc-odoo-argentina https://github.com/ingadhoc/odoo-argentina.git
-ingadhoc-argentina-sale https://github.com/ingadhoc/argentina-sale.git
-oca-sale_workflow https://github.com/OCA/sale-workflow.git
-oca-server-tools https://github.com/OCA/server-tools.git
-oca-product-pack https://github.com/OCA/product-pack
