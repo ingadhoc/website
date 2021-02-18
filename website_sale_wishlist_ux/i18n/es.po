@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* website_sale_ux
+# 	* website_sale_wishlist_ux
 # 
 # Translators:
 # Juan Rivero <jr@adhoc.com.ar>, 2021
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-04 11:06+0000\n"
-"PO-Revision-Date: 2020-06-02 00:01+0000\n"
+"PO-Revision-Date: 2020-07-01 01:55+0000\n"
 "Last-Translator: Juan Rivero <jr@adhoc.com.ar>, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.products_add_to_cart
-msgid "Shopping cart (Select attributes)"
-msgstr "Carrito de Compras (Seleccionar atributos)"
+#. module: website_sale_wishlist_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_wishlist_ux.add_to_wishlist
+msgid "Add to Wishlist (Select attributes)"
+msgstr "Agregar a la Lista de Deseos (Seleccionar atributos)"
