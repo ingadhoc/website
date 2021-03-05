@@ -1,0 +1,165 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_promotion
+# 
+# Translators:
+# Irina Fedulova <istartlin@gmail.com>, 2020
+# Ekaterina <nawsikaya@bk.ru>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-04 11:06+0000\n"
+"PO-Revision-Date: 2020-07-01 01:51+0000\n"
+"Last-Translator: Ekaterina <nawsikaya@bk.ru>, 2020\n"
+"Language-Team: Russian (https://www.transifex.com/adhoc/teams/46451/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__base
+msgid "Based on"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields.selection,name:website_sale_promotion.selection__website_promotion__state__confirm
+#: model_terms:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_form
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#. module: website_sale_promotion
+#: model:ir.model.fields.selection,name:website_sale_promotion.selection__website_promotion__base__standard_price
+msgid "Cost"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields.selection,name:website_sale_promotion.selection__website_promotion__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model_terms:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_form
+msgid "Finish"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields.selection,name:website_sale_promotion.selection__website_promotion__state__finished
+msgid "Finished"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__write_uid
+msgid "Last Updated by"
+msgstr "Последнее обновление:"
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__name
+msgid "Name"
+msgstr "Название"
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__base_pricelist_id
+#: model:ir.model.fields.selection,name:website_sale_promotion.selection__website_promotion__base__pricelist
+msgid "Other Pricelist"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__price_discount
+msgid "Price Discount"
+msgstr "Цена со скидкой"
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__price_surcharge
+msgid "Price Surcharge"
+msgstr "Доплата к цене"
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__pricelist_id
+msgid "Pricelist"
+msgstr "Прайслист"
+
+#. module: website_sale_promotion
+#: model:ir.model,name:website_sale_promotion.model_product_template
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__template_ids
+msgid "Product Template"
+msgstr "Шаблон товара"
+
+#. module: website_sale_promotion
+#: model:ir.ui.menu,name:website_sale_promotion.menu_website_promotion
+msgid "Products Promotion"
+msgstr "Продвижение продукции"
+
+#. module: website_sale_promotion
+#: model_terms:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_filter
+#: model_terms:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_form
+#: model_terms:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_tree
+msgid "Promotion"
+msgstr "Продвижение"
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__public_category_id
+msgid "Public Category"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields.selection,name:website_sale_promotion.selection__website_promotion__base__list_price
+msgid "Public Price"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__state
+#: model_terms:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_filter
+msgid "State"
+msgstr "Статус"
+
+#. module: website_sale_promotion
+#: model_terms:ir.ui.view,arch_db:website_sale_promotion.view_website_promotion_form
+msgid "To Draft"
+msgstr ""
+
+#. module: website_sale_promotion
+#: model:ir.actions.act_window,name:website_sale_promotion.action_website_promotion
+#: model:ir.model,name:website_sale_promotion.model_website_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_product_product__website_promotion_id
+#: model:ir.model.fields,field_description:website_sale_promotion.field_product_template__website_promotion_id
+msgid "Website Promotion"
+msgstr "Продвижение сайта"
+
+#. module: website_sale_promotion
+#: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__website_style_id
+msgid "Website Style"
+msgstr ""
