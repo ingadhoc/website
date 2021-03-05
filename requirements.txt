@@ -1,4 +1,4 @@
 html2text
-mercadopago===1.1.1
+mercadopago===1.2.0
 suds-jurko
 requests
