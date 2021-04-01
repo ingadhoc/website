@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-extend="website_sale_stock.product_availability">
+
+        <t t-jquery="t > t-if='product_type == 'product' and _.contains(['always', 'threshold'], inventory_availability)'" t-operation="attributes">
+            <attribute name="t-if">(product_type == 'product' or product_template.pack_ok == True) and _.contains(['always', 'threshold'], inventory_availability)</attribute>
+        </t>
+
+        <t t-jquery="div[t-if*='product_type == 'product' and inventory_availability == 'custom'']" t-operation="attributes">
+            <attribute name="t-if">(product_type == 'product' or product_template.pack_ok == True) and inventory_availability == 'custom'</attribute>
+        </t>
+    </t>
+</templates>

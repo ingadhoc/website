@@ -20,18 +20,22 @@
 
 {
     'name': 'Website Product Pack',
-    'version': '13.0.1.0.0',
+    'version': '13.0.1.1.0',
     'category': 'Website',
     'author': 'ADHOC SA, Odoo Community Association (OCA)',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'depends': [
-        'website_sale',
-        'product_pack',
+        'website_sale_stock',
         'sale_product_pack',
+        'stock_product_pack',
     ],
     'data': [
         'views/templates.xml',
+        'views/product_template_views.xml',
+    ],
+    'qweb': [
+        'static/src/xml/product_availability.xml'
     ],
     'installable': True,
     'auto_install': True,
