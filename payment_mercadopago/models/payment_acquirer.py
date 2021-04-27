@@ -29,6 +29,12 @@ class AcquirerMercadopago(models.Model):
         'MercadoPago Secret Key',
         required_if_provider='mercadopago',
     )
+    mercadopago_publishable_key = fields.Char(
+        'MercadoPago Public Key'
+    )
+    mercadopago_access_token = fields.Char(
+        'MercadoPago Access Token'
+    )
 
     def _get_feature_support(self):
         res = super(AcquirerMercadopago, self)._get_feature_support()

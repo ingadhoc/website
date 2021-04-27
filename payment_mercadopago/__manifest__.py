@@ -21,7 +21,7 @@
     'name': 'MercadoPago Payment Acquirer',
     'category': 'Hidden',
     'summary': 'Payment Acquirer: MercadoPago Implementation',
-    'version': '13.0.1.0.0',
+    'version': '13.0.1.1.0',
     'author': 'Moldeo Interactive - www.moldeo.coop,ADHOC SA, AITIC S.A.S',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
