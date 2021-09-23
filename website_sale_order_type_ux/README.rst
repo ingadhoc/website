@@ -15,6 +15,7 @@ Website Sale Order Type
 =======================
 
 This module add to Website configuration Settings the field "Sale Order Type".
+We name it website_sale_order_type_ux_ux so that we dont overlap with OCA module website_sale_order_type_ux but actually we dont depend on OCA module (at least for now)
 
 Installation
 ============
