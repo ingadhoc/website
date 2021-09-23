@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* website_sale_prod_description_website/
+# 	* website_sale_prod_description/
 # 
 # Translators:
 # Irina Fedulova <istartlin@gmail.com>, 2020
@@ -20,28 +20,28 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#. module: website_sale_prod_description_website/
-#: model:ir.model.fields,help:website_sale_prod_description_website/.field_product_product__description_website
-#: model:ir.model.fields,help:website_sale_prod_description_website/.field_product_template__description_website
+#. module: website_sale_prod_description/
+#: model:ir.model.fields,help:website_sale_prod_description/.field_product_product__description_website
+#: model:ir.model.fields,help:website_sale_prod_description/.field_product_template__description_website
 msgid ""
 "A description of the Product that you want to communicate on the ecommerce "
 "to your customers. This description will not be used on Sales Orders, "
 "Deliveries and Invoices"
 msgstr ""
 
-#. module: website_sale_prod_description_website/
-#: model:ir.model.fields,field_description:website_sale_prod_description_website/.field_product_product__description_website
-#: model:ir.model.fields,field_description:website_sale_prod_description_website/.field_product_template__description_website
-#: model_terms:ir.ui.view,arch_db:website_sale_prod_description_website/.product_template_form_view
+#. module: website_sale_prod_description/
+#: model:ir.model.fields,field_description:website_sale_prod_description/.field_product_product__description_website
+#: model:ir.model.fields,field_description:website_sale_prod_description/.field_product_template__description_website
+#: model_terms:ir.ui.view,arch_db:website_sale_prod_description/.product_template_form_view
 msgid "Description for Website"
 msgstr "Описание сайта"
 
-#. module: website_sale_prod_description_website/
-#: model_terms:ir.ui.view,arch_db:website_sale_prod_description_website/.product_template_form_view
+#. module: website_sale_prod_description/
+#: model_terms:ir.ui.view,arch_db:website_sale_prod_description/.product_template_form_view
 msgid "Description to be displayed on product's page..."
 msgstr ""
 
-#. module: website_sale_prod_description_website/
-#: model:ir.model,name:website_sale_prod_description_website/.model_product_template
+#. module: website_sale_prod_description/
+#: model:ir.model,name:website_sale_prod_description/.model_product_template
 msgid "Product Template"
 msgstr "Шаблон товара"
