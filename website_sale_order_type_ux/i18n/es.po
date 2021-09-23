@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * website_sale_order_type
+# * website_sale_order_type_ux
 # 
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2019
@@ -19,23 +19,23 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: website_sale_order_type
-#: model:ir.model,name:website_sale_order_type.model_res_config_settings
+#. module: website_sale_order_type_ux
+#: model:ir.model,name:website_sale_order_type_ux.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
 
-#. module: website_sale_order_type
-#: model_terms:ir.ui.view,arch_db:website_sale_order_type.view_website_config_settings
+#. module: website_sale_order_type_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_order_type_ux.view_website_config_settings
 msgid "Configure Sale order type to use on Website"
 msgstr "Configurar tipo de venta a ser utilizado en comercio electrónico"
 
-#. module: website_sale_order_type
-#: model:ir.model.fields,field_description:website_sale_order_type.field_res_config_settings__sale_order_type_id
-#: model:ir.model.fields,field_description:website_sale_order_type.field_website__sale_order_type_id
+#. module: website_sale_order_type_ux
+#: model:ir.model.fields,field_description:website_sale_order_type_ux.field_res_config_settings__sale_order_type_id
+#: model:ir.model.fields,field_description:website_sale_order_type_ux.field_website__sale_order_type_id
 msgid "Sale Order Type"
 msgstr "Tipo de pedido de venta"
 
-#. module: website_sale_order_type
-#: model:ir.model,name:website_sale_order_type.model_website
+#. module: website_sale_order_type_ux
+#: model:ir.model,name:website_sale_order_type_ux.model_website
 msgid "Website"
 msgstr "Sitio web"
