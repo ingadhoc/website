@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_tax" name="Product Tax" inherit_id="website_sale.product_price">
+        <xpath expr="//b[hasclass('oe_price')]" position="after">
+            <t t-set='vat_tax' t-value='product.sudo().taxes_id.filtered(lambda x: x.company_id == website.company_id and x.tax_group_id.l10n_ar_vat_afip_code)'/>
+            <span style="white-space: nowrap; font-size:medium; padding-left: 10px" groups="account.group_show_line_subtotals_tax_excluded" t-if="vat_tax" t-esc="'(+' + vat_tax.name + ')'"/>
+        </xpath>
+    </template>
+
+    <template id="products_item" name="Products item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]" position="inside">
+            <t t-set='vat_tax' t-value='product.sudo().taxes_id.filtered(lambda x: x.company_id == website.company_id and x.tax_group_id.l10n_ar_vat_afip_code)'/>
+            <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" groups="account.group_show_line_subtotals_tax_excluded" t-if="vat_tax" t-esc="'(+' + vat_tax.name + ')'"/>
+        </xpath>
+    </template>
+</odoo>
