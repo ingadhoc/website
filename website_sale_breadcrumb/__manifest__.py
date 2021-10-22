@@ -31,5 +31,5 @@
     'data': [
         'templates/website_sale_breadcrumb.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
