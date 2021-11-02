@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="website_sale_hide_taxes" name="Hide Taxes" inherit_id="website_sale.total">
+    <xpath expr="//tr[@id='order_total_untaxed']//span" position="attributes">
+      <attribute name="groups">account.group_show_line_subtotals_tax_excluded</attribute>
+      <attribute name="t-field">website_sale_order.amount_untaxed</attribute>
+    </xpath>
+    <xpath expr="//tr[@id='order_total_untaxed']//span" position="after">
+      <span t-field="website_sale_order.amount_total" groups="account.group_show_line_subtotals_tax_included" class="monetary_field" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+    </xpath>
+    <tr id='order_total_taxes' position="attributes">
+      <attribute name="groups">account.group_show_line_subtotals_tax_excluded</attribute>
+    </tr>
+  </template>
+</odoo>
