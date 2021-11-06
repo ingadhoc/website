@@ -1,4 +1,3 @@
-[![Coverage Status](https://coveralls.io/repos/ingadhoc/website/badge.png?branch=15.0)](https://coveralls.io/r/ingadhoc/website?branch=15.0)
 [![Code Climate](https://codeclimate.com/github/ingadhoc/website/badges/gpa.svg)](https://codeclimate.com/github/ingadhoc/website)
 
 # ADHOC website
