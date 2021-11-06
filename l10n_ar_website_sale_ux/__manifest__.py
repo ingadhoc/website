@@ -31,5 +31,5 @@
     'data': [
         'views/l10n_ar_website_sale_ux.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
