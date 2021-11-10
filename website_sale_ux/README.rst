@@ -14,11 +14,11 @@
 Website Sale UX
 ===============
 
-#. This module add search by public_categ_ids on product website category.
-#. Make the search products for all categories if you are stay in one.
-#. This module also change the functionality of the button "add to cart":
-    * If the product has variants, then it will send you to the products view so you can choose which variant do you want.
-    * Regardless if the product has optional items, the button will open a pop up to choose the quantity.
+#. This module adds search by public_categ_ids on product website category.
+#. Make the search products for all categories if you stay in one.
+#. This module also changes the functionality of the "add to cart" button:
+    * If the product has variants configured, you'll be redirected to the product's view so you can choose which variant you want.
+    * Regardless the product has optional items, the button will open a pop up to choose the quantity.
 
 Installation
 ============
