@@ -20,7 +20,7 @@
 {
     'name': 'Website Sale Product Description',
     'category': 'Hidden',
-    'version': '13.0.1.2.0',
+    'version': "15.0.1.0.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -32,5 +32,5 @@
         'views/product_template_templates.xml',
         'views/templates.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

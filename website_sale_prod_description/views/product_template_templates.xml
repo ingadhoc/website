@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <template id="product_description" inherit_id="website_sale.product" name="Website Sale Product Description">
-        <xpath expr="//p[@t-field='product.description_sale']" position="attributes">
-            <attribute name="t-field">product.description_website</attribute>
-        </xpath>
-        <xpath expr="//hr[@t-if='product.description_sale']" position="attributes">
-            <attribute name="t-if">product.description_website</attribute>
+        <xpath expr="//p[@t-field='product.description_sale']" position="replace">
+            <t t-if="len(product.description_website) > 1">
+                <p t-field="product.description_website" class="text-muted my-2" placeholder="Product description used exclusively on ecommerce."/>
+            </t>
+            <t t-else="">
+                <p t-field="product.description_sale" class="text-muted my-2" placeholder="A short description that will also appear on documents."/>
+            </t>
         </xpath>
     </template>
 </odoo>

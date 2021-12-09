@@ -14,7 +14,7 @@
 Unique Description for E-commerce
 =================================
 
-Odoo has a sales description field that is used in e-commerce and sales orders. If this module is installed, a new description field is created in products thath will only be used for e-commerce.
+Odoo has a sales description field which is used in e-commerce and sales orders. If this module is installed, a new description field is created in the products view that will only be used for e-commerce.
 
 
 Installation
