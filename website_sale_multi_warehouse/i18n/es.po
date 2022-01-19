@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * website_sale_stock_ux
+# * website_sale_multi_warehouse
 # 
 # Translators:
 # Katherine Zaoral <katherine.zaoral@gmail.com>, 2019
@@ -19,23 +19,23 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: website_sale_stock_ux
-#: model:ir.model.fields,help:website_sale_stock_ux.field_stock_warehouse_website_published
+#. module: website_sale_multi_warehouse
+#: model:ir.model.fields,help:website_sale_multi_warehouse.field_stock_warehouse_website_published
 msgid ""
 "Only published warehouses are going to be used to get stock on e-commerce"
 msgstr ""
 
-#. module: website_sale_stock_ux
-#: model:ir.model,name:website_sale_stock_ux.model_product_product
+#. module: website_sale_multi_warehouse
+#: model:ir.model,name:website_sale_multi_warehouse.model_product_product
 msgid "Product"
 msgstr "Producto"
 
-#. module: website_sale_stock_ux
-#: model:ir.model.fields,field_description:website_sale_stock_ux.field_stock_warehouse_website_published
+#. module: website_sale_multi_warehouse
+#: model:ir.model.fields,field_description:website_sale_multi_warehouse.field_stock_warehouse_website_published
 msgid "Visible in Portal / Website"
 msgstr ""
 
-#. module: website_sale_stock_ux
-#: model:ir.model,name:website_sale_stock_ux.model_stock_warehouse
+#. module: website_sale_multi_warehouse
+#: model:ir.model,name:website_sale_multi_warehouse.model_stock_warehouse
 msgid "Warehouse"
 msgstr ""

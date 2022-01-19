@@ -10,11 +10,12 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-=====================
-Website Sale Stock UX
-=====================
+============================
+Website Sale Multi Warehouse
+============================
 
-#. Add option to choose which warehouses are used to compute stock on e-commerce, this is done by publishing/unpublishing warehouses
+#. You can publish/unpublish a warehouse so that its stock isn't taken into account for ecommerce.
+#. The stock for a website is taken from all published warehouses.
 
 Installation
 ============
