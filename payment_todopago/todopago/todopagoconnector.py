@@ -37,7 +37,7 @@ restAppend = 'api/'
 tenant = 't/1.1/'
 soapAthorizeAppend = 'Authorize'
 end_points_base = {
-    "test": "https://developers.todopago.com.ar/",
+    "test": "https://apis.developers.todopago.com.ar/",
     "prod": "https://apis.todopago.com.ar/"
 }
 
