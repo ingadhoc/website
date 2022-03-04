@@ -9,7 +9,7 @@ class ProductProduct(models.Model):
         """ If we are on website and there isn't a warehouse or location on
         the context, we get only published warehouses
         """
-        if self._context.get('website_id') and self._context.get('warehouse'):
+        if self._context.get('website_id'):
             # _get_domain_locations no admite por contexto ninguna clave para evaluar stock en varios almacenes /
             # ubicaciones, entonces hacemos la busqueda nosotros y luego llamamos directamente a _get_domain_locations_ne
             company_id = self.env.context.get('force_company', self.env.company.id)
