@@ -11,6 +11,5 @@ class Website(models.Model):
         # for this second use case we only return the warehouse if it's published
         res = super()._get_warehouse_available()
         if res:
-            res = self.env['stock.warehouse'].sudo().search(
-                [('website_published', '=', True), ('id', '=', res)], limit=1).id
+            res = self.warehouse_id.id or self.env['stock.warehouse'].sudo().search([('website_published', '=', True), ('company_id', '=', self.company_id.id)], limit=1).id
         return res
