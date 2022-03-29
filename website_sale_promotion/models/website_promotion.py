@@ -40,8 +40,8 @@ class WebsitePromotion(models.Model):
         states={'draft': [('readonly', False)]}
     )
     website_style_id = fields.Many2one(
-        'product.style',
-        'Website Style',
+        'product.ribbon',
+        'Website Ribbon',
         readonly=True,
         states={'draft': [('readonly', False)]}
     )
