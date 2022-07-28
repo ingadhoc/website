@@ -20,7 +20,7 @@
 
 {
     'name': 'Website Product Pack',
-    'version': '13.0.1.0.0',
+    'version': "15.0.1.0.0",
     'category': 'Website',
     'author': 'ADHOC SA, Odoo Community Association (OCA)',
     'website': 'www.adhoc.com.ar',
@@ -33,6 +33,6 @@
     'data': [
         'views/templates.xml',
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': True,
 }

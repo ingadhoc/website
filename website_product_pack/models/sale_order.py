@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
             product_id=product_id, line_id=line_id,
             add_qty=add_qty, set_qty=set_qty, **kwargs)
 
-    def _website_product_id_change(self, order_id, product_id, qty=0):
+    def _website_product_id_change(self, order_id, product_id, qty=0, **kwargs):
         order = self.sudo().browse(order_id)
         product = self.env['product.product'].browse(product_id)
         sale_order_line = order.order_line.filtered(lambda x: x.product_id == product and x.pack_parent_line_id)
@@ -40,4 +40,4 @@ class SaleOrder(models.Model):
                 'price_unit': sale_order_line[0].price_unit,
                 'discount': sale_order_line[0].discount,
             }
-        return super()._website_product_id_change(order_id, product_id, qty=qty)
+        return super()._website_product_id_change(order_id, product_id, qty=qty, **kwargs)
