@@ -3,7 +3,6 @@
 # directory
 ##############################################################################
 from odoo import models, fields
-from odoo.http import request
 
 
 class Website(models.Model):
@@ -17,11 +16,8 @@ class Website(models.Model):
     def _prepare_sale_order_values(self, partner, pricelist):
         res = super(Website, self)._prepare_sale_order_values(
             partner=partner, pricelist=pricelist)
-        sale_type = False
-        if partner.sale_type:
-            sale_type = partner.sale_type.sudo()
-        elif request.website.sale_order_type_id:
-            sale_type = request.website.sale_order_type_id.sudo()
+        sale_type = (
+            self.partner_id.sale_type or self.website.sale_order_type_id)
 
         if sale_type:
             res['type_id'] = sale_type.id
