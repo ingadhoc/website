@@ -2,7 +2,7 @@
 <odoo noupdate="1">
     <template id="product_description" inherit_id="website_sale.product" name="Website Sale Product Description">
         <xpath expr="//p[@t-field='product.description_sale']" position="replace">
-            <t t-if="len(product.description_website) > 1">
+            <t t-if="not is_html_empty(product.description_website)">
                 <p t-field="product.description_website" class="text-muted my-2" placeholder="Product description used exclusively on ecommerce."/>
             </t>
             <t t-else="">
