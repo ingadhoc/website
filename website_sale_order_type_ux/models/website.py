@@ -17,7 +17,7 @@ class Website(models.Model):
         res = super(Website, self)._prepare_sale_order_values(
             partner=partner, pricelist=pricelist)
         sale_type = (
-            self.partner_id.sale_type or self.website.sale_order_type_id)
+            partner.sale_type or self.sale_order_type_id)
 
         if sale_type:
             res['type_id'] = sale_type.id
