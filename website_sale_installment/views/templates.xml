@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="show_installment_prices" name="show installment prices" active="False" customize_show="True" inherit_id="website_sale.product_price" >
+        <xpath expr="//div/h3[2]" position="after">
+            <div t-foreach="combination_info['installment_price']" t-as="card">
+                <t t-foreach="combination_info['installment_price'][card]['installments']" t-as="line">
+                    <div>
+                        <t t-call="website_sale_installment.instalment_render_line">
+                            <t t-set="inst" t-value="line"/>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    <template id="item_show_installment_prices" name="show installment prices" active="False" customize_show="True" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]" position="after">
+            <div t-foreach="combination_info['installment_price']" t-as="card">
+                <t t-foreach="combination_info['installment_price'][card]['installments']" t-as="line">
+                    <div>
+                        <t t-call="website_sale_installment.instalment_render_line">
+                            <t t-set="inst" t-value="line"/>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
     <template id="show_installment" name="show installment button" active="False" customize_show="True" inherit_id="website_sale.product_price" >
         <xpath expr="//div/h3[2]" position="after">
             <div class="js_card">
@@ -25,7 +52,6 @@
             </div>
         </t>
     </template>
-
     <template id="product_installment_form" name="Intallment form">
         <div class="card">
             <div class="card-body">
@@ -55,6 +81,14 @@
                     ) </i>
             </li>
         </ul>
-
+    </template>
+    <template id="instalment_render_line">
+        <span t-if="inst['name'].isnumeric() and inst['divisor']==1">Un pago de </span>
+        <span t-elif="inst['name'].isnumeric() and inst['divisor']>1"><span t-esc="inst['divisor']"/> cuotas de </span>
+        <span t-elif="not inst['name'].isnumeric()"><span t-esc="inst['name']"/> cuotas de </span>
+        <span t-esc="inst['amount'] / inst['divisor']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+        <i t-if="inst['divisor']>1"> (total
+            <span t-esc="inst['amount']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            ) </i>
     </template>
 </odoo>

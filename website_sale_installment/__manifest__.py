@@ -14,7 +14,7 @@
     'data': [
         'views/templates.xml',
         'views/account_card.xml',
-        'views/res_config_setting.xml',
+        'wizards/res_config_setting.xml',
     ],
     'assets': {
         'web.assets_frontend': [

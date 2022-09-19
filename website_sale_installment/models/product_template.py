@@ -36,8 +36,8 @@ class ProductTemplate(models.Model):
         combination_info['installment_price'] = []
         if self.env.context.get('website_id'):
             website = self.env['website'].get_current_website()
-            if website.installment_price_id:
-                combination_info['installment_price'] = website.installment_price_id.card_installment_tree(combination_info['price'])
+            if website.installment_price_ids:
+                combination_info['installment_price'] = website.installment_price_ids.card_installment_tree(combination_info['price'])
 
         return combination_info
 

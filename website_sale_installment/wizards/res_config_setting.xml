@@ -11,12 +11,12 @@
                     <div class="row mt16 o_settings_container" id="sale_pricing_settings">
                         <div class="col-12 col-lg-6 o_setting_box" id="price_id_setting">
                             <div class="o_setting_right_pane">
-                                <label for="installment_price_id" string="Installment price"/>
+                                <label for="installment_price_ids" string="Installment price"/>
                                 <div class="text-muted">Installment price
                              </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="installment_price_id"/>
+                                        <field name="installment_price_ids" widget="many2many_tags"/>
                                     </div>
                                 </div>
                             </div>
