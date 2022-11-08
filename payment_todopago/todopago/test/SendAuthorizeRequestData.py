@@ -87,7 +87,7 @@ class SendAuthorizeRequestData:
         return {
             "RequestKey": "20c8abb6-343f-eb40-d524-84b464be0c27",
             "PublicRequestKey": "t48ae3e60-5cb0-9fb1-7608-4cff0c83f24b",
-            "URL_Request": "https://developers.todopago.com.ar/formulario/commands?command=formulario&m=t48ae3e60-5cb0-9fb1-7608-4cff0c83f24b",
+            "URL_Request": "https://apis.developers.todopago.com.ar/formulario/commands?command=formulario&m=t48ae3e60-5cb0-9fb1-7608-4cff0c83f24b",
             "StatusMessage": "Solicitud de Autorizacion Registrada",
             "StatusCode": -1
         }
