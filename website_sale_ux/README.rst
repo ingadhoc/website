@@ -14,11 +14,11 @@
 Website Sale UX
 ===============
 
-#. This module adds search by public_categ_ids on product website category.
-#. Make the search products for all categories if you stay in one.
-#. This module also changes the functionality of the "add to cart" button:
-    * If the product has variants configured, you'll be redirected to the product's view so you can choose which variant you want.
-    * Regardless the product has optional items, the button will open a pop up to choose the quantity.
+#. This module adds the option to "Search Website Product Category for" (public_categ_ids) on Website app`s backend search bar (Website > Product).
+#. This module also changes the functionality of the Catalog page`s "Add to cart" buttons (frontend):
+    * If the product has not variants, when user clicks Add to cart button then the product is added to the Cart (default behaviour).
+    * If the product has variants, when users click the Add to cart button then they are redirected to the Product page (new feature) so they could choice among all variants, instead of opening the pop-up to choice among all variants (default behaviour). This new feature is required because "variant pop-up" shows a malfunction when user tries to add to cart a bigger quantity of a variant product than stock available.
+#. By default the frontend eCommerce search bar searches among all products when user is on Catalog page and browsing All products category, but if user is browsing an specific product category then the search bar searchs among this category`s products only. This module improves the searching of frontend eCommerce search bar by allowing the users all the time to search among all products no matter which product category is browsing at that moment. This function works when user press enter but not with dropdown pre-search results.
 
 Installation
 ============
