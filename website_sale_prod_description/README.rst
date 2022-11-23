@@ -14,8 +14,9 @@
 Unique Description for E-commerce
 =================================
 
-Odoo has a sales description field which is used in e-commerce and sales orders. If this module is installed, a new description field is created in the products view that will only be used for e-commerce.
+By default Odoo has only one field for adding Product description info, which is editable from Product's backend view / Sales / Sale description. This field is displayed on both, the sale bill documents and the ecommerce product page. Because sometimes it is mandatory to display different info texts on those views, e.g. a short description for sale bill documents but a longer one on ecommerce, we have created this module which add an extra editable field on product's backend view called "Website description".
 
+Important: if Website description field is empty but Product description field is filled up then Product description content will be displayed in both, sales bill documents and ecommerce product page. On the other hand, if Website description field is filled up and also Product description is filled up then the Website description content will be displayed on ecommerce product page only, and Product description content will be displayed in sales bill documents only.
 
 Installation
 ============
