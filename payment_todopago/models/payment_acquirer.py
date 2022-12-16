@@ -13,7 +13,7 @@ from odoo import fields, models, _
 from odoo.http import request
 from odoo.tools.safe_eval import safe_eval
 from odoo.addons.payment.models.payment_acquirer import ValidationError
-from ..todopago import todopagoconnector as tp
+# from ..todopago import todopagoconnector as tp
 from ..controllers.main import TodoPagoController
 
 _logger = logging.getLogger(__name__)
@@ -50,10 +50,11 @@ class AcquirerTodopago(models.Model):
 
     def get_TodoPagoConnector(self):
         self.ensure_one()
-        todopago_secret_key = self.todopago_secret_key \
-            if self.state == 'enabled' else self.todopago_test_secret_key
-        j_header_http = {"Authorization": todopago_secret_key}
-        return tp.TodoPagoConnector(j_header_http, 'prod' if self.state == 'enabled' else 'test')
+        raise ValidationError('TODOPAGO FUE DEPRECADO')
+        # todopago_secret_key = self.todopago_secret_key \
+        #     if self.state == 'enabled' else self.todopago_test_secret_key
+        # j_header_http = {"Authorization": todopago_secret_key}
+        # return tp.TodoPagoConnector(j_header_http, 'prod' if self.state == 'enabled' else 'test')
 
     def _get_feature_support(self):
         res = super(AcquirerTodopago, self)._get_feature_support()

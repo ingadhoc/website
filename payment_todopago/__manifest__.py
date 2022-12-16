@@ -32,12 +32,6 @@
     ],
     'images': [
     ],
-    'external_dependencies': {
-        'python': [
-            'suds',   # TODO K: If we put suds-jurko fail do not know why
-            'requests',
-            ]
-    },
     'data': [
         'views/todopago_templates.xml',
         'views/payment_acquirer_views.xml',
