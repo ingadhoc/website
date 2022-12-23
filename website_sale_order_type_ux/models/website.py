@@ -13,11 +13,9 @@ class Website(models.Model):
         string='Sale Order Type',
     )
 
-    def _prepare_sale_order_values(self, partner, pricelist):
-        res = super(Website, self)._prepare_sale_order_values(
-            partner=partner, pricelist=pricelist)
-        sale_type = (
-            partner.sale_type or self.sale_order_type_id)
+    def _prepare_sale_order_values(self, partner_sudo):
+        res = super()._prepare_sale_order_values(partner_sudo=partner_sudo)
+        sale_type = (partner_sudo.sale_type or self.sale_order_type_id)
 
         if sale_type:
             res['type_id'] = sale_type.id
