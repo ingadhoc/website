@@ -1,0 +1,2 @@
+"id","name","model_id/id","group_id/id","perm_read","perm_write","perm_create","perm_unlink"
+"website_sale_ux.block_ips","Block ips","website_sale_ux.model_website_block_ip","website.group_website_designer","True","True","True","True"
