@@ -84,8 +84,9 @@ class WebsitePromotion(models.Model):
         for rec in self:
             rec.state = 'confirm'
             if rec.website_style_id:
-                rec.template_ids.write(
-                    {'website_style_ids': [(4, rec.website_style_id.id)]})
+                rec.template_ids.write({
+                    'website_ribbon_id': rec.website_style_id.id
+                    })
             rec.template_ids.write(
                 {'public_categ_ids': [(4, rec.public_category_id.id)]})
             vals_list = [
@@ -116,6 +117,6 @@ class WebsitePromotion(models.Model):
                 items.unlink()
             if rec.website_style_id:
                 rec.template_ids.write(
-                    {'website_style_ids': [(3, rec.website_style_id.id)]})
+                    {'website_ribbon_id': False})
             rec.template_ids.write(
                 {'public_categ_ids': [(3, rec.public_category_id.id)]})
