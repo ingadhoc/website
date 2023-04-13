@@ -14,7 +14,11 @@
 Website Sale Promotion
 ======================
 
-This module create promotions for products and specified a public category to show them
+This modules creates promotion programs based on the following parameters:
+
+The discount amount will be a % (not a fix quantity).
+All the products included in the promotional program would be also added to a current eCommerce category.
+An specific ribbon will be add to all the products included in the promotional program would.
 
 Installation
 ============
