@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <function model="product.attribute" name="write">
+            <function eval="[[('id', '=', (ref('website_sale.product_attribute_brand'))), ('product_tmpl_ids', '=', False)]]" model="product.attribute" name="search"/>        
+            <value eval="{'create_variant': 'no_variant'}"/>
+        </function>
+    </data>
+</odoo>
+
