@@ -15,10 +15,10 @@
         <xpath expr="//a[@t-if='product._website_show_quick_add()']" position="attributes">
             <attribute name="t-if">product._website_show_quick_add() and len(product.product_variant_ids) == 1</attribute>
         </xpath>
-        <t t-if="product_variant_id and template_price_vals['price_reduce'] or not website.prevent_zero_price_sale" position="after">
+        <xpath expr="//a[hasclass('btn-primary')]/.." position="after">
             <a class="btn btn-secondary btn-m" title="Shopping cart (Select attributes)" t-if="len(product.product_variant_ids) &gt; 1" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">
                 <span class="fa fa-shopping-cart"/>
             </a>
-        </t>
+        </xpath>
     </template>
 </odoo>
