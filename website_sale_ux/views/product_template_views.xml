@@ -21,4 +21,9 @@
             </a>
         </xpath>
     </template>
+    <template id="products_categories_list" inherit_id="website_sale.products_categories_list">
+        <label class="form-check-label fw-normal" t-att-for="all_products" position="replace">
+            <label class="form-check-label fw-normal" t-att-for="all_products">All Categories</label>
+        </label>
+    </template>
 </odoo>
