@@ -18,8 +18,8 @@ Website Sale UX
 #. This module also changes the functionality of the Catalog page`s "Add to cart" buttons (frontend):
     * If the product has not variants, when user clicks Add to cart button then the product is added to the Cart (default behaviour).
     * If the product has variants, when users click the Add to cart button then they are redirected to the Product page (new feature) so they could choice among all variants, instead of opening the pop-up to choice among all variants (default behaviour). This new feature is required because "variant pop-up" shows a malfunction when user tries to add to cart a bigger quantity of a variant product than stock available.
-#. By default the frontend eCommerce search bar searches among all products when user is on Catalog page and browsing All products category, but if user is browsing an specific product category then the search bar searchs among this category`s products only. This module improves the searching of frontend eCommerce search bar by allowing the users all the time to search among all products no matter which product category is browsing at that moment. This function works when user press enter but not with dropdown pre-search results.
 #. By default, on Settings > Website the option Customer account (which set Free sign up option or By invitation on website) is not able. This module adds this setting option per website.
+#. Rename "All products" to "All categories" in categories left snippet on shop
 
 Installation
 ============
