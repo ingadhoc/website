@@ -25,6 +25,19 @@
                     </div>
                 </div>
             </xpath>
+            <div id="sale_product_catalog_settings">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="disable_categories_search"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="disable_categories_search"/>
+                        <div class="text-muted">
+                            Disable search by categories on shop searchbar
+                        </div>
+                    </div>
+                </div>
+            </div>
         </field>
     </record>
 </odoo>
