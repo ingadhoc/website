@@ -20,6 +20,7 @@ Website Sale UX
     * If the product has variants, when users click the Add to cart button then they are redirected to the Product page (new feature) so they could choice among all variants, instead of opening the pop-up to choice among all variants (default behaviour). This new feature is required because "variant pop-up" shows a malfunction when user tries to add to cart a bigger quantity of a variant product than stock available.
 #. By default, on Settings > Website the option Customer account (which set Free sign up option or By invitation on website) is not able. This module adds this setting option per website.
 #. Rename "All products" to "All categories" in categories left snippet on shop
+#. Add an option to disable returning categories on shop search bar. To do so you need to go to website settings and check option "Disable Categories Search"
 
 Installation
 ============

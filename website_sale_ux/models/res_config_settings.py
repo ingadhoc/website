@@ -2,11 +2,13 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from odoo import models, api
+from odoo import models, api, fields
 
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
+
+    disable_categories_search = fields.Boolean(related='website_id.disable_categories_search', readonly=False)
 
     @api.model
     def _inverse_account_on_checkout(self):
