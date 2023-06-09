@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="products">
+        <field name="name">website.sale.ux.products</field>
+        <field name="inherit_id" ref="website_sale.products"/>
+        <field name="arch" type="xml">
+            <xpath expr="//aside[@id='products_grid_before']/div" position="before">
+                <a class="btn btn-primary mt-3 mb-3" href="/shop">Volver a todos los productos</a>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="products_mobile">
+        <field name="name">website.sale.ux.products.mobile</field>
+        <field name="inherit_id" ref="website_sale.o_wsale_offcanvas"/>
+        <field name="arch" type="xml">
+            <xpath expr="//aside[@id='o_wsale_offcanvas']/div" position="before">
+                <div style="margin:15px auto">
+                    <a class="btn btn-primary" href="/shop">Volver a todos los productos</a>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
