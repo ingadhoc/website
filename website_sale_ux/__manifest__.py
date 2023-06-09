@@ -20,7 +20,7 @@
 {
     'name': 'Website Sale UX',
     'category': 'base.module_category_knowledge_management',
-    'version': "16.0.1.3.0",
+    'version': "16.0.1.4.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -33,6 +33,7 @@
     'data': [
         'views/product_template_views.xml',
         'views/res_config_settings_views.xml',
+        'views/products.xml',
     ],
     'installable': True,
 }

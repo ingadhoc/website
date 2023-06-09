@@ -21,6 +21,7 @@ Website Sale UX
 #. By default, on Settings > Website the option Customer account (which set Free sign up option or By invitation on website) is not able. This module adds this setting option per website.
 #. Rename "All products" to "All categories" in categories left snippet on shop
 #. Add an option to disable returning categories on shop search bar. To do so you need to go to website settings and check option "Disable Categories Search"
+#. Add a button on the filters sidebar on ecommerce to get back to the shop page unapplying all filters previously set
 
 Installation
 ============
