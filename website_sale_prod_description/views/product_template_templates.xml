@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<odoo>
     <template id="product_description" inherit_id="website_sale.product" name="Website Sale Product Description">
         <xpath expr="//p[@t-field='product.description_sale']" position="replace">
             <t t-if="not is_html_empty(product.description_website)">
