@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="website_sale_installment.instalment_popup">
+        <div class="card js_card">
+                <t t-call="website_sale_installment.instalment_popup_select"/>
+                <t t-call="website_sale_installment.instalment_popup_list"/>
+        </div>
+    </t>
+    <t t-name="website_sale_installment.instalment_popup_select" >
+        <div class="form-group">
+           <select class="form-control form-control-lg o_card_selector">
+            <option >Seleccione su medio de pago</option>
+            <option t-att-value="installment_tree[card]['id']" t-foreach="installment_tree"  t-as="card"><t t-esc="installment_tree[card]['name']"/></option>
+          </select>
+        </div>
+    </t>
+    <t t-name="website_sale_installment.instalment_popup_list" >
+        <ul t-foreach="installment_tree" t-att-id="'o_card_' + installment_tree[card]['id']" t-as="card" class="list-group d-none o_card_list">
+            <li t-foreach="installment_tree[card]['installments']" t-as="installment" class="list-group-item">
+                <span t-if="installment['divisor']==1">Un pago de </span>
+                <span t-elif="typeof(installment['name']) == 'number' &amp;&amp; installment['divisor']>1"><span t-esc="installment['divisor']"/> cuotas de </span>
+                <span t-elif="typeof(installment['name']) != 'number'"><span t-esc="installment['name']"/> cuotas de </span>
+                <span t-esc="_priceToStr(installment['amount'] / installment['divisor'])"/>
+                <i t-if="installment['divisor']>1"> (total
+                    <span t-esc="_priceToStr(installment['amount'])" />
+                    ) </i>
+            </li>
+        </ul>
+
+    </t>
+
+</templates>

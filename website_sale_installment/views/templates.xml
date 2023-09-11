@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="show_installment_prices" name="show installment prices" active="False" customize_show="True" inherit_id="website_sale.product_price" >
+        <xpath expr="//div/h3[2]" position="after">
+            <div t-foreach="combination_info['installment_price']" t-as="card">
+                <t t-foreach="combination_info['installment_price'][card]['installments']" t-as="line">
+                    <div>
+                        <t t-call="website_sale_installment.instalment_render_line">
+                            <t t-set="inst" t-value="line"/>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    <template id="item_show_installment_prices" name="show installment prices" active="False" customize_show="True" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]" position="after">
+            <div t-foreach="combination_info['installment_price']" t-as="card">
+                <t t-foreach="combination_info['installment_price'][card]['installments']" t-as="line">
+                    <div>
+                        <t t-call="website_sale_installment.instalment_render_line">
+                            <t t-set="inst" t-value="line"/>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="show_installment" name="show installment button" active="False" customize_show="True" inherit_id="website_sale.product_price" >
+        <xpath expr="//div/h3[2]" position="after">
+            <div class="js_card">
+                <a href="#" role="button" class="btn btn-primary o_installment_button" t-att-data-product-id="product.id" aria-label="Show installment price" title="Show installment price">
+                    <span class="fa fa-credit-card"/> Calcula tus cuotas
+                </a>
+            </div>
+        </xpath>
+    </template>
+    <template id="show_installment_info" name="show installment Info" active="False" customize_show="True" inherit_id="website_sale.product" >
+        <xpath expr="//div[@id='product_attributes_simple']" position="before">
+            <div class="js_card">
+            <t t-set="installment_tree" t-value="product._website_installment_tree()"/>
+            <t t-call="website_sale_installment.product_installment_form"/>
+            </div>
+        </xpath>
+    </template>
+    <template id="product_installment_page" name="Intallment form">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Shop</t>
+            <div id="wrap" class="js_card">
+                <t t-call="website_sale_installment.product_installment_form"/>
+            </div>
+        </t>
+    </template>
+    <template id="product_installment_form" name="Intallment form">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Calcula tus cuotas</h5>
+                </div>
+            <t t-call="website_sale_installment.instalment_select"/>
+            <t t-call="website_sale_installment.instalment_list"/>
+        </div>
+    </template>
+    <template id="instalment_select">
+        <div class="form-group">
+           <select class="form-control form-control-lg o_card_selector">
+            <option >Seleccione su medio de pago</option>
+            <option t-att-value="installment_tree[card]['id']" t-foreach="installment_tree"  t-as="card"><t t-esc="installment_tree[card]['name']"/></option>
+          </select>
+        </div>
+    </template>
+    <template id="instalment_list">
+        <ul t-foreach="installment_tree" t-att-id="'o_card_%s' % installment_tree[card]['id']" t-as="card" class="list-group d-none o_card_list">
+            <li t-foreach="installment_tree[card]['installments']" t-as="installment" class="list-group-item">
+                <span t-if="installment['name'].isnumeric() and installment['divisor']==1">Un pago de </span>
+                <span t-elif="installment['name'].isnumeric() and installment['divisor']>1"><span t-esc="installment['divisor']"/> cuotas de </span>
+                <span t-elif="not installment['name'].isnumeric()"><span t-esc="installment['name']"/> cuotas de </span>
+                <span t-esc="installment['amount'] / installment['divisor']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                <i t-if="installment['divisor']>1"> (total
+                    <span t-esc="installment['amount']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                    ) </i>
+            </li>
+        </ul>
+    </template>
+    <template id="instalment_render_line">
+        <span t-if="inst['name'].isnumeric() and inst['divisor']==1">Un pago de </span>
+        <span t-elif="inst['name'].isnumeric() and inst['divisor']>1"><span t-esc="inst['divisor']"/> cuotas de </span>
+        <span t-elif="not inst['name'].isnumeric()"><span t-esc="inst['name']"/> cuotas de </span>
+        <span t-esc="inst['amount'] / inst['divisor']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+        <i t-if="inst['divisor']>1"> (total
+            <span t-esc="inst['amount']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            ) </i>
+    </template>
+</odoo>
