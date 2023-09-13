@@ -14,7 +14,9 @@
 Product Attribute Link on Website Product view
 ==============================================
 
-Add links on website product view to search by the attribute value clicked on the product
+This module adds a list of attribute values related to a product on the Product page from website frontend.
+Each attribute value is added on Product page as a link which redirects the user to the shop page already filtered by this attribute value.
+Please take in mind that only the attributes with one value set on product would be added on Product page. Those attribute with more than one value set (which generate variants of product) would not be added.
 
 Installation
 ============
@@ -28,8 +30,7 @@ Configuration
 
 To configure this module, you need to:
 
-#. Set with attributes you want to show with links on website
-#. Set website link on product = True on attributes list
+#. Go to Website > eCommerce > Products > Attributes and set which attribute you would like to show on website as a link by toggling the field Website Link On Product.
 
 Usage
 =====
