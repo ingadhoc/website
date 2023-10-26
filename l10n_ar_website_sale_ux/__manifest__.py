@@ -32,5 +32,5 @@
         'views/l10n_ar_website_sale_ux.xml',
         'views/l10n_ar_website_sale_hide_taxes.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
