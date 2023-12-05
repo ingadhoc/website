@@ -5,39 +5,11 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website_sale.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@id='website_login_documents']/div[hasclass('o_setting_right_pane')]" position="before">
-                <div class="col-12 col-lg-6 o_setting_box" id="website_login_documents" title=" To send invitations in B2B mode, open a contact or select several ones in list view and click on 'Portal Access Management' option in the dropdown menu *Action*.">
-                    <div class="o_setting_left_pane">
-                    </div>
-                    <div class="o_setting_right_pane">
-                        <label for="auth_signup_uninvited"/>
-                        <div class="text-muted">
-                            Let your customers log in to see their documents
-                        </div>
-                        <div class="mt8">
-                            <field name="auth_signup_uninvited" class="o_light_label" widget="radio" options="{'horizontal': true}" required="True"/>
-                        </div>
-                        <div class="content-group" attrs="{'invisible': [('auth_signup_uninvited','=','b2b')]}">
-                            <div class="mt8">
-                                <button type="object" name="action_open_template_user" string="Default Access Rights" icon="fa-arrow-right" class="btn-link"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </xpath>
-            <div id="sale_product_catalog_settings">
-                <div class="col-12 col-lg-6 o_setting_box">
-                    <div class="o_setting_left_pane">
-                        <field name="disable_categories_search"/>
-                    </div>
-                    <div class="o_setting_right_pane">
-                        <label for="disable_categories_search"/>
-                        <div class="text-muted">
-                            Disable search by categories on shop searchbar
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <block id="sale_product_catalog_settings" position="inside">
+                <setting id="comparator_option_setting" string="Disable Categories Search" help="Disable search by categories on shop searchbar">
+                    <field name="disable_categories_search"/>
+                </setting>
+            </block>
         </field>
     </record>
 </odoo>
