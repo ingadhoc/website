@@ -37,5 +37,5 @@
             'facebook_pixel_tracking/static/src/js/website_user_tracking.js'
         ],
     },
-    'installable': True,
+    'installable': False,
 }
