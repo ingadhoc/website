@@ -33,6 +33,7 @@ msgstr ""
 #. module: website_sale_order_type_ux
 #: model:ir.model.fields,field_description:website_sale_order_type_ux.field_res_config_settings__sale_order_type_id
 #: model:ir.model.fields,field_description:website_sale_order_type_ux.field_website__sale_order_type_id
+#: model_terms:ir.ui.view,arch_db:website_sale_order_type_ux.view_website_config_settings
 msgid "Sale Order Type"
 msgstr "Тип заказа на продажу"
 

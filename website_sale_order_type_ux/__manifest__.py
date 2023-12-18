@@ -21,7 +21,7 @@
     'name': 'Website Sale Order Type',
     'category': 'Website',
     'summary': 'Website Sale',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -33,7 +33,7 @@
         'security/ir.model.access.csv',
         'views/website_config_settings_view.xml',
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': True,
     'application': False,
 }
