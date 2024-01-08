@@ -22,10 +22,10 @@
         <field name="model">website.promotion</field>
         <field name="arch" type="xml">
             <tree string="Promotion">
-                <field name="name"/>
-                <field name="pricelist_id"/>
-                <field name="public_category_id"/>
-                <field name="website_style_id"/>
+                <field name="name" readonly="state != 'draft'"/>
+                <field name="pricelist_id" readonly="state != 'draft'"/>
+                <field name="public_category_id" readonly="state != 'draft'"/>
+                <field name="website_style_id" readonly="state != 'draft'"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -37,32 +37,31 @@
         <field name="arch" type="xml">
             <form string="Promotion">
                 <header>
-                    <button name="to_draft" type="object" string="To Draft" class="oe_highlight" attrs="{'invisible': [('state','!=','finished')]}"/>
-                    <button name="confirm" type="object" string="Confirm" class="oe_highlight" attrs="{'invisible': [('state','!=','draft')]}"/>
-                    <button name="finished" type="object" string="Finish" class="oe_highlight" attrs="{'invisible': [('state','!=','confirm')]}"/>
+                    <button name="to_draft" type="object" string="To Draft" class="oe_highlight" invisible="state != 'finished'"/>
+                    <button name="confirm" type="object" string="Confirm" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="finished" type="object" string="Finish" class="oe_highlight" invisible="state != 'confirm'"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"/>
-                            <field name="pricelist_id"/>
-                            <field name="public_category_id"/>
-                            <field name="website_style_id"/>
+                            <field name="name" readonly="state != 'draft'"/>
+                            <field name="pricelist_id" readonly="state != 'draft'"/>
+                            <field name="public_category_id" readonly="state != 'draft'"/>
+                            <field name="website_style_id" readonly="state != 'draft'"/>
                         </group>
                         <group >
-                            <field name="base"/>
-                            <field name="base_pricelist_id" attrs="{'invisible': [('base','!=','pricelist')],'required': [('base','=','pricelist')]}"/>
-                            <field name="price_discount"/>
-                            <field name="price_surcharge"/>
+                            <field name="base" readonly="state != 'draft'"/>
+                            <field name="base_pricelist_id" invisible="base != 'pricelist'" readonly="state != 'draft'" required="base == 'pricelist'"/>
+                            <field name="price_discount" readonly="state != 'draft'"/>
+                            <field name="price_surcharge" readonly="state != 'draft'"/>
                         </group>
                     </group>
-                    <field name="template_ids"/>
+                    <field name="template_ids" readonly="state != 'draft'"/>
                 </sheet>
             </form>
         </field>
     </record>
-   
 
     <record id="action_website_promotion" model="ir.actions.act_window">
         <field name="name">Website Promotion</field>
@@ -72,8 +71,15 @@
         <field name="domain">[]</field>
     </record>
 
-    <menuitem id="menu_website_promotion"
+    <menuitem id="menu_website_promotion_sale"
         parent="sale.prod_config_main"
+        name="Products Promotion"
+        action="action_website_promotion"
+        sequence="50"
+    />
+
+    <menuitem id="menu_website_promotion_ecommerce"
+        parent="website_sale_loyalty.menu_loyalty"
         name="Products Promotion"
         action="action_website_promotion"
         sequence="50"
