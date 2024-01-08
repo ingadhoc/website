@@ -20,7 +20,7 @@
 {
     'name': 'l10n_ar Website Sale UX',
     'category': 'base.module_category_knowledge_management',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -32,5 +32,5 @@
         'views/l10n_ar_website_sale_ux.xml',
         'views/l10n_ar_website_sale_hide_taxes.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
