@@ -11,39 +11,28 @@ class WebsitePromotion(models.Model):
 
     name = fields.Char(
         'Name',
-        required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]}
+        required=True
     )
     pricelist_id = fields.Many2one(
         'product.pricelist',
         'Pricelist',
-        required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]}
+        required=True
     )
     public_category_id = fields.Many2one(
         'product.public.category',
         'Public Category',
-        required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]}
-
+        required=True
     )
     template_ids = fields.Many2many(
         'product.template',
         'website_promotion_product_rel',
         'website_promotion_id',
         'product_id',
-        'Product Template',
-        readonly=True,
-        states={'draft': [('readonly', False)]}
+        'Product Template'
     )
     website_style_id = fields.Many2one(
         'product.ribbon',
-        'Website Ribbon',
-        readonly=True,
-        states={'draft': [('readonly', False)]}
+        'Website Ribbon'
     )
     state = fields.Selection(
         [('draft', 'Draft'),
@@ -58,23 +47,18 @@ class WebsitePromotion(models.Model):
         ('standard_price', 'Cost'),
         ('pricelist', 'Other Pricelist')],
         'Based on',
-        required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]}
+        required=True
     )
     price_discount = fields.Float(
-        'Price Discount',
-        readonly=True,
-        states={'draft': [('readonly', False)]})
+        'Price Discount (%)'
+    )
     price_surcharge = fields.Float(
-        'Price Surcharge',
-        readonly=True,
-        states={'draft': [('readonly', False)]})
+        'Price Surcharge (%)'
+    )
     base_pricelist_id = fields.Many2one(
         'product.pricelist',
-        'Other Pricelist',
-        readonly=True,
-        states={'draft': [('readonly', False)]})
+        'Other Pricelist'
+    )
 
     def to_draft(self):
         for rec in self:

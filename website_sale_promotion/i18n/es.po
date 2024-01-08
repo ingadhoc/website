@@ -98,13 +98,13 @@ msgstr "Otro Precio"
 
 #. module: website_sale_promotion
 #: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__price_discount
-msgid "Price Discount"
-msgstr "Descuento precio"
+msgid "Price Discount (%)"
+msgstr "Descuento precio (%)"
 
 #. module: website_sale_promotion
 #: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__price_surcharge
-msgid "Price Surcharge"
-msgstr "Sobrecarga precio"
+msgid "Price Surcharge (%)"
+msgstr "Sobrecarga precio (%)"
 
 #. module: website_sale_promotion
 #: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__pricelist_id
@@ -122,7 +122,8 @@ msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: website_sale_promotion
-#: model:ir.ui.menu,name:website_sale_promotion.menu_website_promotion
+#: model:ir.ui.menu,name:website_sale_promotion.menu_website_promotion_ecommerce
+#: model:ir.ui.menu,name:website_sale_promotion.menu_website_promotion_sale
 msgid "Products Promotion"
 msgstr "Promociones en Productos"
 

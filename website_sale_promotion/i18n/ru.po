@@ -99,12 +99,12 @@ msgstr ""
 
 #. module: website_sale_promotion
 #: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__price_discount
-msgid "Price Discount"
+msgid "Price Discount (%)"
 msgstr "Цена со скидкой"
 
 #. module: website_sale_promotion
 #: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__price_surcharge
-msgid "Price Surcharge"
+msgid "Price Surcharge (%)"
 msgstr "Доплата к цене"
 
 #. module: website_sale_promotion
