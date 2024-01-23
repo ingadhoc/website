@@ -15,7 +15,7 @@ l10n_ar Website Sale UX
 =======================
 
 #. This module adds a "(+ tax)" legend next to the product price on the ecommerce product and product_item views for b2b customers
-#. This module also hides the tax discrimination line on the cart checkout page for b2c customers.
+#. This module also hides the tax discrimination line on the cart checkout page for b2c customers, also the subtotal line that is only show it un the b2b website
 
 Installation
 ============
