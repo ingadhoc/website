@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//a[hasclass('oe_product_image_link')]" position="inside">
+            <t t-set="bg_color_ribbon_from_discount" t-value="product.ribbon_from_discount.bg_color or ''"/>
+            <t t-set="text_color_ribbon_from_discount" t-value="product.ribbon_from_discount.text_color"/>
+            <t t-set="bg_class_ribbon_from_discount" t-value="product.ribbon_from_discount.html_class"/>
+            <span t-attf-class="o_ribbon #{bg_class_ribbon_from_discount}" t-attf-style="#{text_color_ribbon_from_discount and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color_ribbon_from_discount}" t-out="product.ribbon_from_discount.html or ''"/>
+        </xpath>
+    </template>
+</odoo>

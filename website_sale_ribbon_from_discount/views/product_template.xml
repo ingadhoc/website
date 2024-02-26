@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="product_template">
+        <field name="name">product_template</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="website_ribbon_id" position="after">
+                <field name="ribbon_from_discount" />
+            </field>
+            <field name="website_ribbon_id" position="attributes">
+                <attribute name="domain">[('ribbon_from_discount', '=', False)]</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
