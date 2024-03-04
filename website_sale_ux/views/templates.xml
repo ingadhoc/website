@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="submit_button" inherit_id="payment.submit_button">
+        <xpath expr="//button[@name='o_payment_submit_button']" position="attributes">
+            <attribute name="t-out"/>
+        </xpath>
+        <xpath expr="//button[@name='o_payment_submit_button']" position="inside">
+            <span>Complete purchase</span>
+        </xpath>
+    </template>
+</odoo>
