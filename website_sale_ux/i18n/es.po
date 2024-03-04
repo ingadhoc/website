@@ -23,3 +23,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products_add_to_cart
 msgid "Shopping cart (Select attributes)"
 msgstr "Carrito de Compras (Seleccionar atributos)"
+
+#. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.submit_button
+msgid "<span>Complete purchase</span>"
+msgstr "<span>Finzalizar Compra</span>"
