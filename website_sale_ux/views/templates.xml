@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="payment_footer" inherit_id="website_sale.payment_footer">
+        <xpath expr="//button[@name='o_payment_submit_button']/t" position="before">
+            <t t-set="submit_button_label" t-value=""/>
+            <span>Complete Purchase</span>
+        </xpath>
+    </template>
+</odoo>
