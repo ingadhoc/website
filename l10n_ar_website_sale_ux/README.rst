@@ -10,12 +10,14 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-=======================
-l10n_ar Website Sale UX
-=======================
+===========================
+Argentinian Website Sale UX
+===========================
 
-#. This module adds a "(+ tax)" legend next to the product price on the ecommerce product and product_item views for b2b customers
-#. This module also hides the tax discrimination line on the cart checkout page for b2c customers, also the subtotal line that is only show it un the b2b website
+This module adds some changes on eCommerce frontend which are listed below:
+
+#. When this module is installed we will find a "(+ tax)" or "(tax included)" text indication next to all prices on the eCommerce (on shop page, product page, and checkout pages). Be advise that the "tax" word is replaced by the real name of the tax applied on the product. Also the "(+ tax)" or "(tax included)" message will be displayed based on the eCommerce's B2B or B2C parameter selected for each website.
+#. In case that our eCommerce is set as a B2C one, then on checkout's frontend right side bar (where the purchase summary is displayed) the "Taxes" line is hidden, and the "Taxes" amount is added to the "Subtotal" line.
 
 Installation
 ============
@@ -27,9 +29,7 @@ To install this module, you need to:
 Configuration
 =============
 
-To configure this module, you need to:
-
-#. Go to Users > Groups and add a customer to either b2b or b2c groups depending on wheter you want them to see tax discrimination or not on ecommerce.
+Nothing to do, Just install
 
 Usage
 =====
