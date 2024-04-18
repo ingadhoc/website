@@ -35,5 +35,5 @@
             'google_tag_manager_advanced_tracking/static/src/js/website_user_tracking.js'
         ],
     },
-    'installable': True,
+    'installable': False,
 }
