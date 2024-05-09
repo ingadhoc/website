@@ -20,7 +20,7 @@
 {
     'name': 'Facebook Pixel Tracking',
     'category': 'website',
-    'version': "16.0.1.0.0",
+    'version': "16.0.1.1.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
