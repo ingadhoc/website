@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template name="Payment" id="payment_footer" inherit_id="website_sale.payment_footer">
+    <template id="submit_button" inherit_id="payment.submit_button">
         <button name="o_payment_submit_button" position="attributes">
-            <attribute name="t-if">website_sale_order.validity_date and website_sale_order.validity_date &gt;= datetime.datetime.now().date()</attribute>
-         </button>
+            <attribute name="t-attf-style">{{'display:none;' if website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date() else ''}}</attribute>
+        </button>
         <button name="o_payment_submit_button" position="after">
-            <a t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" href="/update_date_prices_and_validity" class="btn btn-primary">
+            <a id="update_cart_button" t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" href="/update_date_prices_and_validity" class="btn btn-primary">
                 Update Cart <i class="fa fa-refresh"/>
             </a>
-        </button>
-        <xpath expr="//div[hasclass('float-end')]" position="after">
-            <div class="alert alert-warning text-center" role="alert" style="margin-top:4rem;" t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()">
+            <div t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" class="alert alert-warning text-center mt-4" role="alert">
                 We inform you that this cart has expired because it has exceeded its validity date. Please click on the "Update Cart" button to update the price of your products and finalize your purchase.
             </div>
-        </xpath>
+        </button>
     </template>
 </odoo>
