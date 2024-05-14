@@ -20,7 +20,7 @@
 {
     'name': 'Website Sale Order Validity',
     'category': 'Hidden',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -28,5 +28,10 @@
     'data': [
         'views/templates.xml',
     ],
-    'installable': False,
+    'installable': True,
+    'assets': {
+        'web.assets_frontend': [
+            'website_sale_order_validity/static/src/**/*.js'
+        ],
+    },
 }
