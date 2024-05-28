@@ -14,9 +14,9 @@
 Website Sale Search Improved
 ============================
 
-This module makes the following modification on e-Commerce search:
+This module allows the users to expand the search of the eCommerce's search bar by including new fields in its search. Therefore any storable field from product.template model could be included in the search results.
 
-* search by smart search
+Important: by default Odoo has a fuzzy search included in the native searching process (get results even typing mistakes), however this fuzzy search would be not available on the new fields added in the search by this module.
 
 Installation
 ============
@@ -30,7 +30,7 @@ Configuration
 
 To configure this module, you need to:
 
-#. Nothing to configure
+Go to Settings > Website > Shop - Products and activate the feature "Advanced search". Then on these field add the list of new fields to be included on the search following this structure: ['field_1','field_2','field_3'] and click on Save.
 
 Usage
 =====
