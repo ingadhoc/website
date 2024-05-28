@@ -1,20 +1,20 @@
 from odoo import api, models
+from ast import literal_eval
 
 class Website(models.Model):
 
     _inherit = "website"
 
     def _search_find_fuzzy_term(self, search_details, search, limit=1000, word_list=None):
-        """ If the 'allowFuzzy' key is enabled (it is by default) Odoo will perform a fuzzy search.
-            However, it is executed directly on the PostgreSQL server. Therefore, the fields must be stored and cannot
-            be many2one or many2many fields.
+        """ Odoo performs a fuzzy search on the PostgreSQL server we need to remove non stored field from the search fields.
         """
         for search_detail in search_details:
             if search_detail['model'] == 'product.template':
-                search_fields = search_detail['search_fields']
-                smart_search_fields = self.sudo().env.ref('product.model_product_template').name_search_ids
-                non_store_or_m2x_fields = smart_search_fields.filtered(
-                    lambda f: not f.store or f.ttype in ['many2one', 'many2many']
-                ).mapped('name')
-                search_detail['search_fields'] = [field for field in search_fields if field not in non_store_or_m2x_fields]
+                search_detail['search_fields'] = [f for f in search_detail['search_fields'] if self.check_stored_field(f.split('.'))]
         return super()._search_find_fuzzy_term(search_details, search, limit=limit, word_list=word_list)
+
+    def check_stored_field(self, fields_list, model='product.template'):
+        """ recursive method to check if a field path ends in a stored field
+        """
+        field = self.env[model]._fields.get(fields_list[0])
+        return self.check_stored_field(fields_list[1:], field.comodel_name) if field.relational else field.store
