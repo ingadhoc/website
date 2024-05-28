@@ -25,10 +25,12 @@
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'depends': [
-        'base_name_search_improved',
         'website_sale',
     ],
     'images': [
+    ],
+    'data': [
+        'views/res_config_settings_views.xml',
     ],
     'installable': True,
     'auto_install': False,
