@@ -1,0 +1,67 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_cancel_quotations
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-10 13:47+0000\n"
+"PO-Revision-Date: 2024-06-10 13:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_cancel_quotations
+#: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
+msgid "<span>Cancel quotations older than</span>"
+msgstr "<span>Cancelar presupuestos mayores que</span>"
+
+#. module: website_sale_cancel_quotations
+#: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
+msgid "<span>days.</span>"
+msgstr "<span>días.</span>"
+
+#. module: website_sale_cancel_quotations
+#: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
+msgid "<strong>Cancel Old  Quotations</strong>"
+msgstr "<strong>Cancelar presupuestos viejos</strong>"
+
+#. module: website_sale_cancel_quotations
+#: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
+msgid "<strong>Sales</strong>"
+msgstr "<strong>Ventas</strong>"
+
+#. module: website_sale_cancel_quotations
+#: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form_inherit
+msgid "<strong>Website</strong>"
+msgstr ""
+
+#. module: website_sale_cancel_quotations
+#: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
+msgid "<strong>Cancel Old Quotations</strong>"
+msgstr "<strong>Cancelar presupuestos viejos</strong>"
+
+#. module: website_sale_cancel_quotations
+#: model:ir.model,name:website_sale_cancel_quotations.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: website_sale_cancel_quotations
+#: model:ir.model.fields,field_description:website_sale_cancel_quotations.field_res_config_settings__cancel_old_website_quotations
+msgid "Cancel Old Website Quotations"
+msgstr "Cancelar presupuestos viejos"
+
+#. module: website_sale_cancel_quotations
+#: model:ir.model.fields,help:website_sale_cancel_quotations.field_res_config_settings__cancel_old_website_quotations
+msgid "Enable automatic cancellation of old website quotations."
+msgstr "Permitir la cancelación automática de los presupuestos de website viejos."
+
+#. module: website_sale_cancel_quotations
+#: model:ir.model,name:website_sale_cancel_quotations.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
