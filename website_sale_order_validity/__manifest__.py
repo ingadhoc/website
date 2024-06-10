@@ -29,9 +29,4 @@
         'views/templates.xml',
     ],
     'installable': True,
-    'assets': {
-        'web.assets_frontend': [
-            'website_sale_order_validity/static/src/**/*.js'
-        ],
-    },
 }

@@ -1,17 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="submit_button" inherit_id="payment.submit_button">
-        <button name="o_payment_submit_button" position="attributes">
-            <attribute name="t-attf-style">{{'display:none;' if website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date() else ''}}</attribute>
-        </button>
-        <button name="o_payment_submit_button" position="after">
-            <a id="update_cart_button" t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" href="/update_date_prices_and_validity" class="btn btn-primary">
-                Update Cart <i class="fa fa-refresh"/>
-            </a>
-            <div t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" class="alert alert-warning text-center mt-4" role="alert">
-                We inform you that this cart has expired because it has exceeded its validity date. Please click on the "Update Cart" button to update the price of your products and finalize your purchase.
+    <template name="Payment" id="payment" inherit_id="website_sale.payment">
+        <xpath expr="//t[@name='website_sale_non_free_cart']" position="attributes">
+            <attribute name="t-if">not show_update_cart</attribute>
+        </xpath>
+        <xpath expr="//t[@name='website_sale_non_free_cart']" position="after">
+            <div t-if="show_update_cart" class="d-flex flex-column">
+                <t t-set="hide_payment_button" t-value="True"/>
+                <a id="update_cart_button" href="/update_date_prices_and_validity" class="btn btn-primary mt-4">
+                    Update Cart <i class="fa fa-refresh"/>
+                </a>
+                <div class="alert alert-warning text-center mt-4" role="alert">
+                    We inform you that this cart has expired because it has exceeded its validity date. Please click on the "Update Cart" button to update the price of your products and finalize your purchase.
+                </div>
             </div>
-        </button>
+        </xpath>
     </template>
     <template name="Checkout layout page" id="checkout_layout" inherit_id="website_sale.checkout_layout">
         <xpath expr="//div[@t-if='website_sale_order and website_sale_order.website_order_line']//div//t[@t-call='website_sale.navigation_buttons']" position="attributes">

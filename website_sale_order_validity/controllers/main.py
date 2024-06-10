@@ -1,6 +1,7 @@
-from odoo import http
+from odoo import http, fields
 from odoo.http import request
 from werkzeug.utils import redirect
+from odoo.addons.payment.controllers import portal as payment_portal
 
 
 class WebsiteSaleController(http.Controller):
@@ -15,3 +16,15 @@ class WebsiteSaleController(http.Controller):
                 sale_order.action_update_prices()
                 sale_order._compute_validity_date()
         return redirect('/shop/cart')
+
+
+class WebsiteSale(payment_portal.PaymentPortal):
+    @http.route()
+    def shop_payment(self, **post):
+        res = super().shop_payment(**post)
+        order = request.website.sale_get_order()
+        if order and order.validity_date and order.validity_date < fields.Date.today():
+            res.qcontext.pop('payment_methods_sudo', '')
+            res.qcontext.pop('tokens_sudo', '')
+            res.qcontext.update({'show_update_cart': True})
+        return res
