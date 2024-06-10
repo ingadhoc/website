@@ -18,12 +18,14 @@ msgstr ""
 #. module: website_sale_order_validity
 #: model_terms:ir.ui.view,arch_db:website_sale_order_validity.checkout_layout
 #: model_terms:ir.ui.view,arch_db:website_sale_order_validity.submit_button
+#: model_terms:ir.ui.view,arch_db:website_sale_order_validity.payment
 msgid "Update Cart <i class=\"fa fa-refresh\"/>"
 msgstr "Actualizar Carrito <i class=\"fa fa-refresh\"/>"
 
 #. module: website_sale_order_validity
 #: model_terms:ir.ui.view,arch_db:website_sale_order_validity.checkout_layout
 #: model_terms:ir.ui.view,arch_db:website_sale_order_validity.submit_button
+#: model_terms:ir.ui.view,arch_db:website_sale_order_validity.payment
 msgid ""
 "We inform you that this cart has expired because it has exceeded its "
 "validity date. Please click on the \"Update Cart\" button to update the "
