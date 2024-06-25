@@ -15,4 +15,29 @@
             </div>
         </xpath>
     </template>
+    <template name="Shopping Cart" id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//div[@t-if='website_sale_order and website_sale_order.website_order_line']/a" position="attributes">
+            <attribute name="t-if">website_sale_order.validity_date and website_sale_order.validity_date &gt;= datetime.datetime.now().date()</attribute>
+        </xpath>
+        <xpath expr="//div[@t-if='website_sale_order and website_sale_order.website_order_line']" position="inside">
+            <a t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" href="/update_date_prices_and_validity" class="btn btn-primary">
+                Update Cart <i class="fa fa-refresh"/>
+            </a>
+        </xpath>
+        <xpath expr="//div[hasclass('justify-content-between')]" position="after">
+            <div class="alert alert-warning text-center" role="alert" t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()">
+                We inform you that this cart has expired because it has exceeded its validity date. Please click on the "Update Cart" button to update the price of your products and finalize your purchase.
+            </div>
+        </xpath>
+    </template>
+    <template name="Short Cart right column" id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
+        <xpath expr="//a[@role='button']" position="attributes">
+            <attribute name="t-if">website_sale_order.validity_date and website_sale_order.validity_date &gt;= datetime.datetime.now().date()</attribute>
+        </xpath>
+        <xpath expr="//a[@role='button']" position="after">
+            <a t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" href="/update_date_prices_and_validity" class="btn btn-primary float-end d-none d-xl-inline-block">
+                Update Cart <i class="fa fa-refresh"/>
+            </a>
+        </xpath>
+    </template>
 </odoo>
