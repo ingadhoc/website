@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 16:49+0000\n"
-"PO-Revision-Date: 2024-04-16 16:49+0000\n"
+"POT-Creation-Date: 2024-07-10 20:17+0000\n"
+"PO-Revision-Date: 2024-07-10 20:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,15 +16,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: website_sale_order_validity
+#: model_terms:ir.ui.view,arch_db:website_sale_order_validity.checkout_layout
 #: model_terms:ir.ui.view,arch_db:website_sale_order_validity.submit_button
 msgid "Update Cart <i class=\"fa fa-refresh\"/>"
 msgstr "Actualizar Carrito <i class=\"fa fa-refresh\"/>"
 
 #. module: website_sale_order_validity
+#: model_terms:ir.ui.view,arch_db:website_sale_order_validity.checkout_layout
 #: model_terms:ir.ui.view,arch_db:website_sale_order_validity.submit_button
 msgid ""
 "We inform you that this cart has expired because it has exceeded its "
 "validity date. Please click on the \"Update Cart\" button to update the "
 "price of your products and finalize your purchase."
 msgstr ""
-"Le informamos que este carrito ha caducado porque ha excedido su fecha de validez. Por favor, haga clic en el botón \"Actualizar Carrito\" para actualizar el precio de sus productos y finalizar su compra."
+"Le informamos que este carrito ha caducado porque ha excedido su fecha de "
+"validez. Por favor, haga clic en el botón \"Actualizar Carrito\" para "
+"actualizar el precio de sus productos y finalizar su compra."
