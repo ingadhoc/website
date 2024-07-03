@@ -11,7 +11,7 @@
                         <field name="website_extend_search_fields"/>
                     </div>
                     <div class="o_setting_right_pane">
-                        <label string="Search Fields" for="website_search_fields_list"/>
+                        <label string="Advanced Search" for="website_search_fields_list"/>
                         <div class="text-muted">
                             Add extra fields to search in the eCommerce.
                         </div>
