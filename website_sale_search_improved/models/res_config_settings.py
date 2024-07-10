@@ -44,7 +44,12 @@ class ResConfigSettings(models.TransientModel):
             raise UserError("The field %s is not a relational field" % main_field)
 
         if field.relational:
-            return self.check_field_path(fields_list[1:], field.comodel_name)
+            if fields_list[1:]:
+                return self.check_field_path(fields_list[1:], field.comodel_name)
+            else:
+                raise UserError(
+                    "The field %s is relational so you must specify in which field of the model %s search (e.g. '%s.name')"
+                    "" % (main_field, field.comodel_name, main_field))
 
     def check_model_public_access(self, model):
         public_user = self.env.ref('base.public_user', raise_if_not_found=False)
