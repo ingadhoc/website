@@ -28,3 +28,23 @@ msgstr "Carrito de Compras (Seleccionar atributos)"
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.submit_button
 msgid "<span>Complete purchase</span>"
 msgstr "<span>Finzalizar Compra</span>"
+
+#. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.ecommerce_fields
+msgid "Ecommerce Description"
+msgstr "Descripción para Website"
+
+#. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.ecommerce_fields
+msgid "This note is only displayed in the ecommerce next to the product's image."
+msgstr "Esta descripción se mostrará solo en el Ecommerce, al lado de la imagen del producto." 
+
+#. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.ecommerce_fields
+msgid "Ecommerce Detailed Description"
+msgstr "Descripción detallada para Website"
+
+#. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.ecommerce_fields
+msgid "This note is only displayed in the ecommerce next to the product's image."
+msgstr "Esta descripción se mostrará solo en el Ecommerce, debajo de la imagen del producto."
