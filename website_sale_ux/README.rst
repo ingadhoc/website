@@ -22,6 +22,7 @@ Website Sale UX
 #. Add an option to disable returning categories on shop search bar. To do so you need to go to website settings and check option "Disable Categories Search"
 #. Add a button on the filters sidebar on ecommerce to get back to the shop page unapplying all filters previously set
 #. Makes the native fields description_ecommerce and website_description visible on product.template backend view
+#. A toggle button is added on website Builder for 'Product page' cutomization, called "Sale description". This button shows/hides the sale_description field on frontend view
 
 Installation
 ============
