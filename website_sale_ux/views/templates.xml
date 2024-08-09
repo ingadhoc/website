@@ -8,4 +8,14 @@
             <span>Complete purchase</span>
         </xpath>
     </template>
+
+    <template id="hide_description_sale" inherit_id="website_sale.product">
+        <xpath expr="//p[@t-field='product.description_sale']" position="replace">
+            <t t-if="is_view_active('website_sale_ux.new_description_sale')" t-call="website_sale_ux.new_description_sale" />
+        </xpath>
+    </template>
+
+     <template id="new_description_sale" active="False">
+        <p t-field="product.description_sale" class="text-muted my-2" placeholder="A short description that will also appear on documents."/>
+    </template>
 </odoo>
