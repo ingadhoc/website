@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="website_shop_checkout" position="inside">
+                <setting id="force_sale_order_confirmation_setting" string="Force sale order confirmation" help="The setting will force any eCommerce sales orders state to 'Sale order' when the clients finish their purchases">
+                    <field name="force_sale_order_confirmation"/>
+                </setting>
+            </block>
+        </field>
+    </record>
+</odoo>
