@@ -20,7 +20,7 @@
 {
     'name': 'Website Sale UX',
     'category': 'base.module_category_knowledge_management',
-    'version': "16.0.1.5.0",
+    'version': "16.0.1.6.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -37,4 +37,9 @@
         'views/templates.xml',
     ],
     'installable': True,
+    'assets': {
+        'web.assets_tests': [
+            'website_sale_ux/static/tests/tours/**/*',
+        ],
+    },
 }
