@@ -20,7 +20,7 @@
 {
     'name': 'Website Sale Search Improved',
     'category': 'Hidden',
-    'version': "17.0.1.1.0",
+    'version': "17.0.1.2.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -34,4 +34,9 @@
     ],
     'installable': True,
     'auto_install': False,
+    'assets': {
+        'web.assets_tests': [
+            'website_sale_search_improved/static/tests/tours/**/*',
+        ],
+    },
 }
