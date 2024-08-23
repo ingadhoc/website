@@ -1,0 +1,7 @@
+<odoo>
+    <template id="snippet_options" inherit_id="website_sale.snippet_options">
+        <xpath expr="//we-button[@data-customize-website-views='website_sale.products_attributes_top']" position="attributes">
+            <attribute name="data-customize-website-views">website_sale.products_attributes_top,website_sale_attributes_on_top.products</attribute>
+        </xpath>
+    </template>
+</odoo>
