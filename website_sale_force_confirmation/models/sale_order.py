@@ -10,5 +10,6 @@ class SaleOrder(models.Model):
 
     def action_quotation_sent(self):
         orders_from_website = self.filtered(lambda x: x.website_id and x.website_id.force_sale_order_confirmation)
-        orders_from_website.action_confirm()
+        if orders_from_website:
+            orders_from_website.action_confirm()
         super(SaleOrder, self - orders_from_website).action_quotation_sent()
