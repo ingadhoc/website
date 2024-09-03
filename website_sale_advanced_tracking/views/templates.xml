@@ -20,28 +20,23 @@
             <attribute name="class" add="add_to_cart_products_item" separator=" " />
         </xpath>
     </template>
-    <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
-        <xpath expr="//a[@t-if='website_sale_order and website_sale_order.website_order_line']" position="attributes">
-            <attribute name="class" add="on_checkout_start_js" separator=" " />
-        </xpath>
-    </template>
-    <template id="cart" inherit_id="website_sale.cart">
-        <xpath expr="//div[@t-if='website_sale_order and website_sale_order.website_order_line']/a" position="attributes">
-            <attribute name="class" add="on_checkout_start_js" separator=" " />
+    <template id="navigation_buttons" inherit_id="website_sale.navigation_buttons">
+        <xpath expr="//a[@name='website_sale_main_button']" position="attributes">
+            <attribute name="t-attf-class" add="on_checkout_start_js" separator=" " />
         </xpath>
     </template>
     <template id="cart_lines" inherit_id="website_sale.cart_lines">
-        <xpath expr="//table" position="attributes">
+        <xpath expr="//div[@id='cart_products']" position="attributes">
             <attribute name="t-att-data-cart_info">website_sale_order.website_order_line.prepare_checkout_information()</attribute>
         </xpath>
     </template>
-    <template id="payment_footer" inherit_id="website_sale.payment_footer">
+    <template id="submit_button" inherit_id="payment.submit_button">
         <xpath expr="//button" position="attributes">
             <attribute name="class" add="on_purchase_confirm" separator=" " />
         </xpath>
     </template>
-    <template id="cart_summary" inherit_id="website_sale.cart_summary">
-        <xpath expr="//div[hasclass('toggle_summary_div')]" position="attributes">
+    <template id="checkout_layout" inherit_id="website_sale.checkout_layout">
+        <xpath expr="//div[@id='o_wsale_accordion_item']" position="attributes">
             <attribute name="t-att-data-purchase_info">website_sale_order.prepare_purchase_information()</attribute>
         </xpath>
     </template>
