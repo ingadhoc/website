@@ -20,7 +20,7 @@
 {
     'name': 'Google Tag Manager Advanced Tracking',
     'category': 'Website',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
@@ -35,5 +35,5 @@
             'google_tag_manager_advanced_tracking/static/src/js/website_user_tracking.js'
         ],
     },
-    'installable': False,
+    'installable': True,
 }
