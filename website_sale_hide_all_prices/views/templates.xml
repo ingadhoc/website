@@ -1,0 +1,101 @@
+<odoo>
+   <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+    </template>
+   <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//small[@groups='website_sale.group_show_uom_price']" position="attributes">
+            <attribute name="t-if">combination_info['base_unit_price'] or not website.website_hide_all_prices</attribute>
+        </xpath>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item">
+         <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+    </template>
+
+    <template id="suggested_products_list" inherit_id="website_sale.suggested_products_list">
+         <xpath expr="//div[@name='website_sale_suggested_product_price']" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+    </template>
+
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+         <xpath expr="//div[@name='website_sale_cart_line_price']" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+    </template>
+
+     <template id="total" inherit_id="website_sale.total">
+         <xpath expr="//div[@id='cart_total']/table" position="attributes">
+            <attribute name="t-attf-class">#{website.website_hide_all_prices and 'd-none' or ''}</attribute>
+        </xpath>
+    </template>
+
+    <template id="payment_delivery" inherit_id="website_sale.payment_delivery">
+         <xpath expr="//div[@id='delivery_carrier']" position="attributes">
+            <attribute name="t-attf-class">#{website.website_hide_all_prices and 'd-none' or ''}</attribute>
+        </xpath>
+    </template>
+
+    <template id="checkout_layout" inherit_id="website_sale.checkout_layout">
+        <xpath expr="//span[@id='amount_total_summary']" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+        <xpath expr="//td[@name='website_sale_cart_summary_line_price']" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+    </template>
+
+     <template id="navigation_buttons" inherit_id="website_sale.navigation_buttons">
+         <xpath expr="//a[@name='website_sale_main_button']/t" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+         <xpath expr="//a[@name='website_sale_main_button']/t" position="after">
+               <t t-if="website.website_hide_all_prices">
+                    <span>Request Quotation</span>
+                </t>
+        </xpath>
+    </template>
+
+    <template id="payment_status" inherit_id="payment.payment_status">
+         <xpath expr="//div[@name='o_payment_status_content']" position="attributes">
+            <attribute name="t-attf-class">#{website.website_hide_all_prices and 'd-none' or ''}</attribute>
+        </xpath>
+    </template>
+
+    <template id="submit_button" inherit_id="website_sale_ux.submit_button">
+         <xpath expr="//button[@name='o_payment_submit_button']/span" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+        <xpath expr="//button[@name='o_payment_submit_button']" position="inside">
+               <t t-if="website.website_hide_all_prices">
+                    <span>Request Quotation</span>
+                </t>
+        </xpath>
+    </template>
+
+    <template id="website_sale_hide_all_prices.request_quotation_submited" name="Request Quotation Received">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty h-100">
+                <div class="container d-flex flex-column justify-content-center h-100">
+                    <div class="row justify-content-center">
+                        <h1 class="text-center">
+                            <i class="fa fa-check-circle fa-1x text-success mr-2" role="img" aria-label="Success" title="Success"/>
+                            <span>Your request has been sent <b>successfully</b></span>
+                        </h1>
+                        <p class="text-center">We will get back to you shortly.</p>
+                    </div>
+                </div>
+            </div>
+         </t>
+    </template>
+
+    <record id="quotation_page" model="website.page">
+        <field name="is_published">True</field>
+        <field name="url">/request-quotation</field>
+        <field name="website_indexed" eval="False"/>
+        <field name="view_id" ref="request_quotation_submited" />
+    </record>
+</odoo>
