@@ -6,10 +6,8 @@
         <xpath expr="//meta[@name='generator']" position="before">
             <t t-if="website and website.facebook_pixel_key">
                 <t t-set="pixel_key" t-value="website.facebook_pixel_key"/>
-                <!-- Facebook Pixel Code -->
-                <script
-                    type="text/javascript"
-                >
+                <!-- Meta Pixel Code -->
+                <script>
                 !function(f,b,e,v,n,t,s)
                 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -27,7 +25,7 @@
                 <img height="1" width="1" style="display:none"
                     t-att-src="'https://www.facebook.com/tr?id=%s&amp;ev=PageView&amp;noscript=1' % (website.facebook_pixel_key)"/>
                 </noscript>
-                <!-- End Facebook Pixel Code -->
+                <!-- End Meta Pixel Code -->
             </t>
         </xpath>
     </template>
