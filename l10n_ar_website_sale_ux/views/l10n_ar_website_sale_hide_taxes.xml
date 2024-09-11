@@ -2,10 +2,10 @@
 <odoo>
   <template id="website_sale_hide_taxes" name="Hide Taxes" inherit_id="website_sale.total">
     <tr id="order_total_untaxed" position="attributes">
-      <attribute name="t-if">request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded'</attribute>
+      <attribute name="t-attf-class">#{request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded' and '' or 'd-none'}</attribute>
     </tr>
     <tr id='order_total_taxes' position="attributes">
-      <attribute name="t-if">request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded'</attribute>
+      <attribute name="t-attf-class">#{request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded' and '' or 'd-none'}</attribute>
     </tr>
   </template>
 </odoo>
