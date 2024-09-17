@@ -10,5 +10,11 @@
                 data-no-preview="true"
                 data-reload="/"/>
         </xpath>
+        <xpath expr="//we-checkbox[@data-customize-website-views='website_sale.products_description']" position="after">
+                <we-checkbox string="Out of stock Ribbon"
+                data-customize-website-views="website_sale_ux.out_of_stock_ribbon"
+                data-no-preview="true"
+                data-reload="/"/>
+        </xpath>
     </template>
 </odoo>
