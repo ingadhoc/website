@@ -1,0 +1,22 @@
+ <odoo>
+  <template id="configure_optional_products" inherit_id="website_sale_product_configurator.configure_optional_products">
+      <xpath expr="//table[hasclass('table-striped')]" position="attributes">
+           <attribute name="class">table table-striped table-sm o_wsale_modal_table</attribute>
+       </xpath>
+      <xpath expr="//td[@name='price']" position="attributes">
+           <attribute name="t-if">not website.website_hide_all_prices</attribute>
+       </xpath>
+         <xpath expr="//th[hasclass('td-price')]" position="attributes">
+           <attribute name="t-if">not website.website_hide_all_prices</attribute>
+       </xpath>
+       <xpath expr="//tr[hasclass('o_total_row')]" position="attributes">
+           <attribute name="t-if">not website.website_hide_all_prices</attribute>
+               </xpath>
+   </template>
+
+   <template id="optional_product_items" inherit_id="website_sale_product_configurator.optional_product_items">
+        <xpath expr="//div[hasclass('oe_price')]" position="attributes">
+           <attribute name="t-if">not website.website_hide_all_prices</attribute>
+       </xpath>
+   </template>
+ </odoo>
