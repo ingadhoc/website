@@ -29,5 +29,5 @@
         'views/products.xml',
         'views/snippets.xml'
     ],
-    'installable': True,
+    'installable': False,
 }
