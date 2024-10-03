@@ -1,0 +1,84 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_hide_all_prices
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-17 13:41+0000\n"
+"PO-Revision-Date: 2024-09-17 13:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.request_quotation_submited
+msgid ""
+"<i class=\"fa fa-check-circle fa-1x text-success mr-2\" role=\"img\" aria-label=\"Success\" title=\"Success\"/>\n"
+"                            <span>Your request has been sent <b>successfully</b></span>"
+msgstr ""
+"<i class=\"fa fa-check-circle fa-1x text-success mr-2\" role=\"img\" aria-label=\"Success\" title=\"Success\"/>\n"
+"                            <span>Tu solicitud ha sido enviada con <b>éxito</b></span>"
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.submit_button
+msgid "<span>Complete purchase</span>"
+msgstr "<span>Completar compra</span>"
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.navigation_buttons
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.submit_button
+msgid "<span>Request Quotation</span>"
+msgstr "<span>Solicitar presupuesto</span>"
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.res_config_settings_view_form
+msgid ""
+"All prices on the eCommerce site will be hidden, but customers will be able "
+"to add products to the cart in order to request a quote."
+msgstr "Todos los precios del eCommerce se ocultarán, pero los clientes podrán agregar los productos al carrito con el fín de solicitar un presupuesto."
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model,name:website_sale_hide_all_prices.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model.fields,help:website_sale_hide_all_prices.field_res_config_settings__website_hide_all_prices
+#: model:ir.model.fields,help:website_sale_hide_all_prices.field_website__website_hide_all_prices
+msgid "Hide all price at website level"
+msgstr "Ocultar todos los precios a nivel de sitio web"
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_res_config_settings__website_hide_all_prices
+msgid "Hide all prices in ecommerce"
+msgstr "Ocultar todos los precios en el ecommerce"
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.res_config_settings_view_form
+msgid "Hide all prices in my eCommerce"
+msgstr "Ocultar todos los precios en mi eCommerce"
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_website__website_hide_all_prices
+msgid "Hide all prices on website"
+msgstr "Ocultar todos los precios en el sitio web"
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model,name:website_sale_hide_all_prices.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.request_quotation_submited
+msgid "We will get back to you shortly."
+msgstr "Nos pondremos en contacto contigo en breve."
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model,name:website_sale_hide_all_prices.model_website
+msgid "Website"
+msgstr ""
