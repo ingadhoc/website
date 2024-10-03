@@ -33,7 +33,7 @@
         'security/ir.model.access.csv',
         'views/website_config_settings_view.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': True,
     'application': False,
 }
