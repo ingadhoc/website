@@ -39,5 +39,5 @@
             'website_sale_hide_all_prices/static/src/components/add_to_cart_notification.js'
         ]
      },
-    'installable': True,
+    'installable': False,
 }
