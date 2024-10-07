@@ -86,6 +86,7 @@ msgid "Shopping cart (Select attributes)"
 msgstr "Carrito de Compras (Seleccionar atributos)"
 
 #. module: website_sale_ux
+<<<<<<< HEAD
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.website_product_description
 msgid ""
 "This note is only displayed in the ecommerce below the product's image."
@@ -111,3 +112,12 @@ msgstr ""
 #: model:ir.model,name:website_sale_ux.model_website
 msgid "Website"
 msgstr "Sitio web"
+||||||| parent of c9c988b (temp)
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.payment_footer
+msgid "<span>Complete Purchase</span>"
+msgstr "<span>Finzalizar Compra</span>"
+=======
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.payment_footer
+msgid "<span>Complete Purchase</span>"
+msgstr "<span>Finalizar Compra</span>"
+>>>>>>> c9c988b (temp)
