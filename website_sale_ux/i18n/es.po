@@ -27,4 +27,4 @@ msgstr "Carrito de Compras (Seleccionar atributos)"
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.payment_footer
 msgid "<span>Complete Purchase</span>"
-msgstr "<span>Finzalizar Compra</span>"
+msgstr "<span>Finalizar Compra</span>"
