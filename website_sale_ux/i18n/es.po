@@ -111,3 +111,6 @@ msgstr ""
 #: model:ir.model,name:website_sale_ux.model_website
 msgid "Website"
 msgstr "Sitio web"
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.payment_footer
+msgid "<span>Complete Purchase</span>"
+msgstr "<span>Finalizar Compra</span>"

@@ -30,7 +30,7 @@ Installation
 
 To install this module, you need to:
 
-#. Just install this module.
+#. Just install this module
 
 Configuration
 =============
