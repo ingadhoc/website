@@ -24,7 +24,5 @@ class WebsiteSale(payment_portal.PaymentPortal):
         res = super().shop_payment(**post)
         order = request.website.sale_get_order()
         if order and order.validity_date and order.validity_date < fields.Date.today():
-            res.qcontext.pop('payment_methods_sudo', '')
-            res.qcontext.pop('tokens_sudo', '')
             res.qcontext.update({'show_update_cart': True})
         return res
