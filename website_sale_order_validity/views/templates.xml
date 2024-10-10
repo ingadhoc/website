@@ -1,24 +1,23 @@
 <odoo>
-    <template name="Payment" id="payment" inherit_id="website_sale.payment">
-        <xpath expr="//t[@name='website_sale_non_free_cart']" position="attributes">
-            <attribute name="t-if">not show_update_cart</attribute>
-        </xpath>
-        <xpath expr="//t[@name='website_sale_non_free_cart']" position="after">
+    <template name="Payment" id="payment" inherit_id="payment.submit_button">
+        <xpath expr="//button[@name='o_payment_submit_button']" position="attributes">
+            <attribute name="t-attf-class">#{'d-none' if show_update_cart else 'btn btn-primary w-100 w-md-auto ms-auto px-5'}</attribute>
+        </xpath> 
+        <xpath expr="//button[@name='o_payment_submit_button']" position="after">
             <div t-if="show_update_cart" class="d-flex flex-column">
-                <t t-set="hide_payment_button" t-value="True"/>
-                <a id="update_cart_button" href="/update_date_prices_and_validity" class="btn btn-primary mt-4">
-                    Update Cart <i class="fa fa-refresh"/>
-                </a>
-                <div class="alert alert-warning text-center mt-4" role="alert">
+                <div class="alert alert-warning text-center" role="alert">
                     We inform you that this cart has expired because it has exceeded its validity date. Please click on the "Update Cart" button to update the price of your products and finalize your purchase.
                 </div>
+                <a id="update_cart_button" href="/update_date_prices_and_validity" class="btn btn-primary ">
+                    Update Cart <i class="fa fa-refresh"/>
+                </a>
             </div>
         </xpath>
-    </template>
+    </template> 
     <template name="Checkout layout page" id="checkout_layout" inherit_id="website_sale.checkout_layout">
         <xpath expr="//div[@t-if='website_sale_order and website_sale_order.website_order_line']//div//t[@t-call='website_sale.navigation_buttons']" position="attributes">
             <attribute name="t-if">website_sale_order.validity_date and website_sale_order.validity_date &gt;= datetime.datetime.now().date()</attribute>
-        </xpath>
+        </xpath>  
         <xpath expr="//div[@t-if='website_sale_order and website_sale_order.website_order_line']//div//t[@t-call='website_sale.navigation_buttons']" position="after">
             <div t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" class="alert alert-warning text-center mt-3" role="alert">
                 We inform you that this cart has expired because it has exceeded its validity date. Please click on the "Update Cart" button to update the price of your products and finalize your purchase.
@@ -27,5 +26,5 @@
                 Update Cart <i class="fa fa-refresh"/>
             </a>
         </xpath>
-    </template>
-</odoo>
+    </template> 
+</odoo>  
