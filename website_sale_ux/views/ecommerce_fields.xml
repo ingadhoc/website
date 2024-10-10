@@ -7,9 +7,6 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='description']/.." position="after">
                 <group name="ecommerce_fields">
-                    <group string="Ecommerce Description" name="ecommerce_description">
-                        <field colspan="2" name="description_ecommerce" nolabel="1" placeholder="This note is only displayed in the ecommerce next to the product's image."/>
-                    </group>
                     <group string="Ecommerce Detailed Description" name="ecommerce_detailed_description">
                         <field colspan="2" name="website_description" nolabel="1" placeholder="This note is only displayed in the ecommerce below the product's image."/>
                     </group>

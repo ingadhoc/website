@@ -8,21 +8,4 @@
             <span>Complete purchase</span>
         </xpath>
     </template>
-    <template id="hide_description_sale" inherit_id="website_sale.product">
-        <xpath expr="//p[@t-field='product.description_sale']" position="replace">
-            <t t-if="is_view_active('website_sale_ux.new_description_sale')" t-call="website_sale_ux.new_description_sale" />
-        </xpath>
-    </template>
-
-     <template id="new_description_sale" active="False">
-        <p t-field="product.description_sale" class="text-muted my-2" placeholder="A short description that will also appear on documents."/>
-    </template>
-    <template id="out_of_stock_ribbon" inherit_id="website_sale.products_item" active="False">
-        <xpath expr="//t[@t-set='bg_class']" position="after">
-            <span t-if="product._is_sold_out() and not product.allow_out_of_stock_order" class="o_ribbon o_not_editable o_dirty o_tag_left out_of_stock_ribbon" style="color: var(--o-color-4); background-color:rgb(255, 0, 0)">Out of stock</span>
-        </xpath>
-        <xpath expr="//form[hasclass('oe_product_cart')]" position="attributes">
-            <attribute name="t-attf-class">oe_product_cart h-100 d-flex #{'out_of_stock_img_blur' if (product._is_sold_out() and not product.allow_out_of_stock_order) else ''} </attribute>
-        </xpath>
-    </template>
 </odoo>
