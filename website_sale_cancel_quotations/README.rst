@@ -10,9 +10,9 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-=================================
+==============================
 Website Sale Cancel Quotations
-=================================
+==============================
 
 Add a setting for automatic cancellation of website quotations
 
