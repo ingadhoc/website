@@ -18,12 +18,10 @@ Website Sale UX
 #. This module also changes the functionality of the Catalog page`s "Add to cart" buttons (frontend):
     * If the product has not variants, when user clicks Add to cart button then the product is added to the Cart (default behaviour).
     * If the product has variants, when users click the Add to cart button then they are redirected to the Product page (new feature) so they could choice among all variants, instead of opening the pop-up to choice among all variants (default behaviour). This new feature is required because "variant pop-up" shows a malfunction when user tries to add to cart a bigger quantity of a variant product than stock available.
-#. Rename "All products" to "All categories" in categories left snippet on shop
-#. Adds an option to disable returning categories on shop search bar. To do so you need to go to website settings and check option "Disable Categories Search"
+#. Rename "All products" to "All categories" in categories left snippet on shop.
+#. Adds an option to disable returning categories on shop search bar. To do so you need to go to website settings and check option "Disable Categories Search".
 #. Adds a button on the filters sidebar on ecommerce to get back to the shop page unapplying all filters previously set
-#. Makes the native fields description_ecommerce and website_description visible on product.template backend view
-#. A toggle button is added on website Builder for 'Product page' cutomization, called "Sale description". This button shows/hides the sale_description field on frontend view
-#. Adds a toggle button on Website's Builder when user is editing on "/shop" page, to automatically display an "Out of stock" ribbon on the products's card when the product's available stock is zero. Additionally, it adds a class "out_of_stock_img_blur" which allows to set further customizations using the css editor
+#. Makes the native field website_description visible on product.template backend view
 
 Installation
 ============
