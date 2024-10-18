@@ -12,7 +12,7 @@ class TestWebsiteSaleSearchImproved(HttpCase):
         })
         cls.env["product.template"].create({
             "name": "Test Product",
-            "detailed_type": "consu",
+            "type": "consu",
             "description_ecommerce": "Test Description",
             "is_published": True,
             "product_tag_ids": [(4, tag.id)]
