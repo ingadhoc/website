@@ -15,7 +15,7 @@
         <xpath expr="//a[@t-if='product._website_show_quick_add()']" position="attributes">
             <attribute name="t-if">product._website_show_quick_add() and len(product.product_variant_ids) == 1</attribute>
         </xpath>
-        <xpath expr="//a[hasclass('btn-primary')]/.." position="after">
+        <xpath expr="//a[hasclass('btn-light')]/.." position="after">
             <a class="btn btn-secondary btn-m" title="Shopping cart (Select attributes)" t-if="len(product.product_variant_ids) &gt; 1" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">
                 <span class="fa fa-shopping-cart"/>
             </a>
@@ -23,8 +23,13 @@
     </template>
     
     <template id="products_categories_list" inherit_id="website_sale.products_categories_list">
-        <xpath expr="//label[@t-att-for='all_products']" position="replace">
-            <label class="form-check-label fw-normal" t-att-for="'all_products'">All Categories</label>
+        <xpath expr="//a" position="replace">
+            <a
+                t-att-href="keep('/shop', category=0)"
+                t-attf-class="{{not category and 'text-decoration-underline'}} p-0"
+            >
+                All Categories
+            </a>
         </xpath>
     </template>
 </odoo>
