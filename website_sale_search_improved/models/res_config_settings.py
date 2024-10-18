@@ -54,7 +54,6 @@ class ResConfigSettings(models.TransientModel):
     def check_model_public_access(self, model):
         public_user = self.env.ref('base.public_user', raise_if_not_found=False)
         try:
-            self.with_user(public_user).env[model].check_access_rights('read')
+            self.with_user(public_user).env[model].check_access('read')
         except AccessError:
             raise UserError(_("The public user do not have access to the model %s" % (model)))
-
