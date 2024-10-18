@@ -5,6 +5,7 @@
             <attribute name="t-att-data-product_id">product.id</attribute>
             <attribute name="t-att-data-product_name">product.name</attribute>
             <attribute name="t-att-data-product_price">combination_info['base_unit_price']</attribute>
+            <attribute name="t-att-data-product_sku">product.default_code</attribute>
         </xpath>
     </template>
     <template id="products_item" inherit_id="website_sale.products_item">
