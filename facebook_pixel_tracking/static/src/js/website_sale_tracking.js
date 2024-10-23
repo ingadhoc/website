@@ -66,6 +66,7 @@ PaymentForm.include({
     _pushInfo: function (event, dict){
         if(typeof(fbq) !== 'undefined'){
             fbq('track', event, dict);
+            console.log(dict);
         }
     },
 
