@@ -18,16 +18,16 @@
     </record>
 
     <record id="view_website_promotion_tree" model="ir.ui.view">
-        <field name="name">website.promotion.tree</field>
+        <field name="name">website.promotion.list</field>
         <field name="model">website.promotion</field>
         <field name="arch" type="xml">
-            <tree string="Promotion">
+            <list string="Promotion">
                 <field name="name" readonly="state != 'draft'"/>
                 <field name="pricelist_id" readonly="state != 'draft'"/>
                 <field name="public_category_id" readonly="state != 'draft'"/>
                 <field name="website_style_id" readonly="state != 'draft'"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -66,7 +66,7 @@
     <record id="action_website_promotion" model="ir.actions.act_window">
         <field name="name">Website Promotion</field>
         <field name="res_model">website.promotion</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_website_promotion_tree"/>
         <field name="domain">[]</field>
     </record>
