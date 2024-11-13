@@ -20,13 +20,14 @@
 {
     'name': 'l10n_ar Website Sale UX',
     'category': 'base.module_category_knowledge_management',
-    'version': "17.0.1.1.0",
+    'version': "17.0.1.2.0",
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'depends': [
         'product',
         'website_sale',
+        'l10n_ar',
     ],
     'data': [
         'views/l10n_ar_website_sale_ux.xml',
