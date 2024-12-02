@@ -11,7 +11,7 @@
    :alt: License: AGPL-3
 
 ===========================
-Argentinian Website Sale UX
+Argentinian Website Sale UX
 ===========================
 
 This module adds some changes on eCommerce frontend which are listed below:
