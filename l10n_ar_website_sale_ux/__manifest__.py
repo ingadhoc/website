@@ -33,5 +33,5 @@
         'views/l10n_ar_website_sale_hide_taxes.xml',
     ],
     'installable': True,
-    'auto_install': ['l10n_ar_webiste_sale'],
+    'auto_install': ['l10n_ar_website_sale'],
 }
