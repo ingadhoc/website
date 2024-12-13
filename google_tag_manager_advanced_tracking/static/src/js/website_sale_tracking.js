@@ -76,12 +76,15 @@ PaymentForm.include({
     },
     // @override
     _submitForm: async function (ev) {
-        const info = $("#o_wsale_accordion_item")[0].dataset.purchase_info;
-        const dict = {
-            'event':'purchase',
-            'ecommerce':info
+        const info_div = $("#o_wsale_accordion_item")[0]
+        if(info_div){
+            const info = info_div.dataset.purchase_info;
+            const dict = {
+                'event':'purchase',
+                'ecommerce':info
+            }
+            this._pushInfo(dict);
         }
-        this._pushInfo(dict);
         this._super(...arguments);
     },
 })
