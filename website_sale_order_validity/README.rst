@@ -14,14 +14,17 @@
 Website Sale Order Validity
 =================================
 
+This module extends the "sale order validity" checking process (sale order's date expiration) to eCommerce frontend. Therefore if an eCommerce cart quotation is expired then the client will not be able to finish his/her purchase, and also a warning message will be shown indicating "We inform you that this cart has been expired because..." on first and last checkout steps. Also the Checkout/Complete purchase buttons are replaced by an Update cart button, which updates the sale order's expiration date field and redirects the client to the first checkout step.
 
 Installation
 ============
 
+Just install.
 
 Configuration
 =============
 
+Not required.
 
 Usage
 =====
