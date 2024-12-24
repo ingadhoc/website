@@ -3,16 +3,14 @@
 # 	* website_sale_ux
 # 
 # Translators:
-# Matias Peralta, 2024
-# Marco Carrazza, 2024
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-19 19:20+0000\n"
-"PO-Revision-Date: 2024-01-16 18:45+0000\n"
+"POT-Creation-Date: 2024-12-23 13:53+0000\n"
+"PO-Revision-Date: 2024-12-23 13:53+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +23,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.submit_button
 msgid "<span>Complete purchase</span>"
 msgstr "<span>Finzalizar Compra</span>"
-
-#. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.new_description_sale
-msgid "A short description that will also appear on documents."
-msgstr "Una breve descripción que se mostrará también en Documentos."
 
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products_categories_list
@@ -57,11 +50,6 @@ msgstr ""
 
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.website_product_description
-msgid "Ecommerce Description"
-msgstr "Descripción para eCommerce"
-
-#. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.website_product_description
 msgid "Ecommerce Detailed Description"
 msgstr "Descripción detallada para eCommerce"
 
@@ -76,11 +64,6 @@ msgid "Out of stock Ribbon"
 msgstr "Cinta sin stock"
 
 #. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.description_sale_options
-msgid "Sale Description"
-msgstr "Descripción para Ventas"
-
-#. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products_add_to_cart
 msgid "Shopping cart (Select attributes)"
 msgstr "Carrito de Compras (Seleccionar atributos)"
@@ -92,14 +75,6 @@ msgid ""
 msgstr ""
 "Esta nota solo se mostrará debajo de la imagen en la \"Página de producto\" "
 "del eCommerce."
-
-#. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.website_product_description
-msgid ""
-"This note is only displayed in the ecommerce next to the product's image."
-msgstr ""
-"Esta nota solo se mostrará al costado de la imagen en la \"Página de "
-"producto\" del eCommerce."
 
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products
