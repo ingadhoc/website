@@ -22,7 +22,7 @@
     'summary': 'Complete category and product breadcrumb',
     'category': 'Website',
     'version': '13.0.1.0.0',
-    'author': 'Trey (www.trey.es)',
+    'author': 'Trey (www.trey.es), ADHOC SA',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
