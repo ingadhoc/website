@@ -10,17 +10,14 @@ class WebsitePromotion(models.Model):
     _description = 'Website Promotion'
 
     name = fields.Char(
-        'Name',
         required=True
     )
     pricelist_id = fields.Many2one(
         'product.pricelist',
-        'Pricelist',
         required=True
     )
     public_category_id = fields.Many2one(
         'product.public.category',
-        'Public Category',
         required=True
     )
     template_ids = fields.Many2many(
@@ -40,7 +37,6 @@ class WebsitePromotion(models.Model):
          ('finished', 'Finished')
          ],
         default='draft',
-        string='State'
     )
     base = fields.Selection([
         ('list_price', 'Public Price'),
