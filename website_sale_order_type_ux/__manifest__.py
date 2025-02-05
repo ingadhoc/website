@@ -18,22 +18,22 @@
 #
 ##############################################################################
 {
-    'name': 'Website Sale Order Type',
-    'category': 'Website',
-    'summary': 'Website Sale',
-    'version': "18.0.1.0.0",
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'depends': [
-        'sale_order_type',
-        'website_sale',
+    "name": "Website Sale Order Type",
+    "category": "Website",
+    "summary": "Website Sale",
+    "version": "18.0.1.0.0",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "depends": [
+        "sale_order_type",
+        "website_sale",
     ],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/website_config_settings_view.xml',
+    "data": [
+        "security/ir.model.access.csv",
+        "views/website_config_settings_view.xml",
     ],
-    'installable': True,
-    'auto_install': True,
-    'application': False,
+    "installable": True,
+    "auto_install": True,
+    "application": False,
 }

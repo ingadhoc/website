@@ -2,7 +2,7 @@ from odoo import models
 
 
 class SaleOrder(models.Model):
-    _inherit = 'sale.order'
+    _inherit = "sale.order"
 
     def prepare_purchase_information(self):
         products = []
@@ -17,14 +17,14 @@ class SaleOrder(models.Model):
                 }
             )
         res = {
-            'purchase': {
-                    'actionField': {
-                        'id': self.id,
-                        'affiliation': self.partner_id.name,
-                        'revenue': self.amount_total,
-                        'tax':self.amount_tax,
-                    },
-                    'products': products
+            "purchase": {
+                "actionField": {
+                    "id": self.id,
+                    "affiliation": self.partner_id.name,
+                    "revenue": self.amount_total,
+                    "tax": self.amount_tax,
+                },
+                "products": products,
             }
         }
         return res

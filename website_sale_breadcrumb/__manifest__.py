@@ -18,18 +18,18 @@
 #
 ###############################################################################
 {
-    'name': 'Website Sale Breadcrumb',
-    'summary': 'Complete category and product breadcrumb',
-    'category': 'Website',
-    'version': '13.0.1.0.0',
-    'author': 'Trey (www.trey.es), ADHOC SA',
-    'website': 'https://www.trey.es',
-    'license': 'AGPL-3',
-    'depends': [
-        'website_sale',
+    "name": "Website Sale Breadcrumb",
+    "summary": "Complete category and product breadcrumb",
+    "category": "Website",
+    "version": "13.0.1.0.0",
+    "author": "Trey (www.trey.es), ADHOC SA",
+    "website": "https://www.trey.es",
+    "license": "AGPL-3",
+    "depends": [
+        "website_sale",
     ],
-    'data': [
-        'templates/website_sale_breadcrumb.xml',
+    "data": [
+        "templates/website_sale_breadcrumb.xml",
     ],
-    'installable': False,
+    "installable": False,
 }

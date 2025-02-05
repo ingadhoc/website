@@ -2,13 +2,13 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from odoo import models, api, fields
+from odoo import api, fields, models
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
-    disable_categories_search = fields.Boolean(related='website_id.disable_categories_search', readonly=False)
+    disable_categories_search = fields.Boolean(related="website_id.disable_categories_search", readonly=False)
 
     @api.model
     def _inverse_account_on_checkout(self):
@@ -17,5 +17,5 @@ class ResConfigSettings(models.TransientModel):
                 continue
             record.website_id.account_on_checkout = record.account_on_checkout
             # account_on_checkout implies different values for `auth_signup_uninvited
-            if record.account_on_checkout == 'disabled':
-                record.website_id.auth_signup_uninvited = 'b2b'
+            if record.account_on_checkout == "disabled":
+                record.website_id.auth_signup_uninvited = "b2b"

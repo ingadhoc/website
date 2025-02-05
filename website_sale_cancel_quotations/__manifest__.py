@@ -18,15 +18,15 @@
 #
 ##############################################################################
 {
-    'name': 'Website Sale Cancel Quotations',
-    'category': 'Hidden',
-    'version': "18.0.1.0.0",
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'depends': ['sale_ux', 'website_sale'],
-    'data': [
-        'views/res_config_settings_views.xml',
+    "name": "Website Sale Cancel Quotations",
+    "category": "Hidden",
+    "version": "18.0.1.0.0",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "depends": ["sale_ux", "website_sale"],
+    "data": [
+        "views/res_config_settings_views.xml",
     ],
-    'installable': True,
+    "installable": True,
 }

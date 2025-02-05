@@ -18,16 +18,13 @@
 #
 ##############################################################################
 {
-    'name': 'Website Sale Attributes On Top',
-    'category': 'Hidden',
-    'version': "18.0.1.0.0",
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'depends': ['website_sale'],
-    'data': [
-        'views/products.xml',
-        'views/snippets.xml'
-    ],
-    'installable': True,
+    "name": "Website Sale Attributes On Top",
+    "category": "Hidden",
+    "version": "18.0.1.0.0",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "depends": ["website_sale"],
+    "data": ["views/products.xml", "views/snippets.xml"],
+    "installable": True,
 }

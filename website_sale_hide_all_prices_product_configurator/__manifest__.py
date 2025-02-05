@@ -18,21 +18,20 @@
 #
 ##############################################################################
 {
-    'name': 'Website Sale Hide All Prices Product Configurator',
-    'category': 'website',
-    'version': "17.0.1.0.0",
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'depends': [
-        'website_sale_product_configurator',
-        'website_sale_hide_all_prices',
+    "name": "Website Sale Hide All Prices Product Configurator",
+    "category": "website",
+    "version": "17.0.1.0.0",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "depends": [
+        "website_sale_product_configurator",
+        "website_sale_hide_all_prices",
     ],
-    'images': [
+    "images": [],
+    "data": [
+        "views/templates.xml",
     ],
-    'data': [
-          'views/templates.xml',
-    ],
-    'installable': False,
-    'auto_install': True,
+    "installable": False,
+    "auto_install": True,
 }

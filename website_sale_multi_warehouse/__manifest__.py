@@ -18,21 +18,21 @@
 #
 ##############################################################################
 {
-    'name': 'Website Sale Multi Warehouse',
-    'category': 'base.module_category_knowledge_management',
-    'version': "15.0.1.0.0",
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'depends': [
-        'website_sale_stock',
+    "name": "Website Sale Multi Warehouse",
+    "category": "base.module_category_knowledge_management",
+    "version": "15.0.1.0.0",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "depends": [
+        "website_sale_stock",
     ],
-    'test': [],
-    'demo': [],
-    'data': [
-        'views/stock_warehouse_views.xml',
-        'views/res_config_settings_view.xml',
+    "test": [],
+    "demo": [],
+    "data": [
+        "views/stock_warehouse_views.xml",
+        "views/res_config_settings_view.xml",
     ],
-    'installable': False,
-    'pre_init_hook': 'pre_init_hook',
+    "installable": False,
+    "pre_init_hook": "pre_init_hook",
 }
