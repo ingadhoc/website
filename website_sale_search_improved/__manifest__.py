@@ -18,25 +18,24 @@
 #
 ##############################################################################
 {
-    'name': 'Website Sale Search Improved',
-    'category': 'Hidden',
-    'version': "18.0.1.0.0",
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'depends': [
-        'website_sale',
+    "name": "Website Sale Search Improved",
+    "category": "Hidden",
+    "version": "18.0.1.0.0",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "depends": [
+        "website_sale",
     ],
-    'images': [
+    "images": [],
+    "data": [
+        "views/res_config_settings_views.xml",
     ],
-    'data': [
-        'views/res_config_settings_views.xml',
-    ],
-    'installable': True,
-    'auto_install': False,
-    'assets': {
-        'web.assets_tests': [
-            'website_sale_search_improved/static/tests/tours/**/*',
+    "installable": True,
+    "auto_install": False,
+    "assets": {
+        "web.assets_tests": [
+            "website_sale_search_improved/static/tests/tours/**/*",
         ],
     },
 }

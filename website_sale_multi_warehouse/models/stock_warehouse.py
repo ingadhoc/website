@@ -1,16 +1,14 @@
-from odoo import models, fields, _
+from odoo import fields, models
 
 
 class StockWarehouse(models.Model):
-
-    _inherit = 'stock.warehouse'
+    _inherit = "stock.warehouse"
 
     website_published = fields.Boolean(
-        'Visible in Portal / Website',
+        "Visible in Portal / Website",
         copy=False,
         default=True,
-        help="Only published warehouses are going to be used to get stock on "
-        "e-commerce"
+        help="Only published warehouses are going to be used to get stock on " "e-commerce",
     )
 
     def toggle_website_published(self):

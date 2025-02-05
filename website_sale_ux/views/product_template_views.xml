@@ -21,7 +21,7 @@
             </a>
         </xpath>
     </template>
-    
+
     <template id="products_categories_list" inherit_id="website_sale.products_categories_list">
         <xpath expr="//a" position="replace">
             <a

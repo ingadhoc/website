@@ -18,24 +18,23 @@
 #
 ##############################################################################
 {
-    'name': 'Product Attribute Link on Website Product view',
-    'version': "16.0.1.0.0",
-    'category': 'Product',
-    'sequence': 14,
-    'summary': '',
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'images': [
+    "name": "Product Attribute Link on Website Product view",
+    "version": "16.0.1.0.0",
+    "category": "Product",
+    "sequence": 14,
+    "summary": "",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "images": [],
+    "depends": [
+        "website_sale",
     ],
-    'depends': [
-        'website_sale',
+    "data": [
+        "views/product_attribute_views.xml",
+        "views/product_attributes_templates.xml",
+        "security/product_group_security.xml",
     ],
-    'data': [
-        'views/product_attribute_views.xml',
-        'views/product_attributes_templates.xml',
-        'security/product_group_security.xml',
-    ],
-    'installable': False,
-    'application': False,
+    "installable": False,
+    "application": False,
 }

@@ -18,26 +18,25 @@
 #
 ##############################################################################
 {
-    'name': 'Website Sale Hide All Prices',
-    'category': 'website',
-    'version': "17.0.1.0.0",
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'depends': [
-        'website_sale_ux',
+    "name": "Website Sale Hide All Prices",
+    "category": "website",
+    "version": "17.0.1.0.0",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "depends": [
+        "website_sale_ux",
     ],
-    'images': [
+    "images": [],
+    "data": [
+        "views/res_config_settings_views.xml",
+        "views/templates.xml",
     ],
-    'data': [
-          'views/res_config_settings_views.xml',
-          'views/templates.xml',
-    ],
-    'assets': {
-        'web.assets_frontend': [
-            'website_sale_hide_all_prices/static/src/components/add_to_cart_notification.xml',
-            'website_sale_hide_all_prices/static/src/components/add_to_cart_notification.js'
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_hide_all_prices/static/src/components/add_to_cart_notification.xml",
+            "website_sale_hide_all_prices/static/src/components/add_to_cart_notification.js",
         ]
-     },
-    'installable': False,
+    },
+    "installable": False,
 }

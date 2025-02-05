@@ -18,18 +18,18 @@
 #
 ##############################################################################
 {
-    'name': 'Website Sale Advanced Tracking',
-    'category': 'website',
-    'version': "18.0.1.0.0",
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'depends': [
-        'website_sale',
-        'payment',
+    "name": "Website Sale Advanced Tracking",
+    "category": "website",
+    "version": "18.0.1.0.0",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "depends": [
+        "website_sale",
+        "payment",
     ],
-    'data': [
-        'views/templates.xml',
+    "data": [
+        "views/templates.xml",
     ],
-    'installable': True,
+    "installable": True,
 }

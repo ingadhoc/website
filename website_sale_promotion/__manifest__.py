@@ -18,20 +18,18 @@
 #
 ##############################################################################
 {
-    'name': 'Website Sale Promotion',
-    'category': 'Website',
-    'summary': 'Website Sale',
-    'version': "18.0.1.0.0",
-    'author': 'ADHOC SA',
-    'website': 'www.adhoc.com.ar',
-    'license': 'AGPL-3',
-    'depends': [
-        'website_sale_loyalty'
+    "name": "Website Sale Promotion",
+    "category": "Website",
+    "summary": "Website Sale",
+    "version": "18.0.1.0.0",
+    "author": "ADHOC SA",
+    "website": "www.adhoc.com.ar",
+    "license": "AGPL-3",
+    "depends": ["website_sale_loyalty"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/website_promotion_views.xml",
     ],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/website_promotion_views.xml',
-    ],
-    'installable': True,
-    'application': False,
+    "installable": True,
+    "application": False,
 }
