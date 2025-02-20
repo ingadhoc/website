@@ -18,6 +18,7 @@
 #
 ##############################################################################
 {
+<<<<<<< HEAD
     "name": "Website Sale UX",
     "category": "base.module_category_knowledge_management",
     "version": "18.0.1.0.0",
@@ -27,6 +28,27 @@
     "depends": [
         "product",
         "website_sale",
+||||||| parent of 8bbc8e4 (temp)
+    'name': 'Website Sale UX',
+    'category': 'base.module_category_knowledge_management',
+    'version': "17.0.1.4.0",
+    'author': 'ADHOC SA',
+    'website': 'www.adhoc.com.ar',
+    'license': 'AGPL-3',
+    'depends': [
+        'product',
+        'website_sale',
+=======
+    'name': 'Website Sale UX',
+    'category': 'base.module_category_knowledge_management',
+    'version': "17.0.1.5.0",
+    'author': 'ADHOC SA',
+    'website': 'www.adhoc.com.ar',
+    'license': 'AGPL-3',
+    'depends': [
+        'product',
+        'website_sale',
+>>>>>>> 8bbc8e4 (temp)
     ],
     "test": [],
     "demo": [],
