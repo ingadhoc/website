@@ -3,17 +3,17 @@
 # 	* website_sale_ux
 # 
 # Translators:
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2024
 # Matias Peralta, 2024
 # Marco Carrazza, 2024
-# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-03 21:24+0000\n"
+"POT-Creation-Date: 2025-02-26 13:22+0000\n"
 "PO-Revision-Date: 2024-01-16 18:45+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2024\n"
+"Last-Translator: Marco Carrazza, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,16 +64,6 @@ msgstr "Descripción para eCommerce"
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.website_product_description
 msgid "Ecommerce Detailed Description"
 msgstr "Descripción detallada para eCommerce"
-
-#. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.out_of_stock_ribbon
-msgid "Out of stock"
-msgstr "Sin stock"
-
-#. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.description_sale_options
-msgid "Out of stock Ribbon"
-msgstr "Cinta sin stock"
 
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.description_sale_options
