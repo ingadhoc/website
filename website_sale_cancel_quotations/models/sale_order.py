@@ -12,4 +12,4 @@ class SaleOrder(models.Model):
         website = bool(
             self.env["ir.config_parameter"].sudo().get_param("website_sale_ux.cancel_old_website_quotations", False)
         )
-        super()._cron_clean_old_quotations(website=website)
+        super(SaleOrder, self.with_context(website_installed=True))._cron_clean_old_quotations(website=website)

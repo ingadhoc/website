@@ -14,7 +14,7 @@
 Website Sale Cancel Quotations
 ==============================
 
-Add a setting for automatic cancellation of website quotations
+Add a setting for automatic cancellation of website quotations.
 
 Installation
 ============
