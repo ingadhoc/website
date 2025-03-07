@@ -2,9 +2,10 @@
 <odoo>
     <template id="product" inherit_id="website_sale.product">
         <xpath expr="//a[@id='add_to_cart']" position="attributes">
-            <attribute name="t-att-data-product_id">product.id</attribute>
+            <attribute name="t-att-data-product_id">product.default_code</attribute>
             <attribute name="t-att-data-product_name">product.name</attribute>
-            <attribute name="t-att-data-product_price">combination_info['base_unit_price']</attribute>
+            <attribute name="t-att-data-product_price">combination_info['price']</attribute>
+            <attribute name="t-att-data-currency">website.currency_id.name</attribute>
         </xpath>
     </template>
     <template id="products_item" inherit_id="website_sale.products_item">
@@ -12,6 +13,7 @@
             <attribute name="t-att-data-product_id">product.id</attribute>
             <attribute name="t-att-data-product_sku">product.default_code</attribute>
             <attribute name="t-att-data-product_name">product.name</attribute>
+            <attribute name="t-att-data-currency">website.currency_id.name</attribute>
             <attribute name="t-att-data-product_price">template_price_vals['price_reduce']</attribute>
         </xpath>
     </template>
@@ -33,6 +35,8 @@
     <template id="cart_lines" inherit_id="website_sale.cart_lines">
         <xpath expr="//table" position="attributes">
             <attribute name="t-att-data-cart_info">website_sale_order.website_order_line.prepare_checkout_information()</attribute>
+            <attribute name="t-att-data-currency">website.currency_id.name</attribute>
+            <attribute name="t-att-data-value">website_sale_order.amount_total</attribute>
         </xpath>
     </template>
     <template id="payment_footer" inherit_id="website_sale.payment_footer">
