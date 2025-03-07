@@ -20,7 +20,13 @@
 {
     'name': 'Website Sale Advanced Tracking',
     'category': 'website',
+<<<<<<< HEAD
     'version': "17.0.1.0.0",
+||||||| parent of 9ce6dd7 (temp)
+    'version': "16.0.1.0.0",
+=======
+    'version': "16.0.1.1.0",
+>>>>>>> 9ce6dd7 (temp)
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',

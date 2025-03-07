@@ -11,7 +11,7 @@ class SaleOrderLine(models.Model):
                 {
                     'item_name': line.name,
                     'item_id': line.product_id.default_code or line.product_id.id,
-                    'price': (line.price_reduce_taxinc / line.product_uom_qty),
+                    'price': (line.price_reduce_taxinc),
                     'quantity': line.product_uom_qty
                 }
             )
