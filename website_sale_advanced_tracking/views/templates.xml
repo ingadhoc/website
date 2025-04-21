@@ -7,6 +7,13 @@
             <attribute name="t-att-data-product_price">combination_info['price']</attribute>
             <attribute name="t-att-data-currency">website.currency_id.name</attribute>
         </xpath>
+        <xpath expr="//div[@id='product_details']" position="attributes">
+            <attribute name="t-att-data-product_id">product.id</attribute>
+            <attribute name="t-att-data-product_sku">product.default_code</attribute>
+            <attribute name="t-att-data-product_name">product.name</attribute>
+            <attribute name="t-att-data-product_price">combination_info['price']</attribute>
+            <attribute name="t-att-data-currency">website.currency_id.name</attribute>
+        </xpath>
     </template>
     <template id="products_item" inherit_id="website_sale.products_item">
         <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="attributes">
@@ -49,9 +56,29 @@
             <attribute name="t-att-data-purchase_info">website_sale_order.prepare_purchase_information()</attribute>
         </xpath>
     </template>
+    <template id="payment_confirmation_status" inherit_id="website_sale.payment_confirmation_status">
+        <xpath expr="//div[hasclass('oe_website_sale_tx_status')]" position="attributes">
+            <attribute name="t-att-data-purchase_info">order.prepare_purchase_information()</attribute>
+        </xpath>
+    </template>
     <template id="signup" inherit_id="auth_signup.signup">
         <xpath expr="//button" position="attributes">
             <attribute name="class" add="on_user_signup" separator=" " />
+        </xpath>
+    </template>
+    <template id="header_cart_link" inherit_id="website_sale.header_cart_link">
+        <xpath expr="//a[@href='/shop/cart']" position="before">
+            <t t-set="cart_info" t-value="website.sale_get_order().prepare_purchase_information()"/>
+        </xpath>
+        <xpath expr="//a[@href='/shop/cart']" position="attributes">
+            <attribute name="t-att-data-cart_info">cart_info</attribute>
+            <attribute name="id">cart_main_button</attribute>
+            <attribute name="t-attf-class" add="on_cart_click" separator=" " />
+        </xpath>
+    </template>
+    <template id="cart_popover" inherit_id="website_sale.cart_popover">
+        <xpath expr="//a[@role='button']" position="attributes">
+            <attribute name="class" add="on_cart_click" separator=" " />
         </xpath>
     </template>
 </odoo>
