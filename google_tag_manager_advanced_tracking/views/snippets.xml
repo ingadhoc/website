@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record id="s_searchbar_000_js" model="ir.asset">
+    <field name="name">Google Tag Manager Advanced Tracking Searchbar 000 JS</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">google_tag_manager_advanced_tracking/static/src/snippets/s_searchbar/000.js</field>
+</record>
+
+</odoo>
