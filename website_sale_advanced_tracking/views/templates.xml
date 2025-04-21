@@ -2,10 +2,18 @@
 <odoo>
     <template id="product" inherit_id="website_sale.product">
         <xpath expr="//a[@id='add_to_cart']" position="attributes">
-            <attribute name="t-att-data-product_id">product.id</attribute>
+            <attribute name="t-att-data-product_id">product.default_code</attribute>
             <attribute name="t-att-data-product_name">product.name</attribute>
-            <attribute name="t-att-data-product_price">combination_info['base_unit_price']</attribute>
+            <attribute name="t-att-data-product_price">combination_info['price']</attribute>
             <attribute name="t-att-data-product_sku">product.default_code</attribute>
+            <attribute name="t-att-data-currency">website.currency_id.name</attribute>
+        </xpath>
+        <xpath expr="//div[@id='product_details']" position="attributes">
+            <attribute name="t-att-data-product_id">product.id</attribute>
+            <attribute name="t-att-data-product_sku">product.default_code</attribute>
+            <attribute name="t-att-data-product_name">product.name</attribute>
+            <attribute name="t-att-data-product_price">combination_info['price']</attribute>
+            <attribute name="t-att-data-currency">website.currency_id.name</attribute>
         </xpath>
     </template>
     <template id="products_item" inherit_id="website_sale.products_item">
@@ -29,6 +37,8 @@
     <template id="cart_lines" inherit_id="website_sale.cart_lines">
         <xpath expr="//div[@id='cart_products']" position="attributes">
             <attribute name="t-att-data-cart_info">website_sale_order.website_order_line.prepare_checkout_information()</attribute>
+            <attribute name="t-att-data-currency">website.currency_id.name</attribute>
+            <attribute name="t-att-data-value">website_sale_order.amount_total</attribute>
         </xpath>
     </template>
     <template id="submit_button" inherit_id="payment.submit_button">
@@ -41,9 +51,24 @@
             <attribute name="t-att-data-purchase_info">website_sale_order.prepare_purchase_information()</attribute>
         </xpath>
     </template>
+    <template id="payment_confirmation_status" inherit_id="website_sale.payment_confirmation_status">
+        <xpath expr="//div[hasclass('oe_website_sale_tx_status')]" position="attributes">
+            <attribute name="t-att-data-purchase_info">order.prepare_purchase_information()</attribute>
+        </xpath>
+    </template>
     <template id="signup" inherit_id="auth_signup.signup">
         <xpath expr="//button" position="attributes">
             <attribute name="class" add="on_user_signup" separator=" " />
+        </xpath>
+    </template>
+    <template id="header_cart_link" inherit_id="website_sale.header_cart_link">
+        <xpath expr="//a[@href='/shop/cart']" position="before">
+            <t t-set="cart_info" t-value="website.sale_get_order().prepare_purchase_information()"/>
+        </xpath>
+        <xpath expr="//a[@href='/shop/cart']" position="attributes">
+            <attribute name="t-att-data-cart_info">cart_info</attribute>
+            <attribute name="id">cart_main_button</attribute>
+            <attribute name="t-attf-class" add="on_cart_click" separator=" " />
         </xpath>
     </template>
 </odoo>

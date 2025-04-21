@@ -9,22 +9,18 @@ class SaleOrder(models.Model):
         for line in self.order_line:
             products.append(
                 {
-                    "id": line.product_id.default_code or line.product_id.id,
-                    "name": line.product_id.name,
-                    "category": line.product_id.categ_id.name,
+                    "item_id": line.product_id.default_code or line.product_id.id,
+                    "item_name": line.product_id.name,
+                    "item_category": line.product_id.categ_id.name,
                     "quantity": line.product_uom_qty,
-                    "price": line.price_subtotal,
+                    "price": line.price_reduce_taxinc,
                 }
             )
         res = {
-            "purchase": {
-                "actionField": {
-                    "id": self.id,
-                    "affiliation": self.partner_id.name,
-                    "revenue": self.amount_total,
-                    "tax": self.amount_tax,
-                },
-                "products": products,
-            }
+            "transaction_id": self.id,
+            "value": self.amount_total,
+            "tax": self.amount_tax,
+            "currency": self.currency_id.name,
+            "items": products,
         }
         return res
