@@ -19,8 +19,8 @@
 ##############################################################################
 {
     "name": "l10n_ar Website Sale UX",
-    "category": "base.module_category_knowledge_management",
-    "version": "18.0.1.1.0",
+    "category": "Website/Website",
+    "version": "18.0.1.2.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
