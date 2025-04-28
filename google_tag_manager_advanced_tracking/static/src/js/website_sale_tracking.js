@@ -5,7 +5,155 @@ import publicWidget from "@web/legacy/js/public/public_widget";
 
 const PaymentForm = publicWidget.registry.PaymentForm;
 
+<<<<<<< HEAD
+||||||| parent of 0dd8680 (temp)
+        _pushInfo: function (dict){
+            if(typeof(dataLayer) !== 'undefined'){
+                dataLayer.push(dict);
+                console.log(dict);
+            }
+        },
+        _onClickAddToCartProduct: function (ev){
+            var dataTarget = ev.target.closest('a#add_to_cart');
+            var product_id = dataTarget.dataset.product_id;
+            var product_name = dataTarget.dataset.product_name;
+            var currency = dataTarget.dataset.currency;
+            var product_price = dataTarget.dataset.product_price;
+            var product_amount = $("[name=add_qty]").val();
+            var amount = parseFloat(product_price * product_amount).toFixed(2);
+            const dict = {
+                'event': 'add_to_cart',
+                'ecommerce': {
+                    'currency': currency,
+                    'value': amount,
+                    'items': [{
+                        'item_name': product_name,
+                        'item_id': product_id,
+                        'price': product_price,
+                        'quantity': product_amount,
+                    }]
+                }
+            }
+            this._pushInfo(dict);
+        },
+        _onClickAddToCartProductsItem: function(ev) {
+            var dataTarget = ev.target.closest('div.o_wsale_product_btn');
+            var product_id = dataTarget.dataset.product_id;
+            var currency = dataTarget.dataset.currency;
+            var product_sku = dataTarget.dataset.product_sku;
+            var product_name = dataTarget.dataset.product_name;
+            var product_price = dataTarget.dataset.product_price;
+            const dict = {
+                'event': 'add_to_cart',
+                'ecommerce': {
+                    'value': product_price,
+                    'currency': currency,
+                    'items': {
+                        'item_name': product_name,
+                        'item_id': product_sku || product_id,
+                        'price': product_price,
+                    }
+                }
+            }
+            this._pushInfo(dict);
+        },
+        _onCheckoutStartJs: function () {
+            var dataTarget = $("#cart_products")[0];
+            var currency = dataTarget.dataset.currency;
+            var value = dataTarget.dataset.value;
+            const info = dataTarget.dataset.cart_info;
+            const dict = {
+                'event':'begin_checkout',
+                'ecommerce':{
+                    'currency': currency,
+                    'value': value,
+                    'items':info
+                }
+            }
+            this._pushInfo(dict);
+        },
+=======
+        _pushInfo: function (dict){
+            if(typeof(dataLayer) !== 'undefined'){
+                dataLayer.push(dict);
+                console.log(dict);
+            }
+        },
+        _onClickAddToCartProduct: function (ev){
+            var dataTarget = ev.target.closest('a#add_to_cart');
+            var product_id = dataTarget.dataset.product_id;
+            var product_name = dataTarget.dataset.product_name;
+            var currency = dataTarget.dataset.currency;
+            var product_price = dataTarget.dataset.product_price;
+            var product_amount = $("[name=add_qty]").val();
+            var amount = parseFloat(product_price * product_amount).toFixed(2);
+            const dict = {
+                'event': 'add_to_cart',
+                'ecommerce': {
+                    'currency': currency,
+                    'value': amount,
+                    'items': [{
+                        'item_name': product_name,
+                        'item_id': product_id,
+                        'price': product_price,
+                        'quantity': product_amount,
+                    }]
+                }
+            }
+            this._pushInfo(dict);
+        },
+        _onClickAddToCartProductsItem: function(ev) {
+            var dataTarget = ev.target.closest('div.o_wsale_product_btn');
+            var product_id = dataTarget.dataset.product_id;
+            var currency = dataTarget.dataset.currency;
+            var product_sku = dataTarget.dataset.product_sku;
+            var product_name = dataTarget.dataset.product_name;
+            var product_price = dataTarget.dataset.product_price;
+            const dict = {
+                'event': 'add_to_cart',
+                'ecommerce': {
+                    'value': product_price,
+                    'currency': currency,
+                    'items': {
+                        'item_name': product_name,
+                        'item_id': product_sku || product_id,
+                        'price': product_price,
+                    }
+                }
+            }
+            this._pushInfo(dict);
+        },
+        _onCheckoutStartJs: function () {
+            try {
+                var dataTarget = $("#cart_products")[0];
+                var currency = dataTarget.dataset.currency;
+                var value = dataTarget.dataset.value;
+                const info_string = dataTarget.dataset.cart_info;
 
+                // Robust parsing
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+
+                const info = JSON.parse(jsonString);
+                const dict = {
+                    'event':'begin_checkout',
+                    'ecommerce':{
+                        'currency': currency,
+                        'value': value,
+                        'items':info
+                    }
+                }
+                this._pushInfo(dict);
+            } catch (e) {
+                console.error("GTM Error: Failed to parse cart_info in _onCheckoutStartJs.", e);
+                console.error("GTM Debug: Original cart_info string:", $("#cart_products")[0].dataset.cart_info);
+            }
+        },
+>>>>>>> 0dd8680 (temp)
+
+<<<<<<< HEAD
 publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.extend({
     selector: '.oe_website_sale',
     events: {
@@ -13,7 +161,69 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
     'click a.add_to_cart_products_item': '_onClickAddToCartProductsItem',
     'click a.on_checkout_start_js': '_onCheckoutStartJs',
     },
+||||||| parent of 0dd8680 (temp)
+        _onViewItem : function(product_details) {
+            var product_id = product_details[0].dataset.product_id;
+            var currency = product_details[0].dataset.currency;
+            var product_sku = product_details[0].dataset.product_sku;
+            var product_name = product_details[0].dataset.product_name;
+            var product_price = product_details[0].dataset.product_price;
+            const dict = {
+                'event': 'view_item',
+                'ecommerce': {
+                    'currency': currency,
+                    'value': product_price,
+                    'items': {
+                        'item_id': product_sku || product_id,
+                        'item_name': product_name,
+                        'price': product_price,
+                    }
+                }
+            }
+            this._pushInfo(dict);
+        },
+        _onCartView: function(element){
+            const info = element[0].dataset.cart_info;
+            const dict = {
+                'event': 'view_cart',
+                'ecommerce': info
+            }
+            this._pushInfo(dict);
+=======
+        _onViewItem : function(product_details) {
+            var product_id = product_details[0].dataset.product_id;
+            var currency = product_details[0].dataset.currency;
+            var product_sku = product_details[0].dataset.product_sku;
+            var product_name = product_details[0].dataset.product_name;
+            var product_price = product_details[0].dataset.product_price;
+            const dict = {
+                'event': 'view_item',
+                'ecommerce': {
+                    'currency': currency,
+                    'value': product_price,
+                    'items': {
+                        'item_id': product_sku || product_id,
+                        'item_name': product_name,
+                        'price': product_price,
+                    }
+                }
+            }
+            this._pushInfo(dict);
+        },
+        _onCartView: function (element) {
+            try {
+                const info_string = element[0].dataset.cart_info;
+                // Attempt to fix common Python dict string issues for JSON parsing
+                // 1. Escape existing backslashes
+                // 2. Replace single quotes with double quotes
+                // 3. Replace Python boolean/none literals (only when they appear as values)
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+>>>>>>> 0dd8680 (temp)
 
+<<<<<<< HEAD
     _pushInfo: function (dict){
         if(typeof(dataLayer) !== 'undefined'){
             dataLayer.push(dict);
@@ -51,6 +261,84 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
                 'item_name': product_name,
                 'item_id': product_sku || product_id,
                 'price': product_price
+||||||| parent of 0dd8680 (temp)
+        },
+        _onPurchaseConfirm: function(confirmation) {
+            const info = confirmation.data('purchase_info');
+            const dict = {
+                'event': 'purchase',
+                'ecommerce': info
+            }
+            this._pushInfo(dict)
+        },
+        _onFormStart: function(ev){
+            var cookie = getCookie('form_start_sent');
+            if(cookie){
+                // no hacer nada
+            }else{
+                const dataTarget = ev.target.closest("form")
+                const form_name = dataTarget.id;
+                const form_destination = dataTarget.dataset.model_name
+                const dict = {
+                    'event': 'form_start',
+                    'ecommerce': {
+                        'form_name': form_name,
+                        'form_destination': form_destination
+                    }
+                }
+                setCookie('form_start_sent', true, 600, 'required');
+                this._pushInfo(dict)
+=======
+                const info = JSON.parse(jsonString);
+                const dict = {
+                    'event': 'view_cart',
+                    'ecommerce': info
+                }
+                this._pushInfo(dict);
+            } catch (e) {
+                console.error("GTM Error: Failed to parse cart_info in _onCartView.", e);
+                console.error("GTM Debug: Original cart_info string:", element[0].dataset.cart_info);
+            }
+        },
+        _onPurchaseConfirm: function(confirmation) {
+            try {
+                const info_string = confirmation.data('purchase_info');
+
+                // Robust parsing
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+
+                const info = JSON.parse(jsonString);
+                const dict = {
+                    'event': 'purchase',
+                    'ecommerce': info
+                }
+                this._pushInfo(dict)
+            } catch (e) {
+                console.error("GTM Error: Failed to parse purchase_info in _onPurchaseConfirm.", e);
+                console.error("GTM Debug: Original purchase_info string:", confirmation.data('purchase_info'));
+            }
+        },
+        _onFormStart: function(ev){
+            var cookie = getCookie('form_start_sent');
+            if(cookie){
+                // no hacer nada
+            }else{
+                const dataTarget = ev.target.closest("form")
+                const form_name = dataTarget.id;
+                const form_destination = dataTarget.dataset.model_name
+                const dict = {
+                    'event': 'form_start',
+                    'ecommerce': {
+                        'form_name': form_name,
+                        'form_destination': form_destination
+                    }
+                }
+                setCookie('form_start_sent', true, 600, 'required');
+                this._pushInfo(dict)
+>>>>>>> 0dd8680 (temp)
             }
         }
         this._pushInfo(dict);
@@ -66,6 +354,7 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
     },
 });
 
+<<<<<<< HEAD
 //Heredamos PaymentForm form porque el metodo _submitForm tiene stopPropagation y preventDefault, impidiendonos hacerlo en el widget GoogleTagManagerAdvancedTracking
 PaymentForm.include({
     _pushInfo: function (dict){
@@ -82,10 +371,89 @@ PaymentForm.include({
             const dict = {
                 'event':'purchase',
                 'ecommerce':info
+||||||| parent of 0dd8680 (temp)
+    //Heredamos payment checkout form porque el metodo _onClickPay tiene stopPropagation y preventDefault, impidiendonos hacerlo en el widget GoogleTagManagerAdvancedTracking
+    PaymentCheckoutForm.include({
+        _pushInfo: function (dict){
+            if(typeof(dataLayer) !== 'undefined'){
+                dataLayer.push(dict);
+                console.log(dict);
             }
+        },
+        // @override
+        _onClickPay: async function (ev) {
+            // Start Payment Event
+            const info = $(".toggle_summary_div")[0].dataset.purchase_info;
+            const payment_method_input = document.querySelector('#payment_method input[type="radio"]:checked');
+            const sale_id = $(".my_cart_quantity")[0].dataset.orderId
+            const parsed_info = JSON.parse(info.replace(/'/g, '"'))
+            const payment_info = {
+                'currency': parsed_info.currency,
+                'value': parsed_info.value,
+                'transaction_id': sale_id,
+                'payment_type': payment_method_input.dataset.provider
+            }
+            const payment_dict = {
+                'event': 'start_payment',
+                'ecommerce': payment_info
+=======
+    //Heredamos payment checkout form porque el metodo _onClickPay tiene stopPropagation y preventDefault, impidiendonos hacerlo en el widget GoogleTagManagerAdvancedTracking
+    PaymentCheckoutForm.include({
+        _pushInfo: function (dict){
+            if(typeof(dataLayer) !== 'undefined'){
+                dataLayer.push(dict);
+                console.log(dict);
+            }
+        },
+        // @override
+        _onClickPay: async function (ev) {
+            try {
+                // Start Payment Event
+                const info_string = $(".toggle_summary_div")[0].dataset.purchase_info;
+                const payment_method_input = document.querySelector('#payment_method input[type="radio"]:checked');
+                const sale_id = $(".my_cart_quantity")[0].dataset.orderId
+
+                // Robust parsing
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+
+                const parsed_info = JSON.parse(jsonString);
+                const payment_info = {
+                    'currency': parsed_info.currency,
+                    'value': parsed_info.value,
+                    'transaction_id': sale_id,
+                    'payment_type': payment_method_input.dataset.provider
+                }
+                const payment_dict = {
+                    'event': 'start_payment',
+                    'ecommerce': payment_info
+                }
+                this._pushInfo(payment_dict);
+                // Start Payment Event
+            } catch (e) {
+                 console.error("GTM Error: Failed to parse purchase_info in _onClickPay.", e);
+                 console.error("GTM Debug: Original purchase_info string:", $(".toggle_summary_div")[0].dataset.purchase_info);
+>>>>>>> 0dd8680 (temp)
+            }
+<<<<<<< HEAD
             this._pushInfo(dict);
         }
         this._super(...arguments);
     },
 })
+||||||| parent of 0dd8680 (temp)
+            this._pushInfo(payment_dict);
+            // Start Payment Event
+
+            this._super(...arguments);
+        },
+    })
+=======
+
+            this._super(...arguments);
+        },
+    })
+>>>>>>> 0dd8680 (temp)
 
