@@ -84,19 +84,32 @@ odoo.define("google_tag_manager_advanced_tracking.tracking", function (require) 
             this._pushInfo(dict);
         },
         _onCheckoutStartJs: function () {
-            var dataTarget = $("#cart_products")[0];
-            var currency = dataTarget.dataset.currency;
-            var value = dataTarget.dataset.value;
-            const info = dataTarget.dataset.cart_info;
-            const dict = {
-                'event':'begin_checkout',
-                'ecommerce':{
-                    'currency': currency,
-                    'value': value,
-                    'items':info
+            try {
+                var dataTarget = $("#cart_products")[0];
+                var currency = dataTarget.dataset.currency;
+                var value = dataTarget.dataset.value;
+                const info_string = dataTarget.dataset.cart_info;
+
+                // Robust parsing
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+
+                const info = JSON.parse(jsonString);
+                const dict = {
+                    'event':'begin_checkout',
+                    'ecommerce':{
+                        'currency': currency,
+                        'value': value,
+                        'items':info
+                    }
                 }
+                this._pushInfo(dict);
+            } catch (e) {
+                console.error("GTM Error: Failed to parse cart_info in _onCheckoutStartJs.", e);
+                console.error("GTM Debug: Original cart_info string:", $("#cart_products")[0].dataset.cart_info);
             }
-            this._pushInfo(dict);
         },
 
         _onViewItem : function(product_details) {
@@ -119,22 +132,49 @@ odoo.define("google_tag_manager_advanced_tracking.tracking", function (require) 
             }
             this._pushInfo(dict);
         },
-        _onCartView: function(element){
-            const info = element[0].dataset.cart_info;
-            const dict = {
-                'event': 'view_cart',
-                'ecommerce': info
-            }
-            this._pushInfo(dict);
+        _onCartView: function (element) {
+            try {
+                const info_string = element[0].dataset.cart_info;
+                // Attempt to fix common Python dict string issues for JSON parsing
+                // 1. Escape existing backslashes
+                // 2. Replace single quotes with double quotes
+                // 3. Replace Python boolean/none literals (only when they appear as values)
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
 
+                const info = JSON.parse(jsonString);
+                const dict = {
+                    'event': 'view_cart',
+                    'ecommerce': info
+                }
+                this._pushInfo(dict);
+            } catch (e) {
+                console.error("GTM Error: Failed to parse cart_info in _onCartView.", e);
+                console.error("GTM Debug: Original cart_info string:", element[0].dataset.cart_info);
+            }
         },
         _onPurchaseConfirm: function(confirmation) {
-            const info = confirmation.data('purchase_info');
-            const dict = {
-                'event': 'purchase',
-                'ecommerce': info
+            try {
+                const info_string = confirmation.data('purchase_info');
+
+                // Robust parsing
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+
+                const info = JSON.parse(jsonString);
+                const dict = {
+                    'event': 'purchase',
+                    'ecommerce': info
+                }
+                this._pushInfo(dict)
+            } catch (e) {
+                console.error("GTM Error: Failed to parse purchase_info in _onPurchaseConfirm.", e);
+                console.error("GTM Debug: Original purchase_info string:", confirmation.data('purchase_info'));
             }
-            this._pushInfo(dict)
         },
         _onFormStart: function(ev){
             var cookie = getCookie('form_start_sent');
@@ -167,23 +207,35 @@ odoo.define("google_tag_manager_advanced_tracking.tracking", function (require) 
         },
         // @override
         _onClickPay: async function (ev) {
-            // Start Payment Event
-            const info = $(".toggle_summary_div")[0].dataset.purchase_info;
-            const payment_method_input = document.querySelector('#payment_method input[type="radio"]:checked');
-            const sale_id = $(".my_cart_quantity")[0].dataset.orderId
-            const parsed_info = JSON.parse(info.replace(/'/g, '"'))
-            const payment_info = {
-                'currency': parsed_info.currency,
-                'value': parsed_info.value,
-                'transaction_id': sale_id,
-                'payment_type': payment_method_input.dataset.provider
+            try {
+                // Start Payment Event
+                const info_string = $(".toggle_summary_div")[0].dataset.purchase_info;
+                const payment_method_input = document.querySelector('#payment_method input[type="radio"]:checked');
+                const sale_id = $(".my_cart_quantity")[0].dataset.orderId
+
+                // Robust parsing
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+
+                const parsed_info = JSON.parse(jsonString);
+                const payment_info = {
+                    'currency': parsed_info.currency,
+                    'value': parsed_info.value,
+                    'transaction_id': sale_id,
+                    'payment_type': payment_method_input.dataset.provider
+                }
+                const payment_dict = {
+                    'event': 'start_payment',
+                    'ecommerce': payment_info
+                }
+                this._pushInfo(payment_dict);
+                // Start Payment Event
+            } catch (e) {
+                 console.error("GTM Error: Failed to parse purchase_info in _onClickPay.", e);
+                 console.error("GTM Debug: Original purchase_info string:", $(".toggle_summary_div")[0].dataset.purchase_info);
             }
-            const payment_dict = {
-                'event': 'start_payment',
-                'ecommerce': payment_info
-            }
-            this._pushInfo(payment_dict);
-            // Start Payment Event
 
             this._super(...arguments);
         },
