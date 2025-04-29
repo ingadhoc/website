@@ -1,15 +1,31 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
+# 	* l10n_ar_website_sale_ux
+# 
+# Translators:
+# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-26 11:30+0000\n"
+"POT-Creation-Date: 2025-04-29 12:06+0000\n"
 "PO-Revision-Date: 2024-03-11 20:00+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#. module: l10n_ar_website_sale_ux
+#: model_terms:ir.ui.view,arch_db:l10n_ar_website_sale_ux.product_tax
+#: model_terms:ir.ui.view,arch_db:l10n_ar_website_sale_ux.products_add_to_cart
+msgid "Precio Sin Impuestos Nacionales"
+msgstr ""
+
+#. module: l10n_ar_website_sale_ux
+#: model:ir.model,name:l10n_ar_website_sale_ux.model_product_template
+msgid "Product"
+msgstr "Producto"
