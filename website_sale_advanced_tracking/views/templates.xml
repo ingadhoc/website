@@ -37,8 +37,14 @@
     <template id="cart_lines" inherit_id="website_sale.cart_lines">
         <xpath expr="//div[@id='cart_products']" position="attributes">
             <attribute name="t-att-data-cart_info">website_sale_order.website_order_line.prepare_checkout_information()</attribute>
+<<<<<<< HEAD
             <attribute name="t-att-data-currency">website.currency_id.name</attribute>
             <attribute name="t-att-data-value">website_sale_order.amount_total</attribute>
+||||||| parent of 8dde5ac (temp)
+=======
+             <attribute name="t-att-data-currency">website.currency_id.name</attribute>
+            <attribute name="t-att-data-value">website_sale_order.amount_total</attribute>
+>>>>>>> 8dde5ac (temp)
         </xpath>
     </template>
     <template id="submit_button" inherit_id="payment.submit_button">

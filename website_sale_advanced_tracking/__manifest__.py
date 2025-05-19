@@ -18,6 +18,7 @@
 #
 ##############################################################################
 {
+<<<<<<< HEAD
     "name": "Website Sale Advanced Tracking",
     "category": "website",
     "version": "18.0.1.1.0",
@@ -27,6 +28,27 @@
     "depends": [
         "website_sale",
         "payment",
+||||||| parent of 8dde5ac (temp)
+    'name': 'Website Sale Advanced Tracking',
+    'category': 'website',
+    'version': "17.0.1.1.0",
+    'author': 'ADHOC SA',
+    'website': 'www.adhoc.com.ar',
+    'license': 'AGPL-3',
+    'depends': [
+        'website_sale',
+        'payment',
+=======
+    'name': 'Website Sale Advanced Tracking',
+    'category': 'website',
+    'version': "17.0.1.2.0",
+    'author': 'ADHOC SA',
+    'website': 'www.adhoc.com.ar',
+    'license': 'AGPL-3',
+    'depends': [
+        'website_sale',
+        'payment',
+>>>>>>> 8dde5ac (temp)
     ],
     "data": [
         "views/templates.xml",

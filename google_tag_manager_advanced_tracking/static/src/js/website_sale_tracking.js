@@ -88,6 +88,7 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
         this._pushInfo(dict);
     },
     _onCheckoutStartJs: function () {
+<<<<<<< HEAD
         var dataTarget = $("#cart_products")[0];
         if( Object.keys(dataTarget.dataset).length > 0) {
             try {
@@ -95,6 +96,20 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
                 var currency = dataTarget.dataset.currency;
                 var value = dataTarget.dataset.value;
                 const info_string = dataTarget.dataset.cart_info;
+||||||| parent of 8dde5ac (temp)
+        try {
+            var dataTarget = $("#cart_products")[0];
+            var currency = dataTarget.dataset.currency;
+            var value = dataTarget.dataset.value;
+            const info_string = dataTarget.dataset.cart_info;
+=======
+        var dataTarget = $("#cart_products")[0];
+        if( Object.keys(dataTarget.dataset).length > 0) {
+            try {
+                var currency = dataTarget.dataset.currency;
+                var value = dataTarget.dataset.value;
+                const info_string = dataTarget.dataset.cart_info;
+>>>>>>> 8dde5ac (temp)
 
                 // Robust parsing
                 let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
