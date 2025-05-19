@@ -88,31 +88,33 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
         this._pushInfo(dict);
     },
     _onCheckoutStartJs: function () {
-        try {
-            var dataTarget = $("#cart_products")[0];
-            var currency = dataTarget.dataset.currency;
-            var value = dataTarget.dataset.value;
-            const info_string = dataTarget.dataset.cart_info;
+        var dataTarget = $("#cart_products")[0];
+        if( Object.keys(dataTarget.dataset).length > 0) {
+            try {
+                var currency = dataTarget.dataset.currency;
+                var value = dataTarget.dataset.value;
+                const info_string = dataTarget.dataset.cart_info;
 
-            // Robust parsing
-            let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
-            jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
-            jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
-            jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+                // Robust parsing
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
 
-            const info = JSON.parse(jsonString);
-            const dict = {
-                'event':'begin_checkout',
-                'ecommerce':{
-                    'currency': currency,
-                    'value': value,
-                    'items':info
+                const info = JSON.parse(jsonString);
+                const dict = {
+                    'event':'begin_checkout',
+                    'ecommerce':{
+                        'currency': currency,
+                        'value': value,
+                        'items':info
+                    }
                 }
+                this._pushInfo(dict);
+            } catch (e) {
+                console.error("GTM Error: Failed to parse cart_info in _onCheckoutStartJs.", e);
+                console.error("GTM Debug: Original cart_info string:", $("#cart_products")[0].dataset.cart_info);
             }
-            this._pushInfo(dict);
-        } catch (e) {
-            console.error("GTM Error: Failed to parse cart_info in _onCheckoutStartJs.", e);
-            console.error("GTM Debug: Original cart_info string:", $("#cart_products")[0].dataset.cart_info);
         }
     },
 
@@ -218,6 +220,7 @@ PaymentForm.include({
         try {
             const info_div = $("#o_wsale_accordion_item")[0]
             if (info_div) {
+                const info_string = info_div.dataset.purchase_info;
                 const payment_method_input = document.querySelector('#payment_method input[type="radio"]:checked');
                 const sale_id = $(".my_cart_quantity")[0].dataset.orderId
 
@@ -232,7 +235,7 @@ PaymentForm.include({
                     'currency': parsed_info.currency,
                     'value': parsed_info.value,
                     'transaction_id': sale_id,
-                    'payment_type': payment_method_input.dataset.provider
+                    'payment_type': payment_method_input.dataset.providerCode
                 }
                 const payment_dict = {
                     'event': 'start_payment',
