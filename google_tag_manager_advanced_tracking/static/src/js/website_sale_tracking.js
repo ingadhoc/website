@@ -26,7 +26,7 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
             this._onCartView(cart_element)
         }
         //push purchase info when DOM loaded in /shop/confirmation
-        const $confirmation = $('div.oe_website_sale_tx_status');
+        const $confirmation = $('.purchase_confirm');
         if ($confirmation.length) {
             this._onPurchaseConfirm($confirmation)
         }
