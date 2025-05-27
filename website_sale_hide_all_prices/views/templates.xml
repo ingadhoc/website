@@ -33,8 +33,8 @@
         </xpath>
     </template>
 
-    <template id="payment_delivery" inherit_id="website_sale.payment_delivery">
-         <xpath expr="//div[@id='delivery_carrier']" position="attributes">
+    <template id="delivery_form" inherit_id="website_sale.delivery_form">
+         <xpath expr="//form[@id='o_delivery_form']" position="attributes">
             <attribute name="t-attf-class">#{website.website_hide_all_prices and 'd-none' or ''}</attribute>
         </xpath>
     </template>
@@ -60,7 +60,7 @@
     </template>
 
     <template id="payment_status" inherit_id="payment.payment_status">
-         <xpath expr="//div[@name='o_payment_status_content']" position="attributes">
+         <xpath expr="//div[@name='o_payment_status']" position="attributes">
             <attribute name="t-attf-class">#{website.website_hide_all_prices and 'd-none' or ''}</attribute>
         </xpath>
     </template>
@@ -90,6 +90,12 @@
                 </div>
             </div>
          </t>
+    </template>
+
+    <template id="badge_extra_price" inherit_id="website_sale.badge_extra_price">
+         <xpath expr="//span[@t-if='price_extra']" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
     </template>
 
     <record id="quotation_page" model="website.page">

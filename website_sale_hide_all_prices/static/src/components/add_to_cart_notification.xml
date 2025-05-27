@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-     <t t-name="website_hide_all_prices.MyAddToCartNotification">
+     <t t-name="website_sale_hide_all_prices.MyAddToCartNotification">
            <div class="row g-2 mb-2" t-foreach="props.lines" t-as="line" t-key="line.id">
             <div class="col-3">
                 <img class="img o_image_64_max rounded mb-2 img-fluid"
