@@ -8,4 +8,11 @@
             <attribute name="t-attf-class">oe_product_cart h-100 d-flex #{'out_of_stock_img_blur' if (product._is_sold_out() and not product.allow_out_of_stock_order) else ''} </attribute>
         </xpath>
     </template>
+    <template id="merchant_catalog_availability" inherit_id="website_sale.product">
+        <xpath expr="//span[@itemprop='image']" position="after">
+            <t t-if="product.active">
+                <link itemprop="availability" t-attf-href="https://schema.org/{{'OutOfStock' if product._is_sold_out() and not product.allow_out_of_stock_order else 'InStock'}}"/>
+            </t>
+        </xpath>
+    </template>
 </odoo>
