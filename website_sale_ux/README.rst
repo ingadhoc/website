@@ -22,8 +22,7 @@ Website Sale UX
 #. Adds an option to disable returning categories on shop search bar. To do so you need to go to website settings and check option "Disable Categories Search"
 #. Adds a button on the filters sidebar on ecommerce to get back to the shop page unapplying all filters previously set
 #. Makes the native fields description_ecommerce and website_description visible on product.template backend view
-#. A toggle button is added on website Builder for 'Product page' cutomization, called "Sale description". This button shows/hides the sale_description field on frontend view
-#. Adds a toggle button on Website's Builder when user is editing on "/shop" page, to automatically display an "Out of stock" ribbon on the products's card when the product's available stock is zero. Additionally, it adds a class "out_of_stock_img_blur" which allows to set further customizations using the css editor
+#. A toggle button is added on website Builder for 'Product page' cutomization, called "Sale description". This button shows/hides the sale_description field on frontend view.
 
 Installation
 ============
