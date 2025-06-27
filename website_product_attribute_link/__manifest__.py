@@ -19,7 +19,7 @@
 ##############################################################################
 {
     "name": "Product Attribute Link on Website Product view",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Product",
     "sequence": 14,
     "summary": "",
@@ -28,13 +28,13 @@
     "license": "AGPL-3",
     "images": [],
     "depends": [
-        "website_sale",
+        "website_sale_comparison",
     ],
     "data": [
         "views/product_attribute_views.xml",
         "views/product_attributes_templates.xml",
         "security/product_group_security.xml",
     ],
-    "installable": False,
+    "installable": True,
     "application": False,
 }

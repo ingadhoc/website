@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="attribute_tree_view" model="ir.ui.view">
-        <field name="name">product.attribute.tree.type</field>
+        <field name="name">product.attribute.list.type</field>
         <field name="model">product.attribute</field>
         <field name="inherit_id" ref="product.attribute_tree_view"></field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="website_link_on_product" widget="boolean_toggle"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -16,8 +16,10 @@
         <field name="model">product.attribute</field>
         <field name="inherit_id" ref="product.product_attribute_view_form"></field>
         <field name="arch" type="xml">
-            <group>
-                <field name="website_link_on_product" widget="boolean_toggle"/>
+            <group name="main_fields" position="after">
+                <group>
+                    <field name="website_link_on_product" widget="boolean_toggle"/>
+                </group>
             </group>
         </field>
     </record>
