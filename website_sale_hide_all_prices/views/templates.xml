@@ -65,17 +65,6 @@
         </xpath>
     </template>
 
-    <template id="submit_button" inherit_id="website_sale_ux.submit_button">
-         <xpath expr="//button[@name='o_payment_submit_button']/span" position="attributes">
-            <attribute name="t-if">not website.website_hide_all_prices</attribute>
-        </xpath>
-        <xpath expr="//button[@name='o_payment_submit_button']" position="inside">
-               <t t-if="website.website_hide_all_prices">
-                    <span>Request Quotation</span>
-                </t>
-        </xpath>
-    </template>
-
     <template id="website_sale_hide_all_prices.request_quotation_submited" name="Request Quotation Received">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure oe_empty h-100">
