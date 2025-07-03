@@ -10,9 +10,19 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
+<<<<<<< HEAD:website_sale_hide_all_prices/README.rst
 ============================
 Website Sale Hide All Prices
 ============================
+||||||| parent of 27ad1e0 (temp):website_sale_installment_plans/README.rst
+=======================
+Website Sale Installment Plans
+=======================
+=======
+==============================
+Website Sale Installment Plans
+==============================
+>>>>>>> 27ad1e0 (temp):website_sale_installment_plans/README.rst
 
 This module allows the users to hide all the prices of the eCommerce. All prices on the eCommerce site will be hidden, but customers will be able to add products to the cart in order to request a quotation.
 
