@@ -10,9 +10,9 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-=======================
+==============================
 Website Sale Installment Plans
-=======================
+==============================
 
 This module adds a feature in card installment to show installment plans on the website.
 
