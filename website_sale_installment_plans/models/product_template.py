@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
             plans.append({
                 'installments': cuota.installment,
                 'description': values['description'],
-                'messagge': cuota.messagge or '',
+                'message': cuota.message or '',
             })
         return plans
 
