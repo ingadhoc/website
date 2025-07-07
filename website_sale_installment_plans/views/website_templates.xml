@@ -9,8 +9,8 @@
                         <span style="color: black; font-weight: bold;">
                             <span t-esc="installment['description']"/>
                         </span>
-                        <span t-if="installment['messagge']" style="font-size: 11px; color: #999; margin-left: 5px;">
-                            <span t-esc="installment['messagge']"/>
+                        <span t-if="installment['message']" style="font-size: 11px; color: #999; margin-left: 5px;">
+                            <span t-esc="installment['message']"/>
                         </span>
                     </p>
                 </t>
@@ -28,8 +28,8 @@
                         <span style="color: black; font-weight: bold;">
                             <span t-esc="installment['description']"/>
                         </span>
-                        <span t-if="installment['messagge']" style="font-size: 11px; color: #999; margin-left: 5px;">
-                            <span t-esc="installment['messagge']"/>
+                        <span t-if="installment['message']" style="font-size: 11px; color: #999; margin-left: 5px;">
+                            <span t-esc="installment['message']"/>
                         </span>
                     </p>
                 </t>
