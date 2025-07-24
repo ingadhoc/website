@@ -27,12 +27,16 @@
     "depends": [
         "website_google_tag_manager",
         "website_sale_advanced_tracking",
+        "saas_provider_upgrade",
     ],
     "data": ["views/snippets.xml"],
     "assets": {
         "web.assets_frontend": [
             "google_tag_manager_advanced_tracking/static/src/js/website_sale_tracking.js",
             "google_tag_manager_advanced_tracking/static/src/js/website_user_tracking.js",
+        ],
+        "web.assets_unit_tests": [
+            "google_tag_manager_advanced_tracking/static/tests/**/*",
         ],
     },
     "installable": True,
