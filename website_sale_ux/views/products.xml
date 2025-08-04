@@ -9,6 +9,23 @@
             </xpath>
         </field>
     </record>
+    <record model="ir.ui.view" id="products_item">
+        <field name="name">website.sale.ux.products</field>
+        <field name="inherit_id" ref="website_sale.products_item"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="before">
+                <t t-if="any([product[field.name] for field in website.shop_extra_field_ids])">
+                    <p class="text-muted small">
+                        <t t-foreach="website.shop_extra_field_ids" t-as="field" t-if="product[field.name]">
+                            <t t-if="field.name == 'default_code'">
+                               <span>Ref. interna: </span><span t-esc='product[field.name]'/>
+                            </t>
+                        </t>
+                    </p>
+                </t>
+        </xpath>
+        </field>
+    </record>
     <record model="ir.ui.view" id="products_mobile">
         <field name="name">website.sale.ux.products.mobile</field>
         <field name="inherit_id" ref="website_sale.o_wsale_offcanvas"/>
