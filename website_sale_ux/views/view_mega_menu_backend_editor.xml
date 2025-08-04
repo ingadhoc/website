@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_mega_menu_backend_editor">
+        <field name="name">mega.menu.backend.editor</field>
+        <field name="model">website.menu</field>
+        <field name="inherit_id" ref="website.website_menus_form_view"/>
+        <field name="arch" type="xml">
+            <field name="child_id" position="after">
+                <group>
+                    <field name="mega_menu_content" widget="ace" invisible="not is_mega_menu"/>
+                </group>
+            </field>
+        </field>
+    </record>
+</odoo>
