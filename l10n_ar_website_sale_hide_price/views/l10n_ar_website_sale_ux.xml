@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_tax" name="Product Tax" inherit_id="l10n_ar_website_sale_ux.product_tax">
+        <small t-if="website.company_id.country_code == 'AR' and request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'" position="attributes">
+            <attribute name='t-if' add="and website.website_show_price" separator=" "/>
+        </small>
+    </template>
+
+    <template id="products_add_to_cart" inherit_id="l10n_ar_website_sale_ux.products_add_to_cart">
+         <small t-if="website.company_id.country_code == 'AR' and request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'" position="attributes">
+            <attribute name='t-if' add="and website.website_show_price" separator=" "/>
+         </small>
+    </template>
+</odoo>
