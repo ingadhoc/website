@@ -19,23 +19,22 @@
     <template id="products_item" name="Products item" inherit_id="website_sale.products_item">
         <xpath expr="//div[hasclass('product_price')]" position="inside">
             <t t-if="not website.prevent_zero_price_sale">
-                <t t-set='vat_tax' t-if="request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded'" t-value='product.sudo().taxes_id.filtered(lambda x: x.company_id == website.company_id and x.tax_group_id.l10n_ar_vat_afip_code)'/>
-                <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="vat_tax" t-esc="'(+' + vat_tax.name + ')'" />
+                <t t-if="request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded'">
+                    <t t-set='vat_tax' t-value='product.sudo().taxes_id.filtered(lambda x: x.company_id == website.company_id and x.tax_group_id.l10n_ar_vat_afip_code)'/>
+                    <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="vat_tax" t-esc="'(+' + vat_tax.name + ')'" />
+                </t>
+                <t t-else="request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'">
+                    <div>
+                        <small t-if="website.company_id.country_code == 'AR'" class="d-block mt-1">Precio Sin Impuestos Nacionales
+                            <span t-esc="template_price_vals['price_tax_excluded']"
+                                t-options='{
+                                    "widget": "monetary",
+                                    "display_currency": website.currency_id,
+                                }'/>
+                        </small>
+                    </div>
+                </t>
             </t>
         </xpath>
     </template>
-    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
-        <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="after">
-            <t t-if="not website.prevent_zero_price_sale">
-            <small t-if="website.company_id.country_code == 'AR' and request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'">Precio Sin Impuestos Nacionales
-                <span t-esc="template_price_vals['price_tax_excluded']"
-                    t-options='{
-                        "widget": "monetary",
-                        "display_currency": website.currency_id,
-                    }'/>
-            </small>
-            </t>
-        </xpath>
-    </template>
-
 </odoo>
