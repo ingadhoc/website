@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import fields, models, api, _
+from odoo.exceptions import ValidationError
 
 
 class AccountCardInstallment(models.Model):
@@ -6,6 +7,12 @@ class AccountCardInstallment(models.Model):
     _inherit = ['account.card.installment', 'website.published.mixin']
 
     message = fields.Char(string='Mensaje', help='Mensaje que se muestra al final de la leyenda de cuotas')
+
+    @api.constrains('divisor')
+    def _check_divisor(self):
+        for record in self:
+            if record.divisor <= 0:
+                raise ValidationError(_('El divisor debe ser mayor que cero.'))
 
     def map_installment_values(self, amount_total):
         self.ensure_one()
