@@ -2,15 +2,15 @@
 <odoo>
     <template id="website_internal_ref_products_item" inherit_id="website_sale.products_item" name="Website Products Item Internal Ref" active="False">
         <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="before">
-            <p t-if="product.default_code" class="text-muted small">
-                <span>Ref. interna: </span><span t-esc='product.default_code'/>
+            <p t-if="product.product_variant_id.default_code" class="text-muted small">
+                <span>Ref. interna: </span><span t-esc='product.product_variant_id.default_code'/>
             </p>
         </xpath>
     </template>
     <template id="website_internal_ref_product" inherit_id="website_sale.product" name="Website Product Internal Ref" active="False">
         <xpath expr="//div[@id='product_details']" position="inside">
-            <p t-if="product.default_code" class="text-muted small">
-                <b><span>Ref. interna: </span></b><span t-esc='product.default_code'/>
+            <p t-if="product.product_variant_count == 1 and product.product_variant_id.default_code" class="text-muted small">
+                <b><span>Ref. interna: </span></b><span t-esc='product.product_variant_id.default_code'/>
             </p>
         </xpath>
     </template>
