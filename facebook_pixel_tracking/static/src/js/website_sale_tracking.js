@@ -32,6 +32,7 @@ odoo.define("facebook_pixel_tracking.tracking", function (require) {
                 'content_type': 'product',
                 'value': product_price,
                 'total': amount,
+                'currency': 'ARS',
             }
             this._pushInfo('AddToCart', dict);
         },
@@ -46,6 +47,7 @@ odoo.define("facebook_pixel_tracking.tracking", function (require) {
                 'content_ids': [product_sku || product_id],
                 'content_type': 'product',
                 'value': product_price,
+                'currency': 'ARS',
             }
             this._pushInfo('AddToCart', dict);
         },
@@ -75,7 +77,26 @@ odoo.define("facebook_pixel_tracking.tracking", function (require) {
                 'event':'purchase',
                 'ecommerce':info
             }
-            this._pushInfo('OnPurchaseConfirm', dict);
+            // const dict2 = {
+            //     value: 115.00,
+            //     currency: 'USD',
+            //     contents: [
+            //       {
+            //         id: '301',
+            //         quantity: 1
+            //       },
+            //       {
+            //         id: '401',
+            //         quantity: 2
+            //       }],
+            //     content_type: 'producto prueba'
+            //   }
+
+            // this._pushInfo('OnPurchaseConfirm', dict);
+            fbq('track','Purchase', dict);
+            fbq('track','OnPurchaseConfirm', dict);
+            // fbq('track','Purchase', dict2);
+            // fbq('track','OnPurchaseConfirm', dict2);
             this._super(...arguments);
         },
     })
