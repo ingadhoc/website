@@ -37,5 +37,5 @@
             "website_sale_advanced_tracking/static/src/add_to_cart_notification.xml",
         ],
     },
-    "installable": True,
+    'installable': False,
 }

@@ -37,5 +37,5 @@
             "website_sale_hide_all_prices/static/src/components/product_configurator_dialog.js",
         ]
     },
-    "installable": True,
+    'installable': False,
 }

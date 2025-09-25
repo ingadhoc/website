@@ -14,5 +14,5 @@
         "views/account_card_installment_views.xml",
         "views/website_templates.xml",
     ],
-    "installable": True,
+    'installable': False,
 }

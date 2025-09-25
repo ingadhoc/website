@@ -39,5 +39,5 @@
         "views/ecommerce_fields.xml",
         "views/view_mega_menu_backend_editor.xml",
     ],
-    "installable": True,
+    'installable': False,
 }
