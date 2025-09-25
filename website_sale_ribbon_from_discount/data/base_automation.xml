@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record id="create_ribbon_from_discount_on_update_record" model="base.automation">
+        <field name="name">create Ribbon from discount on record update</field>
+        <field ref="product.model_product_pricelist_item" name="model_id"/>
+        <field name="state">code</field>
+        <field name="binding_type">action</field>
+        <field name="code">
+
+for rec in record:
+  if rec.create_ribbon:
+    if rec.compute_price == 'fixed':
+      raise UserError("Solo puede crearse un ribbon desde decuento si el tipo es 'Descuento' o 'Formula'")
+    elif rec.applied_on in ['3_global', '0_product_variant']:
+      raise UserError("Solo puede crearse un ribbon desde decuento si se selecciona aplicable en: 'Producto' o 'Categoría de producto'")
+    elif not rec.date_start or not rec.date_end:
+      raise UserError("Solo puede crearse un ribbon desde decuento si estan establecidas fechas de inicio y fin")
+    elif not rec.website_ribbon_id:
+      raise UserError("No se ha creado un ribbon para el website, primero cree uno y luego guarde")
+    else:
+      if rec.applied_on == '2_product_category':
+        products = rec.env['product.template'].search([('categ_id.id', '=', rec.categ_id.id)])
+      elif rec.applied_on == '1_product':
+        products = rec.env['product.template'].search([('id', '=', rec.product_tmpl_id.id)])
+      if rec.date_start.date() == datetime.datetime.today().date():
+        rec.website_ribbon_id.write({'html_class':'text-bg-success o_ribbon_right','ribbon_from_discount':True})
+        for product in products:
+          product.write({'ribbon_from_discount':rec.website_ribbon_id})</field>
+        <field name="trigger">on_write</field>
+    </record>
+    <record id="delete_ribbon_from_discount_on_date_end_reached" model="base.automation">
+        <field name="name">delete ribbon when date_end reached</field>
+        <field ref="product.model_product_pricelist_item" name="model_id"/>
+        <field name="state">code</field>
+        <field name="binding_type">action</field>
+        <field name="code">
+
+products = env['product.template'].search([('ribbon_from_discount','=','rec.website_ribbon_id')])
+for rec in record:
+  for product in products:
+    product.write({'ribbon_from_discount':False})</field>
+        <field name="trigger">on_time</field>
+        <field name="trg_date_id" ref="product.field_product_pricelist_item__date_end" />
+        <field name="trg_date_range">0</field>
+        <field name="trg_date_range_type">minutes</field>
+    </record>
+    <record id="create_ribbon_from_discount_on_date_start_reached" model="base.automation">
+    <field name="name">create ribbon when date_start reached</field>
+    <field ref="product.model_product_pricelist_item" name="model_id"/>
+    <field name="state">code</field>
+    <field name="binding_type">action</field>
+    <field name="code">
+
+for rec in record:
+  if rec.create_ribbon:
+    if rec.compute_price == 'fixed':
+      pass
+    elif rec.applied_on in ['3_global', '0_product_variant']:
+      pass
+    elif not rec.date_start or not rec.date_end:
+      pass
+    elif not rec.website_ribbon_id:
+      pass
+    else:
+      if rec.applied_on == '2_product_category':
+        products = rec.env['product.template'].search([('categ_id.id', '=', rec.categ_id.id)])
+      elif rec.applied_on == '1_product':
+        products = rec.env['product.template'].search([('id', '=', rec.product_tmpl_id.id)])
+        rec.website_ribbon_id.write({'html_class':'text-bg-success o_ribbon_right','ribbon_from_discount':True})
+        for product in products:
+            product.write({'ribbon_from_discount':rec.website_ribbon_id})</field>
+    <field name="trigger">on_time</field>
+    <field name="trg_date_id" ref="product.field_product_pricelist_item__date_start" />
+    <field name="trg_date_range">0</field>
+    <field name="trg_date_range_type">minutes</field>
+  </record>
+</odoo>

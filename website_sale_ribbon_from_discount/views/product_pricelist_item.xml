@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="product_pricelist_item">
+        <field name="name">product_pricelist_item</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Website Ribbon" attrs="{'invisible':['|','|',('applied_on', '=', '3_global'), ('date_start', '=', False), ('date_end', '=', False)]}">
+                    <group>
+                        <div class="o_row">
+                            <label for="create_ribbon" />
+                            <field name="create_ribbon" />
+                        </div>
+                    </group>
+                    <group attrs="{'invisible': [('create_ribbon', '=', False)]}" > 
+                        <div class="o_row">
+                            <label for="website_ribbon_id" />
+                            <field name="website_ribbon_id" domain="[('id', '=', False)]" style="width:300px !important"/>
+                        </div>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
