@@ -30,6 +30,6 @@
         "security/ir.model.access.csv",
         "views/website_promotion_views.xml",
     ],
-    'installable': False,
+    "installable": False,
     "application": False,
 }

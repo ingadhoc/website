@@ -28,5 +28,5 @@
     "data": [
         "views/templates.xml",
     ],
-    'installable': False,
+    "installable": False,
 }

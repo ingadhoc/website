@@ -32,6 +32,6 @@
         "views/l10n_ar_website_sale_ux.xml",
         "views/l10n_ar_website_sale_hide_taxes.xml",
     ],
-    'installable': False,
+    "installable": False,
     "auto_install": ["l10n_ar_website_sale"],
 }

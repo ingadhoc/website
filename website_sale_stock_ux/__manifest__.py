@@ -31,7 +31,7 @@
         "views/templates.xml",
         "views/snippets.xml",
     ],
-    'installable': False,
+    "installable": False,
     "auto_install": True,
     "application": False,
 }

@@ -31,7 +31,7 @@
     "data": [
         "views/res_config_settings_views.xml",
     ],
-    'installable': False,
+    "installable": False,
     "auto_install": False,
     "assets": {
         "web.assets_tests": [

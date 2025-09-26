@@ -12,6 +12,6 @@
         "website",
     ],
     "data": [],
-    'installable': False,
+    "installable": False,
     "application": False,
 }
