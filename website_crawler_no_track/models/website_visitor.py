@@ -17,3 +17,7 @@ class WebsiteVisitor(models.Model):
             return self.env["website.visitor"]
 
         return super()._get_visitor_from_request(force_create=force_create, force_track_values=force_track_values)
+
+    def _add_viewed_product(self, product_id):
+        if self:
+            return super()._add_viewed_product(product_id)
