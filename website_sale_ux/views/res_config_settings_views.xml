@@ -5,11 +5,11 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website_sale.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <block id="sale_product_catalog_settings" position="inside">
+            <setting id="ecommerce_access_setting" position="after">
                 <setting id="comparator_option_setting" string="Disable Categories Search" help="Disable search by categories on shop searchbar">
                     <field name="disable_categories_search"/>
                 </setting>
-            </block>
+            </setting>
         </field>
     </record>
 </odoo>

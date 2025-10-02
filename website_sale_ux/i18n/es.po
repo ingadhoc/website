@@ -70,8 +70,8 @@ msgstr ""
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products_mobile
-msgid "Volver a todos los productos"
-msgstr ""
+msgid "Back to all products"
+msgstr "Volver a todos los productos"
 
 #. module: website_sale_ux
 #: model:ir.model,name:website_sale_ux.model_website

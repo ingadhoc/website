@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="website_sale_ux.ProductsListPageOption" t-inherit="website_sale.ProductsListPageOption" t-inherit-mode="extension">
+    <BuilderRow t-if="isActiveItem('attributes_opt') or isActiveItem('categories_opt')" position="after">
+        <BuilderRow label.translate="Prod. Internal. Ref.">
+            <BuilderCheckbox
+                action="'websiteConfig'"
+                actionParam="{ views: ['website_sale_ux.website_internal_ref_product', 'website_sale_ux.website_internal_ref_products_item'] }"
+            />
+        </BuilderRow>
+    </BuilderRow>
+</t>
+
+</templates>
