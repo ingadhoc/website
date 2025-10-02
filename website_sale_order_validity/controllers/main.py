@@ -22,7 +22,7 @@ class WebsiteSale(payment_portal.PaymentPortal):
     @http.route()
     def shop_payment(self, **post):
         res = super().shop_payment(**post)
-        order = request.website.sale_get_order()
-        if order and order.validity_date and order.validity_date < fields.Date.today():
+        order_sudo = request.cart
+        if order_sudo and order_sudo.validity_date and order_sudo.validity_date < fields.Date.today():
             res.qcontext.update({"show_update_cart": True})
         return res
