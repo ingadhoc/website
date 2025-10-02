@@ -27,7 +27,6 @@ class ProductTemplate(models.Model):
             combination=combination,
             product_id=product_id,
             add_qty=add_qty,
-            parent_combination=parent_combination,
             only_template=only_template,
         )
 
