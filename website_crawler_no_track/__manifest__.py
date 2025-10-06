@@ -1,6 +1,6 @@
 {
     "name": "Website Crawler No Track",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Website",
     "sequence": 14,
     "summary": "",
@@ -12,6 +12,6 @@
         "website",
     ],
     "data": [],
-    "installable": False,
+    "installable": True,
     "application": False,
 }
