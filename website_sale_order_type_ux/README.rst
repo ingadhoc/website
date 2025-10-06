@@ -22,7 +22,7 @@ Installation
 
 To install this module, you need to:
 
-#. Just install ...
+#. Just install...
 
 Configuration
 =============
