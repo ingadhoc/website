@@ -3,7 +3,7 @@
             <xpath expr="//div[hasclass('o_wsale_products_grid_table_wrapper')]" position="before">
                 <!-- The following is a copy of the products_attributes view -->
                 <div t-if="attributes or all_tags" id="wsale_products_attributes_collapse"
-                 class=" position-relative">
+                 class=" position-relative d-none o_snippet_mobile_invisible d-lg-block">
                  <div
                     t-if="attrib_values or tags"
                     class="accordion-item rounded-0 border-top-0 py-3"
@@ -38,7 +38,7 @@
                                         </select>
                                     </t>
                                     <div t-elif="a.display_type == 'color'" class="mb-3">
-                                        <t t-call="website_sale.o_wsale_offcanvas_color_attribute"/>
+                                        <t t-call="website_sale.filter_color_attributes"/>
                                     </div>
                                     <div t-elif="a.display_type in ('radio', 'pills', 'multi')" class="flex-column mb-3">
                                         <t t-foreach="a.value_ids" t-as="v">
