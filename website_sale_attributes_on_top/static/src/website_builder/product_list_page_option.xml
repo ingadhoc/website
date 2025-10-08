@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="website_sale_ux.ProductsListPageOption" t-inherit="website_sale.ProductsListPageOption" t-inherit-mode="extension">
+    <BuilderSelectItem id="'attributes_opt_top'" position="replace">
+       <BuilderSelectItem
+                    title.translate="Render a button to show the Attributes on Top"
+                    id="'attributes_opt_top'"
+                    actionParam="{
+                        views: ['website_sale.products_attributes_top', 'website_sale_attributes_on_top.products'],
+                        previewClass: 'o_wsale_previewing_offcanvas',
+                    }"
+            >Attributes on Top</BuilderSelectItem>
+    </BuilderSelectItem>
+</t>
+
+</templates>
