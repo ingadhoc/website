@@ -6,11 +6,12 @@ class TestWebsiteSaleSearchImproved(HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        tag = cls.env["product.tag"].create({"name": "Test Tag", "visible_on_ecommerce": True})
+        tag = cls.env["product.tag"].create({"name": "Test Tag", "visible_to_customers": True})
         cls.env["product.template"].create(
             {
                 "name": "Test Product",
                 "type": "consu",
+                "list_price": 100.0,
                 "description_ecommerce": "Test Description",
                 "is_published": True,
                 "product_tag_ids": [(4, tag.id)],
