@@ -19,7 +19,7 @@
 ##############################################################################
 {
     "name": "Product Attribute Link on Website Product view",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Product",
     "sequence": 14,
     "summary": "",
@@ -35,6 +35,6 @@
         "views/product_attributes_templates.xml",
         "security/product_group_security.xml",
     ],
-    "installable": False,
+    "installable": True,
     "application": False,
 }

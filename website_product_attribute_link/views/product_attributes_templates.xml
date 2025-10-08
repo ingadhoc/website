@@ -3,11 +3,11 @@
   <template id="product" inherit_id="website_sale_comparison.specifications_table" name="Product attributes Link">
     <xpath expr="//span[@t-field='pav.name']" position="replace">
       <a t-if="ptal.attribute_id.website_link_on_product"
-         t-att-href="keep('/shop/', attribute_value=['%s-%s' % (ptal.attribute_id.id, pav.id)], search='', category=0)">
-        <t t-esc="pav.name"/>
+         t-att-href="keep('/shop/', attribute_values=['%s-%s' % (ptal.attribute_id.id, pav.id)], search='', category=0)">
+        <t t-out="pav.name"/>
       </a>
       <t t-if="not ptal.attribute_id.website_link_on_product">
-        <t t-esc="pav.name"/>
+        <t t-out="pav.name"/>
       </t>
     </xpath>
   </template>
