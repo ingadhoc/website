@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="product" inherit_id="website_sale.product">
+    <template id="cta_wrapper" inherit_id="website_sale.cta_wrapper">
         <xpath expr="//a[@id='add_to_cart']" position="attributes">
             <attribute name="t-att-data-product_id">product.default_code</attribute>
             <attribute name="t-att-data-product_name">product.name</attribute>
@@ -8,6 +8,8 @@
             <attribute name="t-att-data-product_sku">product.default_code</attribute>
             <attribute name="t-att-data-currency">website.currency_id.name</attribute>
         </xpath>
+    </template>
+    <template id="product" inherit_id="website_sale.product">
         <xpath expr="//div[@id='product_details']" position="attributes">
             <attribute name="t-att-data-product_id">product.id</attribute>
             <attribute name="t-att-data-product_sku">product.default_code</attribute>
@@ -24,14 +26,15 @@
             <attribute name="t-att-data-product_price">template_price_vals['price_reduce']</attribute>
         </xpath>
     </template>
-    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
-        <xpath expr="//a[hasclass('a-submit')]" position="attributes">
+    <template id="shop_product_buttons" inherit_id="website_sale.shop_product_buttons">
+        <xpath expr="//button[hasclass('a-submit')]" position="attributes">
             <attribute name="class" add="add_to_cart_products_item" separator=" " />
         </xpath>
     </template>
     <template id="navigation_buttons" inherit_id="website_sale.navigation_buttons">
         <xpath expr="//a[@name='website_sale_main_button']" position="attributes">
             <attribute name="t-attf-class" add="on_checkout_start_js" separator=" " />
+            <attribute name="t-att-data-current_website_checkout_step_href">current_website_checkout_step_href</attribute>
         </xpath>
     </template>
     <template id="cart_lines" inherit_id="website_sale.cart_lines">
@@ -47,7 +50,7 @@
         </xpath>
     </template>
     <template id="checkout_layout" inherit_id="website_sale.checkout_layout">
-        <xpath expr="//div[@id='o_wsale_accordion_item']" position="attributes">
+        <xpath expr="//div[hasclass('o_website_sale_checkout_container')]" position="attributes">
             <attribute name="t-att-data-purchase_info">website_sale_order.prepare_purchase_information()</attribute>
         </xpath>
     </template>
@@ -67,11 +70,11 @@
         </xpath>
     </template>
     <template id="header_cart_link" inherit_id="website_sale.header_cart_link">
-        <xpath expr="//a[@href='/shop/cart']" position="before">
-            <t t-set="cart_info" t-value="website.sale_get_order().prepare_purchase_information()"/>
+       <xpath expr="//a[@href='/shop/cart']" position="before">
+            <t t-set="cart_info" t-value="request.cart.prepare_purchase_information()"/>
         </xpath>
         <xpath expr="//a[@href='/shop/cart']" position="attributes">
-            <attribute name="t-att-data-cart_info">cart_info</attribute>
+           <attribute name="t-att-data-cart_info">cart_info</attribute>
             <attribute name="id">cart_main_button</attribute>
             <attribute name="t-attf-class" add="on_cart_click" separator=" " />
         </xpath>
