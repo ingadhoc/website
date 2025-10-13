@@ -60,7 +60,6 @@ class WebsitePromotion(models.Model):
             rec.state = "finished"
             prod_pricelist_item_obj = self.env["product.pricelist.item"]
             domain = [
-                ("name", "=", rec.name),
                 ("pricelist_id", "=", rec.pricelist_id.id),
                 ("product_tmpl_id", "in", rec.template_ids.ids),
             ]
