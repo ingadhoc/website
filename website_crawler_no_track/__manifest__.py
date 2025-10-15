@@ -1,7 +1,7 @@
 {
     "name": "Website Crawler No Track",
-    "version": "18.0.1.1.0",
-    "category": "Website sale",
+    "version": "19.0.1.0.0",
+    "category": "Website",
     "sequence": 14,
     "summary": "",
     "author": "ADHOC SA",
