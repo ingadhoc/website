@@ -14,58 +14,93 @@
 Argentinian Website Sale UX
 ===========================
 
-This module adds some changes on eCommerce frontend which are listed below:
+This module enhances the eCommerce frontend for the Argentinian localization with improved tax indication displays and UX improvements.
 
-#. When this module is installed we will find a "(+ tax)" or "(tax included)" text indication next to all prices on the eCommerce (on shop page, product page, and checkout pages). Be advise that the "tax" word is replaced by the real name of the tax applied on the product. Also the "(+ tax)" or "(tax included)" message will be displayed based on the eCommerce's B2B or B2C parameter selected for each website.
-#. In case that our eCommerce is set as a B2C one, then on checkout's frontend right side bar (where the purchase summary is displayed) the "Taxes" line is hidden, and the "Taxes" amount is added to the "Subtotal" line.
+Features
+========
+
+Enhanced Tax Indication Display
+-------------------------------
+
+* **Dynamic Tax Names**: Replaces generic "(Tax excluded)" and "(Tax included)" text with the actual tax name (e.g., "(+ VAT 21% Excluded)" or "(VAT 21% Included)")
+* **Context-Aware Display**: Automatically detects and displays the specific tax applied to each product
+* **Multi-Context Support**: Works consistently across:
+
+  * Shop page (list and grid views)
+  * Product detail pages
+  * Checkout pages
+
+B2B/B2C Tax Display Logic
+-------------------------
+
+* **B2B Mode** (tax_excluded): Shows "(+ [Tax Name] Excluded)" next to prices
+* **B2C Mode** (tax_included): Shows "([Tax Name] Included)" next to prices
+* **Fallback Support**: Gracefully falls back to generic "VAT excluded/included" when no specific tax is found
 
 Installation
 ============
 
-To install this module, you need to:
-
-#. Just install this module.
+1. Install the module from the Apps menu
+2. The enhancements are automatically applied to your eCommerce website
+3. No additional configuration required
 
 Configuration
 =============
 
-Nothing to do, Just install
+No specific configuration is needed. The module automatically:
+
+* Detects the website's tax display preference (B2B/B2C)
+* Identifies applicable taxes for each product
+* Displays appropriate tax information based on context
+
+Dependencies
+============
+
+* ``website_sale``: Core eCommerce functionality
+* ``l10n_ar_website_sale``: Argentinian website sale localization
 
 Usage
 =====
 
-To use this module, you need to:
+Once installed, the enhanced tax indications will automatically appear throughout your eCommerce site:
 
-#. Just use the module.
+1. **Shop Pages**: Enhanced tax information next to product prices
+2. **Product Pages**: Detailed tax indication on product detail view
+3. **Checkout**: Consistent tax display during purchase process
 
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: http://runbot.adhoc.com.ar/
+The module respects your website's tax configuration and automatically adjusts the display format accordingly.
+
+Known Issues
+============
+
+* Tax information is only displayed for products with configured taxes
+* Requires Argentinian localization (``l10n_ar``) to function properly
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues
-<https://github.com/ingadhoc/website/issues>`_. In case of trouble, please
-check there if your issue has already been reported. If you spotted it first,
-help us smashing it by providing a detailed and welcomed feedback.
+Bugs are tracked on `GitHub Issues <https://github.com/ingadhoc/website/issues>`_.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us smash it by providing a detailed and welcomed feedback.
 
 Credits
 =======
 
-Images
-------
+Authors
+-------
 
-* |company| |icon|
+* |company|
 
 Contributors
 ------------
+
+* Your Name <your.email@example.com>
 
 Maintainer
 ----------
 
 |company_logo|
 
-This module is maintained by the |company|.
+This module is maintained by |company|.
 
 To contribute to this module, please visit https://www.adhoc.com.ar.
