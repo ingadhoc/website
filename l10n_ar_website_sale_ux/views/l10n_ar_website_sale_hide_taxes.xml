@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <template id="website_sale_hide_taxes" name="Hide Taxes" inherit_id="website_sale.total">
-    <tr id="order_total_untaxed" position="attributes">
+    <tr name="o_order_total_untaxed" position="attributes">
       <attribute name="t-attf-class">{{'' if (website.show_line_subtotals_tax_selection == 'tax_excluded') else 'd-none'}}</attribute>
     </tr>
-    <tr id='order_total_taxes' position="attributes">
+    <tr name='o_order_total_taxes' position="attributes">
       <attribute name="t-attf-class">{{'' if (website.show_line_subtotals_tax_selection == 'tax_excluded') else 'd-none'}}</attribute>
     </tr>
   </template>
