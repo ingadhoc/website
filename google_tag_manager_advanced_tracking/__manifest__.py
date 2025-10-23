@@ -20,7 +20,7 @@
 {
     "name": "Google Tag Manager Advanced Tracking",
     "category": "Website",
-    "version": "18.0.1.1.0",
+    "version": "19.0.1.0.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
@@ -28,12 +28,11 @@
         "website_google_tag_manager",
         "website_sale_advanced_tracking",
     ],
-    "data": ["views/snippets.xml"],
+    "data": [],
     "assets": {
         "web.assets_frontend": [
-            "google_tag_manager_advanced_tracking/static/src/js/website_sale_tracking.js",
-            "google_tag_manager_advanced_tracking/static/src/js/website_user_tracking.js",
+            "google_tag_manager_advanced_tracking/static/src/**/*.js",
         ],
     },
-    "installable": False,
+    "installable": True,
 }
