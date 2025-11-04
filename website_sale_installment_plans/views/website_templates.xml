@@ -1,3 +1,4 @@
+<<<<<<< 258b45b0798d4d7fb26bc4b4394bdc5514b27a41
 <?xml version="1.0"?>
 <data>
     <template id="product_page_card_installment_plan" inherit_id="website_sale.product_price">
@@ -37,3 +38,45 @@
         </xpath>
     </template>
 </data>
+||||||| fcf872691914acfba6a243203fc2e50621123288
+=======
+<?xml version="1.0"?>
+<data>
+    <template id="product_page_card_installment_plan" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@id='product_unavailable']" position="before">
+            <div class="installment-plans">
+                <t t-foreach="combination_info.get('installment_plans', [])" t-as="installment">
+                    <p style="font-size: 12px; color: #666; margin: 5px 0;">
+                        <i class="fa fa-credit-card" aria-hidden="true" style="color:#000000;font-size:14px;margin-right:5px;"/>
+                        <span style="color: black; font-weight: bold;">
+                            <span t-esc="installment['description']"/>
+                        </span>
+                        <span t-if="installment['message']" style="font-size: 11px; color: #999; margin-left: 5px;">
+                            <span t-esc="installment['message']"/>
+                        </span>
+                    </p>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="product_template_products_item_installment_plan" inherit_id="website_sale.products_item">
+        <xpath expr="//span[@t-esc='website.currency_id.name']" position="after">
+            <div class="installment-plans">
+                <t t-set="cuotas" t-value="product._get_card_installments_for_shop(template_price_vals.get('price_reduce', []))"/>
+                <t t-foreach="cuotas" t-as="installment">
+                    <p style="font-size: 12px; color: #666; margin: 5px 0;">
+                        <i class="fa fa-credit-card" aria-hidden="true" style="color:#000000;font-size:14px;margin-right:5px;"/>
+                        <span style="color: black; font-weight: bold;">
+                            <span t-esc="installment['description']"/>
+                        </span>
+                        <span t-if="installment['message']" style="font-size: 11px; color: #999; margin-left: 5px;">
+                            <span t-esc="installment['message']"/>
+                        </span>
+                    </p>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</data>
+>>>>>>> c5b91d2928af8bd4ec993630cae91d90362a3ae2
