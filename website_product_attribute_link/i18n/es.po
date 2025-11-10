@@ -3,15 +3,15 @@
 # 	* website_product_attribute_link
 # 
 # Translators:
-# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2025
+# ADHOC - Bot <transbot@adhoc.com.ar>, 2025
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-08 17:55+0000\n"
-"PO-Revision-Date: 2025-07-08 17:54+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2025\n"
+"POT-Creation-Date: 2025-11-10 15:57+0000\n"
+"PO-Revision-Date: 2025-11-10 15:57+0000\n"
+"Last-Translator: ADHOC - Bot <transbot@adhoc.com.ar>, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,6 +28,16 @@ msgstr ""
 "Agregue un vínculo en la vista de producto del sitio web para que el usuario"
 " pueda hacer click en un valor de atributo e ir a una búsqueda de productos "
 "de ese valor"
+
+#. module: website_product_attribute_link
+#: model:ir.model.fields,field_description:website_product_attribute_link.field_product_attribute__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: website_product_attribute_link
+#: model:ir.model.fields,field_description:website_product_attribute_link.field_product_attribute__id
+msgid "ID"
+msgstr ""
 
 #. module: website_product_attribute_link
 #: model:ir.model,name:website_product_attribute_link.model_product_attribute
