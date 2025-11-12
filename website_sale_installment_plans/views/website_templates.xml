@@ -2,7 +2,7 @@
 <data>
     <template id="product_page_card_installment_plan" inherit_id="website_sale.product_price">
         <xpath expr="//div[@id='product_unavailable']" position="before">
-            <div>
+            <div class="installment-plans">
                 <t t-foreach="combination_info.get('installment_plans', [])" t-as="installment">
                     <p style="font-size: 12px; color: #666; margin: 5px 0;">
                         <i class="fa fa-credit-card" aria-hidden="true" style="color:#000000;font-size:14px;margin-right:5px;"/>
@@ -20,7 +20,7 @@
 
     <template id="product_template_products_item_installment_plan" inherit_id="website_sale.products_item">
         <xpath expr="//span[@t-esc='website.currency_id.name']" position="after">
-            <div>
+            <div class="installment-plans">
                 <t t-set="cuotas" t-value="product._get_card_installments_for_shop(template_price_vals.get('price_reduce', []))"/>
                 <t t-foreach="cuotas" t-as="installment">
                     <p style="font-size: 12px; color: #666; margin: 5px 0;">
