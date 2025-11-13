@@ -3,15 +3,15 @@
 # 	* website_sale_ux
 # 
 # Translators:
-# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2025
+# ADHOC - Bot <transbot@adhoc.com.ar>, 2025
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-05 05:34+0000\n"
-"PO-Revision-Date: 2024-12-23 13:53+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2025\n"
+"POT-Creation-Date: 2025-11-13 17:35+0000\n"
+"PO-Revision-Date: 2025-11-13 17:35+0000\n"
+"Last-Translator: ADHOC - Bot <transbot@adhoc.com.ar>, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,9 +20,25 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.website_internal_ref_product
+msgid "<b><span>Ref. interna: </span></b>"
+msgstr ""
+
+#. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.website_internal_ref_products_item
+msgid "<span>Ref. interna: </span>"
+msgstr ""
+
+#. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products_categories_list
 msgid "All Categories"
 msgstr "Todas las categorías"
+
+#. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.products
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.products_mobile
+msgid "Back to all products"
+msgstr "Volver a todos los productos"
 
 #. module: website_sale_ux
 #. odoo-python
@@ -50,9 +66,27 @@ msgstr ""
 "tienda online."
 
 #. module: website_sale_ux
+#: model:ir.model.fields,field_description:website_sale_ux.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:website_sale_ux.field_website__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.website_product_description
 msgid "Ecommerce Detailed Description"
 msgstr "Descripción detallada para eCommerce"
+
+#. module: website_sale_ux
+#: model:ir.model.fields,field_description:website_sale_ux.field_res_config_settings__id
+#: model:ir.model.fields,field_description:website_sale_ux.field_website__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_ux
+#. odoo-javascript
+#: code:addons/website_sale_ux/static/src/website_builder/product_list_option.xml:0
+msgid "Prod. Internal. Ref."
+msgstr ""
 
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products_add_to_cart
@@ -66,12 +100,6 @@ msgid ""
 msgstr ""
 "Esta nota solo se mostrará debajo de la imagen en la \"Página de producto\" "
 "del eCommerce."
-
-#. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.products
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.products_mobile
-msgid "Back to all products"
-msgstr "Volver a todos los productos"
 
 #. module: website_sale_ux
 #: model:ir.model,name:website_sale_ux.model_website
