@@ -2,16 +2,12 @@
 # This file contains the translation of the following modules:
 # 	* l10n_ar_website_sale_ux
 # 
-# Translators:
-# Juan José Scarafía <scarafia.juanjose@gmail.com>, 2025
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-05 05:15+0000\n"
-"PO-Revision-Date: 2024-12-12 00:27+0000\n"
-"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2025\n"
+"POT-Creation-Date: 2025-10-29 12:46+0000\n"
+"PO-Revision-Date: 2025-10-29 12:46+0000\n"
 "Language-Team: Spanish (https://app.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,12 +16,16 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: l10n_ar_website_sale_ux
-#: model_terms:ir.ui.view,arch_db:l10n_ar_website_sale_ux.product_tax
-#: model_terms:ir.ui.view,arch_db:l10n_ar_website_sale_ux.products_add_to_cart
-msgid "Precio Sin Impuestos Nacionales"
+#: model_terms:ir.ui.view,arch_db:l10n_ar_website_sale_ux.ar_tax_indication
+msgid "(VAT included)"
 msgstr ""
 
 #. module: l10n_ar_website_sale_ux
-#: model:ir.model,name:l10n_ar_website_sale_ux.model_product_template
-msgid "Product"
-msgstr "Producto"
+#: model_terms:ir.ui.view,arch_db:l10n_ar_website_sale_ux.ar_tax_indication
+msgid "Excluded)"
+msgstr ""
+
+#. module: l10n_ar_website_sale_ux
+#: model_terms:ir.ui.view,arch_db:l10n_ar_website_sale_ux.ar_tax_indication
+msgid "Included)"
+msgstr ""
