@@ -240,7 +240,7 @@ patch(Form.prototype, {
     },
 
     // @override
-    async send(){
+    async send(e){
         const dataTarget = e.target.closest("form");
         const form_name = dataTarget.id;
         const form_destination = dataTarget.dataset.model_name;
