@@ -1,17 +1,14 @@
-from odoo import api, models
+from odoo import models
+from odoo.orm.domains import Domain
 
 
 class Website(models.Model):
     _inherit = "website"
 
-    @api.model
-    def website_domain(self, website_id=False):
+    def website_domain(self):
+        self.ensure_one()
         if self.env.context.get("multi_website_domain"):
-            return [
-                "|",
-                ("website_ids", "=", False),
-                ("website_ids", "in", [website_id or self.id]),
-            ]
+            return Domain("website_ids", "=", False) | Domain("website_ids", "in", self.ids)
         return super().website_domain()
 
     def sale_product_domain(self):
