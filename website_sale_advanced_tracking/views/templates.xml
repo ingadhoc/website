@@ -23,7 +23,7 @@
             <attribute name="t-att-data-product_id">product.id</attribute>
             <attribute name="t-att-data-product_sku">product.default_code</attribute>
             <attribute name="t-att-data-product_name">product.name</attribute>
-            <attribute name="t-att-data-product_price">template_price_vals['price_reduce']</attribute>
+            <attribute name="t-att-data-product_price">template_price_vals['price_reduce'] if template_price_vals else product_price</attribute>
             <attribute name="t-att-data-currency">website.currency_id.name</attribute>
         </xpath>
     </template>
