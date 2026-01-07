@@ -16,7 +16,7 @@
     </template>
     <template id="navigation_buttons" name="Navigation buttons" inherit_id="website_sale.navigation_buttons">
         <xpath expr="//t[@t-if='website_sale_order and website_sale_order.website_order_line']/.." position="attributes">
-            <attribute name="t-if">website_sale_order.validity_date and website_sale_order.validity_date &gt;= datetime.datetime.now().date()</attribute>
+            <attribute name="t-if">not website_sale_order.validity_date or website_sale_order.validity_date &gt;= datetime.datetime.now().date()</attribute>
         </xpath>
         <xpath expr="//t[@t-if='website_sale_order and website_sale_order.website_order_line']/.." position="after">
             <div t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" class="alert alert-warning text-center mt-3" role="alert">
