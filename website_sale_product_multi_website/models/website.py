@@ -1,4 +1,5 @@
 from odoo import api, models
+from odoo.fields import Domain
 
 
 class Website(models.Model):
@@ -7,11 +8,13 @@ class Website(models.Model):
     @api.model
     def website_domain(self, website_id=False):
         if self.env.context.get("multi_website_domain"):
-            return [
-                "|",
-                ("website_ids", "=", False),
-                ("website_ids", "in", [website_id or self.id]),
-            ]
+            return Domain(
+                [
+                    "|",
+                    ("website_ids", "=", False),
+                    ("website_ids", "in", [website_id or self.id]),
+                ]
+            )
         return super().website_domain()
 
     def sale_product_domain(self):

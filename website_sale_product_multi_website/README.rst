@@ -14,7 +14,7 @@
 Website Sale Product Multi Website
 ==================================
 
-By default, Odoo allows to set just one (or all) website for products to be sold on eCommerces, by setting the field product_template.website_id (a many2one field). This module allows to set more than one value (website) in this field (convert it in a many2many field).
+By default, Odoo allows to set just one (or all) website for products to be sold on eCommerces, by setting the field product_template.website_id (a many2one field). This module allows to set more than one value (website) in this field (convert it in a many2many field)
 
 Installation
 ============
