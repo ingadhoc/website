@@ -21,12 +21,19 @@ class ProductTemplate(models.Model):
         return plans
 
     def _get_combination_info(
-        self, combination=False, product_id=False, add_qty=1, parent_combination=False, only_template=False
+        self,
+        combination=False,
+        product_id=False,
+        add_qty=1,
+        uom_id=False,
+        parent_combination=False,
+        only_template=False,
     ):
         combination_info = super()._get_combination_info(
             combination=combination,
             product_id=product_id,
             add_qty=add_qty,
+            uom_id=uom_id,
             only_template=only_template,
         )
 
