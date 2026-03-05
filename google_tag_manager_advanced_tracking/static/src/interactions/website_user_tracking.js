@@ -13,11 +13,9 @@ export class GoogleTagManagerAdvancedTrackingUser extends Interaction {
         if (typeof (dataLayer) !== 'undefined') {
             dataLayer.push(dict);
             console.log(dict);
-            debugger;
         }
     }
     onUserSignup() {
-        debugger;
         const user_email = document.getElementById("login").value;
         const dict = {
             'event':'user_signup',
