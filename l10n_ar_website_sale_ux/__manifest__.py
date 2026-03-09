@@ -31,6 +31,7 @@
     "data": [
         "views/l10n_ar_website_sale_ux.xml",
         "views/l10n_ar_website_sale_hide_taxes.xml",
+        "views/portal_address_templates.xml",
     ],
     "installable": True,
     "auto_install": ["l10n_ar_website_sale"],
