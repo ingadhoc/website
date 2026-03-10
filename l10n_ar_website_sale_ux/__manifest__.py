@@ -20,7 +20,7 @@
 {
     "name": "l10n_ar Website Sale UX",
     "category": "Website/Website",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
