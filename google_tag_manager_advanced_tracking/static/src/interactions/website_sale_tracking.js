@@ -49,6 +49,7 @@ export class GoogleTagManagerAdvancedTracking extends Interaction {
     onClickAddToCartProduct(ev) {
         const dataTarget = ev.target.closest('a#add_to_cart');
         const product_id = dataTarget.dataset.product_id;
+        const product_sku = dataTarget.dataset.product_sku;
         const product_name = dataTarget.dataset.product_name;
         const currency = dataTarget.dataset.currency;
         const product_price = dataTarget.dataset.product_price;
@@ -61,7 +62,7 @@ export class GoogleTagManagerAdvancedTracking extends Interaction {
                 'value': amount,
                 'items': [{
                     'item_name': product_name,
-                    'item_id': product_id,
+                    'item_id': product_sku || product_id,
                     'price': product_price,
                     'quantity': product_amount,
                 }]
@@ -100,19 +101,30 @@ export class GoogleTagManagerAdvancedTracking extends Interaction {
                 const value = dataTarget.dataset.value;
                 const info_string = dataTarget.dataset.cart_info;
 
-                // Robust parsing
-                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
-                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
-                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
-                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
-
-                const info = JSON.parse(jsonString);
+                const info = JSON.parse(info_string || '[]');
+                const allLines = Array.isArray(info) ? info : (info.items || []);
+                const rewardTotal = allLines
+                    .filter((line) => line && line.is_reward_line)
+                    .reduce((sum, line) => {
+                        const price = Number(line.price || 0);
+                        const quantity = Number(line.quantity || 1);
+                        return sum + (price * quantity);
+                    }, 0);
+                const items = allLines
+                    .filter((line) => line && !line.is_reward_line)
+                    .map((line) => ({
+                        item_name: line.item_name,
+                        item_id: line.item_id,
+                        price: line.price,
+                        quantity: line.quantity,
+                    }));
                 const dict = {
                     'event':'begin_checkout',
                     'ecommerce':{
                         'currency': currency,
-                        'value': value,
-                        'items':info
+                        'value': Number(value || 0),
+                        'discount': Math.abs(rewardTotal),
+                        'items': items,
                     }
                 }
                 this._pushInfo(dict);
@@ -126,16 +138,7 @@ export class GoogleTagManagerAdvancedTracking extends Interaction {
         try {
             if(element){
                  const info_string = element.dataset.cart_info;
-                // Attempt to fix common Python dict string issues for JSON parsing
-                // 1. Escape existing backslashes
-                // 2. Replace single quotes with doublequotes
-                // 3. Replace Python boolean/none literals (only when they appear as values)
-                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
-                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
-                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
-                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
-
-                const info = JSON.parse(jsonString);
+                const info = JSON.parse(info_string || '{}');
                 const dict = {
                     'event': 'view_cart',
                     'ecommerce': info
@@ -151,13 +154,17 @@ export class GoogleTagManagerAdvancedTracking extends Interaction {
         try {
             const info_string = confirmation.dataset.purchase_info;
 
-            // Robust parsing
-            let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
-            jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
-            jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
-            jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
-
-            const info = JSON.parse(jsonString);
+            // jQuery .data() auto-parses valid JSON into an object, handle both cases
+            let info;
+            if (typeof info_string === 'object') {
+                info = info_string;
+            } else {
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+                info = JSON.parse(jsonString);
+            }
             const dict = {
                 'event': 'purchase',
                 'ecommerce': info
@@ -275,13 +282,7 @@ patch(PaymentForm.prototype, {
                 const payment_method_input = document.querySelector('#payment_method input[type="radio"]:checked');
                 const sale_id = document.querySelector(".my_cart_quantity")?.dataset.orderId;
 
-                // Robust parsing
-                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
-                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
-                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
-                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
-
-                const parsed_info = JSON.parse(jsonString);
+                const parsed_info = JSON.parse(info_string || '{}');
                 const payment_info = {
                     'currency': parsed_info.currency,
                     'value': parsed_info.value,

@@ -24,17 +24,17 @@ export class FacebookPixelTracking extends Interaction {
     onClickAddToCartProduct(ev){
         const dataTarget = ev.target.closest('a#add_to_cart');
         const product_id = dataTarget.dataset.product_id;
+        const product_sku = dataTarget.dataset.product_sku;
         const product_name = dataTarget.dataset.product_name;
-        const product_price = dataTarget.dataset.product_price;
-        const product_amount = document.querySelector("[name=add_qty]").value;
-        const amount = parseFloat(product_price * product_amount).toFixed(2);
+        const product_price = parseFloat(dataTarget.dataset.product_price) || 0;
+        const currency = dataTarget.dataset.currency;
         const dict = {
-            'content_name': product_name,
-            'content_ids': [product_id],
-            'content_type': 'product',
-            'value': product_price,
-            'total': amount,
-        }
+            content_name: product_name,
+            content_ids: [String(product_sku || product_id)],
+            content_type: 'product',
+            value: product_price,
+            currency: currency,
+        };
         this._pushInfo('AddToCart', dict);
     }
 
@@ -43,13 +43,13 @@ export class FacebookPixelTracking extends Interaction {
         const product_id = dataTarget.dataset.product_id;
         const product_sku = dataTarget.dataset.product_sku;
         const product_name = dataTarget.dataset.product_name;
-        const product_price = dataTarget.dataset.product_price;
+        const product_price = parseFloat(dataTarget.dataset.product_price) || 0;
         const dict = {
-            'content_name': product_name,
-            'content_ids': [product_sku || product_id],
-            'content_type': 'product',
-            'value': product_price,
-        }
+            content_name: product_name,
+            content_ids: [String(product_sku || product_id)],
+            content_type: 'product',
+            value: product_price,
+        };
         this._pushInfo('AddToCart', dict);
     }
 
@@ -60,11 +60,25 @@ export class FacebookPixelTracking extends Interaction {
             return;
         }
         const dataTarget = document.getElementById("cart_products");
-        const info = dataTarget.dataset.cart_info;
-        const dict = {
-            'event':'begin_checkout',
-            'ecommerce':{'items':info}
+        const items = JSON.parse(dataTarget.dataset.cart_info || '[]');
+        const contents = items
+            .filter(item => !item.is_reward_line)
+            .map(item => ({
+                id: String(item.item_id),
+                quantity: item.quantity,
+                item_price: item.price,
+            }));
+        if (!contents.length) {
+            return;
         }
+        const dict = {
+            content_ids: contents.map(item => item.id),
+            content_type: 'product',
+            contents: contents,
+            num_items: contents.length,
+            value: parseFloat(dataTarget.dataset.value) || 0,
+            currency: dataTarget.dataset.currency,
+        };
         this._pushInfo('InitiateCheckout', dict);
     }
 
@@ -86,12 +100,20 @@ patch(PaymentForm.prototype, {
     // @override
     async submitForm(ev) {
         const info_div = document.querySelector(".o_website_sale_checkout_container");
-        if(info_div){
-            const info = info_div.dataset.purchase_info;
+        if (info_div) {
+            const info = JSON.parse(info_div.dataset.purchase_info || '{}');
+            const contents = (info.items || []).map(item => ({
+                id: String(item.item_id),
+                quantity: item.quantity,
+                item_price: item.price,
+            }));
             const dict = {
-                'event':'purchase',
-                'ecommerce':info
-            }
+                value: info.value,
+                currency: info.currency,
+                content_ids: contents.map(item => item.id),
+                contents: contents,
+                content_type: 'product',
+            };
             this._pushInfo('Purchase', dict);
         }
         super.submitForm(...arguments);
