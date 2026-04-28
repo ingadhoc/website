@@ -46,10 +46,11 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
     _onClickAddToCartProduct: function (ev) {
         var dataTarget = ev.target.closest('a#add_to_cart');
         var product_id = dataTarget.dataset.product_id;
+        var product_sku = dataTarget.dataset.product_sku;
         var product_name = dataTarget.dataset.product_name;
         var currency = dataTarget.dataset.currency;
         var product_price = dataTarget.dataset.product_price;
-        var product_amount = $("[name=add_qty]").val();
+        var product_amount = $('[name=add_qty]').val();
         var amount = parseFloat(product_price * product_amount).toFixed(2);
         const dict = {
             'event': 'add_to_cart',
@@ -58,7 +59,7 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
                 'value': amount,
                 'items': [{
                     'item_name': product_name,
-                    'item_id': product_id,
+                    'item_id': product_sku || product_id,
                     'price': product_price,
                     'quantity': product_amount,
                 }]
@@ -89,26 +90,37 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
     },
     _onCheckoutStartJs: function () {
         var dataTarget = $("#cart_products")[0];
-        if( Object.keys(dataTarget.dataset).length > 0) {
+        if(dataTarget && Object.keys(dataTarget.dataset).length > 0) {
             try {
                 var dataTarget = $("#cart_products")[0];
                 var currency = dataTarget.dataset.currency;
                 var value = dataTarget.dataset.value;
                 const info_string = dataTarget.dataset.cart_info;
 
-                // Robust parsing
-                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
-                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
-                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
-                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
-
-                const info = JSON.parse(jsonString);
+                const info = JSON.parse(info_string || '[]');
+                const allLines = Array.isArray(info) ? info : (info.items || []);
+                const rewardTotal = allLines
+                    .filter((line) => line && line.is_reward_line)
+                    .reduce((sum, line) => {
+                        const price = Number(line.price || 0);
+                        const quantity = Number(line.quantity || 1);
+                        return sum + (price * quantity);
+                    }, 0);
+                const items = allLines
+                    .filter((line) => line && !line.is_reward_line)
+                    .map((line) => ({
+                        item_name: line.item_name,
+                        item_id: line.item_id,
+                        price: line.price,
+                        quantity: line.quantity,
+                    }));
                 const dict = {
                     'event':'begin_checkout',
                     'ecommerce':{
                         'currency': currency,
-                        'value': value,
-                        'items':info
+                        'value': Number(value || 0),
+                        'discount': Math.abs(rewardTotal),
+                        'items': items,
                     }
                 }
                 this._pushInfo(dict);
@@ -144,16 +156,7 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
             const cart = element[0]
             if(cart){
                  const info_string = element[0].dataset.cart_info;
-                // Attempt to fix common Python dict string issues for JSON parsing
-                // 1. Escape existing backslashes
-                // 2. Replace single quotes with doublequotes
-                // 3. Replace Python boolean/none literals (only when they appear as values)
-                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
-                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
-                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
-                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
-
-                const info = JSON.parse(jsonString);
+                const info = JSON.parse(info_string || '{}');
                 const dict = {
                     'event': 'view_cart',
                     'ecommerce': info
@@ -169,13 +172,17 @@ publicWidget.registry.GoogleTagManagerAdvancedTracking = publicWidget.Widget.ext
         try {
             const info_string = confirmation.data('purchase_info');
 
-            // Robust parsing
-            let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
-            jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
-            jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
-            jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
-
-            const info = JSON.parse(jsonString);
+            // jQuery .data() auto-parses valid JSON into an object, handle both cases
+            let info;
+            if (typeof info_string === 'object') {
+                info = info_string;
+            } else {
+                let jsonString = info_string.replace(/\\/g, '\\\\').replace(/\'/g, '"');
+                jsonString = jsonString.replace(/:\s*None([,\}])/g, ': null$1');
+                jsonString = jsonString.replace(/:\s*True([,\}])/g, ': true$1');
+                jsonString = jsonString.replace(/:\s*False([,\}])/g, ': false$1');
+                info = JSON.parse(jsonString);
+            }
             const dict = {
                 'event': 'purchase',
                 'ecommerce': info
