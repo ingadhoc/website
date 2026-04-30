@@ -3,7 +3,7 @@
     <!-- Hacemos este parche para evitar KeyError con el usuario de Soporte Adhoc en checkout -->
     <template id="address_form_fields_company_fix" inherit_id="portal.address_form_fields">
         <xpath expr="//div[contains(@t-if, 'is_used_as_billing') and contains(@t-if, &quot;res_company.country_id.code == 'AR'&quot;)]" position="attributes">
-            <attribute name="t-if">is_used_as_billing and request.env.company.country_code == 'AR'</attribute>
+            <attribute name="t-if" add="is_used_as_billing and request.env.company.country_code == 'AR' and responsibility" separator="and"/>
         </xpath>
     </template>
 </odoo>
