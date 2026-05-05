@@ -19,16 +19,12 @@ class TestWebsiteSaleSearchImproved(HttpCase):
         )
 
     def test_website_sale_search_improved(self):
-        self.env["ir.config_parameter"].create(
-            {
-                "key": "website_sale_search_improved.search_fields",
-                "value": "['description_ecommerce','product_tag_ids.name']",
-            }
+        self.env["ir.config_parameter"].set_param(
+            "website_sale_search_improved.search_fields",
+            "['description_ecommerce','product_tag_ids.name']",
         )
 
-        self.env["ir.config_parameter"].create(
-            {"key": "website_sale_search_improved.extend_search_fields", "value": "True"}
-        )
+        self.env["ir.config_parameter"].set_param("website_sale_search_improved.extend_search_fields", "True")
 
         self.start_tour(
             "/shop",
