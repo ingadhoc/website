@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        ===================================================================
+        CART LINES – #cart_products
+        Add JSON cart data for view_cart and begin_checkout events.
+        ===================================================================
+    -->
+    <template id="cart_products_tracking_data" inherit_id="website_sale.cart_lines">
+        <!--
+            #cart_products: add aggregate cart data (used by view_cart + begin_checkout).
+            json.dumps() is available in the QWeb context (same pattern as the native
+            data-order-tracking-info attribute in payment_confirmation_status).
+        -->
+        <xpath expr="//div[@id='cart_products']" position="attributes">
+            <attribute name="t-att-data-cart-info">json.dumps(website_sale_order.website_order_line.prepare_checkout_information())</attribute>
+            <attribute name="t-att-data-currency">website.currency_id.name</attribute>
+            <attribute name="t-att-data-value">website_sale_order.amount_total</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        ===================================================================
+        CART LINES – .o_cart_product
+        Add per-line product data for remove_from_cart events.
+        ===================================================================
+    -->
+    <template id="cart_product_line_tracking_data" inherit_id="website_sale.cart_lines">
+        <xpath expr="//div[hasclass('o_cart_product')]" position="attributes">
+            <attribute name="t-att-data-product-name">line.product_id.name</attribute>
+            <attribute name="t-att-data-product-sku">line.product_id.default_code or ''</attribute>
+            <attribute name="t-att-data-product-id">str(line.product_id.id)</attribute>
+            <attribute name="t-att-data-product-price">line.price_reduce_taxinc</attribute>
+            <attribute name="t-att-data-currency">website.currency_id.name</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        ===================================================================
+        CHECKOUT LAYOUT – .o_website_sale_checkout_container
+        Add purchase data for add_shipping_info and add_payment_info events.
+        ===================================================================
+    -->
+    <template id="checkout_layout_tracking_data" inherit_id="website_sale.checkout_layout">
+        <xpath expr="//div[hasclass('o_website_sale_checkout_container')]" position="attributes">
+            <attribute name="t-att-data-purchase-info">website_sale_order.id and json.dumps(website_sale_order.prepare_purchase_information())</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        ===================================================================
+        AUTH SIGNUP – add CSS hook class to signup button
+        Used by ga4_user_tracking.js to fire the sign_up event.
+        ===================================================================
+    -->
+    <template id="signup_tracking" inherit_id="auth_signup.signup">
+        <xpath expr="//button[@type='submit']" position="attributes">
+            <attribute name="class" add="ga4_on_user_signup" separator=" "/>
+        </xpath>
+    </template>
+</odoo>
