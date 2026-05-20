@@ -1,0 +1,138 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_google_analytics_4
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-08 19:40+0000\n"
+"PO-Revision-Date: 2026-05-08 19:40+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model,name:website_sale_google_analytics_4.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_account_move__display_name
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_sale_order__display_name
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_website__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_sale_order__ga_client_id
+msgid "GA Client ID"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_sale_order__ga_session_id
+msgid "GA Session ID"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_res_config_settings__ga4_api_secret
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_website__ga4_api_secret
+msgid "GA4 API Secret"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model_terms:ir.ui.view,arch_db:website_sale_google_analytics_4.res_config_settings_view_form_ga4
+msgid "GA4 API Secret (Server-side)"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_account_bank_statement_line__ga4_mp_pending_payload
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_account_move__ga4_mp_pending_payload
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_sale_order__ga4_mp_pending_payload
+msgid "GA4 MP Pending Payload"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.actions.server,name:website_sale_google_analytics_4.cron_retry_ga4_mp_events_ir_actions_server
+msgid "GA4: Retry Failed Measurement Protocol Events"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_account_move__id
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_res_config_settings__id
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_sale_order__id
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_sale_order_line__id
+#: model:ir.model.fields,field_description:website_sale_google_analytics_4.field_website__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model,name:website_sale_google_analytics_4.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model_terms:ir.ui.view,arch_db:website_sale_google_analytics_4.res_config_settings_view_form_ga4
+msgid ""
+"Measurement Protocol API Secret for server-side purchase and refund events. "
+"Generate at: GA4 Admin → Data Streams → your stream → Measurement Protocol "
+"API secrets."
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,help:website_sale_google_analytics_4.field_res_config_settings__ga4_api_secret
+#: model:ir.model.fields,help:website_sale_google_analytics_4.field_website__ga4_api_secret
+msgid ""
+"Measurement Protocol API Secret generated in GA4 admin.\n"
+"Required to send server-side events (purchase, refund).\n"
+"Generate one at: Admin → Data Streams → your stream → Measurement Protocol API secrets."
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,help:website_sale_google_analytics_4.field_sale_order__ga_client_id
+msgid "Parsed from the _ga browser cookie at checkout start."
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,help:website_sale_google_analytics_4.field_sale_order__ga_session_id
+msgid "Parsed from the _ga_<container> browser cookie at checkout start."
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model,name:website_sale_google_analytics_4.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model,name:website_sale_google_analytics_4.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,help:website_sale_google_analytics_4.field_sale_order__ga4_mp_pending_payload
+msgid ""
+"Stores a failed Measurement Protocol payload for retry by the scheduled "
+"action."
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model.fields,help:website_sale_google_analytics_4.field_account_bank_statement_line__ga4_mp_pending_payload
+#: model:ir.model.fields,help:website_sale_google_analytics_4.field_account_move__ga4_mp_pending_payload
+msgid "Stores a failed refund Measurement Protocol payload for retry."
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model:ir.model,name:website_sale_google_analytics_4.model_website
+msgid "Website"
+msgstr ""
+
+#. module: website_sale_google_analytics_4
+#: model_terms:ir.ui.view,arch_db:website_sale_google_analytics_4.res_config_settings_view_form_ga4
+msgid "Your API secret"
+msgstr ""
