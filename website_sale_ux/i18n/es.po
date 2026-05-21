@@ -92,11 +92,6 @@ msgid "Prod. Internal. Ref."
 msgstr "Ref. Interna Prod."
 
 #. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.products_add_to_cart
-msgid "Shopping cart (Select attributes)"
-msgstr "Carrito de Compras (Seleccionar atributos)"
-
-#. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.website_product_description
 msgid ""
 "This note is only displayed in the ecommerce below the product's image."
