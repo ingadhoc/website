@@ -20,11 +20,15 @@
 {
     "name": "Website Sale Hide All Prices",
     "category": "website",
-    "version": "18.0.2.0.0",
+    "version": "19.0.1.0.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
-    "depends": ["website_sale_ux"],
+    "depends": [
+        "website_sale_ux",
+        "website_sale_comparison",
+        "website_sale_wishlist",
+    ],
     "images": [],
     "data": [
         "views/res_config_settings_views.xml",
@@ -35,7 +39,11 @@
             "website_sale_hide_all_prices/static/src/components/add_to_cart_notification.xml",
             "website_sale_hide_all_prices/static/src/components/add_to_cart_notification.js",
             "website_sale_hide_all_prices/static/src/components/product_configurator_dialog.js",
+            "website_sale_hide_all_prices/static/src/components/product_comparison_row.xml",
+            "website_sale_hide_all_prices/static/src/components/product_comparison_row.js",
+            "website_sale_hide_all_prices/static/src/components/product_template_attribute_line.xml",
+            "website_sale_hide_all_prices/static/src/components/product_template_attribute_line.js",
         ]
     },
-    "installable": False,
+    "installable": True,
 }

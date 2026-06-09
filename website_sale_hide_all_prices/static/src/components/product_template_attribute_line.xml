@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Ocultar los badges de precio extra ("+ $X") de las variantes en el wizard configurador
+         cuando el website oculta todos los precios. env.showPrice lo setea el dialog
+         (false = ocultar); el guard '!== false' preserva el comportamiento nativo donde
+         env.showPrice no está definido (combo dialog, backend). -->
+
+    <t t-name="website_sale_hide_all_prices.ptav_radio"
+       t-inherit="sale.ptav_radio" t-inherit-mode="extension">
+        <xpath expr="//BadgeExtraPrice" position="attributes">
+            <attribute name="t-if">ptav.price_extra and env.showPrice !== false</attribute>
+        </xpath>
+    </t>
+
+    <t t-name="website_sale_hide_all_prices.ptav_pills"
+       t-inherit="sale.ptav_pills" t-inherit-mode="extension">
+        <xpath expr="//BadgeExtraPrice" position="attributes">
+            <attribute name="t-if">ptav.price_extra and env.showPrice !== false</attribute>
+        </xpath>
+    </t>
+
+    <t t-name="website_sale_hide_all_prices.ptav_multi"
+       t-inherit="sale.ptav_multi" t-inherit-mode="extension">
+        <xpath expr="//BadgeExtraPrice" position="attributes">
+            <attribute name="t-if">ptav.price_extra and env.showPrice !== false</attribute>
+        </xpath>
+    </t>
+
+</templates>
