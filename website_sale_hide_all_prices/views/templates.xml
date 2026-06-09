@@ -1,66 +1,105 @@
 <odoo>
-   <template id="product_price" inherit_id="website_sale.product_price">
-        <xpath expr="//div[@itemprop='offers']" position="attributes">
+    <!-- product_price: en v19 el div ya no tiene itemprop='offers', usa name='product_price' -->
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@name='product_price']" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
-   <template id="product" inherit_id="website_sale.product">
-        <xpath expr="//small[@groups='website_sale.group_show_uom_price']" position="attributes">
-            <attribute name="t-if">combination_info['base_unit_price'] or not website.website_hide_all_prices</attribute>
+
+    <!-- product: en v19 el small ya no tiene groups='group_show_uom_price',
+         se identifica por la clase o_base_unit_price_wrapper dentro del bloque de precio -->
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]/small[hasclass('o_base_unit_price_wrapper')]" position="attributes">
+            <attribute name="t-if">combination_info.get('base_unit_price') and not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
+
+    <!-- products_item: en v19 el precio está en div.product_price (no itemprop='offers') -->
     <template id="products_item" inherit_id="website_sale.products_item">
-         <xpath expr="//div[@itemprop='offers']" position="attributes">
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
+    <!-- suggested_products_list: en v19 el precio está en h6[@name='suggested_product_price_container']
+         (en v18 era div[@name='website_sale_suggested_product_price']) -->
     <template id="suggested_products_list" inherit_id="website_sale.suggested_products_list">
-         <xpath expr="//div[@name='website_sale_suggested_product_price']" position="attributes">
+        <xpath expr="//h6[@name='suggested_product_price_container']" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
-    <template id="cart_lines" inherit_id="website_sale.cart_lines">
-         <xpath expr="//div[@name='website_sale_cart_line_price']" position="attributes">
+    <!-- cart_lines_price: en v19 el precio fue extraído a template separado 'cart_lines_price'
+         y el elemento cambió de div a h6 -->
+    <template id="cart_lines_price" inherit_id="website_sale.cart_lines_price">
+        <xpath expr="//h6[@name='website_sale_cart_line_price']" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
-     <template id="total" inherit_id="website_sale.total">
-         <xpath expr="//div[@id='cart_total']/table" position="attributes">
-            <attribute name="t-attf-class">#{website.website_hide_all_prices and 'd-none' or ''}</attribute>
+    <!-- total: en v19 ya no existe div[@id='cart_total']; se oculta el bloque completo via t-if -->
+    <template id="total" inherit_id="website_sale.total">
+        <xpath expr="//div[contains(@t-attf-class, 'o_cart_total')]" position="attributes">
+            <attribute name="t-if">not website.website_hide_all_prices and website_sale_order and website_sale_order.website_order_line</attribute>
         </xpath>
     </template>
 
+    <!-- delivery_form: //form[@id='o_delivery_form'] sigue existiendo en v19 -->
     <template id="delivery_form" inherit_id="website_sale.delivery_form">
-         <xpath expr="//form[@id='o_delivery_form']" position="attributes">
+        <xpath expr="//form[@id='o_delivery_form']" position="attributes">
             <attribute name="t-attf-class">#{website.website_hide_all_prices and 'd-none' or ''}</attribute>
         </xpath>
     </template>
 
+    <!-- checkout_layout: amount_total_summary está en checkout_layout -->
     <template id="checkout_layout" inherit_id="website_sale.checkout_layout">
         <xpath expr="//span[@id='amount_total_summary']" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
         </xpath>
+    </template>
+
+    <!-- cart_summary_content: website_sale_cart_summary_line_price está en este sub-template -->
+    <template id="cart_summary_content" inherit_id="website_sale.cart_summary_content">
         <xpath expr="//td[@name='website_sale_cart_summary_line_price']" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
-     <template id="navigation_buttons" inherit_id="website_sale.navigation_buttons">
-         <xpath expr="//a[@name='website_sale_main_button']/t" position="attributes">
-            <attribute name="t-if">not website.website_hide_all_prices</attribute>
-        </xpath>
-         <xpath expr="//a[@name='website_sale_main_button']/t" position="after">
-               <t t-if="website.website_hide_all_prices">
+    <!-- navigation_buttons: en el paso de checkout, cuando se ocultan los precios el botón
+         principal deja de apuntar al paso de pago y pasa a confirmar la solicitud de cotización
+         (POST a /shop/request_quotation). Queda siempre habilitado: al no llamarse
+         'website_sale_main_button' no lo toca la lógica de disabled de checkout.js (que exigía un
+         método de envío seleccionado, imposible al ocultar el bloque de envío).
+         Se exige next_website_checkout_step_href truthy para NO reemplazar el botón en
+         /shop/address (ahí vale False y el botón lo usa address.js para guardar la dirección;
+         reemplazarlo salteaba el guardado y volvía al form vacío). -->
+    <template id="navigation_buttons" inherit_id="website_sale.navigation_buttons">
+        <xpath expr="//a[@name='website_sale_main_button']" position="replace">
+            <form t-if="website.website_hide_all_prices and next_website_checkout_step_href"
+                  name="o_wsale_request_quotation"
+                  class="d-flex flex-column"
+                  target="_self"
+                  action="/shop/request_quotation"
+                  method="post">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <button type="submit" class="btn btn-primary w-100">
                     <span>Request Quotation</span>
-                </t>
+                    <i class="fa fa-angle-right ms-2 fw-light"/>
+                </button>
+            </form>
+            <a t-else=""
+               role="button" name="website_sale_main_button"
+               t-attf-class="btn btn-primary #{not website_sale_order._is_cart_ready() and 'disabled'} w-100"
+               t-att-href="next_website_checkout_step_href">
+                <span t-field="next_website_checkout_step.main_button_label"/>
+                <i class="fa fa-angle-right ms-2 fw-light"/>
+            </a>
         </xpath>
     </template>
 
+    <!-- payment_status: //div[@name='o_payment_status'] sigue existiendo en v19 -->
     <template id="payment_status" inherit_id="payment.payment_status">
-         <xpath expr="//div[@name='o_payment_status']" position="attributes">
+        <xpath expr="//div[@name='o_payment_status']" position="attributes">
             <attribute name="t-attf-class">#{website.website_hide_all_prices and 'd-none' or ''}</attribute>
         </xpath>
     </template>
@@ -81,9 +120,39 @@
          </t>
     </template>
 
+    <!-- badge_extra_price: //span[@t-if='price_extra'] sigue existiendo en v19.
+         Se combina la condición original con la nueva para no perder la lógica de price_extra. -->
     <template id="badge_extra_price" inherit_id="website_sale.badge_extra_price">
-         <xpath expr="//span[@t-if='price_extra']" position="attributes">
+        <xpath expr="//span[@t-if='price_extra']" position="attributes">
+            <attribute name="t-if">price_extra and not website.website_hide_all_prices</attribute>
+        </xpath>
+    </template>
+
+    <!-- Snippet dinámico "Products" (carrousel): el precio se renderiza dentro de
+         div.product_price del template generico del snippet. Se oculta el bloque completo. -->
+    <template id="dynamic_filter_template_product_product_products_item"
+              inherit_id="website_sale.dynamic_filter_template_product_product_products_item">
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+    </template>
+
+    <!-- Comparador - página /shop/compare: dos renders de precio (overview sticky y tabla).
+         Se combina la condición nativa (prevent_zero_price_sale) con website_hide_all_prices. -->
+    <template id="product_compare" inherit_id="website_sale_comparison.product_compare">
+        <xpath expr="//div[@id='miniStickyComparison']//div[hasclass('text-wrap')]" position="attributes">
+            <attribute name="t-if">not combination_info['prevent_zero_price_sale'] and not website.website_hide_all_prices</attribute>
+        </xpath>
+        <xpath expr="//div[@id='o_comparelist_product_name']/span" position="attributes">
+            <attribute name="t-if">not combination_info['prevent_zero_price_sale'] and not website.website_hide_all_prices</attribute>
+        </xpath>
+    </template>
+
+    <!-- Lista de deseos /shop/wishlist: el precio va en un slot product_price propio (o_wish_price),
+         no cubierto por el inherit de products_item. Se oculta via d-none. -->
+    <template id="product_wishlist" inherit_id="website_sale_wishlist.product_wishlist">
+        <xpath expr="//div[hasclass('o_wish_price')]" position="attributes">
+            <attribute name="t-attf-class">align-middle o_wish_price #{website.website_hide_all_prices and 'd-none' or ''}</attribute>
         </xpath>
     </template>
 

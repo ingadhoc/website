@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="website_sale_hide_all_prices.ProductRow"
+       t-inherit="website_sale_comparison.ProductRow"
+       t-inherit-mode="extension">
+        <xpath expr="//small[@t-if='!props.prevent_zero_price_sale']" position="attributes">
+            <attribute name="t-if">!props.prevent_zero_price_sale and !websiteHideAllPrices</attribute>
+        </xpath>
+    </t>
+
+</templates>
