@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Hacemos este parche para evitar KeyError con el usuario de Soporte Adhoc en checkout -->
+    <!--
+        Fix the AR responsibility block to use request.env.company instead of res_company
+        (which may not be in context for all users), and guard responsibility.name against
+        a bool False value (can occur when the partner has no responsibility set).
+    -->
     <template id="address_form_fields_company_fix" inherit_id="portal.address_form_fields">
         <xpath expr="//div[contains(@t-if, 'is_used_as_billing') and contains(@t-if, &quot;res_company.country_id.code == 'AR'&quot;)]" position="attributes">
-            <attribute name="t-if" add="is_used_as_billing and request.env.company.country_code == 'AR' and responsibility" separator="and"/>
+            <attribute name="t-if">is_used_as_billing and request.env.company.country_code == 'AR'</attribute>
+        </xpath>
+        <xpath expr="//p[@t-else=''][@t-out='responsibility.name']" position="attributes">
+            <attribute name="t-out">responsibility and responsibility.name or ''</attribute>
         </xpath>
     </template>
 </odoo>
