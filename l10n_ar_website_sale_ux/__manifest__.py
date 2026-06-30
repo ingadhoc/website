@@ -20,7 +20,13 @@
 {
     "name": "l10n_ar Website Sale UX",
     "category": "Website/Website",
+<<<<<<< adea8fc13ac32cf512c03951637c6ef20464f387
     "version": "19.0.1.3.0",
+||||||| d63accf839d62fc33df48d90ea7ad0496afdf66a
+    "version": "18.0.1.3.0",
+=======
+    "version": "18.0.1.4.0",
+>>>>>>> da53ab1a630caf6f21fc9434e34190be094fad0d
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
@@ -33,6 +39,11 @@
         "views/l10n_ar_website_sale_hide_taxes.xml",
         "views/portal_address_templates.xml",
     ],
+    "assets": {
+        "web.assets_frontend": [
+            "l10n_ar_website_sale_ux/static/src/js/website_sale.js",
+        ],
+    },
     "installable": True,
     "auto_install": ["l10n_ar_website_sale"],
 }

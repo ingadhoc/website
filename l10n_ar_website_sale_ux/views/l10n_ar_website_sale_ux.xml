@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<<<<<<< adea8fc13ac32cf512c03951637c6ef20464f387
     <template id="ar_tax_indication" name="Tax Indication- Argentina" inherit_id="website_sale.tax_indication" priority="20" active="True">
         <!-- Reemplazar el primer span (tax_excluded) para mostrar la alícuota de IVA -->
         <xpath expr="//span[contains(@t-if, 'tax_excluded')]" position="replace">
@@ -10,6 +11,77 @@
                 >
                     (+ <t t-esc="combination_info['taxes'].name"/> Excluded)
                 </span>
+||||||| d63accf839d62fc33df48d90ea7ad0496afdf66a
+    <template id="product_tax" name="Product Tax" inherit_id="website_sale.product_price">
+        <xpath expr="//span[hasclass('oe_price')]" position="after">
+            <t t-set='vat_tax' t-if="request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded'" t-value='product.sudo().taxes_id.filtered(lambda x: x.company_id == website.company_id and x.tax_group_id.l10n_ar_vat_afip_code)'/>
+            <span style="white-space: nowrap; font-size:medium; padding-left: 10px" t-if="vat_tax" t-esc="'(+' + vat_tax.name + ')'"  />
+        </xpath>
+        <xpath expr="//div[1]" >
+            <small t-if="website.company_id.country_code == 'AR' and request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'">Precio Sin Impuestos Nacionales
+                    <span t-esc="combination_info['price_tax_excluded']"
+                        t-options='{
+                           "widget": "monetary",
+                           "display_currency": website.currency_id,
+                       }'/>
+         </small>
+        </xpath>
+    </template>
+
+    <template id="products_item" name="Products item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]" position="inside">
+            <t t-if="not website.prevent_zero_price_sale">
+                <t t-if="request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded'">
+                    <t t-set='vat_tax' t-value='product.sudo().taxes_id.filtered(lambda x: x.company_id == website.company_id and x.tax_group_id.l10n_ar_vat_afip_code)'/>
+                    <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="vat_tax" t-esc="'(+' + vat_tax.name + ')'" />
+                </t>
+                <t t-else="request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'">
+                    <div>
+                        <small t-if="website.company_id.country_code == 'AR'" class="d-block mt-1">Precio Sin Impuestos Nacionales
+                            <span t-esc="template_price_vals['price_tax_excluded']"
+                                t-options='{
+                                    "widget": "monetary",
+                                    "display_currency": website.currency_id,
+                                }'/>
+                        </small>
+                    </div>
+                </t>
+=======
+    <template id="product_tax" name="Product Tax" inherit_id="website_sale.product_price">
+        <xpath expr="//span[hasclass('oe_price')]" position="after">
+            <t t-set='vat_tax' t-if="request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded'" t-value='product.sudo().taxes_id.filtered(lambda x: x.company_id == website.company_id and x.tax_group_id.l10n_ar_vat_afip_code)'/>
+            <span style="white-space: nowrap; font-size:medium; padding-left: 10px" t-if="vat_tax" t-esc="'(+' + vat_tax.name + ')'"  />
+        </xpath>
+        <xpath expr="//div[1]" >
+            <small class="o_l10n_ar_price_tax_excluded" t-if="website.company_id.country_code == 'AR' and request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'">Precio Sin Impuestos Nacionales
+                    <span t-esc="combination_info['price_tax_excluded']"
+                        t-options='{
+                           "widget": "monetary",
+                           "display_currency": website.currency_id,
+                       }'/>
+         </small>
+        </xpath>
+    </template>
+
+    <template id="products_item" name="Products item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]" position="inside">
+            <t t-if="not website.prevent_zero_price_sale">
+                <t t-if="request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_excluded'">
+                    <t t-set='vat_tax' t-value='product.sudo().taxes_id.filtered(lambda x: x.company_id == website.company_id and x.tax_group_id.l10n_ar_vat_afip_code)'/>
+                    <span style="white-space: nowrap; padding-left: 5px; font-size: 85%;" t-if="vat_tax" t-esc="'(+' + vat_tax.name + ')'" />
+                </t>
+                <t t-else="request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'">
+                    <div>
+                        <small t-if="website.company_id.country_code == 'AR'" class="d-block mt-1">Precio Sin Impuestos Nacionales
+                            <span t-esc="template_price_vals['price_tax_excluded']"
+                                t-options='{
+                                    "widget": "monetary",
+                                    "display_currency": website.currency_id,
+                                }'/>
+                        </small>
+                    </div>
+                </t>
+>>>>>>> da53ab1a630caf6f21fc9434e34190be094fad0d
             </t>
         </xpath>
 
