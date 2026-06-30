@@ -6,7 +6,7 @@
             <span style="white-space: nowrap; font-size:medium; padding-left: 10px" t-if="vat_tax" t-esc="'(+' + vat_tax.name + ')'"  />
         </xpath>
         <xpath expr="//div[1]" >
-            <small t-if="website.company_id.country_code == 'AR' and request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'">Precio Sin Impuestos Nacionales
+            <small class="o_l10n_ar_price_tax_excluded" t-if="website.company_id.country_code == 'AR' and request.env['website'].browse(website.id).show_line_subtotals_tax_selection == 'tax_included'">Precio Sin Impuestos Nacionales
                     <span t-esc="combination_info['price_tax_excluded']"
                         t-options='{
                            "widget": "monetary",
