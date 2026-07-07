@@ -13,7 +13,7 @@
             data-order-tracking-info attribute in payment_confirmation_status).
         -->
         <xpath expr="//div[@id='cart_products']" position="attributes">
-            <attribute name="t-att-data-cart-info">json.dumps(website_sale_order.website_order_line.prepare_checkout_information())</attribute>
+            <attribute name="t-att-data-cart-info">json.dumps(website_sale_order.website_order_line.ga4_checkout_information())</attribute>
             <attribute name="t-att-data-currency">website.currency_id.name</attribute>
             <attribute name="t-att-data-value">website_sale_order.amount_total</attribute>
         </xpath>
@@ -43,7 +43,7 @@
     -->
     <template id="checkout_layout_tracking_data" inherit_id="website_sale.checkout_layout">
         <xpath expr="//div[hasclass('o_website_sale_checkout_container')]" position="attributes">
-            <attribute name="t-att-data-purchase-info">website_sale_order.id and json.dumps(website_sale_order.prepare_purchase_information())</attribute>
+            <attribute name="t-att-data-purchase-info">website_sale_order.id and json.dumps(website_sale_order.ga4_purchase_information())</attribute>
         </xpath>
     </template>
 

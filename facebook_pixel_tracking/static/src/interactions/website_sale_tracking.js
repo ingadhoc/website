@@ -99,22 +99,30 @@ patch(PaymentForm.prototype, {
 
     // @override
     async submitForm(ev) {
-        const info_div = document.querySelector(".o_website_sale_checkout_container");
-        if (info_div) {
-            const info = JSON.parse(info_div.dataset.purchase_info || '{}');
-            const contents = (info.items || []).map(item => ({
-                id: String(item.item_id),
-                quantity: item.quantity,
-                item_price: item.price,
-            }));
-            const dict = {
-                value: info.value,
-                currency: info.currency,
-                content_ids: contents.map(item => item.id),
-                contents: contents,
-                content_type: 'product',
-            };
-            this._pushInfo('Purchase', dict);
+        // The tracking code must never block the checkout: any failure here
+        // (e.g. malformed data-purchase_info) must not prevent super.submitForm()
+        // from running, since that is where the payment flow and the
+        // stopPropagation/preventDefault on the submit button live.
+        try {
+            const info_div = document.querySelector(".o_website_sale_checkout_container");
+            if (info_div) {
+                const info = JSON.parse(info_div.dataset.purchase_info || '{}');
+                const contents = (info.items || []).map(item => ({
+                    id: String(item.item_id),
+                    quantity: item.quantity,
+                    item_price: item.price,
+                }));
+                const dict = {
+                    value: info.value,
+                    currency: info.currency,
+                    content_ids: contents.map(item => item.id),
+                    contents: contents,
+                    content_type: 'product',
+                };
+                this._pushInfo('Purchase', dict);
+            }
+        } catch (e) {
+            console.error("Facebook Pixel: failed to push Purchase event.", e);
         }
         super.submitForm(...arguments);
     },

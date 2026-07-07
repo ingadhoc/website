@@ -32,7 +32,7 @@ class SaleOrder(models.Model):
     # Public helpers used by templates
     # ------------------------------------------------------------------
 
-    def prepare_purchase_information(self):
+    def ga4_purchase_information(self):
         """Return a GA4-compatible purchase dict for this order.
 
         ``transaction_id`` is ``self.id`` (integer) to match the value
@@ -41,6 +41,13 @@ class SaleOrder(models.Model):
 
         Returns an empty dict when called on an empty recordset so that
         QWeb templates can call this method safely in all contexts.
+
+        NOTE: intentionally GA4-namespaced. It must NOT reuse the
+        ``prepare_purchase_information`` name owned by
+        ``website_sale_advanced_tracking`` (which returns a JSON *string*):
+        both modules can be installed side by side and overriding that method
+        with a different return type (dict) breaks the JSON.parse of the
+        facebook_pixel / GTM checkout interactions (task 121712).
         """
         if not self:
             return {}
@@ -48,7 +55,7 @@ class SaleOrder(models.Model):
         delivery_line = self.order_line.filtered("is_delivery")
         # GA4 spec: value = sum(price × qty) for items, shipping and tax separate.
         # Use price_total (tax-inclusive) to stay consistent with the item prices
-        # emitted by prepare_checkout_information() which uses price_reduce_taxinc.
+        # emitted by ga4_checkout_information() which uses price_reduce_taxinc.
         delivery_total = sum(delivery_line.mapped("price_total")) if delivery_line else 0.0
         info = {
             "transaction_id": str(self.id),
@@ -56,7 +63,7 @@ class SaleOrder(models.Model):
             "value": self.amount_total - delivery_total,
             "tax": self.amount_tax,
             "currency": self.currency_id.name,
-            "items": self.order_line.prepare_checkout_information(),
+            "items": self.order_line.ga4_checkout_information(),
         }
         if delivery_line:
             info["shipping"] = delivery_total
@@ -142,7 +149,7 @@ class SaleOrder(models.Model):
         res = super()._action_confirm()
         for order in self:
             try:
-                params = order.prepare_purchase_information()
+                params = order.ga4_purchase_information()
                 order._send_ga4_mp_event("purchase", params)
             except Exception as exc:
                 _logger.warning(
