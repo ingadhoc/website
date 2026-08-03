@@ -92,6 +92,12 @@ msgid "Prod. Internal. Ref."
 msgstr "Ref. Interna Prod."
 
 #. module: website_sale_ux
+#. odoo-javascript
+#: code:addons/website_sale_ux/static/src/website_builder/products_design_panel.xml:0
+msgid "Quotation Desc."
+msgstr "Desc. de cotización"
+
+#. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.website_product_description
 msgid "This note is only displayed in the ecommerce below the product's image."
 msgstr ""
@@ -102,3 +108,9 @@ msgstr ""
 #: model:ir.model,name:website_sale_ux.model_website
 msgid "Website"
 msgstr "Sitio web"
+
+#. module: website_sale_ux
+#. odoo-javascript
+#: code:addons/website_sale_ux/static/src/website_builder/products_design_panel.xml:0
+msgid "eCommerce Desc."
+msgstr "Desc. de eCommerce"

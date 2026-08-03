@@ -1,0 +1,30 @@
+// Mirrors the mechanism core uses for the quotation description: the block is rendered for
+// website designers and only becomes visible when its design class is on the products grid.
+.o_wsale_ecommerce_description_wrapper {
+    display: var(--o-wsale-card-info-ecommerce-description-display, none);
+}
+
+.o_wsale_products_opt_has_ecommerce_description {
+    --o-wsale-card-info-ecommerce-description-display: block;
+}
+
+// Sizing and spacing reuse core's custom properties, so both descriptions render alike.
+.o_wsale_ecommerce_description {
+    --lines-clamp: 3;
+
+    max-width: 66ch;
+    margin-bottom: var(--o-wsale-card-info-description-margin-bottom, #{map-get($spacers, 2)});
+    font-size: var(--o-wsale-card-info-description-font-size, CLAMP(12px, 0.86em, 0.86rem));
+
+    // `-webkit-line-clamp` counts line boxes, and a replaced element (an image, an embedded
+    // video) is a single one keeping its intrinsic height: capping the block bounds any html.
+    max-height: calc(var(--lines-clamp) * #{$line-height-base} * 1em);
+
+    img, video, iframe, table, .media_iframe_video {
+        max-width: 100%;
+    }
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+}
