@@ -20,6 +20,7 @@ Website Sale UX
 #. Adds a button on the filters sidebar on ecommerce to get back to the shop page unapplying all filters previously set
 #. Makes the native fields description_ecommerce and website_description visible on product.template backend view
 #. Adds a toggle button on website Builder for 'Products list page' customization, called "Prod. Internal. Ref.". This button shows/hides the product internal reference (default_code) on frontend shop views.
+#. Adds a toggle "eCommerce Desc." on the "Products Design" panel of the website Builder, which shows/hides the eCommerce description (description_ecommerce) on the product tiles of the shop, of the wishlist page and of the "Products" dynamic snippet. Natively the shop only offers the quotation description (description_sale), while the product page only shows the eCommerce one, so both can now be shown together, either of them or none. Core's own toggle is renamed from "Description" to "Quotation Desc." to tell them apart. Being an html field, the eCommerce description is clamped to 3 lines on the tile.
 
 Installation
 ============

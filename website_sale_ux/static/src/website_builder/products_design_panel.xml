@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="website_sale_ux.ProductsDesignPanel" t-inherit="website_sale.ProductsDesignPanel" t-inherit-mode="extension">
+    <!-- Located through the design class the row toggles: unlike the label, it is persisted on
+         "website.shop_opt_products_design_classes" and cannot change without a migration. -->
+    <xpath expr="//BuilderCheckbox[@classAction=&quot;'o_wsale_products_opt_has_description'&quot;]/parent::BuilderRow" position="after">
+        <BuilderRow label.translate="eCommerce Desc.">
+            <BuilderCheckbox classAction="'o_wsale_products_opt_has_ecommerce_description'"/>
+        </BuilderRow>
+    </xpath>
+    <xpath expr="//BuilderCheckbox[@classAction=&quot;'o_wsale_products_opt_has_description'&quot;]/parent::BuilderRow" position="attributes">
+        <attribute name="label.translate">Quotation Desc.</attribute>
+    </xpath>
+</t>
+
+</templates>

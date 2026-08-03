@@ -42,6 +42,9 @@
         "website.website_builder_assets": [
             "website_sale_ux/static/src/website_builder/**/*",
         ],
+        "web.assets_frontend": [
+            "website_sale_ux/static/src/scss/product_tile.scss",
+        ],
     },
     "installable": True,
 }

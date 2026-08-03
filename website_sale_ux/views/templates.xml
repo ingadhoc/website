@@ -7,6 +7,33 @@
             </p>
         </xpath>
     </template>
+    <!-- Anchored on the "t-call" wrapping core's description, not on the wrapper div: "after"
+         the div would nest this block inside that "t-call" and inherit its visibility class. -->
+    <template id="products_item_ecommerce_description" inherit_id="website_sale.products_item" name="Website Products Item eCommerce Description">
+        <xpath expr="//div[hasclass('oe_subdescription_wrapper')]/parent::t" position="after">
+            <t t-call="website_sale.product_tile_element_visibility">
+                <t t-set="visible_element_class" t-value="'o_wsale_products_opt_has_ecommerce_description'"/>
+
+                <div class="o_wsale_ecommerce_description_wrapper">
+                    <div class="o_wsale_ecommerce_description o_line_clamp text-muted" contenteditable="false">
+                        <div t-field="product.description_ecommerce"/>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <!-- The panel is shared with the "Products" dynamic snippet, which has its own template:
+         without this the toggle would be a dead switch there. Core renders its own description
+         on it without the editor-only visibility helper, so neither do we. -->
+    <template id="dynamic_products_item_ecommerce_description" inherit_id="website_sale.dynamic_filter_template_product_product_products_item" name="Dynamic Products Item eCommerce Description">
+        <xpath expr="//div[hasclass('oe_subdescription_wrapper')]" position="after">
+            <div class="o_wsale_ecommerce_description_wrapper">
+                <div class="o_wsale_ecommerce_description o_line_clamp text-muted" contenteditable="false">
+                    <div t-field="product.description_ecommerce"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
     <template id="website_internal_ref_product" inherit_id="website_sale.product" name="Website Product Internal Ref" active="False">
         <xpath expr="//div[@id='product_details']" position="inside">
             <p t-if="product.product_variant_count == 1 and product.product_variant_id.default_code" class="text-muted small">
