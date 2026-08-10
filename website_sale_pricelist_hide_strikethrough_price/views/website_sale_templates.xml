@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--
+        Server-side hooks already neutralize the strikethrough on the shop grid,
+        product page, variant change and product configurator. This CSS-gated
+        class is a robust net for the cart line: `website_sale_product_pack`
+        rewrites the cart `<del>` t-if to `not line.pack_parent_line_id`, which
+        bypasses `_should_show_strikethrough_price` and forces the strikethrough
+        regardless of discount. Hiding by CSS when the active pricelist requests
+        it avoids fighting view-inheritance order with that module.
+    -->
+    <template
+        id="hide_strikethrough_wrap_class"
+        inherit_id="website.layout"
+        name="Hide strikethrough prices: wrap class"
+    >
+        <xpath expr="//div[@id='wrapwrap']" position="attributes">
+            <attribute
+                name="t-attf-class"
+                add="#{'o_wsale_hide_strikethrough_price' if request.pricelist.website_hide_strikethrough_price else ''}"
+                separator=" "
+            />
+        </xpath>
+    </template>
+</odoo>
