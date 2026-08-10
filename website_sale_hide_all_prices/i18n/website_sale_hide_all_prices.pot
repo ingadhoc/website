@@ -1,0 +1,111 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_hide_all_prices
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-10 18:15+0000\n"
+"PO-Revision-Date: 2026-08-10 18:15+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.request_quotation_submited
+msgid ""
+"<i class=\"fa fa-check-circle fa-1x text-success mr-2\" role=\"img\" aria-label=\"Success\" title=\"Success\"/>\n"
+"                            <span>Your request has been sent <b>successfully</b></span>"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.navigation_buttons
+msgid ""
+"<span>Request Quotation</span>\n"
+"                    <i class=\"fa fa-angle-right ms-2 fw-light\"/>"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.res_config_settings_view_form
+msgid ""
+"All prices on the eCommerce site will be hidden, but customers will be able "
+"to add products to the cart in order to request a quote."
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model,name:website_sale_hide_all_prices.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_ir_http__display_name
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_sale_order__display_name
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_website__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model,name:website_sale_hide_all_prices.model_ir_http
+msgid "HTTP Routing"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model.fields,help:website_sale_hide_all_prices.field_res_config_settings__website_hide_all_prices
+#: model:ir.model.fields,help:website_sale_hide_all_prices.field_website__website_hide_all_prices
+msgid "Hide all price at website level"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_res_config_settings__website_hide_all_prices
+msgid "Hide all prices in ecommerce"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.res_config_settings_view_form
+msgid "Hide all prices in my eCommerce"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_website__website_hide_all_prices
+msgid "Hide all prices on website"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_ir_http__id
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_res_config_settings__id
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_sale_order__id
+#: model:ir.model.fields,field_description:website_sale_hide_all_prices.field_website__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#. odoo-python
+#: code:addons/website_sale_hide_all_prices/controllers/main.py:0
+msgid "Request Quotation"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model,name:website_sale_hide_all_prices.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#. odoo-javascript
+#: code:addons/website_sale_hide_all_prices/static/src/components/add_to_cart_notification.xml:0
+msgid "View cart"
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_all_prices.request_quotation_submited
+msgid "We will get back to you shortly."
+msgstr ""
+
+#. module: website_sale_hide_all_prices
+#: model:ir.model,name:website_sale_hide_all_prices.model_website
+msgid "Website"
+msgstr ""
