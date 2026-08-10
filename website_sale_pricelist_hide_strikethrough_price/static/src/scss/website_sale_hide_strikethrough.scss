@@ -1,0 +1,15 @@
+.o_wsale_hide_strikethrough_price {
+    // Product page
+    .oe_default_price,
+    .oe_compare_list_price,
+    del[name="product_price_strikethrough"],
+    // /shop grid tile
+    [name="product_base_price"] del,
+    // Suggested accessories (cart)
+    del[name="suggested_product_list_price"],
+    // Cart line + cart summary (forced by website_sale_product_pack)
+    [name="website_sale_cart_line_price"] del,
+    [name="website_sale_cart_summary_line_price"] del {
+        display: none !important;
+    }
+}

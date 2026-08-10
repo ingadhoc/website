@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_pricelist_view_form_hide_strikethrough" model="ir.ui.view">
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="website_sale.website_sale_pricelist_form_view" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[@name='pricelist_config']/group[@name='pricelist_website']/field[@name='selectable']"
+                position="after"
+            >
+                <field name="website_hide_strikethrough_price" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
