@@ -1,7 +1,7 @@
 {
     "name": "Website Sale Installment Plan",
     "category": "Website/Website",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.2.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
