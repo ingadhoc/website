@@ -2,7 +2,7 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from odoo import models
+from odoo import fields, models
 
 
 class AccountMove(models.Model):
@@ -12,5 +12,6 @@ class AccountMove(models.Model):
         to_defer = self.env["account.move"]
         if self.env.context.get("website_force_background_post"):
             to_defer = self.filtered(lambda m: m.move_type == "out_invoice")
-            to_defer.write({"background_post": True})
+            # Post as soon as the cron runs, the order is already paid
+            to_defer.write({"background_post_date": fields.Datetime.now()})
         return super(AccountMove, self - to_defer)._post(soft=soft)
