@@ -1,3 +1,3 @@
 html2text
-suds-jurko
+suds-community==1.1.2
 requests
