@@ -10,29 +10,29 @@ msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-11 19:55+0000\n"
-"PO-Revision-Date: 2026-08-10 19:42+0000\n"
-"Last-Translator: Carrazza <mac@adhoc.inc>\n"
+"PO-Revision-Date: 2026-08-12 14:54+0000\n"
+"Last-Translator: Javier Diez <jd@adhoc.inc>\n"
 "Language-Team: Spanish <https://translation.dev-adhoc.com/projects/"
 "website-19-0/website-19-0-website_sale_installment_plans/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.10.4\n"
 
 #. module: website_sale_installment_plans
 #. odoo-python
 #: code:addons/website_sale_installment_plans/models/account_card_installment.py:0
 msgid "%s installment of $%.2f"
-msgstr ""
+msgstr "En %s cuota de $%.2f"
 
 #. module: website_sale_installment_plans
 #. odoo-python
 #: code:addons/website_sale_installment_plans/models/account_card_installment.py:0
 msgid "%s installments of $%.2f (Total $%.2f)"
-msgstr ""
+msgstr "En %s cuotas de $%.2f (Total $%.2f)"
 
 #. module: website_sale_installment_plans
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__can_publish
