@@ -10,6 +10,11 @@
                     <field name="disable_categories_search"/>
                 </setting>
             </block>
+            <block id="website_shop_checkout" position="inside">
+                <setting id="checkout_countries_setting" string="Checkout Countries" help="Restrict the countries available in the checkout address form. If the visitor's geolocated country is not allowed, the form defaults to the company country instead.">
+                    <field name="checkout_country_ids" widget="many2many_tags"/>
+                </setting>
+            </block>
         </field>
     </record>
 </odoo>

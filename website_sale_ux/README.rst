@@ -20,6 +20,7 @@ Website Sale UX
 #. Adds a button on the filters sidebar on ecommerce to get back to the shop page unapplying all filters previously set
 #. Makes the native fields description_ecommerce and website_description visible on product.template backend view
 #. A toggle button is added on website Builder for 'Product page' cutomization, called "Sale description". This button shows/hides the sale_description field on frontend view.
+#. Adds a "Checkout Countries" option on website settings to restrict the countries available on the eCommerce checkout address form. When the visitor's geolocated country is not allowed, the form defaults to the website company's country instead of the geolocation.
 
 Installation
 ============

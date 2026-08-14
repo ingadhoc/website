@@ -9,6 +9,7 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     disable_categories_search = fields.Boolean(related="website_id.disable_categories_search", readonly=False)
+    checkout_country_ids = fields.Many2many(related="website_id.checkout_country_ids", readonly=False)
 
     @api.model
     def _inverse_account_on_checkout(self):

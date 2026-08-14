@@ -10,6 +10,35 @@ class WebsiteSale(main.WebsiteSale):
         payment_values["submit_button_label"] = _("Complete Purchase")
         return payment_values
 
+    def _prepare_address_form_values(self, order_sudo, partner_sudo, address_type, **kwargs):
+        rendering_values = super()._prepare_address_form_values(
+            order_sudo, partner_sudo, address_type=address_type, **kwargs
+        )
+        website = http.request.website.sudo()
+        allowed_countries = website.checkout_country_ids
+        if not allowed_countries:
+            return rendering_values
+
+        rendering_values["countries"] = allowed_countries
+        country = rendering_values.get("country")
+        if country not in allowed_countries:
+            # The standard default (GeoIP, with the public user's country as fallback) is
+            # not reliable when the shop sells to a restricted set of countries: behind a
+            # proxy the geolocated country can be plain wrong for every visitor.
+            company_country = website.company_id.country_id
+            country = company_country if company_country in allowed_countries else allowed_countries[0]
+            address_fields = country.get_address_fields()
+            rendering_values.update(
+                {
+                    "country": country,
+                    "country_states": country.state_ids,
+                    "zip_before_city": (
+                        "zip" in address_fields and address_fields.index("zip") < address_fields.index("city")
+                    ),
+                }
+            )
+        return rendering_values
+
 
 class WebsiteBinary(Binary):
     @http.route()

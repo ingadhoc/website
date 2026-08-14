@@ -9,6 +9,14 @@ class Website(models.Model):
     _inherit = "website"
 
     disable_categories_search = fields.Boolean()
+    checkout_country_ids = fields.Many2many(
+        "res.country",
+        string="Checkout Countries",
+        help="Restrict the countries offered in the eCommerce checkout address form to this list. "
+        "When the visitor's geolocated country is not in the list, the form defaults to the "
+        "website company's country (or to the first country of the list). "
+        "Leave empty to keep the standard behavior (all countries, default by geolocation).",
+    )
 
     def _search_get_details(self, search_type, order, options):
         res = super(Website, self)._search_get_details(search_type, order, options)

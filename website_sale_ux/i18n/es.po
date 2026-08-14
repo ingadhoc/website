@@ -31,6 +31,13 @@ msgid "Complete Purchase"
 msgstr "Finalizar compra"
 
 #. module: website_sale_ux
+#: model:ir.model.fields,field_description:website_sale_ux.field_res_config_settings__checkout_country_ids
+#: model:ir.model.fields,field_description:website_sale_ux.field_website__checkout_country_ids
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.res_config_settings_view_form
+msgid "Checkout Countries"
+msgstr "Países del checkout"
+
+#. module: website_sale_ux
 #: model:ir.model,name:website_sale_ux.model_res_config_settings
 msgid "Config Settings"
 msgstr "Ajustes de configuración"
@@ -61,6 +68,33 @@ msgid ""
 msgstr ""
 "Esta nota solo se mostrará debajo de la imagen en la \"Página de producto\" "
 "del eCommerce."
+
+#. module: website_sale_ux
+#: model:ir.model.fields,help:website_sale_ux.field_res_config_settings__checkout_country_ids
+#: model:ir.model.fields,help:website_sale_ux.field_website__checkout_country_ids
+msgid ""
+"Restrict the countries offered in the eCommerce checkout address form to "
+"this list. When the visitor's geolocated country is not in the list, the "
+"form defaults to the website company's country (or to the first country of "
+"the list). Leave empty to keep the standard behavior (all countries, "
+"default by geolocation)."
+msgstr ""
+"Limita los países ofrecidos en el formulario de dirección del checkout del "
+"eCommerce a esta lista. Cuando el país geolocalizado del visitante no está "
+"en la lista, el formulario propone por defecto el país de la compañía del "
+"sitio web (o el primer país de la lista). Dejar vacío para mantener el "
+"comportamiento estándar (todos los países, default por geolocalización)."
+
+#. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.res_config_settings_view_form
+msgid ""
+"Restrict the countries available in the checkout address form. If the "
+"visitor's geolocated country is not allowed, the form defaults to the "
+"company country instead."
+msgstr ""
+"Limita los países disponibles en el formulario de dirección del checkout. "
+"Si el país geolocalizado del visitante no está permitido, el formulario "
+"propone por defecto el país de la compañía."
 
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products
