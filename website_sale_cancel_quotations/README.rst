@@ -37,8 +37,8 @@ To configure this module, you need to:
 #. Go to *Settings > Sales*, section *Cancel Old Quotations*, and set after how
    many days a quotation is considered old (field provided by ``sale_ux``).
 #. Tick *Sales* to cancel old backoffice quotations, *Website* to cancel old
-   e-commerce ones, or both. The *Website* switch is also available in
-   *Settings > Website*.
+   e-commerce ones, or both. The *Website* switch is also reachable from
+   *Settings > Website*, section *Cancel Old Website Quotations*.
 
 Usage
 =====
