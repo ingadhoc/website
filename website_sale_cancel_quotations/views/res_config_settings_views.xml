@@ -16,13 +16,8 @@
         <field name="inherit_id" ref="website_sale.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <block id="website_payment_block" position="inside">
-                <setting id="cancel_old_quotation_setting" string="Cancel Old Quotations">
-                    <div class="text-muted">
-                        <span>Cancel quotations older than</span>
-                        <field name="days_to_keep_quotations" style="width:15%; text-align:center;"/>
-                        <span>days.</span>
-                    </div>
-                    <strong>Sales</strong> <field name="cancel_old_quotations" style="margin-left:5px;"/>
+                <setting id="cancel_old_quotation_setting" string="Cancel Old Website Quotations"
+                         help="Quotations placed through the website are cancelled once they are older than the number of days set in the Sales settings.">
                     <strong>Website</strong> <field name="cancel_old_website_quotations" style="margin-left:5px;"/>
                 </setting>
             </block>
