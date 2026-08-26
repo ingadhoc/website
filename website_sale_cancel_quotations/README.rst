@@ -14,7 +14,13 @@
 Website Sale Cancel Quotations
 ==============================
 
-Add a setting for automatic cancellation of website quotations.
+Adds a setting to cancel old website quotations automatically.
+
+``sale_ux`` already cancels old backoffice quotations through the *Clean Old
+Quotations* scheduled action. Without this module that cleanup does not tell
+website quotations apart, so enabling it also cancels the ones placed through
+the e-commerce. This module adds a separate switch for the website ones and
+makes both switches independent.
 
 Installation
 ============
@@ -28,14 +34,25 @@ Configuration
 
 To configure this module, you need to:
 
-#. No configuration needed.
+#. Go to *Settings > Sales*, section *Cancel Old Quotations*, and set after how
+   many days a quotation is considered old (field provided by ``sale_ux``).
+#. Tick *Sales* to cancel old backoffice quotations, *Website* to cancel old
+   e-commerce ones, or both. The *Website* switch is also available in
+   *Settings > Website*.
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Just use the module.
+#. The daily *Clean Old Quotations* scheduled action, provided by ``sale_ux``,
+   cancels every quotation in *Quotation* or *Quotation Sent* state whose order
+   date is older than the configured number of days.
+#. Which quotations it reaches depends on the two switches: only backoffice
+   ones with *Sales*, only e-commerce ones with *Website*, all of them with
+   both. With neither one enabled the scheduled action cancels nothing.
+#. Each cancelled quotation gets a note in its chatter stating it was cancelled
+   automatically because it expired.
 
 
 Bug Tracker
