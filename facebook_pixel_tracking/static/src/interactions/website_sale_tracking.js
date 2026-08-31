@@ -1,8 +1,6 @@
  /** @odoo-module **/
 
-import { PaymentForm } from '@payment/interactions/payment_form';
 import { registry } from '@web/core/registry';
-import { patch } from '@web/core/utils/patch';
 import { Interaction } from '@web/public/interaction';
 
 export class FacebookPixelTracking extends Interaction {
@@ -17,7 +15,6 @@ export class FacebookPixelTracking extends Interaction {
      _pushInfo(event, dict){
         if(typeof(fbq) !== 'undefined'){
             fbq('track', event, dict);
-            console.log(dict);
         }
     }
 
@@ -84,40 +81,9 @@ export class FacebookPixelTracking extends Interaction {
 
 }
 
-
-//Heredamos PaymentForm form porque el metodo _submitForm tiene stopPropagation y preventDefault, impidiendonos hacerlo en el widget GoogleTagManagerAdvancedTracking
-
-patch(PaymentForm.prototype, {
-
-    _pushInfo(event, dict){
-        if(typeof(fbq) !== 'undefined'){
-            fbq('track', event, dict);
-            console.log(dict);
-        }
-    },
-
-
-    // @override
-    async submitForm(ev) {
-        const info_div = document.querySelector(".o_website_sale_checkout_container");
-        if (info_div) {
-            const info = JSON.parse(info_div.dataset.purchase_info || '{}');
-            const contents = (info.items || []).map(item => ({
-                id: String(item.item_id),
-                quantity: item.quantity,
-                item_price: item.price,
-            }));
-            const dict = {
-                value: info.value,
-                currency: info.currency,
-                content_ids: contents.map(item => item.id),
-                contents: contents,
-                content_type: 'product',
-            };
-            this._pushInfo('Purchase', dict);
-        }
-        super.submitForm(...arguments);
-    },
-})
+// The Purchase event is no longer emitted from the frontend: it is sent
+// server-side via the Meta Conversions API at sale.order confirmation
+// (see models/sale_order.py). This keeps a single source of truth and avoids
+// reporting purchases for carts that fail or are abandoned at the gateway.
 
 registry.category('public.interactions').add('facebook_pixel_tracking.FacebookPixelTracking', FacebookPixelTracking);
