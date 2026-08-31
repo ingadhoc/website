@@ -22,15 +22,38 @@
                                 placeholder="1234567890"
                             />
                         </div>
-                    </div>
-                    <div>
-                        <a
-                            href="https://es-la.facebook.com/business/help/952192354843755?id=1205376682832142"
-                            class="oe_link fa fa-arrow-right"
-                            target="_blank"
-                        >
-                            Como obtengo mi codigo pixel
-                        </a>
+                        <div class="row">
+                            <div class="col-lg-4" />
+                            <a
+                                href="https://es-la.facebook.com/business/help/952192354843755?id=1205376682832142"
+                                class="oe_link fa fa-arrow-right"
+                                target="_blank"
+                            >
+                                ¿Cómo obtengo mi código píxel?
+                            </a>
+                        </div>
+                        <div class="row mt16">
+                            <label
+                                class="col-lg-4 o_light_label"
+                                for="facebook_capi_access_token"
+                                string="Conversions API Token"
+                            />
+                            <field
+                                name="facebook_capi_access_token"
+                                password="True"
+                                placeholder="EAAG..."
+                            />
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4" />
+                            <a
+                                href="https://developers.facebook.com/docs/marketing-api/conversions-api/get-started#manager-events-manager-recommended"
+                                class="oe_link fa fa-arrow-right"
+                                target="_blank"
+                            >
+                                ¿Cómo genero el token de la Conversion API?
+                            </a>
+                        </div>
                     </div>
                 </setting>
             </setting>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="cron_retry_facebook_capi_events" model="ir.cron">
+        <field name="name">Facebook CAPI: Retry Failed Conversions API Events</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="model_id" ref="website.model_website"/>
+        <field name="state">code</field>
+        <field name="code">env['website'].sudo()._retry_failed_facebook_capi_events()</field>
+    </record>
+</odoo>
