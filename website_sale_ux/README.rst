@@ -21,6 +21,7 @@ Website Sale UX
 #. Makes the native fields description_ecommerce and website_description visible on product.template backend view
 #. Adds a toggle button on website Builder for 'Products list page' customization, called "Prod. Internal. Ref.". This button shows/hides the product internal reference (default_code) on frontend shop views.
 #. Adds a toggle "eCommerce Desc." on the "Products Design" panel of the website Builder, which shows/hides the eCommerce description (description_ecommerce) on the product tiles of the shop, of the wishlist page and of the "Products" dynamic snippet. Natively the shop only offers the quotation description (description_sale), while the product page only shows the eCommerce one, so both can now be shown together, either of them or none. Core's own toggle is renamed from "Description" to "Quotation Desc." to tell them apart. Being an html field, the eCommerce description is clamped to 3 lines on the tile.
+#. Shows the product ribbon (product.ribbon: "Sale", "New", etc.) on the cards of the "Products" dynamic snippet. Natively the ribbon is only drawn on the /shop tile and on the product page, so a product with a ribbon looked plain on the home page carousel. It is always active and has no editor option: the ribbon resolution is the same one core uses on the shop (variant ribbon, then template ribbon, then the automatically assigned ones), so the same product shows the same ribbon everywhere.
 
 Installation
 ============

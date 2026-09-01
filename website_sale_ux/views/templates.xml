@@ -34,6 +34,38 @@
             </div>
         </xpath>
     </template>
+    <!-- Core draws the ribbon on the /shop tile (website_sale.products_item) but not on the
+         "Products" dynamic snippet, which has its own card template. Always active and without an
+         editor option: if the product carries a ribbon, it shows everywhere the product is shown. -->
+    <template id="dynamic_products_item_ribbon" inherit_id="website_sale.dynamic_filter_template_product_product_products_item" name="Dynamic Products Item Ribbon">
+        <!-- hasclass() only reads @class and this card's markup builds it with @t-attf-class, so
+             we anchor with contains(). Inside the image link, same place core uses on the tile. -->
+        <xpath expr="//a[contains(@t-attf-class, 'oe_product_image_link')]" position="inside">
+            <!-- Samples are new() records with no publish_date: the automatic ribbon lookup would
+                 crash on them, and a placeholder card has no ribbon to show anyway. -->
+            <t t-if="not is_sample">
+                <!-- With the snippet's "hide variants" option the record is a product.template,
+                     otherwise a product.product: _get_ribbon lives on the template either way. -->
+                <t t-set="ribbon_template" t-value="record.product_tmpl_id if record.is_product_variant else record"/>
+                <t t-set="ribbon" t-value="ribbon_template.sudo()._get_ribbon(
+                    price_vals=data,
+                    variant=record if record.is_product_variant else None)"/>
+                <span t-if="ribbon"
+                      t-att-data-ribbon-id="ribbon.id"
+                      t-attf-class="o_ribbons o_not_editable #{ribbon._get_css_classes()} z-1"
+                      t-attf-style="#{ribbon.text_color and ('color: %s;' % ribbon.text_color)} #{ribbon.bg_color and 'background-color:' + ribbon.bg_color}"
+                      t-out="ribbon.name or ''"/>
+            </t>
+        </xpath>
+    </template>
+    <!-- The ribbon styles are scoped under `.oe_website_sale`. The Products snippet dropped from
+         the editor carries that class in its own markup, but this hardcoded cross-selling section
+         does not and has no such ancestor, so there the ribbon reaches the DOM unstyled. -->
+    <template id="alternative_products_ribbon_scope" inherit_id="website_sale.alternative_products" name="Alternative Products Ribbon Scope">
+        <xpath expr="//section[hasclass('o_wsale_alternative_products')]" position="attributes">
+            <attribute name="class" add="oe_website_sale" separator=" "/>
+        </xpath>
+    </template>
     <template id="website_internal_ref_product" inherit_id="website_sale.product" name="Website Product Internal Ref" active="False">
         <xpath expr="//div[@id='product_details']" position="inside">
             <p t-if="product.product_variant_count == 1 and product.product_variant_id.default_code" class="text-muted small">
