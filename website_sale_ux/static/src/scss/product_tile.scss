@@ -28,3 +28,26 @@
         margin-bottom: 0;
     }
 }
+
+// Core places the fixed wishlist button and the badge-style ribbon on the same top-right
+// corner of the tile. `.o_wsale_ribbon` carries a `z-index`, `.o_wsale_badge` does not, and
+// the shop tile renders the ribbon without the `z-1` that the product page templates add,
+// so the button paints over the label and hides it.
+//
+// Stacking the label above the button would only swap which one is hidden, and the hidden
+// one would be the interactive control. Core already exposes
+// `--o-wsale-ribbon-badge-offset-x` to shift the badge horizontally, so move the badge clear
+// of the button and keep both readable.
+.o_wsale_products_opt_has_wishlist.o_wsale_products_opt_wishlist_fixed {
+    // Width of the wishlist button, which core sizes from its content without exposing it.
+    --o-wsale-ux-wishlist-btn-width: 2.375rem;
+
+    // Only the tiles that actually carry the button: the dynamic snippet card has none.
+    .oe_product_cart:has(.o_add_wishlist) {
+        --o-wsale-ribbon-badge-offset-x: calc(
+            var(--o-wsale-card-offset-x, #{map-get($spacers, 2)}) +
+            var(--o-wsale-ux-wishlist-btn-width) +
+            #{map-get($spacers, 1)}
+        );
+    }
+}
