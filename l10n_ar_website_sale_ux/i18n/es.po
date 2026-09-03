@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-21 14:10+0000\n"
+"POT-Creation-Date: 2026-09-03 15:00+0000\n"
 "PO-Revision-Date: 2026-04-20 16:41+0000\n"
 "Last-Translator: julia elizondo <jue@adhoc.inc>\n"
 "Language-Team: Spanish <https://translation.dev-adhoc.com/projects/"
@@ -25,26 +25,11 @@ msgid "(VAT included)"
 msgstr "(IVA Incluido)"
 
 #. module: l10n_ar_website_sale_ux
-#: model:ir.model.fields,field_description:l10n_ar_website_sale_ux.field_product_template__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: l10n_ar_website_sale_ux
 #: model_terms:ir.ui.view,arch_db:l10n_ar_website_sale_ux.ar_tax_indication
 msgid "Excluded)"
 msgstr "Excluido)"
 
 #. module: l10n_ar_website_sale_ux
-#: model:ir.model.fields,field_description:l10n_ar_website_sale_ux.field_product_template__id
-msgid "ID"
-msgstr ""
-
-#. module: l10n_ar_website_sale_ux
 #: model_terms:ir.ui.view,arch_db:l10n_ar_website_sale_ux.ar_tax_indication
 msgid "Included)"
 msgstr "Incluido)"
-
-#. module: l10n_ar_website_sale_ux
-#: model:ir.model,name:l10n_ar_website_sale_ux.model_product_template
-msgid "Product"
-msgstr ""
