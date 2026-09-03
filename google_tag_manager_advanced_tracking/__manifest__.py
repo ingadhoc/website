@@ -25,10 +25,14 @@
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
     "depends": [
+        "website",
         "website_google_tag_manager",
         "website_sale_advanced_tracking",
     ],
-    "data": ["views/snippets.xml"],
+    "data": [
+        "views/snippets.xml",
+        "views/res_config_settings_view.xml",
+    ],
     "assets": {
         "web.assets_frontend": [
             "google_tag_manager_advanced_tracking/static/src/js/website_sale_tracking.js",
