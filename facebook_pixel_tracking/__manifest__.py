@@ -28,6 +28,7 @@
         "website_sale_advanced_tracking",
     ],
     "data": [
+        "data/ir_cron.xml",
         "views/res_config_settings_view.xml",
         "views/website_templates.xml",
     ],
