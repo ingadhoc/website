@@ -1,0 +1,9 @@
+#o_wsale_cart_offcanvas {
+    --bs-offcanvas-width: 420px;
+
+    .o_cart_product_image img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+    }
+}
