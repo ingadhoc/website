@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="cron_drain_stock_availability" model="ir.cron">
+        <field name="name">E-commerce: Drain out-of-stock recompute queue</field>
+        <field name="active" eval="True"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="model_id" ref="website.model_website"/>
+        <field name="state">code</field>
+        <field name="code">env['website']._cron_drain_stock_availability()</field>
+    </record>
+
+    <record id="cron_full_sweep_stock_availability" model="ir.cron">
+        <field name="name">E-commerce: Full sweep out-of-stock availability</field>
+        <field name="active" eval="True"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="model_id" ref="website.model_website"/>
+        <field name="state">code</field>
+        <field name="code">env['website']._cron_full_sweep_stock_availability()</field>
+    </record>
+
+</odoo>
