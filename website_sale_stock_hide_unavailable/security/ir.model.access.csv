@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_availability_user,product.template.stock.availability user,model_product_template_stock_availability,base.group_user,1,0,0,0
+access_availability_system,product.template.stock.availability system,model_product_template_stock_availability,base.group_system,1,1,1,1
+access_dirty_system,product.template.stock.dirty system,model_product_template_stock_dirty,base.group_system,1,1,1,1
