@@ -1,4 +1,6 @@
 from odoo.addons.website_sale.controllers import main
+from odoo.fields import Domain
+from odoo.http import request, route
 
 
 class WebsiteSale(main.WebsiteSale):
@@ -18,3 +20,27 @@ class WebsiteSale(main.WebsiteSale):
         if not kwargs.get("attribute_values"):
             product = product.with_context(website_sale_preselect_available_variant=True)
         return super()._prepare_product_values(product, category, **kwargs)
+
+    @route(
+        "/website_sale_stock_variant_preselect/first_available_combination",
+        type="jsonrpc",
+        auth="public",
+        website=True,
+        readonly=True,
+    )
+    def first_available_combination(self, product_template_id):
+        """Return the stock-aware default combination of a template, as ptav ids.
+
+        Called by the product carousel card before opening the product configurator, which
+        otherwise starts on core's first combination in sequence. Returns an empty list for
+        a template the visitor cannot buy on this website.
+        """
+        # `search` applies the record rules, so an unpublished template comes back empty
+        # instead of raising an AccessError for the public user.
+        product_template = request.env["product.template"].search(
+            Domain("id", "=", int(product_template_id)) & Domain(request.website.sale_product_domain()),
+            limit=1,
+        )
+        if not product_template:
+            return []
+        return product_template._get_first_available_combination().ids
