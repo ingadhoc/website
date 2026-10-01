@@ -37,5 +37,5 @@
             "facebook_pixel_tracking/static/src/**/*.js",
         ],
     },
-    "installable": True,
+    "installable": False,
 }

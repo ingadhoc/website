@@ -17,6 +17,6 @@
             "website_sale_google_analytics_4/static/src/interactions/ga4_user_tracking.js",
         ],
     },
-    "installable": True,
+    "installable": False,
     "application": False,
 }

@@ -18,6 +18,6 @@
             "website_sale_cart_offcanvas/static/tests/tours/**/*",
         ],
     },
-    "installable": True,
+    "installable": False,
     "application": False,
 }

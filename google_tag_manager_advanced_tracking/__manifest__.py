@@ -34,5 +34,5 @@
             "google_tag_manager_advanced_tracking/static/src/**/*.js",
         ],
     },
-    "installable": True,
+    "installable": False,
 }

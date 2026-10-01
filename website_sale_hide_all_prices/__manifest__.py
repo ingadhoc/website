@@ -45,5 +45,5 @@
             "website_sale_hide_all_prices/static/src/components/product_template_attribute_line.js",
         ]
     },
-    "installable": True,
+    "installable": False,
 }

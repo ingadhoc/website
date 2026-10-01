@@ -46,5 +46,5 @@
             "website_sale_ux/static/src/scss/product_tile.scss",
         ],
     },
-    "installable": True,
+    "installable": False,
 }

@@ -37,5 +37,5 @@
             "website_sale_pricelist_hide_strikethrough_price/static/src/scss/website_sale_hide_strikethrough.scss",
         ],
     },
-    "installable": True,
+    "installable": False,
 }

@@ -6,7 +6,7 @@
     "author": "Odoo Community Association (OCA), ADHOC SA",
     "license": "AGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "depends": ["website_sale"],
     "data": [
         "views/product_template_views.xml",

@@ -31,5 +31,5 @@
             "website_sale_attributes_on_top/static/src/website_builder/**/*",
         ],
     },
-    "installable": True,
+    "installable": False,
 }
