@@ -1,6 +1,7 @@
 from odoo import http
 from odoo.addons.web.controllers.binary import Binary
 from odoo.addons.website_sale.controllers import main
+from odoo.http import request
 from odoo.tools.translate import _
 
 
@@ -9,6 +10,13 @@ class WebsiteSale(main.WebsiteSale):
         payment_values = super()._get_shop_payment_values(order=order, **kwargs)
         payment_values["submit_button_label"] = _("Complete Purchase")
         return payment_values
+
+    @http.route()
+    def products_recently_viewed_update(self, product_id, **kwargs):
+        # Crawlers that run JS call this route on every product page and would create a visitor each time
+        if request.env["ir.http"].is_a_bot():
+            return {}
+        return super().products_recently_viewed_update(product_id, **kwargs)
 
 
 class WebsiteBinary(Binary):
