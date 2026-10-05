@@ -44,6 +44,7 @@
         ],
         "web.assets_frontend": [
             "website_sale_ux/static/src/scss/product_tile.scss",
+            "website_sale_ux/static/src/scss/products_categories_list.scss",
         ],
     },
     "installable": True,
