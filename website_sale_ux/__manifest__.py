@@ -39,5 +39,10 @@
         "views/ecommerce_fields.xml",
         "views/view_mega_menu_backend_editor.xml",
     ],
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_ux/static/src/scss/products_categories_list.scss",
+        ],
+    },
     "installable": True,
 }
