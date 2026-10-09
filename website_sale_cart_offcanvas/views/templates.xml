@@ -6,7 +6,7 @@
     <template id="cart_offcanvas" inherit_id="website.layout" name="Cart Offcanvas">
         <xpath expr="//div[@id='wrapwrap']" position="inside">
             <aside
-                t-if="website.add_to_cart_action == 'open_offcanvas'"
+                t-if="website.cart_offcanvas_enabled"
                 id="o_wsale_cart_offcanvas"
                 class="offcanvas offcanvas-end"
                 tabindex="-1"
@@ -24,7 +24,7 @@
                 <!-- Filled in by the cart_offcanvas interaction. -->
                 <div class="offcanvas-body">
                     <div class="text-center py-5">
-                        <i class="fa fa-circle-o-notch fa-spin fa-2x text-muted"/>
+                        <i class="oi oi-spin oi-2x text-muted" data-icon="autorenew"/>
                     </div>
                 </div>
             </aside>

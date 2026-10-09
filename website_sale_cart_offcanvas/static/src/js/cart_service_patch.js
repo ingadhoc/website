@@ -4,19 +4,16 @@ import { getCartOffcanvasEl, isCartPage } from "@website_sale_cart_offcanvas/js/
 
 patch(CartService.prototype, {
     /**
-     * Open the cart panel instead of the "lines added" toast.
+     * Open the cart panel instead of the "item added" notification.
      *
      * Patching the service covers every "add to cart" origin at once, and runs after the
      * configurator dialog when the product has variants, options or is a combo.
      */
-    _showCartNotification(props, options = {}) {
+    _showCartNotification(notification) {
         const panelEl = getCartOffcanvasEl();
-        if (!panelEl || isCartPage() || !props.lines) {
-            return super._showCartNotification(props, options);
-        }
         // Warnings are errors, not cart content: they keep using the standard notification.
-        if (props.warning) {
-            super._showCartNotification({ warning: props.warning }, options);
+        if (!panelEl || isCartPage() || notification.type !== "item_added") {
+            return super._showCartNotification(notification);
         }
         window.Offcanvas.getOrCreateInstance(panelEl).show();
     },

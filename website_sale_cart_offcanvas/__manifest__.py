@@ -1,13 +1,14 @@
 {
     "name": "Website Sale Cart Offcanvas",
     "summary": "Show the cart in a side panel when adding a product or clicking the cart icon",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "category": "Website",
     "license": "AGPL-3",
     "depends": ["website_sale"],
     "data": [
+        "views/res_config_settings_views.xml",
         "views/templates.xml",
     ],
     "assets": {
@@ -18,6 +19,6 @@
             "website_sale_cart_offcanvas/static/tests/tours/**/*",
         ],
     },
-    "installable": False,
+    "installable": True,
     "application": False,
 }
