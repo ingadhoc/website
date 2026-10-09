@@ -1,0 +1,175 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_stock_hide_unavailable
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-07 20:49+0000\n"
+"PO-Revision-Date: 2026-10-07 20:49+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__company_id
+msgid "Company"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model,name:website_sale_stock_hide_unavailable.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__create_uid
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__create_date
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template__display_name
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__display_name
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__display_name
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_stock_quant__display_name
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_website__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model,name:website_sale_stock_hide_unavailable.model_product_template_stock_availability
+msgid "E-commerce precomputed stock unavailability"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model,name:website_sale_stock_hide_unavailable.model_product_template_stock_dirty
+msgid "E-commerce stock availability recompute queue"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.actions.server,name:website_sale_stock_hide_unavailable.cron_drain_stock_availability_ir_actions_server
+msgid "E-commerce: Drain out-of-stock recompute queue"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.actions.server,name:website_sale_stock_hide_unavailable.cron_full_sweep_stock_availability_ir_actions_server
+msgid "E-commerce: Full sweep out-of-stock availability"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,help:website_sale_stock_hide_unavailable.field_product_template_stock_availability__warehouse_id
+msgid "Empty means the availability is measured over the whole company."
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields.selection,name:website_sale_stock_hide_unavailable.selection__website__out_of_stock_display__hide
+msgid "Hide"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template__id
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__id
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__id
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_res_config_settings__id
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_stock_quant__id
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_website__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__write_uid
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__write_date
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_hide_unavailable.res_config_settings_view_form
+msgid "Out-of-Stock Products"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_res_config_settings__out_of_stock_display
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_website__out_of_stock_display
+msgid "Out-of-stock products"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model,name:website_sale_stock_hide_unavailable.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__product_tmpl_id
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__product_tmpl_id
+msgid "Product Tmpl"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model,name:website_sale_stock_hide_unavailable.model_stock_quant
+msgid "Quants"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields.selection,name:website_sale_stock_hide_unavailable.selection__website__out_of_stock_display__show
+msgid "Show"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields.selection,name:website_sale_stock_hide_unavailable.selection__website__out_of_stock_display__last
+msgid "Show at the end of the list"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_hide_unavailable.res_config_settings_view_form
+msgid ""
+"Show them, push them to the end of the shop, or hide them from the listing, "
+"search and sitemap. Set per website; the product page always stays "
+"reachable."
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_product__stock_unavailability_ids
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template__stock_unavailability_ids
+msgid "Stock Unavailability"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.constraint,message:website_sale_stock_hide_unavailable.constraint_product_template_stock_availability_scope_uniq
+msgid "The unavailability of a product is unique per warehouse scope."
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__warehouse_id
+msgid "Warehouse"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model,name:website_sale_stock_hide_unavailable.model_website
+msgid "Website"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model.fields,help:website_sale_stock_hide_unavailable.field_res_config_settings__out_of_stock_display
+#: model:ir.model.fields,help:website_sale_stock_hide_unavailable.field_website__out_of_stock_display
+msgid ""
+"What the shop does with storable products that are out of stock and cannot "
+"be sold out of stock. 'Show' keeps Odoo's standard behaviour."
+msgstr ""
