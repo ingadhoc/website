@@ -116,7 +116,7 @@ registry.category("web_tour.tours").add("website_sale_cart_offcanvas_configurato
     ],
 });
 
-registry.category("web_tour.tours").add("website_sale_cart_offcanvas_stay", {
+registry.category("web_tour.tours").add("website_sale_cart_offcanvas_disabled", {
     url: "/shop",
     steps: () => [
         ...tourUtils.addToCart({ productName: "Offcanvas Product", expectUnloadPage: true }),

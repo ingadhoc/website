@@ -20,8 +20,7 @@ header cart icon is clicked, instead of the standard toast notification.
 Features
 ========
 
-* Adds a third value, *Open cart panel*, to the per website *Add to Cart* setting. The
-  default (*Stay on Product Page*) is unchanged, and with the other two values the website
+* Adds a per website *Cart Side Panel* setting, on by default. Turned off, the website
   behaves exactly as standard Odoo: no extra request and no extra node in the page.
 * The panel opens from every "add to cart" origin: product page, *Add to Cart* snippet,
   dynamic product carousel, suggested accessories, wishlist and comparison page. With
@@ -39,9 +38,9 @@ Features
 Technical details
 =================
 
-* ``website``: ``add_to_cart_action`` gains the ``open_offcanvas`` value through
-  ``selection_add``. The value reaches the frontend through the session info that
-  ``website_sale`` already publishes.
+* ``website``: ``cart_offcanvas_enabled``, the switch the inherited layout template reads
+  to render the panel. Up to Odoo 19 this was a third value of the standard
+  ``add_to_cart_action`` selection, which Odoo 20 removed.
 * Controller route ``/shop/cart/offcanvas`` (``jsonrpc``, ``auth="public"``), which returns
   the rendered panel content and the cart quantity. The cart HTML never travels inside the
   page, only over this route, so a page cache cannot serve one visitor's cart to another.
@@ -64,7 +63,7 @@ To configure this module, you need to:
 
 #. Go to *Website > Configuration > Settings*.
 #. Select the website you want to configure.
-#. Under *Shop - Checkout Process*, set *Add to Cart* to *Open cart panel*.
+#. Under *Shop - Checkout Process*, turn *Cart Side Panel* on or off.
 
 Usage
 =====
