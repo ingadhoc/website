@@ -88,18 +88,10 @@ registry.category("web_tour.tours").add("website_sale_cart_offcanvas_close_on_ba
 registry.category("web_tour.tours").add("website_sale_cart_offcanvas_configurator", {
     url: "/shop",
     steps: () => [
-        ...tourUtils.searchProduct("Offcanvas Configurable"),
-        {
-            content: "Open the product page",
-            trigger: 'a:contains("Offcanvas Configurable")',
-            run: "click",
+        ...tourUtils.addToCart({
+            productName: "Offcanvas Configurable",
             expectUnloadPage: true,
-        },
-        {
-            content: "Add to cart",
-            trigger: "#add_to_cart",
-            run: "click",
-        },
+        }),
         {
             content: "The configurator is open and the panel is not",
             trigger: ".o_sale_product_configurator_dialog:not(:has(#o_wsale_cart_offcanvas.show))",
@@ -116,7 +108,7 @@ registry.category("web_tour.tours").add("website_sale_cart_offcanvas_configurato
     ],
 });
 
-registry.category("web_tour.tours").add("website_sale_cart_offcanvas_stay", {
+registry.category("web_tour.tours").add("website_sale_cart_offcanvas_disabled", {
     url: "/shop",
     steps: () => [
         ...tourUtils.addToCart({ productName: "Offcanvas Product", expectUnloadPage: true }),
