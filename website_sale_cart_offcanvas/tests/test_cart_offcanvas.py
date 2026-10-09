@@ -11,7 +11,7 @@ class TestCartOffcanvas(HttpCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.website = cls.env.ref("website.default_website")
-        cls.website.add_to_cart_action = "open_offcanvas"
+        cls.website.cart_offcanvas_enabled = True
 
         cls.product = cls.env["product.template"].create(
             {
@@ -55,6 +55,6 @@ class TestCartOffcanvas(HttpCase):
     def test_panel_opens_after_the_configurator(self):
         self.start_tour("/shop", "website_sale_cart_offcanvas_configurator")
 
-    def test_standard_notification_when_setting_is_stay(self):
-        self.website.add_to_cart_action = "stay"
-        self.start_tour("/shop", "website_sale_cart_offcanvas_stay")
+    def test_standard_notification_when_panel_is_disabled(self):
+        self.website.cart_offcanvas_enabled = False
+        self.start_tour("/shop", "website_sale_cart_offcanvas_disabled")
