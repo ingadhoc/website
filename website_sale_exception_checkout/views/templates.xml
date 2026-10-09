@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="payment" inherit_id="website_sale.payment">
+        <xpath expr="//div[@t-if='errors']" position="inside">
+            <a t-if="show_back_to_cart" href="/shop/cart" class="btn btn-secondary mb-3">
+                <i class="fa fa-chevron-left me-1"/>Back to cart
+            </a>
+        </xpath>
+    </template>
+</odoo>

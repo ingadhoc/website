@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_exception_rule_form" model="ir.ui.view">
+        <field name="name">exception.rule.form.website</field>
+        <field name="model">exception.rule</field>
+        <field name="inherit_id" ref="base_exception.view_exception_rule_form"/>
+        <field name="arch" type="xml">
+            <field name="is_blocking" position="after">
+                <field name="website_check" invisible="model not in ('sale.order', 'sale.order.line')"/>
+                <field name="website_message"
+                       invisible="not website_check or model not in ('sale.order', 'sale.order.line')"
+                       placeholder="Only the eCommerce customer sees this message. E.g.: call us at ... to complete your purchase."/>
+            </field>
+        </field>
+    </record>
+</odoo>
