@@ -1,0 +1,14 @@
+// Core hides this chevron; the var() fallbacks cover the sidebar without an `.accordion` ancestor.
+.wsale_products_categories_list .o_categories_recursive_button {
+    &::after {
+        display: block;
+        width: var(--accordion-btn-icon-width, 1rem);
+        height: var(--accordion-btn-icon-width, 1rem);
+        background-size: var(--accordion-btn-icon-width, 1rem);
+        @include transition(var(--accordion-btn-icon-transition, #{$accordion-icon-transition}));
+    }
+
+    &:not(.collapsed)::after {
+        transform: var(--accordion-btn-icon-transform, #{$accordion-icon-transform});
+    }
+}
