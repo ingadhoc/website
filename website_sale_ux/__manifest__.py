@@ -20,7 +20,7 @@
 {
     "name": "Website Sale UX",
     "category": "base.module_category_knowledge_management",
-    "version": "19.0.1.3.0",
+    "version": "20.0.1.3.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
@@ -46,5 +46,5 @@
             "website_sale_ux/static/src/scss/product_tile.scss",
         ],
     },
-    "installable": False,
+    "installable": True,
 }
