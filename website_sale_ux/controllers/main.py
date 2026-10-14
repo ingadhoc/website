@@ -55,7 +55,10 @@ class WebsiteBinary(Binary):
             access_token=access_token,
             nocache=nocache,
         )
-        website = http.request.env["website"].get_current_website()
+        # `/web/image` is not a website route, so `ir.http._match` moves the current website
+        # out of `website_id` and into `host_id`.
+        env = http.request.env
+        website = env.website or env["website"].browse(env.context.get("host_id"))
         if (
             response.headers["Cache-Control"]
             and "private" in response.headers["Cache-Control"]
