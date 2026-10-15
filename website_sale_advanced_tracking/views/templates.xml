@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="cta_wrapper" inherit_id="website_sale.cta_wrapper">
-        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+        <xpath expr="//button[@data-action='add_to_cart']" position="attributes">
             <attribute name="t-att-data-product_id">product.id</attribute>
             <attribute name="t-att-data-product_name">product.name</attribute>
             <attribute name="t-att-data-product_price">combination_info['price']</attribute>
@@ -28,7 +28,7 @@
         </xpath>
     </template>
     <template id="shop_product_buttons" inherit_id="website_sale.shop_product_buttons">
-        <xpath expr="//button[hasclass('a-submit')]" position="attributes">
+        <xpath expr="//button[@name='add_to_cart']" position="attributes">
             <attribute name="class" add="add_to_cart_products_item" separator=" " />
         </xpath>
     </template>
@@ -56,13 +56,10 @@
         </xpath>
     </template>
     <template id="payment_confirmation_status" inherit_id="website_sale.payment_confirmation_status">
-        <xpath expr="//t[@t-if=&quot;tx_sudo.state == 'done'&quot;]//span" position="attributes">
-            <attribute name="t-att-data-purchase_info">order.prepare_purchase_information()</attribute>
-            <attribute name="class" add="purchase_confirm" separator=" " />
-        </xpath>
-          <xpath expr="//t[@t-if=&quot;tx_sudo.state == 'authorized'&quot;]//span" position="attributes">
-            <attribute name="t-att-data-purchase_info">order.prepare_purchase_information()</attribute>
-            <attribute name="class" add="purchase_confirm" separator=" " />
+        <xpath expr="//div[@name='order_confirmation']" position="inside">
+            <span t-if="tx_sudo.state in ('done', 'authorized')"
+                  class="purchase_confirm"
+                  t-att-data-purchase_info="order.prepare_purchase_information()"/>
         </xpath>
     </template>
     <template id="signup" inherit_id="auth_signup.signup">

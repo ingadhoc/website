@@ -20,7 +20,7 @@
 {
     "name": "Website Sale Advanced Tracking",
     "category": "website",
-    "version": "19.0.1.2.0",
+    "version": "20.0.1.2.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
@@ -33,9 +33,9 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "website_sale_advanced_tracking/static/src/add_to_cart_notification.js",
-            "website_sale_advanced_tracking/static/src/add_to_cart_notification.xml",
+            "website_sale_advanced_tracking/static/src/item_added_notification.js",
+            "website_sale_advanced_tracking/static/src/item_added_notification.xml",
         ],
     },
-    "installable": False,
+    "installable": True,
 }
