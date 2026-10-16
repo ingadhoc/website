@@ -38,6 +38,7 @@
         "views/ecommerce_fields.xml",
         "views/view_mega_menu_backend_editor.xml",
     ],
+<<<<<<< 3771ad5850ffcc5ec8f37abe3160bee3dd91df8d
     "assets": {
         "website.website_builder_assets": [
             "website_sale_ux/static/src/website_builder/**/*",
@@ -47,5 +48,13 @@
             "website_sale_ux/static/src/scss/products_categories_list.scss",
         ],
     },
+||||||| 7ffef37d70e41dd218370201e88e2753281b93f4
+=======
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_ux/static/src/scss/products_categories_list.scss",
+        ],
+    },
+>>>>>>> 71a2d4fb3126656832e8595c3ac6b886e405d908
     "installable": True,
 }
