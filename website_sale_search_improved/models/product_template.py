@@ -12,9 +12,9 @@ class ProductTemplate(models.Model):
         Odoo will attempt to match the search term exactly within these additional fields.
         """
         res = super()._search_get_detail(website, order, options)
-        if self.env["ir.config_parameter"].sudo().get_param("website_sale_search_improved.extend_search_fields"):
+        if self.env["ir.config_parameter"].sudo().get_bool("website_sale_search_improved.extend_search_fields"):
             extra_search_fields = literal_eval(
-                self.env["ir.config_parameter"].sudo().get_param("website_sale_search_improved.search_fields")
+                self.env["ir.config_parameter"].sudo().get_str("website_sale_search_improved.search_fields")
             )
             res["search_fields"] = res["search_fields"] + extra_search_fields
         return res

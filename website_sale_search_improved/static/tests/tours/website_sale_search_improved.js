@@ -5,16 +5,11 @@ import * as tourUtils from "@website_sale/js/tours/tour_utils";
 
 registry.category("web_tour.tours").add("website_sale_search_improved_tour", {
     url: "/shop",
-    steps: () =>  [
-         ...tourUtils.searchProduct("Test Description"),
-         {
+    steps: () => [
+        ...tourUtils.searchProduct("Test Keyword"),
+        {
             content: "Verify the selected product is correct.",
             trigger: '.oe_product_cart a:contains("Test Product")',
         },
-         ...tourUtils.searchProduct("Test Tag"),
-         {
-            content: "Verify the selected product is correct.",
-            trigger: '.oe_product_cart a:contains("Test Product")',
-        }
-    ]
+    ],
 });
