@@ -6,26 +6,46 @@ class TestWebsiteSaleSearchImproved(HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        tag = cls.env["product.tag"].create({"name": "Test Tag", "visible_to_customers": True})
-        cls.env["product.template"].create(
+        # website_meta_keywords is not searched natively by website_sale, so only the
+        # module makes the product show up when searching by it
+        cls.product = cls.env["product.template"].create(
             {
                 "name": "Test Product",
                 "type": "consu",
                 "list_price": 100.0,
-                "description_ecommerce": "Test Description",
+                "website_meta_keywords": "Test Keyword",
                 "is_published": True,
-                "product_tag_ids": [(4, tag.id)],
             }
         )
+        cls.website = cls.env.ref("base.default_website")
 
-    def test_website_sale_search_improved(self):
-        self.env["ir.config_parameter"].set_param(
+    def _enable_extra_search_fields(self):
+        self.env["ir.config_parameter"].set_bool("website_sale_search_improved.extend_search_fields", True)
+        self.env["ir.config_parameter"].set_str(
             "website_sale_search_improved.search_fields",
-            "['description_ecommerce','product_tag_ids.name']",
+            "['website_meta_keywords']",
         )
 
-        self.env["ir.config_parameter"].set_param("website_sale_search_improved.extend_search_fields", "True")
+    def _search_products(self, term):
+        options = {
+            "displayDescription": True,
+            "displayDetail": True,
+            "displayImage": True,
+            "displayExtraLink": True,
+            "display_currency": self.website.currency_id,
+            "allowFuzzy": True,
+        }
+        website = self.website.with_context(website_id=self.website.id)
+        _count, details, _fuzzy = website._search_with_fuzzy("product_template", term, 0, 20, "name asc", options)
+        return details[0]["results"] if details else self.env["product.template"]
 
+    def test_search_extra_field(self):
+        self.assertNotIn(self.product, self._search_products("Test Keyword"))
+        self._enable_extra_search_fields()
+        self.assertIn(self.product, self._search_products("Test Keyword"))
+
+    def test_website_sale_search_improved(self):
+        self._enable_extra_search_fields()
         self.start_tour(
             "/shop",
             "website_sale_search_improved_tour",

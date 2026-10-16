@@ -14,9 +14,11 @@
 Website Sale Search Improved
 ============================
 
-This module allows the users to expand the search of the eCommerce's search bar by including new fields in its search. Therefore any storable field from product.template model could be included in the search results.
+This module allows the users to expand the search of the eCommerce's search bar by including new fields in its search. Any stored field of the product.template model, or a path through a one2many or many2many field to a field of the related model (e.g. 'product_tag_ids.name'), can be included in the search results.
 
-Important: by default Odoo has a fuzzy search included in the native searching process (get results even typing mistakes), however this fuzzy search would be not available on the new fields added in the search by this module.
+Odoo natively searches products by name, internal reference, barcode, attribute values, tags, public categories and descriptions; this module adds the fields you configure on top of those.
+
+Important: when the fuzzy search (results even with typing mistakes) is enabled, which is the default in the shop, non-stored fields are removed from the search, so only stored fields are searched.
 
 Installation
 ============
@@ -30,7 +32,9 @@ Configuration
 
 To configure this module, you need to:
 
-Go to Settings > Website > Shop - Products and activate the feature "Advanced search". Then on these field add the list of new fields to be included on the search following this structure: ['field_1','field_2','field_3'] and click on Save.
+Go to Settings > Website > eCommerce and activate the feature "Advanced Search Fields". Then add the list of new fields to be included in the search following this structure: ['field_1','field_2.name'] and click on Save.
+
+Relational fields must point to a field of the related model (e.g. 'product_tag_ids.name'), and the public user must have read access to every model in the path; otherwise the setting is rejected.
 
 Usage
 =====
