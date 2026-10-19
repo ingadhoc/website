@@ -40,6 +40,9 @@ class ResConfigSettings(models.TransientModel):
             raise UserError("The field %s is not in the model %s" % (main_field, model))
         self.check_model_public_access(field.model_name)
 
+        if field.type == "many2one":
+            raise UserError(_("The field %s is a many2one, which is not supported in the search", main_field))
+
         if not field.relational and fields_list[1:]:
             raise UserError("The field %s is not a relational field" % main_field)
 

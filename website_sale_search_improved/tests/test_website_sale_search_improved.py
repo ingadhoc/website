@@ -1,3 +1,4 @@
+from odoo.exceptions import UserError
 from odoo.tests import HttpCase, tagged
 
 
@@ -31,3 +32,7 @@ class TestWebsiteSaleSearchImproved(HttpCase):
             "website_sale_search_improved_tour",
             login="admin",
         )
+
+    def test_search_fields_reject_many2one(self):
+        with self.assertRaises(UserError):
+            self.env["res.config.settings"].create({"website_search_fields_list": "['categ_id.name']"})
