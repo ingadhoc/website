@@ -28,7 +28,8 @@ Configuration
 
 To configure this module, you need to:
 
-#. No configuration needed.
+#. Go to the *Shop* page and click *Edit* to open the website builder.
+#. In the products list options, under *Filters*, pick *Attributes on Top*.
 
 Usage
 =====
