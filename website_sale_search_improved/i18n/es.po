@@ -1,23 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* website_sale_search_improved
-# 
+#
 # Translators:
 # Juan José Scarafía <scarafia.juanjose@gmail.com>, 2024
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-05 05:33+0000\n"
+"POT-Creation-Date: 2026-10-19 21:03+0000\n"
 "PO-Revision-Date: 2024-11-14 20:37+0000\n"
 "Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/adhoc/teams/46451/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 #. module: website_sale_search_improved
 #: model_terms:ir.ui.view,arch_db:website_sale_search_improved.res_config_settings_view_form
@@ -26,8 +27,8 @@ msgstr "Agrega campos extra para buscar en el eCommerce"
 
 #. module: website_sale_search_improved
 #: model_terms:ir.ui.view,arch_db:website_sale_search_improved.res_config_settings_view_form
-msgid "Advanced Search"
-msgstr "Búsqueda Avanzada"
+msgid "Advanced Search Fields"
+msgstr ""
 
 #. module: website_sale_search_improved
 #: model:ir.model,name:website_sale_search_improved.model_res_config_settings
@@ -35,14 +36,34 @@ msgid "Config Settings"
 msgstr "Ajustes de configuración"
 
 #. module: website_sale_search_improved
+#: model:ir.model.fields,field_description:website_sale_search_improved.field_product_template__display_name
+#: model:ir.model.fields,field_description:website_sale_search_improved.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:website_sale_search_improved.field_website__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_search_improved
 #: model:ir.model.fields,field_description:website_sale_search_improved.field_res_config_settings__website_extend_search_fields
 msgid "Extend website search fields"
 msgstr "Extender campos de búsqueda en website"
 
 #. module: website_sale_search_improved
+#: model:ir.model.fields,field_description:website_sale_search_improved.field_product_template__id
+#: model:ir.model.fields,field_description:website_sale_search_improved.field_res_config_settings__id
+#: model:ir.model.fields,field_description:website_sale_search_improved.field_website__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_search_improved
 #: model:ir.model,name:website_sale_search_improved.model_product_template
 msgid "Product"
 msgstr "Producto"
+
+#. module: website_sale_search_improved
+#. odoo-python
+#: code:addons/website_sale_search_improved/models/res_config_settings.py:0
+msgid "The field %s is a many2one, which is not supported in the search"
+msgstr ""
 
 #. module: website_sale_search_improved
 #. odoo-python
@@ -64,3 +85,6 @@ msgstr "Lista de Campos de Búsqueda del Website"
 #: model_terms:ir.ui.view,arch_db:website_sale_search_improved.res_config_settings_view_form
 msgid "['field_1', 'field_2.name']"
 msgstr ""
+
+#~ msgid "Advanced Search"
+#~ msgstr "Búsqueda Avanzada"
