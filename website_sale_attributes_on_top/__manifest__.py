@@ -20,16 +20,19 @@
 {
     "name": "Website Sale Attributes On Top",
     "category": "Hidden",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
     "depends": ["website_sale"],
     "data": ["views/products.xml"],
     "assets": {
+        "web.assets_frontend": [
+            "website_sale_attributes_on_top/static/src/scss/attributes_on_top.scss",
+        ],
         "website.website_builder_assets": [
             "website_sale_attributes_on_top/static/src/website_builder/**/*",
         ],
     },
-    "installable": False,
+    "installable": True,
 }
