@@ -9,7 +9,7 @@
                     We inform you that this cart has expired because it has exceeded its validity date. Please click on the "Update Cart" button to update the price of your products and finalize your purchase.
                 </div>
                 <a id="update_cart_button" href="/update_date_prices_and_validity" class="btn btn-primary ">
-                    Update Cart <i class="fa fa-refresh"/>
+                    Update Cart <i class="oi" data-icon="refresh"/>
                 </a>
             </div>
         </xpath>
@@ -23,7 +23,7 @@
                     We inform you that this cart has expired because it has exceeded its validity date. Please click on the "Update Cart" button to update the price of your products and finalize your purchase.
             </div>
             <a t-if="website_sale_order.validity_date and website_sale_order.validity_date &lt; datetime.datetime.now().date()" href="/update_date_prices_and_validity" class="btn btn-primary w-100">
-                Update Cart <i class="fa fa-refresh"/>
+                Update Cart <i class="oi" data-icon="refresh"/>
             </a>
         </xpath>
     </template>
