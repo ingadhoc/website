@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-27 15:18+0000\n"
-"PO-Revision-Date: 2026-04-20 16:41+0000\n"
+"POT-Creation-Date: 2026-10-21 16:49+0000\n"
+"PO-Revision-Date: 2026-10-21 16:49+0000\n"
 "Last-Translator: julia elizondo <jue@adhoc.inc>\n"
 "Language-Team: Spanish <https://translation.dev-adhoc.com/projects/"
 "website-19-0/website-19-0-website_sale_ux/es/>\n"
@@ -23,14 +23,97 @@ msgstr ""
 "X-Generator: Weblate 5.10.4\n"
 
 #. module: website_sale_ux
-#: model_terms:ir.ui.view,arch_db:website_sale_ux.website_internal_ref_product
-msgid "<b><span>Ref. interna: </span></b>"
+#: model:ir.module.module,description:base.module_website_sale_ux
+msgid ""
+".. |company| replace:: ADHOC SA\n"
+"\n"
+".. |company_logo| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-logo.png\n"
+"   :alt: ADHOC SA\n"
+"   :target: https://www.adhoc.com.ar\n"
+"\n"
+".. |icon| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-icon.png\n"
+"\n"
+".. image:: https://img.shields.io/badge/license-AGPL--3-blue.png\n"
+"   :target: https://www.gnu.org/licenses/agpl\n"
+"   :alt: License: AGPL-3\n"
+"\n"
+"===============\n"
+"Website Sale UX\n"
+"===============\n"
+"\n"
+"#. This module adds the option to \"Search Website Product Category for\" (public_categ_ids) on Website app`s backend search bar (Website > Product).\n"
+"#. Rename \"All products\" to \"All categories\" in categories left snippet on shop.\n"
+"#. Adds an option to disable returning categories on shop search bar. To do so you need to go to website settings and check option \"Disable Categories Search\".\n"
+"#. Adds a button on the filters sidebar on ecommerce to get back to the shop page unapplying all filters previously set\n"
+"#. Makes the native fields description_ecommerce and website_description visible on product.template backend view\n"
+"#. Adds a toggle button on website Builder for 'Products list page' customization, called \"Prod. Internal. Ref.\". This button shows/hides the product internal reference (default_code) on frontend shop views.\n"
+"#. Adds a toggle \"eCommerce Desc.\" on the \"Products Design\" panel of the website Builder, which shows/hides the eCommerce description (description_ecommerce) on the product tiles of the shop, of the wishlist page and of the \"Products\" dynamic snippet. Natively the shop only offers the quotation description (description_sale), while the product page only shows the eCommerce one, so both can now be shown together, either of them or none. Core's own toggle is renamed from \"Description\" to \"Quotation Desc.\" to tell them apart. Being an html field, the eCommerce description is clamped to 3 lines on the tile.\n"
+"#. Scopes the \"Alternative Products\" section of the product page under `.oe_website_sale`, so the product ribbon core draws on its cards gets its styles. The section hangs from the page wrapper and core scopes the ribbon styles under that class, so without this the ribbon shows up unstyled there.\n"
+"#. Moves the badge-style product ribbon clear of the wishlist button on the shop tiles. Natively both are placed on the same top-right corner of the tile and the button, having no ribbon z-index to compete with, paints over the label and hides it.\n"
+"\n"
+"Installation\n"
+"============\n"
+"\n"
+"To install this module, you need to:\n"
+"\n"
+"#. Just install this module.\n"
+"\n"
+"Configuration\n"
+"=============\n"
+"\n"
+"To configure this module, you need to:\n"
+"\n"
+"#. No configuration needed.\n"
+"\n"
+"Usage\n"
+"=====\n"
+"\n"
+"To use this module, you need to:\n"
+"\n"
+"#. Just use the module.\n"
+"\n"
+".. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas\n"
+"   :alt: Try me on Runbot\n"
+"   :target: http://runbot.adhoc.com.ar/\n"
+"\n"
+"Bug Tracker\n"
+"===========\n"
+"\n"
+"Bugs are tracked on `GitHub Issues\n"
+"<https://github.com/ingadhoc/website/issues>`_. In case of trouble, please\n"
+"check there if your issue has already been reported. If you spotted it first,\n"
+"help us smashing it by providing a detailed and welcomed feedback.\n"
+"\n"
+"Credits\n"
+"=======\n"
+"\n"
+"Images\n"
+"------\n"
+"\n"
+"* |company| |icon|\n"
+"\n"
+"Contributors\n"
+"------------\n"
+"\n"
+"Maintainer\n"
+"----------\n"
+"\n"
+"|company_logo|\n"
+"\n"
+"This module is maintained by the |company|.\n"
+"\n"
+"To contribute to this module, please visit https://www.adhoc.com.ar.\n"
 msgstr ""
 
 #. module: website_sale_ux
+#: model_terms:ir.ui.view,arch_db:website_sale_ux.website_internal_ref_product
+msgid "<b><span>Internal Reference: </span></b>"
+msgstr "<b><span>Ref. interna: </span></b>"
+
+#. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.website_internal_ref_products_item
-msgid "<span>Ref. interna: </span>"
-msgstr ""
+msgid "<span>Internal Reference: </span>"
+msgstr "<span>Ref. interna: </span>"
 
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products_categories_list
@@ -42,6 +125,12 @@ msgstr "Todas las categorías"
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.products_mobile
 msgid "Back to all products"
 msgstr "Volver a todos los productos"
+
+#. module: website_sale_ux
+#. odoo-javascript
+#: code:addons/website_sale_ux/static/src/website_builder/product_list_option.xml:0
+msgid "Collapse sidebar sections"
+msgstr "Ocultar secciones de la barra lateral"
 
 #. module: website_sale_ux
 #. odoo-python
@@ -72,7 +161,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_ux.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:website_sale_ux.field_website__display_name
 msgid "Display Name"
-msgstr "Nombre para mostrar"
+msgstr "Nombre en pantalla"
 
 #. module: website_sale_ux
 #: model_terms:ir.ui.view,arch_db:website_sale_ux.website_product_description
@@ -108,6 +197,11 @@ msgstr ""
 #: model:ir.model,name:website_sale_ux.model_website
 msgid "Website"
 msgstr "Sitio web"
+
+#. module: website_sale_ux
+#: model:ir.module.module,shortdesc:base.module_website_sale_ux
+msgid "Website Sale UX"
+msgstr ""
 
 #. module: website_sale_ux
 #. odoo-javascript
