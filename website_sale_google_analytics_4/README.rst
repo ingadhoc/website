@@ -33,6 +33,9 @@ them. It only adds:
 
 * ``sign_up`` – fired when the registration form is submitted.
 * ``login`` – fired when the login form is submitted.
+* ``search`` – fired when a results page is opened with a search term.
+* ``form_start`` – fired when a visitor first reaches a website form.
+* ``form_submit`` – fired when that form is submitted.
 
 Backend events (via GA4 Measurement Protocol)
 ----------------------------------------------

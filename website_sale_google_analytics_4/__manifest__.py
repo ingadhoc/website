@@ -12,6 +12,7 @@
     ],
     "assets": {
         "web.assets_frontend": [
+            "website_sale_google_analytics_4/static/src/interactions/ga4_site_events.js",
             "website_sale_google_analytics_4/static/src/interactions/ga4_user_tracking.js",
         ],
     },
