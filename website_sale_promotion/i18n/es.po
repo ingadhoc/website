@@ -185,8 +185,8 @@ msgstr "Descuento precio (%)"
 
 #. module: website_sale_promotion
 #: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__price_surcharge
-msgid "Price Surcharge (%)"
-msgstr "Sobrecarga precio (%)"
+msgid "Price Surcharge"
+msgstr "Recargo de precio"
 
 #. module: website_sale_promotion
 #: model:ir.model.fields,field_description:website_sale_promotion.field_website_promotion__pricelist_id
