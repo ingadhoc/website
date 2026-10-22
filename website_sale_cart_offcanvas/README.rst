@@ -40,7 +40,9 @@ Technical details
 
 * ``website``: ``cart_offcanvas_enabled``, the switch the inherited layout template reads
   to render the panel. Up to Odoo 19 this was a third value of the standard
-  ``add_to_cart_action`` selection, which Odoo 20 removed.
+  ``add_to_cart_action`` selection, which Odoo 20 removed. It defaults to on, so a site
+  coming from 19 gets the panel even if it did not have it: the upgrade tells the customer
+  about it and how to turn it back off (script in ``ingadhoc/odoo-upgrade``).
 * Controller route ``/shop/cart/offcanvas`` (``jsonrpc``, ``auth="public"``), which returns
   the rendered panel content and the cart quantity. The cart HTML never travels inside the
   page, only over this route, so a page cache cannot serve one visitor's cart to another.
@@ -63,7 +65,7 @@ To configure this module, you need to:
 
 #. Go to *Website > Configuration > Settings*.
 #. Select the website you want to configure.
-#. Under *Shop - Checkout Process*, turn *Cart Side Panel* on or off.
+#. Under *eCommerce*, turn *Cart Side Panel* on or off.
 
 Usage
 =====
