@@ -48,7 +48,7 @@ class WebsitePromotion(models.Model):
                     "base_pricelist_id": rec.base_pricelist_id.id,
                     "pricelist_id": rec.pricelist_id.id,
                     "price_discount": rec.price_discount,
-                    "compute_price": "formula",
+                    "compute_price": "markup" if rec.base == "standard_price" else "discount",
                     "price_surcharge": rec.price_surcharge,
                 }
                 for product in rec.template_ids
