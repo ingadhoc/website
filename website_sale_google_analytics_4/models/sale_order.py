@@ -29,38 +29,20 @@ class SaleOrder(models.Model):
     )
 
     # ------------------------------------------------------------------
-    # Public helpers used by templates
+    # Measurement ID
     # ------------------------------------------------------------------
 
-    def prepare_purchase_information(self):
-        """Return a GA4-compatible purchase dict for this order.
+    def _get_ga4_measurement_id(self):
+        """Return the website Measurement ID, or an empty string.
 
-        ``transaction_id`` is ``self.id`` (integer) to match the value
-        emitted by the native website_sale Tracking interaction so that
-        GA4 can deduplicate the frontend and backend ``purchase`` events.
-
-        Returns an empty dict when called on an empty recordset so that
-        QWeb templates can call this method safely in all contexts.
+        The same website field holds either a GA4 Measurement ID (``G-``) or
+        a Tag Manager container (``GTM-``). Tag Manager has no server-side
+        endpoint, so a site running it gets no backend event at all.
         """
-        if not self:
-            return {}
         self.ensure_one()
-        delivery_line = self.order_line.filtered("is_delivery")
-        # GA4 spec: value = sum(price × qty) for items, shipping and tax separate.
-        # Use price_total (tax-inclusive) to stay consistent with the item prices
-        # emitted by prepare_checkout_information() which uses price_reduce_taxinc.
-        delivery_total = sum(delivery_line.mapped("price_total")) if delivery_line else 0.0
-        info = {
-            "transaction_id": str(self.id),
-            "affiliation": self.company_id.name,
-            "value": self.amount_total - delivery_total,
-            "tax": self.amount_tax,
-            "currency": self.currency_id.name,
-            "items": self.order_line.prepare_checkout_information(),
-        }
-        if delivery_line:
-            info["shipping"] = delivery_total
-        return info
+        website = (self.website_id or self.env["website"].get_current_website()).sudo()
+        key = website.google_analytics_key or ""
+        return key if key.startswith("G-") else ""
 
     # ------------------------------------------------------------------
     # Measurement Protocol
@@ -75,7 +57,7 @@ class SaleOrder(models.Model):
         """
         self.ensure_one()
         website = (self.website_id or self.env["website"].get_current_website()).sudo()
-        measurement_id = website.google_analytics_key
+        measurement_id = self._get_ga4_measurement_id()
         api_secret = website.ga4_api_secret
 
         if not measurement_id or not api_secret:
@@ -135,14 +117,15 @@ class SaleOrder(models.Model):
     def _action_confirm(self):
         """Send a backend purchase event after confirmation.
 
-        GA4 deduplicates with the frontend event via the same
-        ``transaction_id`` (order.id).  The backend event is a
-        reliability safeguard for ad-blocker and async-payment cases.
+        The payload is the native one, so the backend event matches the
+        browser event field by field -- ``transaction_id`` above all, which
+        is how GA4 deduplicates the two. The backend event is a reliability
+        safeguard for ad-blocker and async-payment cases.
         """
         res = super()._action_confirm()
         for order in self:
             try:
-                params = order.prepare_purchase_information()
+                params = order._get_purchase_tracking_info()
                 order._send_ga4_mp_event("purchase", params)
             except Exception as exc:
                 _logger.warning(
