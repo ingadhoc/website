@@ -62,21 +62,20 @@ class SaleOrder(models.Model):
     def _prepare_facebook_capi_custom_data(self):
         """Return a Meta CAPI ``custom_data`` dict for this order.
 
-        Built directly from the order lines – not from the shared
-        ``prepare_purchase_information`` helper, whose return type varies by
-        which tracking modules are installed (``website_sale_advanced_tracking``
-        returns a JSON string, ``website_sale_google_analytics_4`` overrides the
-        same method returning a dict). All ``content_ids``/``id`` are emitted as
-        strings: if the browser sends ``['1234']`` and the server ``[1234]``
-        Meta treats the events as different and deduplication breaks silently.
+        ``item_id`` comes from the same core helper the browser events use, so
+        a product with no internal reference does not end up reported as its
+        template id in one event and its variant id in the other: Meta matches
+        the catalog by ``content_ids``, and a mismatch breaks it silently.
+        Amounts are tax-included, which is what Meta means by ``value``, while
+        the core reports net of tax for GA4.
         """
         self.ensure_one()
         contents = []
         content_ids = []
         for line in self.order_line:
-            if getattr(line, "is_delivery", False) or getattr(line, "is_reward_line", False):
+            if not line.product_id or getattr(line, "is_delivery", False) or getattr(line, "is_reward_line", False):
                 continue
-            item_id = str(line.product_id.default_code or line.product_id.id)
+            item_id = self._get_order_line_tracking_data(line)["item_id"]
             content_ids.append(item_id)
             contents.append(
                 {
@@ -139,6 +138,44 @@ class SaleOrder(models.Model):
         if self.fb_client_user_agent:
             user_data["client_user_agent"] = self.fb_client_user_agent
         return user_data
+
+    # ------------------------------------------------------------------
+    # Browser tracking data, reused from the core
+    # ------------------------------------------------------------------
+
+    def _get_order_line_tracking_data(self, line):
+        """Add the tax-included unit price to each tracked item.
+
+        GA4 wants ``value`` net of tax, so the core only publishes that one.
+        For Meta ``value`` is what the customer pays, which is also what the
+        Conversions API reports at confirmation.
+        """
+        res = super()._get_order_line_tracking_data(line)
+        if self.website_id.facebook_pixel_key:
+            res["price_taxinc"] = line.price_reduce_taxinc
+        return res
+
+    def _cart_add(self, *args, **kwargs):
+        return self._facebook_fill_tracking_info(super()._cart_add(*args, **kwargs))
+
+    def _cart_update_line_quantity(self, *args, **kwargs):
+        return self._facebook_fill_tracking_info(super()._cart_update_line_quantity(*args, **kwargs))
+
+    def _facebook_fill_tracking_info(self, res):
+        """Fill the cart tracking data the core skipped for a pixel-only site.
+
+        The core builds it only when the website has a Google Analytics key,
+        so a site running the pixel alone would get an empty list and no
+        AddToCart event. Only additions are filled: Meta has no standard
+        event for removing from the cart.
+        """
+        if res.get("tracking_info") or not self.website_id.facebook_pixel_key:
+            return res
+        line_id = res.get("line_id")
+        added_qty = res.get("added_qty") or 0
+        if line_id and added_qty > 0:
+            res["tracking_info"] = self._get_cart_lines_tracking_info([line_id], {line_id: added_qty})
+        return res
 
     # ------------------------------------------------------------------
     # Conversions API

@@ -1,7 +1,4 @@
 <odoo>
-    <template id="layout" inherit_id="website.layout">
-
-    </template>
     <template id="web_layout" inherit_id="website.layout">
         <xpath expr="//meta[@name='generator']" position="before">
             <t t-if="website and website.facebook_pixel_key">
