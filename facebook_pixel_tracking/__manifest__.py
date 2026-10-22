@@ -20,12 +20,13 @@
 {
     "name": "Facebook Pixel Tracking",
     "category": "website",
-    "version": "19.0.1.2.0",
+    "version": "20.0.1.2.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
     "depends": [
-        "website_sale_advanced_tracking",
+        "website_sale",
+        "payment",
     ],
     "data": [
         "data/ir_cron.xml",
@@ -37,5 +38,5 @@
             "facebook_pixel_tracking/static/src/**/*.js",
         ],
     },
-    "installable": False,
+    "installable": True,
 }

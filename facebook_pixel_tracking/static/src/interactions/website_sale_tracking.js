@@ -1,89 +1,88 @@
- /** @odoo-module **/
+/** @odoo-module **/
 
 import { registry } from '@web/core/registry';
 import { Interaction } from '@web/public/interaction';
 
+/**
+ * Meta Pixel browser events, built on the tracking data website_sale already
+ * publishes: the `add_to_cart_event` it dispatches and the `#cart_tracking_info`
+ * element it renders on the cart page. Nothing here reads the product DOM, so
+ * variants, combos and reward lines come out of the core, already resolved.
+ */
 export class FacebookPixelTracking extends Interaction {
-    static selector = ".oe_website_sale";
+    static selector = '.oe_website_sale';
 
     dynamicContent = {
-        '#add_to_cart': { 't-on-click': this.onClickAddToCartProduct },
-        'button.add_to_cart_products_item': { 't-on-click': this.onClickAddToCartProductsItem },
-        'a.on_checkout_start_js': { 't-on-click': this.onCheckoutStartJs },
+        'a[href^="/shop/checkout"]': { 't-on-click': this.onCheckoutStart },
+        _root: {
+            't-on-add_to_cart_event': (ev) => this.onAddToCart(ev),
+        },
     };
 
-     _pushInfo(event, dict){
-        if(typeof(fbq) !== 'undefined'){
-            fbq('track', event, dict);
+    _track(event, data) {
+        if (typeof fbq !== 'undefined') {
+            fbq('track', event, data);
         }
     }
 
-    onClickAddToCartProduct(ev){
-        const dataTarget = ev.target.closest('a#add_to_cart');
-        const product_id = dataTarget.dataset.product_id;
-        const product_sku = dataTarget.dataset.product_sku;
-        const product_name = dataTarget.dataset.product_name;
-        const product_price = parseFloat(dataTarget.dataset.product_price) || 0;
-        const currency = dataTarget.dataset.currency;
-        const dict = {
-            content_name: product_name,
-            content_ids: [String(product_sku || product_id)],
-            content_type: 'product',
-            value: product_price,
-            currency: currency,
-        };
-        this._pushInfo('AddToCart', dict);
+    /**
+     * Meta's `value` is what the customer pays. The core publishes prices net
+     * of tax because that is what GA4 expects, so the module adds
+     * `price_taxinc` to every item server-side.
+     */
+    _toContents(items) {
+        return items.map((item) => ({
+            id: String(item.item_id),
+            quantity: item.quantity,
+            item_price: item.price_taxinc ?? item.price,
+        }));
     }
 
-    onClickAddToCartProductsItem(ev) {
-        const dataTarget = ev.target.closest('div.o_wsale_product_btn');
-        const product_id = dataTarget.dataset.product_id;
-        const product_sku = dataTarget.dataset.product_sku;
-        const product_name = dataTarget.dataset.product_name;
-        const product_price = parseFloat(dataTarget.dataset.product_price) || 0;
-        const dict = {
-            content_name: product_name,
-            content_ids: [String(product_sku || product_id)],
-            content_type: 'product',
-            value: product_price,
-        };
-        this._pushInfo('AddToCart', dict);
-    }
-
-    onCheckoutStartJs(ev) {
-        // Solo ejecutar si estamos en la página del carrito
-        const currentStep = ev.target.dataset.current_website_checkout_step_href;
-        if (currentStep !== '/shop/cart') {
-            return;
-        }
-        const dataTarget = document.getElementById("cart_products");
-        const items = JSON.parse(dataTarget.dataset.cart_info || '[]');
-        const contents = items
-            .filter(item => !item.is_reward_line)
-            .map(item => ({
-                id: String(item.item_id),
-                quantity: item.quantity,
-                item_price: item.price,
-            }));
-        if (!contents.length) {
-            return;
-        }
-        const dict = {
-            content_ids: contents.map(item => item.id),
+    _buildPayload(contents, currency) {
+        return {
+            content_ids: contents.map((item) => item.id),
             content_type: 'product',
             contents: contents,
             num_items: contents.length,
-            value: parseFloat(dataTarget.dataset.value) || 0,
-            currency: dataTarget.dataset.currency,
+            value: contents.reduce((total, item) => total + item.item_price * item.quantity, 0),
+            currency: currency,
         };
-        this._pushInfo('InitiateCheckout', dict);
     }
 
+    onAddToCart(ev) {
+        const { currency, items } = ev.detail;
+        // delta_quantity is negative when a line shrinks; Meta has no event for that.
+        const added = (items || []).filter((item) => (item.delta_quantity ?? 1) > 0);
+        if (!added.length) {
+            return;
+        }
+        this._track('AddToCart', this._buildPayload(this._toContents(added), currency));
+    }
+
+    onCheckoutStart() {
+        const raw = this.el.querySelector('#cart_tracking_info')?.dataset?.cartTrackingInfo;
+        if (!raw) {
+            return;
+        }
+        let info;
+        try {
+            info = JSON.parse(raw);
+        } catch {
+            return;
+        }
+        const contents = this._toContents(info.items || []);
+        if (!contents.length) {
+            return;
+        }
+        this._track('InitiateCheckout', this._buildPayload(contents, info.currency));
+    }
 }
 
-// The Purchase event is no longer emitted from the frontend: it is sent
-// server-side via the Meta Conversions API at sale.order confirmation
-// (see models/sale_order.py). This keeps a single source of truth and avoids
+// The Purchase event is not emitted from the browser: it is sent server-side
+// via the Meta Conversions API at sale.order confirmation (see
+// models/sale_order.py). This keeps a single source of truth and avoids
 // reporting purchases for carts that fail or are abandoned at the gateway.
 
-registry.category('public.interactions').add('facebook_pixel_tracking.FacebookPixelTracking', FacebookPixelTracking);
+registry
+    .category('public.interactions')
+    .add('facebook_pixel_tracking.FacebookPixelTracking', FacebookPixelTracking);

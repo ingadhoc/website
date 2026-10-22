@@ -1,6 +1,7 @@
 import logging
 
 from odoo import http
+from odoo.addons.website_sale.controllers.cart import Cart
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 _logger = logging.getLogger(__name__)
@@ -51,3 +52,19 @@ class FacebookCapiWebsiteSale(WebsiteSale):
                 _logger.warning("Facebook CAPI: failed to capture browser data: %s", exc)
 
         return super().shop_checkout(try_skip_step=try_skip_step, **query_params)
+
+
+class FacebookPixelCart(Cart):
+    def _cart_values(self, **post):
+        """Publish the cart tracking data when the pixel is the only consumer.
+
+        The core sets ``cart_tracking_info`` only when the website has a
+        Google Analytics key. This hook runs after that decision, so filling
+        it here covers the pixel-only site without duplicating the route.
+        """
+        values = super()._cart_values(**post)
+        website = self.env.website
+        order = http.request.cart
+        if order and website.facebook_pixel_key and not website.google_analytics_key:
+            values["cart_tracking_info"] = order._get_order_tracking_info()
+        return values
