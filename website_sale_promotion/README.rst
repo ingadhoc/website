@@ -20,6 +20,12 @@ The discount amount will be a % (not a fix quantity).
 All the products included in the promotional program would be also added to a current eCommerce category.
 An specific ribbon will be add to all the products included in the promotional program would.
 
+Each promotion has a pricelist, an eCommerce category, an optional ribbon, the base of the price (public price, cost or other pricelist), a discount and a surcharge, and the products it applies to.
+
+* Confirm: adds the ribbon and the eCommerce category to the products, and creates one pricelist rule per product in the promotion pricelist.
+* Finish: deletes the rules of the promotion pricelist for those products, and removes the ribbon and the eCommerce category from them.
+* To Draft: a finished promotion can go back to draft to be edited and confirmed again.
+
 Installation
 ============
 
@@ -38,7 +44,8 @@ Usage
 
 To use this module, you need to:
 
-#. Go to Sale > Configuration > Products Promotion, and create a new Website Promotion
+#. Go to Sales > Products > Products Promotion (or Website > eCommerce > Loyalty > Products Promotion), and create a new Website Promotion
+#. Confirm it to apply the promotion, and Finish it to remove it
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
