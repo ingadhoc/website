@@ -3,6 +3,7 @@
 # directory
 ##############################################################################
 from odoo.addons.website_sale.tests.common import MockRequest, WebsiteSaleCommon
+from odoo.exceptions import UserError
 from odoo.tests import tagged
 
 
@@ -72,3 +73,13 @@ class TestWebsiteSaleOrderType(WebsiteSaleCommon):
         self.assertEqual(values.get("type_id"), self.website_type.id)
         order = self.env["sale.order"].create({"partner_id": contact.id, "website_id": self.website.id})
         self.assertEqual(order.type_id, self.partner_type)
+
+    def test_unlink_type_used_in_website_is_blocked(self):
+        with self.assertRaises(UserError):
+            self.website_type.sudo().unlink()
+        self.assertTrue(self.website_type.exists())
+        self.assertEqual(self.website.sale_order_type_id, self.website_type)
+
+    def test_unlink_type_not_used_in_website(self):
+        self.partner_type.sudo().unlink()
+        self.assertFalse(self.partner_type.exists())
