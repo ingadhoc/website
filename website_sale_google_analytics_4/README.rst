@@ -14,10 +14,10 @@
 GA4 Ecommerce Tracking
 ======================
 
-Self-contained Google Analytics 4 ecommerce tracking module for Odoo 19 websites.
-Extends the native Odoo tracking with additional funnel events and adds
-server-side event delivery via the GA4 Measurement Protocol — **no Google Tag
-Manager required**.
+Google Analytics 4 tracking for the events Odoo does not cover by itself.
+Odoo 20 fires the whole ecommerce funnel from the browser, so this module adds
+what is left: server-side event delivery via the GA4 Measurement Protocol, and
+the authentication events — **no Google Tag Manager required**.
 
 Features
 ========
@@ -25,19 +25,21 @@ Features
 Frontend events (via ``gtag.js``)
 ----------------------------------
 
-The following events are fired client-side, complementing the events already
-covered by Odoo's native ``website_sale`` tracking (``view_item``,
-``add_to_cart``, ``purchase``):
+Odoo 20 already fires the ecommerce funnel natively — ``view_item``,
+``select_item``, ``add_to_cart``, ``remove_from_cart``, ``view_cart``,
+``begin_checkout``, ``add_shipping_info``, ``add_payment_info``,
+``add_to_wishlist`` and ``purchase``. This module does not re-implement any of
+them. It only adds:
 
-* ``view_cart`` – fired when the shopping cart page is loaded.
-* ``begin_checkout`` – fired when the user clicks "Proceed to Checkout".
-* ``add_shipping_info`` – fired when the user selects a delivery method on
-  the checkout page.
-* ``add_payment_info`` – fired when the user submits the payment form.
-* ``remove_from_cart`` – fired when a cart line is deleted or its quantity is
-  decremented.
 * ``sign_up`` – fired when the registration form is submitted.
 * ``login`` – fired when the login form is submitted.
+* ``form_submit`` – fired when a website form is submitted. Enhanced
+  measurement cannot see it: it listens for the browser ``submit`` event, and
+  the Odoo form snippet sends over JS from a click on an anchor.
+
+``search`` and ``form_start`` are left to enhanced measurement, which already
+covers them (``view_search_results`` for the ``search`` URL parameter Odoo
+uses, and ``form_start`` under that same name).
 
 Backend events (via GA4 Measurement Protocol)
 ----------------------------------------------
@@ -45,11 +47,17 @@ Backend events (via GA4 Measurement Protocol)
 Server-side events are sent directly from Odoo to Google Analytics as a
 reliability safeguard (ad-blockers, async/offline payments, etc.):
 
-* ``purchase`` – sent after ``sale.order._action_confirm()``.
-* ``refund`` – sent after a credit note (``out_refund`` invoice) is posted.
+* ``purchase`` – sent after ``sale.order._action_confirm()``, with the native
+  payload (``sale.order._get_purchase_tracking_info()``) so that it matches the
+  browser event field by field. GA4 deduplicates the two by ``transaction_id``.
+* ``refund`` – sent after a credit note (``out_refund`` invoice) is posted,
+  under the ``transaction_id`` of the originating order.
 
 A scheduled action retries failed Measurement Protocol calls every 15 minutes
 (up to 5 attempts per event).
+
+Server-side delivery needs a Measurement ID: a site configured with a Tag
+Manager container (``GTM-``) instead gets the browser events only.
 
 Consent Mode v2 compatibility
 -------------------------------

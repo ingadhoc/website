@@ -14,10 +14,10 @@ export class GA4UserTracking extends Interaction {
     static selector = '.oe_website_login_container';
 
     dynamicContent = {
-        'button.ga4_on_user_signup': {
+        'form.oe_signup_form button[type="submit"]': {
             't-on-click': this.onUserSignup,
         },
-        '.oe_login_form button[type="submit"]': {
+        'form.oe_login_form button[type="submit"]': {
             't-on-click': this.onUserLogin,
         },
     };

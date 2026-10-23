@@ -35,6 +35,28 @@ class AccountMove(models.Model):
                 )
         return res
 
+    def _get_ga4_refund_items(self, sale_order):
+        """Return the refunded items, described as the purchase event described them.
+
+        Each credit note line is mapped back to its sale order line so the
+        item data comes from the same core helper the purchase event uses:
+        a product reported under one id when bought and another when
+        refunded leaves the two events unrelated in GA4.
+        """
+        self.ensure_one()
+        items = []
+        for line in self.invoice_line_ids.filtered(lambda l: l.product_id and not l.display_type):
+            sale_line = line.sale_line_ids.filtered(lambda sl: not sl.is_delivery)[:1]
+            if not sale_line:
+                continue
+            items.append(
+                {
+                    **sale_order._get_order_line_tracking_data(sale_line),
+                    "quantity": abs(line.quantity),
+                }
+            )
+        return items
+
     def _send_ga4_mp_refund(self, _is_retry=False):
         """Send a ``refund`` Measurement Protocol event for this credit note.
 
@@ -60,29 +82,18 @@ class AccountMove(models.Model):
         if not sale_order or not sale_order.ga_client_id:
             return False
 
-        website = (sale_order.website_id or self.env["website"].get_current_website()).sudo()
-        measurement_id = website.google_analytics_key
-        api_secret = website.ga4_api_secret
+        measurement_id = sale_order._get_ga4_measurement_id()
+        api_secret = sale_order._get_ga4_website().ga4_api_secret
         if not measurement_id or not api_secret:
             return False
 
-        items = []
-        for line in self.invoice_line_ids.filtered(lambda l: l.product_id and not l.display_type):
-            items.append(
-                {
-                    "item_id": line.product_id.barcode or str(line.product_id.id),
-                    "item_name": line.product_id.name or "-",
-                    "item_category": line.product_id.categ_id.name or "-",
-                    "price": abs(line.price_unit),
-                    "quantity": abs(line.quantity),
-                }
-            )
-
         params = {
-            "transaction_id": str(sale_order.id),
-            "value": abs(self.amount_total),
+            # Same id the purchase event reported, so GA4 ties the refund to it.
+            "transaction_id": sale_order.name,
+            "value": abs(self.amount_untaxed),
+            "tax": abs(self.amount_tax),
             "currency": self.currency_id.name,
-            "items": items,
+            "items": self._get_ga4_refund_items(sale_order),
         }
         if sale_order.ga_session_id:
             params["session_id"] = sale_order.ga_session_id
