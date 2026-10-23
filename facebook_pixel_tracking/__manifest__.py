@@ -26,7 +26,6 @@
     "license": "AGPL-3",
     "depends": [
         "website_sale",
-        "payment",
     ],
     "data": [
         "data/ir_cron.xml",
