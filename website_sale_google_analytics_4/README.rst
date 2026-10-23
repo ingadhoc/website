@@ -33,9 +33,13 @@ them. It only adds:
 
 * ``sign_up`` – fired when the registration form is submitted.
 * ``login`` – fired when the login form is submitted.
-* ``search`` – fired when a results page is opened with a search term.
-* ``form_start`` – fired when a visitor first reaches a website form.
-* ``form_submit`` – fired when that form is submitted.
+* ``form_submit`` – fired when a website form is submitted. Enhanced
+  measurement cannot see it: it listens for the browser ``submit`` event, and
+  the Odoo form snippet sends over JS from a click on an anchor.
+
+``search`` and ``form_start`` are left to enhanced measurement, which already
+covers them (``view_search_results`` for the ``search`` URL parameter Odoo
+uses, and ``form_start`` under that same name).
 
 Backend events (via GA4 Measurement Protocol)
 ----------------------------------------------
