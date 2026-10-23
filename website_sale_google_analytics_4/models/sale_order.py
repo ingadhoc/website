@@ -32,6 +32,16 @@ class SaleOrder(models.Model):
     # Measurement ID
     # ------------------------------------------------------------------
 
+    def _get_ga4_website(self):
+        """Return the website of this order, as sudo, or an empty recordset.
+
+        An order with no website is a backend sale: there is no site under
+        whose Measurement ID it should be reported, and falling back to
+        whichever website is current would file it under someone else's.
+        """
+        self.ensure_one()
+        return self.website_id.sudo()
+
     def _get_ga4_measurement_id(self):
         """Return the website Measurement ID, or an empty string.
 
@@ -39,9 +49,7 @@ class SaleOrder(models.Model):
         a Tag Manager container (``GTM-``). Tag Manager has no server-side
         endpoint, so a site running it gets no backend event at all.
         """
-        self.ensure_one()
-        website = (self.website_id or self.env["website"].get_current_website()).sudo()
-        key = website.google_analytics_key or ""
+        key = self._get_ga4_website().google_analytics_key or ""
         return key if key.startswith("G-") else ""
 
     # ------------------------------------------------------------------
@@ -56,9 +64,8 @@ class SaleOrder(models.Model):
         for later retry by the cron (unless this call IS the retry).
         """
         self.ensure_one()
-        website = (self.website_id or self.env["website"].get_current_website()).sudo()
         measurement_id = self._get_ga4_measurement_id()
-        api_secret = website.ga4_api_secret
+        api_secret = self._get_ga4_website().ga4_api_secret
 
         if not measurement_id or not api_secret:
             return False

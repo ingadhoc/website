@@ -82,9 +82,8 @@ class AccountMove(models.Model):
         if not sale_order or not sale_order.ga_client_id:
             return False
 
-        website = (sale_order.website_id or self.env["website"].get_current_website()).sudo()
         measurement_id = sale_order._get_ga4_measurement_id()
-        api_secret = website.ga4_api_secret
+        api_secret = sale_order._get_ga4_website().ga4_api_secret
         if not measurement_id or not api_secret:
             return False
 
