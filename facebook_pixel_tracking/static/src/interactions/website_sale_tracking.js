@@ -16,6 +16,8 @@ export class FacebookPixelTracking extends Interaction {
         'a[href^="/shop/checkout"]': { 't-on-click': this.onCheckoutStart },
         _root: {
             't-on-add_to_cart_event': (ev) => this.onAddToCart(ev),
+            // Raising the quantity from the cart page goes through this one.
+            't-on-update_cart_event': (ev) => this.onAddToCart(ev),
         },
     };
 
@@ -51,7 +53,8 @@ export class FacebookPixelTracking extends Interaction {
 
     onAddToCart(ev) {
         const { currency, items } = ev.detail;
-        // delta_quantity is negative when a line shrinks; Meta has no event for that.
+        // update_cart_event also fires when a line shrinks, and then
+        // delta_quantity is negative: Meta has no event for removing.
         const added = (items || []).filter((item) => (item.delta_quantity ?? 1) > 0);
         if (!added.length) {
             return;
