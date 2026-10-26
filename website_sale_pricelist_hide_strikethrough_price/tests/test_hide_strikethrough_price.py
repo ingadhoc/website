@@ -112,6 +112,19 @@ class TestHideStrikethroughPrice(WebsiteSaleCommon):
         sp = self._sales_prices(self.product_compare, self.pl_plain_hide)
         self.assertNotIn("base_price", sp)
 
+    def test_explicit_pricelist_wins_over_the_session_one(self):
+        """The hooks read the pricelist they are given, not the one in session.
+
+        This is what changed in 20.0, and what the product feed relies on.
+        """
+        with MockRequest(self.env, website=self.website, website_sale_current_pl=self.pl_discount_show.id) as request:
+            product = self.product_discount.with_env(request.env)
+            ci = product._get_combination_info(pricelist=self.pl_discount_hide)
+            self.assertFalse(ci["has_discounted_price"])
+            self.assertEqual(ci["list_price"], ci["price"])
+            sp = product._get_sales_prices(self.pl_discount_hide, request.fiscal_position, self.website)[product.id]
+            self.assertNotIn("base_price", sp)
+
     # --- cart / order summary line ------------------------------------------
 
     def _cart_line(self, pricelist):
@@ -169,6 +182,9 @@ class TestHideStrikethroughWrapClass(HttpCase):
     """
 
     def _setup(self, hide):
+        # Same 20.0 gate as the class above: without the pricelist feature
+        # `request.pricelist` is empty and the wrapper class never appears.
+        self.env["res.config.settings"].create({"group_product_pricelist": True}).execute()
         website = self.env["website"].search([], limit=1)
         pl = self.env["product.pricelist"].create(
             {

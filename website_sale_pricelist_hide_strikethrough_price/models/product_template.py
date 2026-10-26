@@ -13,7 +13,13 @@ class ProductTemplate(models.Model):
         # price (.oe_compare_list_price). The frontend JS re-reads these values,
         # so no template/JS override is needed.
         res = super()._get_additional_combination_info(
-            product_or_template, quantity, uom, website, pricelist, fiscal_position, **_kwargs
+            product_or_template=product_or_template,
+            quantity=quantity,
+            uom=uom,
+            website=website,
+            pricelist=pricelist,
+            fiscal_position=fiscal_position,
+            **_kwargs,
         )
         if pricelist and pricelist.website_hide_strikethrough_price:
             res["has_discounted_price"] = False
