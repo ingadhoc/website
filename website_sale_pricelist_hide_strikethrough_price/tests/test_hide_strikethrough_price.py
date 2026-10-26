@@ -20,8 +20,11 @@ class TestHideStrikethroughPrice(WebsiteSaleCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        # Enable the "Comparison price" feature so `compare_list_price` is exposed.
-        cls.env["res.config.settings"].create({"group_product_price_comparison": True}).execute()
+        # Enable the "Comparison price" feature so `compare_list_price` is exposed,
+        # and pricelists, which in 20.0 gate `request.pricelist` entirely.
+        cls.env["res.config.settings"].create(
+            {"group_product_price_comparison": True, "group_product_pricelist": True}
+        ).execute()
 
         # Product used for the discount-strikethrough path.
         cls.product_discount = cls.env["product.template"].create(
@@ -42,7 +45,7 @@ class TestHideStrikethroughPrice(WebsiteSaleCommon):
         )
 
         def discount_item():
-            return [Command.create({"compute_price": "percentage", "percent_price": 10})]
+            return [Command.create({"compute_price": "discount", "price_discount": 10})]
 
         def make_pl(name, hide, items=None):
             return cls.env["product.pricelist"].create(
@@ -63,8 +66,11 @@ class TestHideStrikethroughPrice(WebsiteSaleCommon):
         cls.cart_partner = cls.env["res.partner"].create({"name": "Cart tester"})
 
     def _combination_info(self, product, pricelist):
-        with MockRequest(self.env, website=self.website, website_sale_current_pl=pricelist.id):
-            return product._get_combination_info()
+        with MockRequest(self.env, website=self.website, website_sale_current_pl=pricelist.id) as request:
+            # In 20.0 `_get_combination_info` reads the website from
+            # `env.website`, i.e. from the context, so the record needs the
+            # request environment.
+            return product.with_env(request.env)._get_combination_info()
 
     def _sales_prices(self, product, pricelist):
         with MockRequest(self.env, website=self.website, website_sale_current_pl=pricelist.id) as request:
