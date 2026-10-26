@@ -72,9 +72,10 @@
     </record>
 
     <menuitem id="menu_website_promotion_sale"
-        parent="sale.prod_config_main"
+        parent="sale.product_menu_catalog"
         name="Products Promotion"
         action="action_website_promotion"
+        groups="sales_team.group_sale_manager"
         sequence="50"
     />
 

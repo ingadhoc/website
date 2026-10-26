@@ -3,6 +3,7 @@
 # directory
 ##############################################################################
 from odoo import fields, models
+from odoo.tools import float_compare
 
 
 class WebsitePromotion(models.Model):
@@ -26,7 +27,7 @@ class WebsitePromotion(models.Model):
         required=True,
     )
     price_discount = fields.Float("Price Discount (%)")
-    price_surcharge = fields.Float("Price Surcharge (%)")
+    price_surcharge = fields.Float()
     base_pricelist_id = fields.Many2one("product.pricelist", "Other Pricelist")
 
     def to_draft(self):
@@ -45,10 +46,10 @@ class WebsitePromotion(models.Model):
                     "applied_on": "1_product",
                     "product_tmpl_id": product.id,
                     "base": rec.base,
-                    "base_pricelist_id": rec.base_pricelist_id.id,
+                    "base_pricelist_id": rec.base_pricelist_id.id if rec.base == "pricelist" else False,
                     "pricelist_id": rec.pricelist_id.id,
                     "price_discount": rec.price_discount,
-                    "compute_price": "formula",
+                    "compute_price": "markup" if rec.base == "standard_price" else "discount",
                     "price_surcharge": rec.price_surcharge,
                 }
                 for product in rec.template_ids
@@ -59,13 +60,23 @@ class WebsitePromotion(models.Model):
         for rec in self:
             rec.state = "finished"
             prod_pricelist_item_obj = self.env["product.pricelist.item"]
+            # only the rules this promotion created, not other rules of the same pricelist
             domain = [
                 ("pricelist_id", "=", rec.pricelist_id.id),
                 ("product_tmpl_id", "in", rec.template_ids.ids),
+                ("applied_on", "=", "1_product"),
+                ("base", "=", rec.base),
             ]
-            items = prod_pricelist_item_obj.search(domain)
+            if rec.base == "pricelist":
+                domain.append(("base_pricelist_id", "=", rec.base_pricelist_id.id))
+            items = prod_pricelist_item_obj.search(domain).filtered(
+                lambda i: not float_compare(i.price_discount, rec.price_discount, precision_digits=2)
+                and not float_compare(i.price_surcharge, rec.price_surcharge, precision_digits=6)
+            )
             if items:
                 items.unlink()
             if rec.website_style_id:
-                rec.template_ids.write({"website_ribbon_id": False})
+                rec.template_ids.filtered(lambda t: t.website_ribbon_id == rec.website_style_id).write(
+                    {"website_ribbon_id": False}
+                )
             rec.template_ids.write({"public_categ_ids": [(3, rec.public_category_id.id)]})
