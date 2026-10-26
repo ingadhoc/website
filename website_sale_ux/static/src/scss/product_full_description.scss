@@ -1,0 +1,18 @@
+// Core keeps this div full-width since Builder snippets bring their own container; content
+// saved from the backend has none, so it gets the site margins here.
+#product_full_description {
+    $blocks: "section, .container, .container-fluid, .o_container_small";
+
+    // Without Builder blocks the whole div acts as a container (also covers untagged text);
+    // with them, only the plain children do, so full-width sections are not cut.
+    &:not(:has(> :is(#{$blocks}))),
+    &:has(> :is(#{$blocks})) > :not(#{$blocks}) {
+        @include make-container();
+        @include make-container-max-widths();
+    }
+
+    // The container padding above replaces the list indent from reboot.
+    &:has(> :is(#{$blocks})) > :is(ul, ol):not(#{$blocks}) {
+        padding-left: calc(var(--bs-gutter-x) * .5 + 2rem);
+    }
+}
