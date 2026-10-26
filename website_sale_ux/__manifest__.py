@@ -42,6 +42,7 @@
     "assets": {
         "web.assets_frontend": [
             "website_sale_ux/static/src/scss/products_categories_list.scss",
+            "website_sale_ux/static/src/scss/product_full_description.scss",
         ],
     },
     "installable": True,

@@ -21,6 +21,7 @@ Website Sale UX
 #. Makes the native fields description_ecommerce and website_description visible on product.template backend view
 #. A toggle button is added on website Builder for 'Product page' cutomization, called "Sale description". This button shows/hides the sale_description field on frontend view.
 #. Shows the expand/collapse chevron next to the shop categories that have subcategories, on the desktop sidebar and on the mobile filters panel, when the "Collapse Category Recursive" option is enabled. Natively the chevron is hidden, so nothing tells the visitor that those categories can be expanded.
+#. Keeps the product description of the product page (website_description) within the site margins when it is loaded from the backend. Natively that block is full-width because the website Builder blocks bring their own container, so text or images saved from the backend form were rendered against the screen edges. Builder blocks are left as they are, including full-width sections with a background; when a description mixes both, the paragraphs, lists and other elements loaded from the backend get the margins and the Builder blocks keep their width.
 
 Installation
 ============
