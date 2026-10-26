@@ -27,6 +27,14 @@
         "website_sale_stock",
     ],
     "data": [],
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_stock_variant_preselect/static/src/interactions/carousel_product_card.js",
+        ],
+        "web.assets_tests": [
+            "website_sale_stock_variant_preselect/static/tests/tours/**/*",
+        ],
+    },
     "installable": True,
     "auto_install": False,
     "application": False,

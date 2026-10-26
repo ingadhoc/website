@@ -89,3 +89,27 @@ class TestVariantPreselect(VariantPreselectCommon):
             )
 
         self.assertEqual(values["combination_info"]["product_id"], self.blue.id)
+
+    def _carousel_combination(self, product=None):
+        """Return the combination the carousel card would open the configurator with."""
+        product = product or self.product
+        env = self.env(user=self.public_user)
+        with MockRequest(env, website=self.website.with_env(env)):
+            return WebsiteSale().first_available_combination(product.id)
+
+    def test_carousel_route_returns_first_combination_with_stock(self):
+        """The carousel route hands the configurator the combination of the variant with stock."""
+        self._add_product_qty_to_wh(self.green.id, 10, self.warehouse.lot_stock_id.id)
+
+        self.assertEqual(self._carousel_combination(), self.green.product_template_attribute_value_ids.ids)
+
+    def test_carousel_route_falls_back_to_core_combination(self):
+        """With no variant in stock the route returns core's first combination, as today."""
+        self.assertEqual(self._carousel_combination(), self.red.product_template_attribute_value_ids.ids)
+
+    def test_carousel_route_ignores_unpublished_template(self):
+        """A template the visitor cannot buy on the website gets no combination."""
+        self._add_product_qty_to_wh(self.green.id, 10, self.warehouse.lot_stock_id.id)
+        self.product.website_published = False
+
+        self.assertEqual(self._carousel_combination(), [])
