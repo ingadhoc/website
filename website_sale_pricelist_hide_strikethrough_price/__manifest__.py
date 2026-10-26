@@ -20,7 +20,7 @@
 {
     "name": "Website Sale Pricelist Hide Strikethrough Price",
     "category": "website",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
@@ -37,5 +37,5 @@
             "website_sale_pricelist_hide_strikethrough_price/static/src/scss/website_sale_hide_strikethrough.scss",
         ],
     },
-    "installable": False,
+    "installable": True,
 }
