@@ -67,8 +67,8 @@ class TestHideStrikethroughPrice(WebsiteSaleCommon):
             return product._get_combination_info()
 
     def _sales_prices(self, product, pricelist):
-        with MockRequest(self.env, website=self.website, website_sale_current_pl=pricelist.id):
-            return product._get_sales_prices(self.website)[product.id]
+        with MockRequest(self.env, website=self.website, website_sale_current_pl=pricelist.id) as request:
+            return product._get_sales_prices(request.pricelist, request.fiscal_position, self.website)[product.id]
 
     # --- discount strikethrough --------------------------------------------
 
