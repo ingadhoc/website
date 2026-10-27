@@ -149,7 +149,7 @@ msgid ""
 "background invoice posting enabled."
 msgstr ""
 "Verdadero cuando esta transacción está vinculada a un pedido del sitio web "
-"cuya compañía tiene habilitada la validación de facturas en segundo plano."
+"cuya empresa tiene habilitada la validación de facturas en segundo plano."
 
 #. module: website_sale_background_post
 #: model:ir.model.fields,field_description:website_sale_background_post.field_res_company__website_sale_background_post
