@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-06 22:27+0000\n"
-"PO-Revision-Date: 2026-07-06 22:27+0000\n"
+"POT-Creation-Date: 2026-10-27 13:14+0000\n"
+"PO-Revision-Date: 2026-10-27 13:14+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -17,19 +17,104 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. module: website_sale_background_post
-#: model:ir.model,name:website_sale_background_post.model_res_company
-msgid "Companies"
+#: model:ir.module.module,description:base.module_website_sale_background_post
+msgid ""
+".. |company| replace:: ADHOC SA\n"
+"\n"
+".. |company_logo| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-logo.png\n"
+"   :alt: ADHOC SA\n"
+"   :target: https://www.adhoc.com.ar\n"
+"\n"
+".. |icon| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-icon.png\n"
+"\n"
+".. image:: https://img.shields.io/badge/license-AGPL--3-blue.png\n"
+"   :target: https://www.gnu.org/licenses/agpl\n"
+"   :alt: License: AGPL-3\n"
+"\n"
+"============================\n"
+"Website Sale Background Post\n"
+"============================\n"
+"\n"
+"This module lets the invoices of eCommerce orders be validated in background, so an error while validating an invoice (for example, an ARCA error) does not block the cart confirmation.\n"
+"\n"
+"When the option is enabled for the company and a payment of an order made on the website is confirmed:\n"
+"\n"
+"#. The invoice is created as usual by the automatic invoicing of eCommerce, but it is not validated at that moment.\n"
+"#. Customer invoices are left in draft and marked to be posted in background (feature of the module Account Background Post).\n"
+"#. The background post cron is triggered, so the invoice is validated a moment later.\n"
+"\n"
+"Payments of orders that do not come from the website, or of companies without the option, are processed as before.\n"
+"\n"
+"Installation\n"
+"============\n"
+"\n"
+"To install this module, you need to:\n"
+"\n"
+"#. Only need to install the module\n"
+"\n"
+"Configuration\n"
+"=============\n"
+"\n"
+"To configure this module, you need to:\n"
+"\n"
+"#. Go to Website > Configuration > Settings.\n"
+"#. Enable Automatic Invoicing.\n"
+"#. Enable Validate Website Invoices in Background. The option is per company and is only shown when Automatic Invoicing is enabled.\n"
+"\n"
+"Usage\n"
+"=====\n"
+"\n"
+"To use this module, you need to:\n"
+"\n"
+"#. Nothing to do: once configured, the invoices of the paid website orders are validated by the background post cron.\n"
+"\n"
+".. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas\n"
+"   :alt: Try me on Runbot\n"
+"   :target: http://runbot.adhoc.com.ar/\n"
+"\n"
+"Bug Tracker\n"
+"===========\n"
+"\n"
+"Bugs are tracked on `GitHub Issues\n"
+"<https://github.com/ingadhoc/website/issues>`_. In case of trouble, please\n"
+"check there if your issue has already been reported. If you spotted it first,\n"
+"help us smashing it by providing a detailed and welcomed feedback.\n"
+"\n"
+"Credits\n"
+"=======\n"
+"\n"
+"Images\n"
+"------\n"
+"\n"
+"* |company| |icon|\n"
+"\n"
+"Contributors\n"
+"------------\n"
+"\n"
+"Maintainer\n"
+"----------\n"
+"\n"
+"|company_logo|\n"
+"\n"
+"This module is maintained by the |company|.\n"
+"\n"
+"To contribute to this module, please visit https://www.adhoc.com.ar.\n"
 msgstr ""
+
+#. module: website_sale_background_post
+#: model:ir.model,name:website_sale_background_post.model_res_company
+msgid "Company"
+msgstr "Empresa"
 
 #. module: website_sale_background_post
 #: model:ir.model,name:website_sale_background_post.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Ajustes de configuración"
 
 #. module: website_sale_background_post
 #: model:ir.model.fields,field_description:website_sale_background_post.field_payment_transaction__to_defer
 msgid "Defer Invoice Posting"
-msgstr ""
+msgstr "Diferir la validación de la factura"
 
 #. module: website_sale_background_post
 #: model:ir.model.fields,field_description:website_sale_background_post.field_account_move__display_name
@@ -37,7 +122,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_background_post.field_res_company__display_name
 #: model:ir.model.fields,field_description:website_sale_background_post.field_res_config_settings__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar nombre"
 
 #. module: website_sale_background_post
 #: model:ir.model.fields,field_description:website_sale_background_post.field_account_move__id
@@ -50,12 +135,12 @@ msgstr ""
 #. module: website_sale_background_post
 #: model:ir.model,name:website_sale_background_post.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Asiento contable"
 
 #. module: website_sale_background_post
 #: model:ir.model,name:website_sale_background_post.model_payment_transaction
 msgid "Payment Transaction"
-msgstr ""
+msgstr "Transacción de pago"
 
 #. module: website_sale_background_post
 #: model:ir.model.fields,help:website_sale_background_post.field_payment_transaction__to_defer
@@ -63,13 +148,20 @@ msgid ""
 "True when this transaction is linked to a website order whose company has "
 "background invoice posting enabled."
 msgstr ""
+"Verdadero cuando esta transacción está vinculada a un pedido del sitio web "
+"cuya compañía tiene habilitada la validación de facturas en segundo plano."
 
 #. module: website_sale_background_post
 #: model:ir.model.fields,field_description:website_sale_background_post.field_res_company__website_sale_background_post
 #: model:ir.model.fields,field_description:website_sale_background_post.field_res_config_settings__website_sale_background_post
 #: model_terms:ir.ui.view,arch_db:website_sale_background_post.res_config_settings_view_form
 msgid "Validate Website Invoices in Background"
-msgstr ""
+msgstr "Validar las facturas del sitio web en segundo plano"
+
+#. module: website_sale_background_post
+#: model:ir.module.module,shortdesc:base.module_website_sale_background_post
+msgid "Website Sale Background Post"
+msgstr "Validación en segundo plano de ventas del sitio web"
 
 #. module: website_sale_background_post
 #: model_terms:ir.ui.view,arch_db:website_sale_background_post.res_config_settings_view_form
@@ -77,3 +169,6 @@ msgid ""
 "When enabled, invoices from eCommerce orders are queued for background "
 "validation. Prevents ARCA errors from blocking cart confirmation."
 msgstr ""
+"Si está habilitado, las facturas de los pedidos del eCommerce se encolan "
+"para validarse en segundo plano. Evita que los errores de ARCA bloqueen la "
+"confirmación del carrito."
