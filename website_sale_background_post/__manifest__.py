@@ -19,7 +19,7 @@
 ##############################################################################
 {
     "name": "Website Sale Background Post",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "author": "ADHOC SA",
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
@@ -30,7 +30,7 @@
     "data": [
         "views/res_config_settings_views.xml",
     ],
-    "installable": False,
+    "installable": True,
     "auto_install": False,
     "application": False,
 }
