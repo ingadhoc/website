@@ -10,7 +10,7 @@
                     id="website_sale_background_post_setting"
                     string="Validate Website Invoices in Background"
                     help="When enabled, invoices from eCommerce orders are queued for background validation. Prevents ARCA errors from blocking cart confirmation."
-                    invisible="not automatic_invoice">
+                    invisible="not sale_automatic_invoice">
                     <field name="website_sale_background_post"/>
                 </setting>
             </setting>
