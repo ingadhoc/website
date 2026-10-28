@@ -230,6 +230,18 @@ msgstr "Tipo de pedido de venta en sitio web"
 msgid ""
 "You cannot delete sale order type(s):\n"
 "%(types)s\n"
+"They are used in a website of another company."
+msgstr ""
+"No puede eliminar los tipos de pedido de venta:\n"
+"%(types)s\n"
+"Se usan en un sitio web de otra compañía."
+
+#. module: website_sale_order_type_ux
+#. odoo-python
+#: code:addons/website_sale_order_type_ux/models/sale_order_type.py:0
+msgid ""
+"You cannot delete sale order type(s):\n"
+"%(types)s\n"
 "They are used in website(s):\n"
 "%(websites)s"
 msgstr ""

@@ -155,6 +155,15 @@ msgstr ""
 msgid ""
 "You cannot delete sale order type(s):\n"
 "%(types)s\n"
+"They are used in a website of another company."
+msgstr ""
+
+#. module: website_sale_order_type_ux
+#. odoo-python
+#: code:addons/website_sale_order_type_ux/models/sale_order_type.py:0
+msgid ""
+"You cannot delete sale order type(s):\n"
+"%(types)s\n"
 "They are used in website(s):\n"
 "%(websites)s"
 msgstr ""

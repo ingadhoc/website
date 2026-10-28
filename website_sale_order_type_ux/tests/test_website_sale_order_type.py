@@ -80,6 +80,17 @@ class TestWebsiteSaleOrderType(WebsiteSaleCommon):
         self.assertTrue(self.website_type.exists())
         self.assertEqual(self.website.sale_order_type_id, self.website_type)
 
+    def test_unlink_type_used_in_other_company_website_is_blocked(self):
+        other_company = self.env["res.company"].create({"name": "Other Company"})
+        other_website = self.env["website"].create({"name": "Other Company Website", "company_id": other_company.id})
+        other_website.sale_order_type_id = self.partner_type
+        partner_type = self.partner_type.sudo().with_context(allowed_company_ids=[self.env.company.id])
+        with self.assertRaises(UserError) as error:
+            partner_type.unlink()
+        self.assertTrue(self.partner_type.exists())
+        self.assertIn(self.partner_type.display_name, str(error.exception))
+        self.assertNotIn(other_website.name, str(error.exception))
+
     def test_unlink_type_not_used_in_website(self):
         self.partner_type.sudo().unlink()
         self.assertFalse(self.partner_type.exists())
