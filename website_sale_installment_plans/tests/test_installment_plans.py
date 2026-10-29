@@ -1,5 +1,6 @@
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
+from odoo.tools import format_amount
 
 
 @tagged("post_install", "-at_install")
@@ -36,6 +37,9 @@ class TestInstallmentPlans(TransactionCase):
         )
         cls.template = cls.env["product.template"].create({"name": "Product", "list_price": 300.0})
 
+    def _amount(self, amount):
+        return format_amount(self.env, amount, self.website.currency_id)
+
     def test_plans_values(self):
         """Plans come ordered by divisor, with the same numbers the legend showed in 19.0."""
         self.assertEqual(
@@ -45,14 +49,14 @@ class TestInstallmentPlans(TransactionCase):
                     "count": 1,
                     "amount": 300.0,
                     "total": 300.0,
-                    "description": "1 installment of $\xa0300.00",
+                    "description": f"1 installment of {self._amount(300.0)}",
                     "message": "",
                 },
                 {
                     "count": 3,
                     "amount": 120.0,
                     "total": 360.0,
-                    "description": "3 installments of $\xa0120.00 (Total $\xa0360.00)",
+                    "description": f"3 installments of {self._amount(120.0)} (Total {self._amount(360.0)})",
                     "message": "with surcharge",
                 },
             ],
@@ -63,7 +67,7 @@ class TestInstallmentPlans(TransactionCase):
         self.plan_three.installment = 1
         self.assertEqual(
             self.template._get_installment_plans(300.0)[1]["description"],
-            "1 installments of $\xa0360.00 (Total $\xa0360.00)",
+            f"1 installments of {self._amount(360.0)} (Total {self._amount(360.0)})",
         )
 
     def test_no_plans_without_price(self):
