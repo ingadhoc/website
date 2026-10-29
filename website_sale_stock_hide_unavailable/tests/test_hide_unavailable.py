@@ -66,6 +66,30 @@ class TestHideUnavailable(TransactionCase):
     def _rows(self, template):
         return self.env["product.template.stock.availability"].search([("product_tmpl_id", "=", template.id)])
 
+    def _snippet_filter(self):
+        """A product carousel of our own.
+
+        Newest first and the maximum limit the model allows, so the products
+        this test creates are the ones the carousel returns.
+        """
+        ir_filter = self.env["ir.filters"].create(
+            {
+                "name": "Test products",
+                "model_id": "product.product",
+                "domain": "[('website_published', '=', True)]",
+                "sort": '["id desc"]',
+                "action_id": self.env.ref("website.action_website").id,
+            }
+        )
+        return self.env["website.snippet.filter"].create(
+            {
+                "filter_id": ir_filter.id,
+                "field_names": "display_name",
+                "limit": 16,
+                "name": "Test carousel",
+            }
+        )
+
     # -- tests --------------------------------------------------------------
 
     def test_hide_filters_out_of_stock(self):
@@ -256,3 +280,18 @@ class TestHideUnavailable(TransactionCase):
         self.assertEqual(unavailable, {out.id})
         ordered = (out + keep).sorted(key=lambda p: p.id in unavailable)
         self.assertEqual(ordered[-1], out, "out-of-stock product goes last")
+
+    def test_carousels_hide_out_of_stock(self):
+        in_stock = self._product("Carousel in stock")
+        self._set_stock(in_stock, self.wh_a, 5)
+        sold_out = self._product("Carousel sold out")
+        self.env["website"]._recompute_stock_availability(in_stock + sold_out)
+        self.assertTrue(self._rows(sold_out))
+        snippet = self._snippet_filter().with_context(website_id=self.website.id)
+        # Return the records instead of rendering them: the override changes the
+        # domain the snippet searches with, and rendering needs a bound request
+        # and a fully configured shop.
+        self.patch(type(snippet), "_filter_records_to_values", lambda self, records, **options: records)
+        shown = snippet._prepare_values().product_tmpl_id
+        self.assertIn(in_stock, shown)
+        self.assertNotIn(sold_out, shown, "the carousels must not show what the shop hides")
