@@ -36,3 +36,28 @@ class TestWebsiteSaleSearchImproved(HttpCase):
     def test_search_fields_reject_many2one(self):
         with self.assertRaises(UserError):
             self.env["res.config.settings"].create({"website_search_fields_list": "['categ_id.name']"})
+
+    def test_fuzzy_term_keeps_many2one_in_exact_search(self):
+        # Databases saved before the settings validation may still have many2one paths
+        category = self.env["product.category"].create({"name": "Zebracat"})
+        self.env["product.template"].create(
+            {"name": "Striped Product", "type": "consu", "categ_id": category.id, "is_published": True}
+        )
+        self.env["product.template"].create({"name": "Zebracat", "type": "consu", "is_published": True})
+        self.env["ir.config_parameter"].set_param("website_sale_search_improved.search_fields", "['categ_id.name']")
+        self.env["ir.config_parameter"].set_param("website_sale_search_improved.extend_search_fields", "True")
+        self.env.flush_all()
+        website = self.env.ref("website.default_website")
+        options = {
+            "displayDescription": True,
+            "displayDetail": True,
+            "display_currency": True,
+            "displayExtraDetail": True,
+            "displayExtraLink": True,
+            "displayImage": True,
+            "allowFuzzy": True,
+        }
+        # The fuzzy search fixes the term using the product name; the exact search must still use the many2one path
+        count, _results, fuzzy_term = website._search_with_fuzzy("products_only", "Zebrakat", 5, "name asc", options)
+        self.assertEqual(fuzzy_term.lower(), "zebracat")
+        self.assertEqual(count, 2)
