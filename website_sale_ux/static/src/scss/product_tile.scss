@@ -51,3 +51,15 @@
         );
     }
 }
+
+// Core pins price and actions to the bottom of the tile on the list view only, so on a grid row
+// each price sits right under its own text and they end up at different heights. `:where()` keeps
+// the specificity at zero, so a theme can still override it without `!important`.
+.o_wsale_products_opt_layout_catalog:where(
+    .o_wsale_products_opt_design_thumbs,
+    .o_wsale_products_opt_design_chips,
+    .o_wsale_products_opt_design_cards,
+    .o_wsale_products_opt_design_grid
+) .o_wsale_product_sub {
+    margin-top: auto;
+}
