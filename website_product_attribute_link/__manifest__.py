@@ -28,7 +28,7 @@
     "license": "AGPL-3",
     "images": [],
     "depends": [
-        "website_sale_comparison",
+        "website_sale",
     ],
     "data": [
         "views/product_attribute_views.xml",
