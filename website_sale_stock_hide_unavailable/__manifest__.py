@@ -15,5 +15,6 @@
         "data/ir_cron.xml",
         "views/res_config_settings_views.xml",
     ],
+    "post_init_hook": "_post_init_hook",
     "website": "https://github.com/ingadhoc/website",
 }
