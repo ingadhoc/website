@@ -19,7 +19,10 @@ class WebsiteSnippetFilter(models.Model):
         These records are variants, so the leaf crosses through the template.
         """
         website = self.env.website
-        model_name = options.get("res_model") or self.filter_id.sudo().model_id
+        # model_name is the computed field that resolves both filter_id and
+        # action_server_id; filter_id alone is empty on a server-action filter,
+        # which is what website_sale reads here too.
+        model_name = self.model_name or options.get("res_model")
         if model_name == "product.product" and website and website.out_of_stock_display == "hide":
             search_domain = [
                 *(search_domain or []),
