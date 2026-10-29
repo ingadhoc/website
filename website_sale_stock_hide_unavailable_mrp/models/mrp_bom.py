@@ -1,5 +1,8 @@
 from odoo import api, models
 
+# Stored columns whose change can move a kit's availability.
+BOM_TRIGGER_FIELDS = {"type", "product_tmpl_id", "product_id", "active"}
+
 
 class MrpBom(models.Model):
     _inherit = "mrp.bom"
@@ -11,7 +14,9 @@ class MrpBom(models.Model):
         return boms
 
     def write(self, vals):
-        # Before: a bill that stops being a kit must be enqueued too.
+        if not BOM_TRIGGER_FIELDS & vals.keys():
+            return super().write(vals)
+        # Before and after: a bill that stops being a kit must be enqueued too.
         self._enqueue_hide_unavailable_kits()
         res = super().write(vals)
         self._enqueue_hide_unavailable_kits()
@@ -42,6 +47,8 @@ class MrpBomLine(models.Model):
         return lines
 
     def write(self, vals):
+        if not {"product_id", "bom_id"} & vals.keys():
+            return super().write(vals)
         boms = self.bom_id
         res = super().write(vals)
         (boms | self.bom_id)._enqueue_hide_unavailable_kits()

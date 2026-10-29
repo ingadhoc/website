@@ -7,16 +7,9 @@ class WebsiteSnippetFilter(models.Model):
     def _prepare_values(self, limit=None, search_domain=None, **options):
         """Keep hidden products out of the dynamic snippets (the carousels).
 
-        The snippets never go through website.sale_product_domain(), so the
-        single override that covers the listing, the search, the sitemap, the
-        accessory blocks and the category counts does not reach them. A filter
-        backed by an ir.filters searches with its own domain, and one backed by
-        a server action ends up in _get_products(), which builds another one.
-        Both meet here, so the leaf is added once.
-
-        search_domain stays a list: website_sale reads and pops its
-        "hide_variants" marker out of it before the base turns it into a Domain.
-        These records are variants, so the leaf crosses through the template.
+        Both kinds of filter meet here, the ir.filters one and the server-action
+        one, so the leaf is added once. search_domain stays a list: website_sale
+        pops its "hide_variants" marker out of it.
         """
         website = self.env.website
         # model_name is the computed field that resolves both filter_id and

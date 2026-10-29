@@ -12,5 +12,10 @@ class ProductProduct(models.Model):
         if RECOMPUTE_TRIGGER_FIELDS & vals.keys():
             # Availability is read over every variant, so archiving the only one
             # with stock leaves the template unavailable, and the reverse.
-            self.sudo().product_tmpl_id._enqueue_stock_availability()
+            # Candidates are recomputed; the rest only to clear rows they still
+            # have, which keeps a mass archive from flooding the queue.
+            templates = self.sudo().product_tmpl_id
+            templates.filtered(
+                lambda tmpl: tmpl._hide_unavailable_is_candidate() or tmpl.stock_unavailability_ids
+            )._enqueue_stock_availability()
         return res
