@@ -130,7 +130,7 @@ class Website(models.Model):
         candidates = templates.filtered(lambda t: t._hide_unavailable_is_candidate())
         non_candidates = templates - candidates
         if non_candidates:
-            # A product that gained variants or became sellable must reappear.
+            # A product that became sellable or unpublished must reappear.
             Availability.search([("product_tmpl_id", "in", non_candidates.ids)]).unlink()
         if not candidates:
             return
@@ -144,9 +144,10 @@ class Website(models.Model):
             scope_templates = candidates.filtered(lambda t, c=company_id: not t.company_id or t.company_id.id == c)
             if not scope_templates:
                 continue
-            free_qty = self._hide_unavailable_free_qty(scope_templates.product_variant_id, warehouse_id, company_id)
+            free_qty = self._hide_unavailable_free_qty(scope_templates.product_variant_ids, warehouse_id, company_id)
             for tmpl in scope_templates:
-                if free_qty.get(tmpl.product_variant_id.id, 0.0) > 0:
+                # Sold out only when every variant is, same rule as _is_sold_out().
+                if any(free_qty.get(variant.id, 0.0) > 0 for variant in tmpl.product_variant_ids):
                     continue
                 key = (tmpl.id, warehouse_id or False, company_id)
                 wanted.add(key)

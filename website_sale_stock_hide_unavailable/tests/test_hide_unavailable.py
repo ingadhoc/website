@@ -32,7 +32,10 @@ class TestHideUnavailable(TransactionCase):
         )
 
     def _set_stock(self, template, warehouse, qty):
-        self.env["stock.quant"]._update_available_quantity(template.product_variant_id, warehouse.lot_stock_id, qty)
+        self._set_variant_stock(template.product_variant_id, warehouse, qty)
+
+    def _set_variant_stock(self, variant, warehouse, qty):
+        self.env["stock.quant"]._update_available_quantity(variant, warehouse.lot_stock_id, qty)
 
     def _add_variants(self, template):
         attribute = self.env["product.attribute"].create(
@@ -91,22 +94,30 @@ class TestHideUnavailable(TransactionCase):
         self.assertFalse(self._rows(product))
         self.assertIn(product.id, self._shop_ids(self.website))
 
-    def test_variant_product_not_hidden(self):
+    def test_variants_hidden_when_every_variant_is_out(self):
         product = self._product("Has variants")
         self._add_variants(product)
         self.assertGreater(product.product_variant_count, 1)
         self.env["website"]._recompute_stock_availability(product)
-        self.assertFalse(self._rows(product), "multi-variant is out of scope")
+        self.assertTrue(self._rows(product), "sold out when every variant is")
+        self.assertNotIn(product.id, self._shop_ids(self.website))
+
+    def test_variants_visible_when_one_has_stock(self):
+        product = self._product("Partly in stock")
+        self._add_variants(product)
+        self._set_variant_stock(product.product_variant_ids[0], self.wh_a, 5)
+        self.env["website"]._recompute_stock_availability(product)
+        self.assertFalse(self._rows(product), "one variant in stock keeps the product visible")
         self.assertIn(product.id, self._shop_ids(self.website))
 
-    def test_reappears_when_gains_variants(self):
+    def test_stays_hidden_when_it_gains_variants(self):
         product = self._product("Becomes variant")
         self.env["website"]._recompute_stock_availability(product)
         self.assertTrue(self._rows(product))
         self._add_variants(product)
         self.env["website"]._recompute_stock_availability(product)
-        self.assertFalse(self._rows(product), "rows must be cleared once multi-variant")
-        self.assertIn(product.id, self._shop_ids(self.website))
+        self.assertTrue(self._rows(product), "new variants without stock do not make it reappear")
+        self.assertNotIn(product.id, self._shop_ids(self.website))
 
     def test_blank_warehouse_resolves_company_wide(self):
         website = self.env["website"].create(

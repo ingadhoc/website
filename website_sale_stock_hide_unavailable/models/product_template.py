@@ -33,22 +33,13 @@ class ProductTemplate(models.Model):
         self.env["product.template.stock.dirty"].sudo().create([{"product_tmpl_id": tmpl_id} for tmpl_id in self.ids])
 
     def _hide_unavailable_is_candidate(self):
-        """Only these products can be hidden or pushed down.
-
-        The variant check lives here (not in the SQL enqueue) because
-        product_variant_count is a non-stored compute.
-        """
+        """Only these products can be hidden or pushed down."""
         self.ensure_one()
-        return (
-            self.is_storable
-            and not self.allow_out_of_stock_order
-            and self.is_published
-            and self.product_variant_count == 1
-        )
+        return self.is_storable and not self.allow_out_of_stock_order and self.is_published
 
     @api.model
     def _hide_unavailable_candidate_domain(self):
-        # Coarse gate on stored columns; the variant filter is applied afterwards.
+        # Same conditions as _hide_unavailable_is_candidate, on stored columns.
         return [
             ("is_storable", "=", True),
             ("allow_out_of_stock_order", "=", False),
