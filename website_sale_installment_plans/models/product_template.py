@@ -1,52 +1,47 @@
 from odoo import models
+from odoo.http import request
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     def _get_published_installments(self):
-        return self.env["account.card.installment"].sudo().search([("is_published", "=", True)])
+        # Searched once per HTTP request: the shop grid asks for every product.
+        cached = getattr(request, "_website_installment_plans", None) if request else None
+        if cached is not None:
+            return cached
+        company = self.env.website.company_id or self.env.company
+        installments = (
+            self.env["account.card.installment"]
+            .sudo()
+            .search(
+                [
+                    ("is_published", "=", True),
+                    ("card_id.active", "=", True),
+                    ("card_id.company_id", "in", [company.id, False]),
+                ],
+                order="divisor, id",
+            )
+        )
+        if request:
+            request._website_installment_plans = installments
+        return installments
 
     def _get_installment_plans(self, price):
+        if not price:
+            return []
         plans = []
-        for cuota in self._get_published_installments():
-            values = cuota.map_installment_values(price)
+        for plan in self._get_published_installments():
+            amount = plan.map_installment_values(price)["amount"]
+            count = plan.divisor or 1
+            if count != 1:
+                count = plan.installment or 1
             plans.append(
                 {
-                    "installments": cuota.installment,
-                    "description": values["description"],
-                    "message": cuota.message or "",
+                    "count": count,
+                    "amount": amount / count,
+                    "total": amount,
+                    "message": plan.message or "",
                 }
             )
         return plans
-
-    def _get_combination_info(
-        self,
-        combination=False,
-        product_id=False,
-        add_qty=1,
-        uom_id=False,
-        only_template=False,
-        pricelist=None,
-        fiscal_position=None,
-    ):
-        combination_info = super()._get_combination_info(
-            combination=combination,
-            product_id=product_id,
-            add_qty=add_qty,
-            uom_id=uom_id,
-            only_template=only_template,
-            pricelist=pricelist,
-            fiscal_position=fiscal_position,
-        )
-
-        product_price = combination_info.get("price", 0)
-        installment_plans = self._get_installment_plans(product_price)
-        combination_info.update({"installment_plans": installment_plans})
-
-        return combination_info
-
-    def _get_card_installments_for_shop(self, context_price):
-        installment_plans = self._get_installment_plans(context_price)
-
-        return installment_plans
