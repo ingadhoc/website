@@ -5,7 +5,7 @@
             <div class="installment-plans">
                 <t t-foreach="combination_info.get('installment_plans', [])" t-as="installment">
                     <p style="font-size: 12px; color: #666; margin: 5px 0;">
-                        <i class="fa fa-credit-card" aria-hidden="true" style="color:#000000;font-size:14px;margin-right:5px;"/>
+                        <i class="oi" data-icon="credit_card" aria-hidden="true" style="color:#000000;font-size:14px;margin-right:5px;"/>
                         <span style="color: black; font-weight: bold;">
                             <span t-esc="installment['description']"/>
                         </span>
@@ -24,7 +24,7 @@
                 <t t-set="installment_plans" t-value="product._get_card_installments_for_shop(template_price_vals.get('price_reduce', []))"/>
                 <t t-foreach="installment_plans" t-as="installment">
                     <p style="font-size: 12px; color: #666; margin: 5px 0;">
-                        <i class="fa fa-credit-card" aria-hidden="true" style="color:#000000;font-size:14px;margin-right:5px;"/>
+                        <i class="oi" data-icon="credit_card" aria-hidden="true" style="color:#000000;font-size:14px;margin-right:5px;"/>
                         <span style="color: black; font-weight: bold;">
                             <span t-esc="installment['description']"/>
                         </span>
