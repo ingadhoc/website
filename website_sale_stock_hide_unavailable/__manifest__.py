@@ -11,7 +11,7 @@
         "website_sale_stock",
     ],
     "data": [
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "data/ir_cron.xml",
         "views/res_config_settings_views.xml",
     ],
