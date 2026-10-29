@@ -41,9 +41,29 @@ class TestInstallmentPlans(TransactionCase):
         self.assertEqual(
             self.template._get_installment_plans(300.0),
             [
-                {"count": 1, "amount": 300.0, "total": 300.0, "message": ""},
-                {"count": 3, "amount": 120.0, "total": 360.0, "message": "with surcharge"},
+                {
+                    "count": 1,
+                    "amount": 300.0,
+                    "total": 300.0,
+                    "description": "1 installment of $\xa0300.00",
+                    "message": "",
+                },
+                {
+                    "count": 3,
+                    "amount": 120.0,
+                    "total": 360.0,
+                    "description": "3 installments of $\xa0120.00 (Total $\xa0360.00)",
+                    "message": "with surcharge",
+                },
             ],
+        )
+
+    def test_plural_follows_divisor(self):
+        """As in 19.0, a plan that divides keeps the plural legend even with installment 0 or 1."""
+        self.plan_three.installment = 1
+        self.assertEqual(
+            self.template._get_installment_plans(300.0)[1]["description"],
+            "1 installments of $\xa0360.00 (Total $\xa0360.00)",
         )
 
     def test_no_plans_without_price(self):
@@ -78,7 +98,7 @@ class TestInstallmentPlans(TransactionCase):
                 },
             )
         )
-        self.assertIn("oe_currency_value", html)
+        self.assertIn("3 installments of", html)
         self.assertIn("with surcharge", html)
         self.assertNotIn("style=", html)
         self.assertEqual(
