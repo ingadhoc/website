@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 19.0+e\n"
+"Project-Id-Version: Odoo Server 20.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-07 20:49+0000\n"
-"PO-Revision-Date: 2026-10-07 20:49+0000\n"
+"POT-Creation-Date: 2026-10-29 14:33+0000\n"
+"PO-Revision-Date: 2026-10-29 14:33+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -17,26 +17,170 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. module: website_sale_stock_hide_unavailable
+#: model:ir.module.module,description:base.module_website_sale_stock_hide_unavailable
+msgid ""
+"====================================\n"
+"Website Sale Stock Hide Unavailable\n"
+"====================================\n"
+"\n"
+"Let each website decide what the shop does with storable products that are out\n"
+"of stock and cannot be sold out of stock: show them (Odoo's default), push them\n"
+"to the end of the listing, or hide them from the listing, the site search, the\n"
+"sitemap, the accessory/alternative blocks, the homepage carousels and the\n"
+"per-category product count.\n"
+"\n"
+"The product page always keeps responding 200, so indexed URLs and SEO are not\n"
+"lost during a temporary stock break.\n"
+"\n"
+"Availability is precomputed in the backend (a small table of *unavailable*\n"
+"products per warehouse scope) and the storefront only adds a SQL sub-query to\n"
+"the domain it already builds. Nothing in the hot request path computes stock.\n"
+"\n"
+".. contents::\n"
+"   :local:\n"
+"\n"
+"Technical details\n"
+"=================\n"
+"\n"
+"* ``product.template.stock.availability``: the precomputed table, keyed by\n"
+"  ``(product_tmpl_id, warehouse_id, company_id)``. A row means *unavailable*;\n"
+"  absence means visible, so missing data fails open and a sellable product is\n"
+"  never hidden by a stale computation. ``warehouse_id`` is empty on the\n"
+"  company-wide scope, which needs its own partial unique index because Postgres\n"
+"  does not enforce uniqueness across NULLs.\n"
+"* ``product.template.stock.dirty``: the queue the recompute drains.\n"
+"* ``product.template.stock_unavailability_ids`` is declared with\n"
+"  ``bypass_search_access`` so the ``not any`` sub-query resolves for public and\n"
+"  portal shoppers without granting them read access to the table, which would\n"
+"  leak per-warehouse stock over RPC.\n"
+"* One override of ``website.sale_product_domain()`` covers the listing, the\n"
+"  site search, the sitemap, the accessory/alternative blocks and the category\n"
+"  product count at once. The \"at the end\" order is a stable Python re-sort in\n"
+"  ``WebsiteSale._shop_lookup_products``, which changes neither the product count\n"
+"  nor the paging.\n"
+"* The carousels never call ``sale_product_domain()``, so\n"
+"  ``website.snippet.filter._prepare_values`` adds the same leaf: it is where the\n"
+"  two kinds of dynamic filter meet, the one backed by an ``ir.filters`` and the\n"
+"  one backed by a server action.\n"
+"* A ``stock.quant`` hook enqueues the touched candidates with a single SQL\n"
+"  statement, taking no row locks on ``product_template``.\n"
+"  ``_hide_unavailable_extra_templates`` is the seam a bridge fills with the\n"
+"  products whose availability is derived from others (see the ``mrp`` bridge).\n"
+"* Two scheduled actions reconcile the table: a 5-minute drain and a nightly full\n"
+"  sweep with a resumable cursor, both reusing the standard batched ``free_qty``\n"
+"  compute, so mrp kits and expiry are respected.\n"
+"* ``_hide_unavailable_scope_leaf`` and ``_hide_unavailable_free_qty`` are left\n"
+"  overridable so a multi-warehouse bridge can support the union of published\n"
+"  warehouses without a rewrite.\n"
+"* ``_post_init_hook`` removes ``website_sale.group_unpublish_out_of_stock``\n"
+"  from ``website.group_website_restricted_editor``.\n"
+"\n"
+"Installation\n"
+"============\n"
+"\n"
+"To install this module, you need to:\n"
+"\n"
+"#. Just install this module.\n"
+"\n"
+"Configuration\n"
+"=============\n"
+"\n"
+"Go to *Website ‣ Configuration ‣ Settings*, pick a website and set **Out-of-Stock\n"
+"Products**:\n"
+"\n"
+"* **Show** (default): identical to standard Odoo.\n"
+"* **Show at the end of the list**: out-of-stock products appear last, in any sort\n"
+"  order, still listed in search and sitemap.\n"
+"* **Hide**: out-of-stock products disappear from listing, search, sitemap,\n"
+"  accessories/alternatives, carousels and category counts.\n"
+"\n"
+"A product is a candidate to be hidden or pushed down only when it is published,\n"
+"storable and has \"Sell when Out-of-Stock\" disabled. A product with several\n"
+"variants is hidden when every variant is out of stock, which is the same rule\n"
+"Odoo uses for its out-of-stock ribbon.\n"
+"\n"
+"This module replaces Odoo's own **Unpublish out-of-stock products**, so that\n"
+"setting is hidden and turned off on install. The native one is a single switch\n"
+"for the whole database, it overwrites manual publishing, and it unpublishes the\n"
+"product, so its page stops answering 200.\n"
+"\n"
+"The warehouse scope follows the website's **Warehouse** setting: a specific\n"
+"warehouse, or, when left empty, the whole company.\n"
+"\n"
+"Usage\n"
+"=====\n"
+"\n"
+"The precomputed data is kept up to date by two scheduled actions:\n"
+"\n"
+"* *E-commerce: Drain out-of-stock recompute queue* — runs every 5 minutes and\n"
+"  reflects stock changes. Change its interval to tune the freshness window.\n"
+"* *E-commerce: Full sweep out-of-stock availability* — runs nightly and\n"
+"  reconciles every candidate regardless of the queue.\n"
+"\n"
+"When stock comes in, a product becomes visible again within the drain window.\n"
+"The reverse (a product selling out and staying listed a few minutes) is harmless:\n"
+"the cart and checkout always re-verify real stock, so the shop never oversells.\n"
+"\n"
+"Known issues / Roadmap\n"
+"======================\n"
+"\n"
+"* With Click & Collect (``website_sale_collect``) availability is per visitor and\n"
+"  cannot be represented on the product, so the filter does not apply.\n"
+"* ``website_sale_multi_warehouse`` (union of published warehouses) is out of\n"
+"  scope. The scope derivation and the availability computation are isolated in\n"
+"  overridable methods so a bridge module can support it without a rewrite.\n"
+"* Hiding a product removes its \"back in stock\" notification funnel\n"
+"  (``product.stock.notification``).\n"
+"* Kits (``mrp``) need ``website_sale_stock_hide_unavailable_mrp``, which\n"
+"  installs itself alongside ``mrp``. Without it a kit is only refreshed by the\n"
+"  nightly sweep, because its availability comes from its components.\n"
+"* Enabling Odoo's native unpublishing over RPC is still possible: this module\n"
+"  hides the setting, it does not override ``_compute_is_published``.\n"
+"\n"
+"Bug Tracker\n"
+"===========\n"
+"\n"
+"Bugs are tracked on `GitHub Issues <https://github.com/ingadhoc/website/issues>`_.\n"
+"\n"
+"Credits\n"
+"=======\n"
+"\n"
+"Authors\n"
+"~~~~~~~\n"
+"\n"
+"* ADHOC SA\n"
+"\n"
+"Maintainer\n"
+"~~~~~~~~~~\n"
+"\n"
+".. image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-logo.png\n"
+"   :alt: ADHOC SA\n"
+"   :target: https://www.adhoc.com.ar\n"
+"\n"
+"This module is maintained by ADHOC SA.\n"
+msgstr ""
+
+#. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__company_id
 msgid "Company"
-msgstr ""
+msgstr "Compañía"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model,name:website_sale_stock_hide_unavailable.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Ajustes de configuración"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__create_uid
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__create_date
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creado el"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template__display_name
@@ -45,38 +189,44 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_stock_quant__display_name
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_website__display_name
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_website_snippet_filter__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar nombre"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model,name:website_sale_stock_hide_unavailable.model_product_template_stock_availability
 msgid "E-commerce precomputed stock unavailability"
-msgstr ""
+msgstr "Indisponibilidad de stock precalculada del comercio electrónico"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model,name:website_sale_stock_hide_unavailable.model_product_template_stock_dirty
 msgid "E-commerce stock availability recompute queue"
-msgstr ""
+msgstr "Cola de recálculo de disponibilidad de stock del comercio electrónico"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.actions.server,name:website_sale_stock_hide_unavailable.cron_drain_stock_availability_ir_actions_server
 msgid "E-commerce: Drain out-of-stock recompute queue"
-msgstr ""
+msgstr "Comercio electrónico: vaciar la cola de recálculo de productos sin stock"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.actions.server,name:website_sale_stock_hide_unavailable.cron_full_sweep_stock_availability_ir_actions_server
 msgid "E-commerce: Full sweep out-of-stock availability"
-msgstr ""
+msgstr "Comercio electrónico: barrido completo de disponibilidad de productos sin stock"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,help:website_sale_stock_hide_unavailable.field_product_template_stock_availability__warehouse_id
 msgid "Empty means the availability is measured over the whole company."
-msgstr ""
+msgstr "Vacío significa que la disponibilidad se mide sobre toda la compañía."
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields.selection,name:website_sale_stock_hide_unavailable.selection__website__out_of_stock_display__hide
 msgid "Hide"
-msgstr ""
+msgstr "Ocultar"
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.module.module,summary:base.module_website_sale_stock_hide_unavailable
+msgid "Hide or push down out-of-stock products in the eCommerce shop"
+msgstr "Ocultar o enviar al final los productos sin stock en la tienda de comercio electrónico"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template__id
@@ -85,6 +235,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_res_config_settings__id
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_stock_quant__id
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_website__id
+#: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_website_snippet_filter__id
 msgid "ID"
 msgstr ""
 
@@ -92,50 +243,50 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__write_uid
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última actualización por"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__write_date
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última actualización el"
 
 #. module: website_sale_stock_hide_unavailable
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_hide_unavailable.res_config_settings_view_form
 msgid "Out-of-Stock Products"
-msgstr ""
+msgstr "Productos sin stock"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_res_config_settings__out_of_stock_display
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_website__out_of_stock_display
 msgid "Out-of-stock products"
-msgstr ""
+msgstr "Productos sin stock"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model,name:website_sale_stock_hide_unavailable.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Producto"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__product_tmpl_id
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_dirty__product_tmpl_id
 msgid "Product Tmpl"
-msgstr ""
+msgstr "Plantilla de producto"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model,name:website_sale_stock_hide_unavailable.model_stock_quant
-msgid "Quants"
-msgstr ""
+msgid "Quant"
+msgstr "Cant"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields.selection,name:website_sale_stock_hide_unavailable.selection__website__out_of_stock_display__show
 msgid "Show"
-msgstr ""
+msgstr "Mostrar"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields.selection,name:website_sale_stock_hide_unavailable.selection__website__out_of_stock_display__last
 msgid "Show at the end of the list"
-msgstr ""
+msgstr "Mostrar al final de la lista"
 
 #. module: website_sale_stock_hide_unavailable
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_hide_unavailable.res_config_settings_view_form
@@ -144,27 +295,40 @@ msgid ""
 "search and sitemap. Set per website; the product page always stays "
 "reachable."
 msgstr ""
+"Mostrarlos, enviarlos al final de la tienda u ocultarlos del listado, la "
+"búsqueda y el mapa del sitio. Se configura por sitio web; la página del "
+"producto siempre queda accesible."
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_product__stock_unavailability_ids
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template__stock_unavailability_ids
 msgid "Stock Unavailability"
-msgstr ""
+msgstr "Indisponibilidad de stock"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.constraint,message:website_sale_stock_hide_unavailable.constraint_product_template_stock_availability_scope_uniq
 msgid "The unavailability of a product is unique per warehouse scope."
-msgstr ""
+msgstr "La indisponibilidad de un producto es única por alcance de almacén."
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable.field_product_template_stock_availability__warehouse_id
 msgid "Warehouse"
-msgstr ""
+msgstr "Almacén"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model,name:website_sale_stock_hide_unavailable.model_website
 msgid "Website"
-msgstr ""
+msgstr "Sitio web"
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.module.module,shortdesc:base.module_website_sale_stock_hide_unavailable
+msgid "Website Sale Stock Hide Unavailable"
+msgstr "Ocultar productos sin stock en la tienda"
+
+#. module: website_sale_stock_hide_unavailable
+#: model:ir.model,name:website_sale_stock_hide_unavailable.model_website_snippet_filter
+msgid "Website Snippet Filter"
+msgstr "Filtro de snippets del sitio web"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields,help:website_sale_stock_hide_unavailable.field_res_config_settings__out_of_stock_display
@@ -173,3 +337,6 @@ msgid ""
 "What the shop does with storable products that are out of stock and cannot "
 "be sold out of stock. 'Show' keeps Odoo's standard behaviour."
 msgstr ""
+"Qué hace la tienda con los productos almacenables que no tienen stock y no "
+"se pueden vender sin stock. «Mostrar» conserva el comportamiento estándar de "
+"Odoo."
