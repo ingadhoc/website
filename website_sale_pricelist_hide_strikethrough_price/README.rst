@@ -72,9 +72,11 @@ Known Issues
   **On sale** filter of the shop, which Odoo 20.0 builds from the same value
   that draws the strikethrough. The filter is not offered, but a visitor who
   reaches ``/shop?on_sale=1`` directly sees it with an empty grid.
-* Two selectors of the CSS net target a QWeb ``<t>`` element, which renders
-  nothing, so they never match. The shop grid is covered by the server-side
-  hook anyway.
+* One selector of the CSS net, the one for the shop grid, targets a QWeb
+  ``<t>`` element, which renders nothing, so it never matches. The grid is
+  covered by the server-side hook anyway. The one for the cart summary
+  targets a ``<td>`` where the core puts no ``<del>``, so it only takes
+  effect if another module adds one, which is what it is there for.
 
 Bug Tracker
 ===========
