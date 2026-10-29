@@ -340,3 +340,16 @@ class TestHideUnavailable(TransactionCase):
         shown = snippet._prepare_values().product_tmpl_id
         self.assertIn(in_stock, shown)
         self.assertNotIn(sold_out, shown, "a server-action carousel must not show what the shop hides")
+
+    def test_archiving_a_variant_enqueues_the_template(self):
+        # Availability is read over every variant, so archiving the only one
+        # with stock changes what the shop shows.
+        product = self._product("Variant archived")
+        self._add_variants(product)
+        self._set_variant_stock(product.product_variant_ids[0], self.wh_a, 5)
+        self.env["website"]._recompute_stock_availability(product)
+        self.assertFalse(self._rows(product))
+        self.env["product.template.stock.dirty"].search([]).unlink()
+        product.product_variant_ids[0].action_archive()
+        queued = self.env["product.template.stock.dirty"].search([]).product_tmpl_id
+        self.assertIn(product, queued)
