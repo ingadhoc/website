@@ -14,9 +14,9 @@
 Product Attribute Link on Website Product view
 ==============================================
 
-This module adds a list of attribute values related to a product on the Product page from website frontend.
-Each attribute value is added on Product page as a link which redirects the user to the shop page already filtered by this attribute value.
-Please take in mind that only the attributes with one value set on product would be added on Product page. Those attribute with more than one value set (which generate variants of product) would not be added.
+This module turns into links the attribute values that the specifications table shows on the Product page from website frontend.
+Each link redirects the user to the shop page already filtered by this attribute value.
+Please take in mind that only the attributes with more than one value set on product get a link, because those are the ones the specifications table lists value by value. The attributes with a single value are shown on their own row and stay as plain text.
 
 Installation
 ============
