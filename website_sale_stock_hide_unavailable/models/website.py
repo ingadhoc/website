@@ -27,7 +27,7 @@ class Website(models.Model):
 
     def sale_product_domain(self):
         domain = super().sale_product_domain()
-        website = self or self.get_current_website()
+        website = self or self.env.website
         if website.out_of_stock_display != "hide":
             return domain
         # 'not any' compiles to a SQL sub-query (not an "id in (...)"), so the
@@ -225,7 +225,7 @@ class Website(models.Model):
         # Resumable cursor over the candidates, ordered by id. Without it,
         # stopping on the time budget would restart from the first candidate on
         # every run and never reach the tail of a large catalogue.
-        cursor = int(Param.get_param(SWEEP_CURSOR_PARAM, 0))
+        cursor = Param.get_int(SWEEP_CURSOR_PARAM, 0)
         if not cursor:
             # Starting a pass: drop the rows of scopes no website uses any more.
             active = self._hide_unavailable_active_scopes()
@@ -241,13 +241,13 @@ class Website(models.Model):
             candidates = Template.search(domain + [("id", ">", cursor)], limit=batch, order="id")
             if not candidates:
                 # Pass complete: the next run starts a fresh one.
-                Param.set_param(SWEEP_CURSOR_PARAM, 0)
+                Param.set_int(SWEEP_CURSOR_PARAM, 0)
                 if in_cron:
                     Cron._commit_progress(remaining=0)
                 break
             self._recompute_stock_availability(candidates)
             cursor = max(candidates.ids)
-            Param.set_param(SWEEP_CURSOR_PARAM, cursor)
+            Param.set_int(SWEEP_CURSOR_PARAM, cursor)
             # Commit each batch and stop on time; the cron is then rescheduled
             # and resumes from the cursor instead of starting over.
             if in_cron and Cron._commit_progress(len(candidates)) <= 0:
