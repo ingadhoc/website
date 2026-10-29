@@ -32,6 +32,11 @@ class ProductTemplateStockAvailability(models.Model):
         The drain and the sweep can run at the same time and compute the same
         row; a plain create would raise on the unique constraint and lose the
         whole batch.
+
+        Under REPEATABLE READ this insert and a concurrent unlink can still
+        raise a serialization error. That is left to Odoo, which retries the
+        job: every row here is recomputed from stock, so a retry reaches the
+        same result and nothing is lost.
         """
         if not vals_list:
             return
