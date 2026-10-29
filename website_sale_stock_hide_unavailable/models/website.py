@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 from odoo.fields import Domain
+from odoo.tools import SQL
 
 DRAIN_BATCH = 500
 SWEEP_BATCH = 2000
@@ -50,22 +51,27 @@ class Website(models.Model):
         self.ensure_one()
         if self.out_of_stock_display not in ("hide", "last") or not templates:
             return set()
-        # Read the unavailable rows of this scope and intersect in Python: they
-        # are few (only sold-out products), while filtering by product_tmpl_id
-        # would send the whole catalogue as an IN list, because the shop lookup
-        # runs with limit=None.
-        # sudo: internal optimisation table, read from the public shop controller.
-        rows = (
-            self.env["product.template.stock.availability"]
-            .sudo()
-            .search(
-                [
-                    ("warehouse_id", "=", self.warehouse_id.id),
-                    ("company_id", "=", self.company_id.id),
-                ]
+        # Only the ids, in one query. The rows of a scope are few (just the
+        # sold-out products), while filtering by product_tmpl_id would send the
+        # whole catalogue as an IN list, because the shop lookup runs with
+        # limit=None. Reading them as records would build the whole recordset on
+        # every shop request only to intersect ids.
+        # IS NOT DISTINCT FROM: warehouse_id is NULL on the company-wide rows.
+        Availability = self.env["product.template.stock.availability"]
+        Availability.flush_model(["product_tmpl_id", "warehouse_id", "company_id"])
+        self.env.cr.execute(
+            SQL(
+                """
+                SELECT product_tmpl_id
+                  FROM product_template_stock_availability
+                 WHERE company_id = %s
+                   AND warehouse_id IS NOT DISTINCT FROM %s
+                """,
+                self.company_id.id,
+                self.warehouse_id.id or None,
             )
         )
-        return set(rows.product_tmpl_id.ids) & set(templates.ids)
+        return {row[0] for row in self.env.cr.fetchall()} & set(templates.ids)
 
     # -- Config changes -----------------------------------------------------
 
