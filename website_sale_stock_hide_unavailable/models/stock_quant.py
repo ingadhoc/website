@@ -48,3 +48,16 @@ class StockQuant(models.Model):
                 tuple(self.ids),
             )
         )
+        extra = self._hide_unavailable_extra_templates()
+        if extra:
+            extra.filtered(lambda t: t._hide_unavailable_is_candidate())._enqueue_stock_availability()
+
+    def _hide_unavailable_extra_templates(self):
+        """Templates these quants affect beyond the product they are on.
+
+        The SQL above enqueues the product of each quant. A product whose
+        availability is derived from another one's stock is not reached that
+        way. Seam a bridge overrides: website_sale_stock_hide_unavailable_mrp
+        adds the kits whose components these quants hold.
+        """
+        return self.env["product.template"]
