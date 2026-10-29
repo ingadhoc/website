@@ -26,8 +26,9 @@ class ProductTemplate(models.Model):
         product_id=False,
         add_qty=1,
         uom_id=False,
-        parent_combination=False,
         only_template=False,
+        pricelist=None,
+        fiscal_position=None,
     ):
         combination_info = super()._get_combination_info(
             combination=combination,
@@ -35,6 +36,8 @@ class ProductTemplate(models.Model):
             add_qty=add_qty,
             uom_id=uom_id,
             only_template=only_template,
+            pricelist=pricelist,
+            fiscal_position=fiscal_position,
         )
 
         product_price = combination_info.get("price", 0)
