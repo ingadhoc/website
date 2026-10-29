@@ -69,3 +69,21 @@ class TestHideUnavailableKits(TransactionCase):
         self.env["product.template.stock.dirty"].search([]).unlink()
         self.env["stock.quant"]._update_available_quantity(component.product_variant_id, self.warehouse.lot_stock_id, 3)
         self.assertNotIn(kit, self._queued(), "only candidates are enqueued")
+
+    def test_changing_the_bom_enqueues_the_kit(self):
+        # What a kit can ship depends on its bill, not only on stock moves.
+        component = self._product("Bill component")
+        kit = self._kit("Bill kit", component)
+        bom = self.env["mrp.bom"].search([("product_tmpl_id", "=", kit.id)], limit=1)
+        other = self._product("Second component")
+        self.env["product.template.stock.dirty"].search([]).unlink()
+        self.env["mrp.bom.line"].create({"bom_id": bom.id, "product_id": other.product_variant_id.id, "product_qty": 1})
+        self.assertIn(kit, self._queued(), "a new component changes what the kit can ship")
+
+    def test_dropping_the_bom_enqueues_the_kit(self):
+        component = self._product("Dropped component")
+        kit = self._kit("Dropped kit", component)
+        bom = self.env["mrp.bom"].search([("product_tmpl_id", "=", kit.id)], limit=1)
+        self.env["product.template.stock.dirty"].search([]).unlink()
+        bom.unlink()
+        self.assertIn(kit, self._queued(), "without its bill the product is no longer a kit")
