@@ -11,7 +11,9 @@ patch(ProductPage.prototype, {
      */
     async _onChangeCombination(ev, parent, combination) {
         await super._onChangeCombination(...arguments);
-        const internalRef = parent.querySelector(".o_wsale_ux_internal_ref");
+        // `parent` is the `.js_product` form; the reference sits next to it, under the details.
+        const details = parent.closest("#product_details") ?? document;
+        const internalRef = details.querySelector(".o_wsale_ux_internal_ref");
         if (!internalRef) {
             return;
         }
