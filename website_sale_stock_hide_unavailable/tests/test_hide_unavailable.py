@@ -67,7 +67,7 @@ class TestHideUnavailable(TransactionCase):
         return self.env["product.template.stock.availability"].search([("product_tmpl_id", "=", template.id)])
 
     def _snippet_filter(self):
-        """A product carousel of our own.
+        """A product carousel backed by an ir.filters.
 
         Newest first and the maximum limit the model allows, so the products
         this test creates are the ones the carousel returns.
@@ -87,6 +87,28 @@ class TestHideUnavailable(TransactionCase):
                 "field_names": "display_name",
                 "limit": 16,
                 "name": "Test carousel",
+            }
+        )
+
+    def _snippet_filter_server_action(self):
+        """A product carousel backed by a server action, the other data source.
+
+        The two kinds resolve their model differently, so both are covered.
+        """
+        action = self.env["ir.actions.server"].create(
+            {
+                "name": "Test products via action",
+                "model_id": self.env.ref("product.model_product_product").id,
+                "state": "code",
+                "code": "response = env['product.product'].search(env.context.get('search_domain') or [])",
+            }
+        )
+        return self.env["website.snippet.filter"].create(
+            {
+                "action_server_id": action.id,
+                "field_names": "display_name",
+                "limit": 16,
+                "name": "Test carousel via action",
             }
         )
 
@@ -281,7 +303,7 @@ class TestHideUnavailable(TransactionCase):
         ordered = (out + keep).sorted(key=lambda p: p.id in unavailable)
         self.assertEqual(ordered[-1], out, "out-of-stock product goes last")
 
-    def test_carousels_hide_out_of_stock(self):
+    def test_carousels_from_a_filter_hide_out_of_stock(self):
         in_stock = self._product("Carousel in stock")
         self._set_stock(in_stock, self.wh_a, 5)
         sold_out = self._product("Carousel sold out")
@@ -305,3 +327,16 @@ class TestHideUnavailable(TransactionCase):
         self.assertIn(group, editor.implied_ids)
         _post_init_hook(self.env)
         self.assertNotIn(group, editor.implied_ids, "it would undo the per-website setting")
+
+    def test_carousels_from_a_server_action_hide_out_of_stock(self):
+        # The "Recently sold", "Recently viewed" and "Sold with" carousels are
+        # backed by a server action, where filter_id is empty.
+        in_stock = self._product("Action in stock")
+        self._set_stock(in_stock, self.wh_a, 5)
+        sold_out = self._product("Action sold out")
+        self.env["website"]._recompute_stock_availability(in_stock + sold_out)
+        self.assertTrue(self._rows(sold_out))
+        snippet = self._snippet_filter_server_action().with_context(website_id=self.website.id)
+        shown = snippet._prepare_values().product_tmpl_id
+        self.assertIn(in_stock, shown)
+        self.assertNotIn(sold_out, shown, "a server-action carousel must not show what the shop hides")
