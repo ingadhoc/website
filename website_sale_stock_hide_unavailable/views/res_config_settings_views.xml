@@ -14,10 +14,9 @@
                     <field name="out_of_stock_display" widget="radio"/>
                 </setting>
             </setting>
-            <!-- Odoo's own unpublishing would undo what this module does; the
-                 post_init_hook also turns it off. -->
+            <!-- Not offered where this module is in use: the two are incompatible. -->
             <setting id="unpublish_out_of_stock_setting" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <attribute name="invisible">out_of_stock_display != 'show'</attribute>
             </setting>
         </field>
     </record>

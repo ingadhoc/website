@@ -318,15 +318,17 @@ class TestHideUnavailable(TransactionCase):
         self.assertIn(in_stock, shown)
         self.assertNotIn(sold_out, shown, "the carousels must not show what the shop hides")
 
-    def test_post_init_hook_turns_off_the_native_unpublishing(self):
-        from .. import _post_init_hook
-
-        group = self.env.ref("website_sale.group_unpublish_out_of_stock")
+    def test_switching_to_hide_turns_off_the_native_unpublishing(self):
+        Groups = self.env["res.groups"]
+        feature = "website_sale.group_unpublish_out_of_stock"
         editor = self.env.ref("website.group_website_restricted_editor")
-        editor._apply_group(group)
-        self.assertIn(group, editor.implied_ids)
-        _post_init_hook(self.env)
-        self.assertNotIn(group, editor.implied_ids, "it would undo the per-website setting")
+        editor._apply_group(self.env.ref(feature))
+        self.assertTrue(Groups._is_feature_enabled(feature))
+        site = self.env["website"].create(
+            {"name": "Native off", "company_id": self.company.id, "out_of_stock_display": "show"}
+        )
+        site.out_of_stock_display = "hide"
+        self.assertFalse(Groups._is_feature_enabled(feature), "it would undo the per-website setting")
 
     def test_carousels_from_a_server_action_hide_out_of_stock(self):
         # The "Recently sold", "Recently viewed" and "Sold with" carousels are

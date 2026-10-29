@@ -80,13 +80,28 @@ class Website(models.Model):
         websites = super().create(vals_list)
         if any(website.out_of_stock_display in ("hide", "last") for website in websites):
             websites._trigger_stock_availability_sweep()
+            websites._disable_native_unpublishing()
         return websites
 
     def write(self, vals):
         res = super().write(vals)
         if {"warehouse_id", "company_id", "out_of_stock_display"} & vals.keys():
             self._trigger_stock_availability_sweep()
+            if any(website.out_of_stock_display in ("hide", "last") for website in self):
+                self._disable_native_unpublishing()
         return res
+
+    @api.model
+    def _disable_native_unpublishing(self):
+        """Turn off Odoo's own unpublishing, which this module replaces.
+
+        Not on install: a database with every website on "show" is not using
+        this module and keeps its own behaviour.
+        """
+        group = self.env.ref("website_sale.group_unpublish_out_of_stock", raise_if_not_found=False)
+        editor = self.env.ref("website.group_website_restricted_editor", raise_if_not_found=False)
+        if group and editor:
+            editor.sudo()._remove_group(group.sudo())
 
     def _trigger_stock_availability_sweep(self):
         """Ask the sweep to reconcile the catalogue, out of the request.

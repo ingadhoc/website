@@ -276,7 +276,7 @@ msgstr "Plantilla de producto"
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model,name:website_sale_stock_hide_unavailable.model_stock_quant
 msgid "Quant"
-msgstr "Cant"
+msgstr "Cantidad"
 
 #. module: website_sale_stock_hide_unavailable
 #: model:ir.model.fields.selection,name:website_sale_stock_hide_unavailable.selection__website__out_of_stock_display__show

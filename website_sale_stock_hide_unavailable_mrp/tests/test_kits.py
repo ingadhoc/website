@@ -42,6 +42,14 @@ class TestHideUnavailableKits(TransactionCase):
         )
         return kit
 
+    def _set_stock(self, template, qty):
+        self.env["stock.quant"]._update_available_quantity(
+            template.product_variant_id, self.warehouse.lot_stock_id, qty
+        )
+
+    def _rows(self, template):
+        return self.env["product.template.stock.availability"].search([("product_tmpl_id", "=", template.id)])
+
     def _queued(self):
         return self.env["product.template.stock.dirty"].search([]).product_tmpl_id
 
@@ -87,3 +95,18 @@ class TestHideUnavailableKits(TransactionCase):
         self.env["product.template.stock.dirty"].search([]).unlink()
         bom.unlink()
         self.assertIn(kit, self._queued(), "without its bill the product is no longer a kit")
+
+    def test_kit_is_hidden_when_its_components_run_out(self):
+        # The queue is only half the claim: the kit has to end up hidden.
+        component = self._product("Stocked component")
+        kit = self._kit("Stocked kit", component)
+        self.env["website"]._recompute_stock_availability(kit)
+        self.assertTrue(self._rows(kit), "a kit without component stock is unavailable")
+        self.assertNotIn(kit.id, self.env["product.template"].search(self.website.sale_product_domain()).ids)
+        self._set_stock(component, 10)
+        # free_qty of a kit comes from its components through mrp; in one
+        # transaction the cached value does not follow the component's quant.
+        self.env.invalidate_all()
+        self.env["website"]._recompute_stock_availability(kit)
+        self.assertFalse(self._rows(kit), "stock on the component makes the kit available again")
+        self.assertIn(kit.id, self.env["product.template"].search(self.website.sale_product_domain()).ids)
