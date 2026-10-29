@@ -197,11 +197,11 @@ class TestHideUnavailable(TransactionCase):
         # and clear it once the catalogue is fully reconciled.
         product = self._product("Swept")
         Param = self.env["ir.config_parameter"].sudo()
-        Param.set_param("website_sale_stock_hide_unavailable.sweep_cursor", 0)
+        Param.set_int("website_sale_stock_hide_unavailable.sweep_cursor", 0)
         self.env["website"]._cron_full_sweep_stock_availability(batch=1)
         self.assertTrue(self._rows(product), "the sweep must reconcile every candidate")
         self.assertEqual(
-            int(Param.get_param("website_sale_stock_hide_unavailable.sweep_cursor", 0)),
+            Param.get_int("website_sale_stock_hide_unavailable.sweep_cursor", 0),
             0,
             "a complete pass must reset the cursor",
         )
