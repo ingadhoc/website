@@ -295,3 +295,13 @@ class TestHideUnavailable(TransactionCase):
         shown = snippet._prepare_values().product_tmpl_id
         self.assertIn(in_stock, shown)
         self.assertNotIn(sold_out, shown, "the carousels must not show what the shop hides")
+
+    def test_post_init_hook_turns_off_the_native_unpublishing(self):
+        from .. import _post_init_hook
+
+        group = self.env.ref("website_sale.group_unpublish_out_of_stock")
+        editor = self.env.ref("website.group_website_restricted_editor")
+        editor._apply_group(group)
+        self.assertIn(group, editor.implied_ids)
+        _post_init_hook(self.env)
+        self.assertNotIn(group, editor.implied_ids, "it would undo the per-website setting")
