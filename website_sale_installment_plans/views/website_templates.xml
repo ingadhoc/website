@@ -1,39 +1,32 @@
-<?xml version="1.0"?>
-<data>
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="installment_plans" name="Installment plans">
+        <ul t-if="installment_plans" class="installment-plans list-unstyled small my-1">
+            <li t-foreach="installment_plans" t-as="plan">
+                <i class="oi me-1" data-icon="credit_card" aria-hidden="true"/>
+                <span class="fw-bold" t-out="plan['description']"/>
+                <span t-if="plan['message']" class="text-muted ms-1" t-out="plan['message']"/>
+            </li>
+        </ul>
+    </template>
+
     <template id="product_page_card_installment_plan" inherit_id="website_sale.product_price">
-        <xpath expr="//div[@id='product_unavailable']" position="before">
-            <div class="installment-plans">
-                <t t-foreach="combination_info.get('installment_plans', [])" t-as="installment">
-                    <p style="font-size: 12px; color: #666; margin: 5px 0;">
-                        <i class="fa fa-credit-card" aria-hidden="true" style="color:#000000;font-size:14px;margin-right:5px;"/>
-                        <span style="color: black; font-weight: bold;">
-                            <span t-esc="installment['description']"/>
-                        </span>
-                        <span t-if="installment['message']" style="font-size: 11px; color: #999; margin-left: 5px;">
-                            <span t-esc="installment['message']"/>
-                        </span>
-                    </p>
-                </t>
+        <xpath expr="//div[@name='product_price']" position="inside">
+            <div class="o_wsale_installment_plans">
+                <t
+                    t-call="website_sale_installment_plans.installment_plans"
+                    installment_plans="product._get_installment_plans(0 if combination_info['hide_price'] else combination_info['price'])"
+                />
             </div>
         </xpath>
     </template>
 
     <template id="product_template_products_item_installment_plan" inherit_id="website_sale.products_item">
         <xpath expr="//div[hasclass('product_price')]" position="inside">
-            <div class="installment-plans">
-                <t t-set="installment_plans" t-value="product._get_card_installments_for_shop(template_price_vals.get('price_reduce', []))"/>
-                <t t-foreach="installment_plans" t-as="installment">
-                    <p style="font-size: 12px; color: #666; margin: 5px 0;">
-                        <i class="fa fa-credit-card" aria-hidden="true" style="color:#000000;font-size:14px;margin-right:5px;"/>
-                        <span style="color: black; font-weight: bold;">
-                            <span t-esc="installment['description']"/>
-                        </span>
-                        <span t-if="installment['message']" style="font-size: 11px; color: #999; margin-left: 5px;">
-                            <span t-esc="installment['message']"/>
-                        </span>
-                    </p>
-                </t>
-            </div>
+            <t
+                t-call="website_sale_installment_plans.installment_plans"
+                installment_plans="product._get_installment_plans(0 if hide_price else template_price_vals['price_reduce'])"
+            />
         </xpath>
     </template>
-</data>
+</odoo>

@@ -7,20 +7,30 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 20.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-11 19:55+0000\n"
-"PO-Revision-Date: 2026-08-12 14:54+0000\n"
+"POT-Creation-Date: 2026-10-29 14:15+0000\n"
+"PO-Revision-Date: 2026-10-29 14:15+0000\n"
 "Last-Translator: Javier Diez <jd@adhoc.inc>\n"
-"Language-Team: Spanish <https://translation.dev-adhoc.com/projects/"
-"website-19-0/website-19-0-website_sale_installment_plans/es/>\n"
+"Language-Team: Spanish <https://translation.dev-adhoc.com/projects/website-20-0/website-20-0-website_sale_installment_plans/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.10.4\n"
+
+#. module: website_sale_installment_plans
+#. odoo-python
+#: code:addons/website_sale_installment_plans/models/product_template.py:0
+msgid "%(count)s installment of %(amount)s"
+msgstr "En %(count)s cuota de %(amount)s"
+
+#. module: website_sale_installment_plans
+#. odoo-python
+#: code:addons/website_sale_installment_plans/models/product_template.py:0
+msgid "%(count)s installments of %(amount)s (Total %(total)s)"
+msgstr "En %(count)s cuotas de %(amount)s (Total %(total)s)"
 
 #. module: website_sale_installment_plans
 #. odoo-python
@@ -35,6 +45,102 @@ msgid "%s installments of $%.2f (Total $%.2f)"
 msgstr "En %s cuotas de $%.2f (Total $%.2f)"
 
 #. module: website_sale_installment_plans
+#: model:ir.module.module,description:base.module_website_sale_installment_plans
+msgid ""
+".. |company| replace:: ADHOC SA\n"
+"\n"
+".. |company_logo| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-logo.png\n"
+"   :alt: ADHOC SA\n"
+"   :target: https://www.adhoc.com.ar\n"
+"\n"
+".. |icon| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-icon.png\n"
+"\n"
+".. image:: https://img.shields.io/badge/license-AGPL--3-blue.png\n"
+"   :target: https://www.gnu.org/licenses/agpl\n"
+"   :alt: License: AGPL-3\n"
+"\n"
+"==============================\n"
+"Website Sale Installment Plans\n"
+"==============================\n"
+"\n"
+"This module shows the card installment plans on the website shop, under the price of each product.\n"
+"\n"
+"On the product page and in the shop grid, every published installment plan of an active card of the\n"
+"website company (or of a card without company) is listed with the number of installments, the amount\n"
+"of each one and the total, in the website currency. On the product page the legend is refreshed when\n"
+"another variant is selected. Products with a zero or hidden price show no legend.\n"
+"\n"
+"Installation\n"
+"============\n"
+"\n"
+"To install this module, you need to:\n"
+"\n"
+"#. Just install ...\n"
+"\n"
+"Configuration\n"
+"=============\n"
+"\n"
+"To configure this module, you need to:\n"
+"\n"
+"#. Go to Accounting > Configuration > Cards and open a card.\n"
+"#. In its installment plans, check *Published in website* on the plans to show in the shop.\n"
+"#. Optionally fill *Message*, which is displayed at the end of the plan legend.\n"
+"\n"
+"Usage\n"
+"=====\n"
+"\n"
+"To use this module, you need to:\n"
+"\n"
+"#. Go to the website shop: each product with a price shows the published installment plans under it.\n"
+"#. Open a product: the plans are shown under the price and change with the selected variant.\n"
+"\n"
+"\n"
+".. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas\n"
+"   :alt: Try me on Runbot\n"
+"   :target: http://runbot.adhoc.com.ar/\n"
+"\n"
+"Bug Tracker\n"
+"===========\n"
+"\n"
+"Bugs are tracked on `GitHub Issues\n"
+"<https://github.com/ingadhoc/website/issues>`_. In case of trouble, please\n"
+"check there if your issue has already been reported. If you spotted it first,\n"
+"help us smashing it by providing a detailed and welcomed feedback.\n"
+"\n"
+"Credits\n"
+"=======\n"
+"\n"
+"Images\n"
+"------\n"
+"\n"
+".. image:: https://github.com/ingadhoc/website/raw/20.0/website_sale_installment_plans/static/description/feature_img.png\n"
+"\n"
+"* |company| |icon|\n"
+"\n"
+"Contributors\n"
+"------------\n"
+"\n"
+"Maintainer\n"
+"----------\n"
+"\n"
+"|company_logo|\n"
+"\n"
+"This module is maintained by the |company|.\n"
+"\n"
+"To contribute to this module, please visit https://www.adhoc.com.ar.\n"
+msgstr ""
+
+#. module: website_sale_installment_plans
+#: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__publish_on
+msgid "Auto publish on"
+msgstr "Publicar de forma automática el"
+
+#. module: website_sale_installment_plans
+#: model:ir.model.fields,help:website_sale_installment_plans.field_account_card_installment__publish_on
+msgid "Automatically publish the page on the chosen date and time."
+msgstr "Publica la página de forma automática en la fecha y hora elegidas."
+
+#. module: website_sale_installment_plans
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__can_publish
 msgid "Can Publish"
 msgstr "Puede publicar"
@@ -43,13 +149,13 @@ msgstr "Puede publicar"
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__display_name
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_product_template__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar nombre"
 
 #. module: website_sale_installment_plans
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__id
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_product_template__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_installment_plans
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__is_published
@@ -64,12 +170,17 @@ msgstr "Mensaje"
 #. module: website_sale_installment_plans
 #: model:ir.model.fields,help:website_sale_installment_plans.field_account_card_installment__message
 msgid "Message displayed at the end of the installment legend"
-msgstr ""
+msgstr "Mensaje que se muestra al final de la leyenda de cuotas"
 
 #. module: website_sale_installment_plans
 #: model:ir.model,name:website_sale_installment_plans.model_product_template
 msgid "Product"
 msgstr "Producto"
+
+#. module: website_sale_installment_plans
+#: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__published_date
+msgid "Published date"
+msgstr "Fecha de publicación"
 
 #. module: website_sale_installment_plans
 #: model_terms:ir.ui.view,arch_db:website_sale_installment_plans.account_card_form_installment_plan
@@ -79,12 +190,12 @@ msgstr "Publicado en website"
 #. module: website_sale_installment_plans
 #: model:ir.model.fields,help:website_sale_installment_plans.field_account_card_installment__website_absolute_url
 msgid "The full absolute URL to access the document through the website."
-msgstr ""
+msgstr "La URL absoluta completa para acceder al documento a través del sitio web."
 
 #. module: website_sale_installment_plans
 #: model:ir.model.fields,help:website_sale_installment_plans.field_account_card_installment__website_url
 msgid "The full relative URL to access the document through the website."
-msgstr ""
+msgstr "La URL relativa completa para acceder al documento a través del sitio web."
 
 #. module: website_sale_installment_plans
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__website_published
@@ -94,7 +205,12 @@ msgstr "Visible en el website actual"
 #. module: website_sale_installment_plans
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__website_absolute_url
 msgid "Website Absolute URL"
-msgstr ""
+msgstr "URL absoluta del sitio web"
+
+#. module: website_sale_installment_plans
+#: model:ir.module.module,shortdesc:base.module_website_sale_installment_plans
+msgid "Website Sale Installment Plan"
+msgstr "Cuotas en la tienda del sitio web"
 
 #. module: website_sale_installment_plans
 #: model:ir.model.fields,field_description:website_sale_installment_plans.field_account_card_installment__website_url
@@ -105,9 +221,3 @@ msgstr "URL del Sitio Web"
 #: model:ir.model,name:website_sale_installment_plans.model_account_card_installment
 msgid "amount to add for collection in installments"
 msgstr "CCantidad a añadir para cobro en cuotas"
-
-#~ msgid "Mensaje que se muestra al final de la leyenda de cuotas"
-#~ msgstr "Message shown at the end of installments text"
-
-#~ msgid "The full URL to access the document through the website."
-#~ msgstr "URL completa para acceder al documento a través del sitio web"
