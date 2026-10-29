@@ -20,8 +20,10 @@ class TestHideStrikethroughPrice(WebsiteSaleCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        # Enable the "Comparison price" feature so `compare_list_price` is exposed,
-        # and pricelists, which in 20.0 gate `request.pricelist` entirely.
+        # Enable the "Comparison price" feature so `compare_list_price` is
+        # exposed, and pricelists: from 20.0 `ProductCommon` archives every
+        # pricelist and drops the feature group (product/tests/common.py:38),
+        # so a test about pricelists has to turn it back on.
         cls.env["res.config.settings"].create(
             {"group_product_price_comparison": True, "group_product_pricelist": True}
         ).execute()
@@ -182,8 +184,10 @@ class TestHideStrikethroughWrapClass(HttpCase):
     """
 
     def _setup(self, hide):
-        # Same 20.0 gate as the class above: without the pricelist feature
-        # `request.pricelist` is empty and the wrapper class never appears.
+        # This class is an HttpCase and does not go through `ProductCommon`,
+        # so the feature group is whatever the database has. Turning it on
+        # keeps the test from depending on the demo data, which is what
+        # implies the group (website_sale/data/demo.xml:521).
         self.env["res.config.settings"].create({"group_product_pricelist": True}).execute()
         website = self.env["website"].search([], limit=1)
         pl = self.env["product.pricelist"].create(
