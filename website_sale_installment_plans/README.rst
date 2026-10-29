@@ -14,7 +14,12 @@
 Website Sale Installment Plans
 ==============================
 
-This module adds a feature in card installment to show installment plans on the website.
+This module shows the card installment plans on the website shop, under the price of each product.
+
+On the product page and in the shop grid, every published installment plan of an active card of the
+website company (or of a card without company) is listed with the number of installments, the amount
+of each one and the total, in the website currency. On the product page the legend is refreshed when
+another variant is selected. Products with a zero or hidden price show no legend.
 
 Installation
 ============
@@ -28,14 +33,17 @@ Configuration
 
 To configure this module, you need to:
 
-#. Go to Card installment.
-#. Choose a Card installment plan.
-#. Set the installment plan to be shown on the website.
+#. Go to Accounting > Configuration > Cards and open a card.
+#. In its installment plans, check *Published in website* on the plans to show in the shop.
+#. Optionally fill *Message*, which is displayed at the end of the plan legend.
 
 Usage
 =====
 
 To use this module, you need to:
+
+#. Go to the website shop: each product with a price shows the published installment plans under it.
+#. Open a product: the plans are shown under the price and change with the selected variant.
 
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
@@ -56,7 +64,7 @@ Credits
 Images
 ------
 
-. image:: https://github.com/ingadhoc/website/raw/16.0/website_sale_installment_plans/static/description/feature_img.png
+.. image:: https://github.com/ingadhoc/website/raw/20.0/website_sale_installment_plans/static/description/feature_img.png
 
 * |company| |icon|
 
