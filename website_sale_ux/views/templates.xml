@@ -34,10 +34,13 @@
             <attribute name="class" add="oe_website_sale" separator=" "/>
         </xpath>
     </template>
+    <!-- The paragraph is always rendered and hides itself: `_onChangeCombination` rewrites the
+         value when the shopper picks another variant, and a combination with no variant created
+         comes back without a reference. -->
     <template id="website_internal_ref_product" inherit_id="website_sale.product" name="Website Product Internal Ref" active="False">
         <xpath expr="//div[@id='product_details']" position="inside">
-            <p t-if="product.product_variant_count == 1 and product.product_variant_id.default_code" class="text-muted small">
-                <b><span>Internal Reference: </span></b><span t-out='product.product_variant_id.default_code'/>
+            <p t-attf-class="o_wsale_ux_internal_ref text-muted small {{'' if combination_info.get('default_code') else 'd-none'}}">
+                <b><span>Internal Reference: </span></b><span class="o_wsale_ux_internal_ref_value" t-out="combination_info.get('default_code') or ''"/>
             </p>
         </xpath>
     </template>

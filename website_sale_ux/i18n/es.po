@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 16:49+0000\n"
-"PO-Revision-Date: 2026-10-21 16:49+0000\n"
+"POT-Creation-Date: 2026-10-29 15:06+0000\n"
+"PO-Revision-Date: 2026-10-29 15:06+0000\n"
 "Last-Translator: julia elizondo <jue@adhoc.inc>\n"
 "Language-Team: Spanish <https://translation.dev-adhoc.com/projects/"
 "website-19-0/website-19-0-website_sale_ux/es/>\n"
@@ -179,6 +179,11 @@ msgstr ""
 #: code:addons/website_sale_ux/static/src/website_builder/product_list_option.xml:0
 msgid "Prod. Internal. Ref."
 msgstr "Ref. Interna Prod."
+
+#. module: website_sale_ux
+#: model:ir.model,name:website_sale_ux.model_product_template
+msgid "Product"
+msgstr "Producto"
 
 #. module: website_sale_ux
 #. odoo-javascript
