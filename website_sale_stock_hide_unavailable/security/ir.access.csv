@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_availability_user,product.template.stock.availability user,product.template.stock.availability,base.group_user,r,
+access_availability_system,product.template.stock.availability system,product.template.stock.availability,base.group_system,crud,
+access_dirty_system,product.template.stock.dirty system,product.template.stock.dirty,base.group_system,crud,
