@@ -1,7 +1,7 @@
 {
     "name": "Website Sale Stock Hide Unavailable",
     "summary": "Hide or push down out-of-stock products in the eCommerce shop",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "category": "Website",
     "author": "ADHOC SA",
     "license": "AGPL-3",
