@@ -4,14 +4,7 @@
         <ul t-if="installment_plans" class="installment-plans list-unstyled small my-1">
             <li t-foreach="installment_plans" t-as="plan">
                 <i class="oi me-1" data-icon="credit_card" aria-hidden="true"/>
-                <span class="fw-bold">
-                    <t t-if="plan['count'] == 1">
-                        <t t-out="plan['count']"/> installment of <span t-out="plan['amount']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-                    </t>
-                    <t t-else="">
-                        <t t-out="plan['count']"/> installments of <span t-out="plan['amount']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/> (Total <span t-out="plan['total']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>)
-                    </t>
-                </span>
+                <span class="fw-bold" t-out="plan['description']"/>
                 <span t-if="plan['message']" class="text-muted ms-1" t-out="plan['message']"/>
             </li>
         </ul>
