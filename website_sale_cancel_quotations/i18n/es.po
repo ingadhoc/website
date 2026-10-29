@@ -7,10 +7,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 19.0+e\n"
+"Project-Id-Version: Odoo Server 20.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-10 16:11+0000\n"
-"PO-Revision-Date: 2025-11-10 16:11+0000\n"
+"POT-Creation-Date: 2026-10-29 15:57+0000\n"
+"PO-Revision-Date: 2026-10-29 15:57+0000\n"
 "Last-Translator: ADHOC - Bot <transbot@adhoc.com.ar>, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/adhoc/teams/46451/es/)\n"
 "MIME-Version: 1.0\n"
@@ -20,9 +20,98 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: website_sale_cancel_quotations
+#: model:ir.module.module,description:base.module_website_sale_cancel_quotations
+msgid ""
+".. |company| replace:: ADHOC SA\n"
+"\n"
+".. |company_logo| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-logo.png\n"
+"   :alt: ADHOC SA\n"
+"   :target: https://www.adhoc.com.ar\n"
+"\n"
+".. |icon| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-icon.png\n"
+"\n"
+".. image:: https://img.shields.io/badge/license-AGPL--3-blue.png\n"
+"   :target: https://www.gnu.org/licenses/agpl\n"
+"   :alt: License: AGPL-3\n"
+"\n"
+"==============================\n"
+"Website Sale Cancel Quotations\n"
+"==============================\n"
+"\n"
+"Add a setting for automatic cancellation of website quotations.\n"
+"\n"
+"Installation\n"
+"============\n"
+"\n"
+"To install this module, you need to:\n"
+"\n"
+"#. Just install this module.\n"
+"\n"
+"Configuration\n"
+"=============\n"
+"\n"
+"To configure this module, you need to:\n"
+"\n"
+"#. Go to Settings > Website and, in the eCommerce block, turn on Website under\n"
+"   Cancel Old Quotations. The same setting is also available in\n"
+"   Settings > Sales, next to the one that covers back office quotations.\n"
+"#. The setting is common to all websites: the website selector at the top of\n"
+"   the page does not scope it, so turning it on from one website turns it on\n"
+"   for every one.\n"
+"#. Set how many days a quotation is kept in Cancel quotations older than. This\n"
+"   number is shared with Sales and defaults to 30 days.\n"
+"\n"
+"Usage\n"
+"=====\n"
+"\n"
+"To use this module, you need to:\n"
+"\n"
+"#. Once the setting is on, the daily Clean Old Quotations scheduled action\n"
+"   cancels every order of the website that is older than the configured number\n"
+"   of days and still in Quotation or Quotation Sent. Confirmed orders are never\n"
+"   cancelled, and each cancellation is logged in the chatter of the order.\n"
+"#. Mind that an abandoned cart is one of those orders: it is a quotation with a\n"
+"   website, and the action has no way of telling the two apart. Turning the\n"
+"   setting on therefore cancels the backlog of abandoned carts as well, which on\n"
+"   a busy shop is most of what it finds.\n"
+"#. The two settings are independent: with only Website on, back office\n"
+"   quotations are left alone; with only Sales on, website quotations are left\n"
+"   alone.\n"
+"\n"
+"\n"
+"Bug Tracker\n"
+"===========\n"
+"\n"
+"Bugs are tracked on `GitHub Issues\n"
+"<https://github.com/ingadhoc/website/issues>`_. In case of trouble, please\n"
+"check there if your issue has already been reported. If you spotted it first,\n"
+"help us smashing it by providing a detailed and welcomed feedback.\n"
+"\n"
+"Credits\n"
+"=======\n"
+"\n"
+"Images\n"
+"------\n"
+"\n"
+"* |company| |icon|\n"
+"\n"
+"Contributors\n"
+"------------\n"
+"\n"
+"Maintainer\n"
+"----------\n"
+"\n"
+"|company_logo|\n"
+"\n"
+"This module is maintained by the |company|.\n"
+"\n"
+"To contribute to this module, please visit https://www.adhoc.com.ar.\n"
+msgstr ""
+
+#. module: website_sale_cancel_quotations
 #: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
 msgid "<span>Cancel quotations older than</span>"
-msgstr "<span>Cancelar presupuestos de más de</span>"
+msgstr "<span>Cancelar presupuestos mayores que</span>"
 
 #. module: website_sale_cancel_quotations
 #: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
@@ -38,7 +127,7 @@ msgstr "<strong>Ventas</strong>"
 #: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form_inherit
 msgid "<strong>Website</strong>"
-msgstr "<strong>Sitio Web</strong>"
+msgstr "<strong>Sitio web</strong>"
 
 #. module: website_sale_cancel_quotations
 #: model_terms:ir.ui.view,arch_db:website_sale_cancel_quotations.res_config_settings_view_form
@@ -48,7 +137,7 @@ msgstr "Cancelar presupuestos viejos"
 #. module: website_sale_cancel_quotations
 #: model:ir.model.fields,field_description:website_sale_cancel_quotations.field_res_config_settings__cancel_old_website_quotations
 msgid "Cancel Old Website Quotations"
-msgstr "Cancelar Pedidios Antiguos del Sitio Web"
+msgstr "Cancelar presupuestos viejos del sitio web"
 
 #. module: website_sale_cancel_quotations
 #: model:ir.model,name:website_sale_cancel_quotations.model_res_config_settings
@@ -59,12 +148,12 @@ msgstr "Ajustes de configuración"
 #: model:ir.model.fields,field_description:website_sale_cancel_quotations.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:website_sale_cancel_quotations.field_sale_order__display_name
 msgid "Display Name"
-msgstr "Nombre para mostrar"
+msgstr "Mostrar nombre"
 
 #. module: website_sale_cancel_quotations
 #: model:ir.model.fields,help:website_sale_cancel_quotations.field_res_config_settings__cancel_old_website_quotations
 msgid "Enable automatic cancellation of old website quotations."
-msgstr "Habilitar cancelación automática de pedidos antiguos del sitio web"
+msgstr "Habilitar la cancelación automática de presupuestos viejos del sitio web."
 
 #. module: website_sale_cancel_quotations
 #: model:ir.model.fields,field_description:website_sale_cancel_quotations.field_res_config_settings__id
@@ -75,4 +164,9 @@ msgstr ""
 #. module: website_sale_cancel_quotations
 #: model:ir.model,name:website_sale_cancel_quotations.model_sale_order
 msgid "Sales Order"
-msgstr "Pedido de venta"
+msgstr "Orden de venta"
+
+#. module: website_sale_cancel_quotations
+#: model:ir.module.module,shortdesc:base.module_website_sale_cancel_quotations
+msgid "Website Sale Cancel Quotations"
+msgstr "Cancelar presupuestos del sitio web"
