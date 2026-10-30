@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 14:20+0000\n"
+"POT-Creation-Date: 2026-11-02 21:18+0000\n"
 "PO-Revision-Date: 2026-10-29 14:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,8 +23,11 @@ msgid ""
 "Website Sale Stock Hide Unavailable - MRP\n"
 "=========================================\n"
 "\n"
-"Bridge between ``website_sale_stock_hide_unavailable`` and ``mrp``. Installs\n"
-"itself when both are present.\n"
+"Bridge between ``website_sale_stock_hide_unavailable_stock`` and ``mrp``.\n"
+"Installs itself when both get installed, and on an upgrade when both are\n"
+"already there. It hangs off the Inventory bridge\n"
+"because that is where the enqueue seam lives: a kit only exists where stock\n"
+"moves do.\n"
 "\n"
 "A kit (a product with a *phantom* bill of materials) has no stock of its own:\n"
 "its availability comes from its components. ``free_qty`` already reports that\n"
@@ -51,6 +54,16 @@ msgid ""
 "\n"
 "* ADHOC SA\n"
 msgstr ""
+
+#. module: website_sale_stock_hide_unavailable_mrp
+#: model:ir.model,name:website_sale_stock_hide_unavailable_mrp.model_mrp_bom
+msgid "Bill of Material"
+msgstr "Lista de materiales"
+
+#. module: website_sale_stock_hide_unavailable_mrp
+#: model:ir.model,name:website_sale_stock_hide_unavailable_mrp.model_mrp_bom_line
+msgid "Bill of Material Line"
+msgstr "Línea de lista de materiales"
 
 #. module: website_sale_stock_hide_unavailable_mrp
 #: model:ir.model.fields,field_description:website_sale_stock_hide_unavailable_mrp.field_stock_quant__display_name
