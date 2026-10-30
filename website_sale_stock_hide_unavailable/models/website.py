@@ -5,6 +5,7 @@ from odoo.tools import SQL
 DRAIN_BATCH = 500
 SWEEP_BATCH = 2000
 SWEEP_CURSOR_PARAM = "website_sale_stock_hide_unavailable.sweep_cursor"
+REPUBLISH_BATCH = 1000
 
 
 class Website(models.Model):
@@ -36,16 +37,9 @@ class Website(models.Model):
         return domain & Domain("stock_unavailability_ids", "not any", website._hide_unavailable_scope_leaf())
 
     def _hide_unavailable_scope_leaf(self):
-        """Leaf matching the unavailability rows of this website's scope.
-
-        warehouse_id is False when the website has no warehouse set, which maps
-        to the company-wide rows. Seam a multi-warehouse bridge overrides.
-        """
+        """Leaf matching the unavailability rows of this website."""
         self.ensure_one()
-        return [
-            ("warehouse_id", "=", self.warehouse_id.id),
-            ("company_id", "=", self.company_id.id),
-        ]
+        return [("website_id", "=", self.id)]
 
     def _get_unavailable_tmpl_ids(self, templates):
         self.ensure_one()
@@ -56,19 +50,16 @@ class Website(models.Model):
         # whole catalogue as an IN list, because the shop lookup runs with
         # limit=None. Reading them as records would build the whole recordset on
         # every shop request only to intersect ids.
-        # IS NOT DISTINCT FROM: warehouse_id is NULL on the company-wide rows.
         Availability = self.env["product.template.stock.availability"]
-        Availability.flush_model(["product_tmpl_id", "warehouse_id", "company_id"])
+        Availability.flush_model(["product_tmpl_id", "website_id"])
         self.env.cr.execute(
             SQL(
                 """
                 SELECT product_tmpl_id
                   FROM product_template_stock_availability
-                 WHERE company_id = %s
-                   AND warehouse_id IS NOT DISTINCT FROM %s
+                 WHERE website_id = %s
                 """,
-                self.company_id.id,
-                self.warehouse_id.id or None,
+                self.id,
             )
         )
         return {row[0] for row in self.env.cr.fetchall()} & set(templates.ids)
@@ -80,23 +71,75 @@ class Website(models.Model):
         websites = super().create(vals_list)
         if any(website.out_of_stock_display in ("hide", "last") for website in websites):
             websites._trigger_stock_availability_sweep()
-            websites._disable_native_unpublishing()
         return websites
 
     def write(self, vals):
         res = super().write(vals)
-        if {"warehouse_id", "company_id", "out_of_stock_display"} & vals.keys():
+        if {"company_id", "out_of_stock_display"} & vals.keys():
             self._trigger_stock_availability_sweep()
-            if any(website.out_of_stock_display in ("hide", "last") for website in self):
-                self._disable_native_unpublishing()
         return res
+
+    @api.model
+    def _hide_unavailable_take_over_native(self):
+        """Take over the out-of-stock treatment from Odoo's own, at install.
+
+        The native unpublishing stops running once its group is gone, so what it
+        had already unpublished would stay unpublished for good. Those products
+        are republished first: this module keeps them published and filters the
+        listing instead, which is what keeps their page answering 200.
+        """
+        if self.env["res.groups"]._is_feature_enabled("website_sale.group_unpublish_out_of_stock"):
+            self._republish_natively_unpublished()
+        self._disable_native_unpublishing()
+
+    @api.model
+    def _republish_natively_unpublished(self):
+        """Republish what the native unpublishing had taken down.
+
+        Same signature it leaves behind, read from
+        website_sale.product_template._compute_is_published: there is no marker
+        of which products it took down, and while it was on, a sold-out one was
+        going to be republished the moment it had stock again.
+
+        Walked in batches: this runs inside the install transaction and the
+        catalogue can be large.
+        """
+        Template = self.env["product.template"].sudo()
+        domain = [
+            ("is_published", "=", False),
+            ("is_storable", "=", True),
+            ("allow_out_of_stock_order", "=", False),
+        ]
+        last_id = 0
+        while True:
+            batch = Template.search(domain + [("id", ">", last_id)], limit=REPUBLISH_BATCH, order="id")
+            if not batch:
+                break
+            last_id = max(batch.ids)
+            sold_out = batch.filtered(lambda tmpl: all(v.free_qty <= 0 for v in tmpl.product_variant_ids))
+            if sold_out:
+                dates = [(tmpl.publish_date, tmpl.id) for tmpl in sold_out]
+                sold_out.is_published = True
+                sold_out.flush_recordset()
+                # publish_date is a stored compute of is_published, so it moves
+                # to now() and cannot be written back through the ORM. Letting
+                # it move would send the whole backlog to the top of "Newest
+                # Arrivals" and hand it the "New" ribbon.
+                self.env.cr.executemany("UPDATE product_template SET publish_date = %s WHERE id = %s", dates)
+            self.env.flush_all()
+            self.env.invalidate_all()
 
     @api.model
     def _disable_native_unpublishing(self):
         """Turn off Odoo's own unpublishing, which this module replaces.
 
-        Not on install: a database with every website on "show" is not using
-        this module and keeps its own behaviour.
+        Only when the module takes over, on install and on upgrade: the setting
+        is not offered any more, so it must not stay on where nobody can see
+        it. Nothing keeps checking afterwards -- Odoo's own settings page reads
+        the group before saving and writes it back, so a module that undid it
+        mid-save would only be undone in turn, and would break the native
+        feature for whoever does turn it back on. Enabling the group over RPC
+        is still possible: the README says so.
         """
         group = self.env.ref("website_sale.group_unpublish_out_of_stock", raise_if_not_found=False)
         editor = self.env.ref("website.group_website_restricted_editor", raise_if_not_found=False)
@@ -119,26 +162,35 @@ class Website(models.Model):
     # -- Backend recompute --------------------------------------------------
 
     @api.model
-    def _hide_unavailable_active_scopes(self):
-        """Scopes the shop actually uses: {(warehouse_id | False, company_id)}."""
-        websites = self.search([("out_of_stock_display", "in", ("hide", "last"))])
-        return {(w.warehouse_id.id or False, w.company_id.id) for w in websites}
+    @api.ormcache()
+    def _hide_unavailable_any_active_scope(self):
+        """Whether any website does something with out-of-stock products.
+
+        The module ships with the shop, so most databases leave every website on
+        'show'. Asking first keeps them from paying for a feature they do not
+        use: nothing is queued and the crons find an empty queue. Cached because
+        every enqueue path asks and the answer changes a handful of times in the
+        life of a database: out_of_stock_display is one of website's
+        _clear_cache_on_fields, so the ORM drops this entry on its own when one
+        is written, and on any create or unlink.
+        """
+        return bool(self.sudo().search_count([("out_of_stock_display", "in", ("hide", "last"))], limit=1))
 
     @api.model
-    def _hide_unavailable_free_qty(self, variants, warehouse_id, company_id):
-        """Available quantity per variant for a scope.
+    def _hide_unavailable_active_scopes(self):
+        """The websites that actually do something with out-of-stock products."""
+        return self.search([("out_of_stock_display", "in", ("hide", "last"))])
 
-        Mirrors what the storefront reads: free_qty with the warehouse in
-        context (False = whole company), resolved in the scope's company so the
-        blank-warehouse case sums the right warehouses. Reuses the standard
-        batched compute (mrp kits, expiry... included). Seam a multi-warehouse
-        bridge overrides.
+    def _hide_unavailable_free_qty(self, variants):
+        """Available quantity per variant, as this website measures it.
+
+        Asks the core seam: without Inventory it resolves to the company, and
+        website_sale_stock overrides it to pass this website's warehouse. That
+        is also what the storefront reads, so both answer the same.
         """
-        variants = variants.with_context(
-            warehouse_id=warehouse_id or False,
-            allowed_company_ids=[company_id],
-        )
-        return {variant.id: variant.free_qty for variant in variants}
+        self.ensure_one()
+        variants = variants.with_context(allowed_company_ids=[self.company_id.id])
+        return {variant.id: self._get_product_available_qty(variant) for variant in variants}
 
     @api.model
     def _recompute_stock_availability(self, templates):
@@ -158,31 +210,27 @@ class Website(models.Model):
 
         active = self._hide_unavailable_active_scopes()
         existing = Availability.search([("product_tmpl_id", "in", candidates.ids)])
-        existing_by_key = {(r.product_tmpl_id.id, r.warehouse_id.id or False, r.company_id.id): r for r in existing}
+        existing_by_key = {(r.product_tmpl_id.id, r.website_id.id): r for r in existing}
         wanted = set()
         to_create = []
-        for warehouse_id, company_id in active:
-            scope_templates = candidates.filtered(lambda t, c=company_id: not t.company_id or t.company_id.id == c)
+        for website in active:
+            company = website.company_id
+            scope_templates = candidates.filtered(lambda t, c=company.id: not t.company_id or t.company_id.id == c)
             if not scope_templates:
                 continue
-            free_qty = self._hide_unavailable_free_qty(scope_templates.product_variant_ids, warehouse_id, company_id)
+            free_qty = website._hide_unavailable_free_qty(scope_templates.product_variant_ids)
             for tmpl in scope_templates:
                 # Sold out only when every variant is, same rule as _is_sold_out().
                 if any(free_qty.get(variant.id, 0.0) > 0 for variant in tmpl.product_variant_ids):
                     continue
-                key = (tmpl.id, warehouse_id or False, company_id)
+                key = (tmpl.id, website.id)
                 wanted.add(key)
                 if key not in existing_by_key:
-                    to_create.append(
-                        {
-                            "product_tmpl_id": tmpl.id,
-                            "warehouse_id": warehouse_id or False,
-                            "company_id": company_id,
-                        }
-                    )
+                    to_create.append({"product_tmpl_id": tmpl.id, "website_id": website.id})
 
+        active_ids = set(active.ids)
         stale = Availability.browse(
-            [row.id for key, row in existing_by_key.items() if (key[1], key[2]) in active and key not in wanted]
+            [row.id for key, row in existing_by_key.items() if key[1] in active_ids and key not in wanted]
         )
         if stale:
             # exists(): the other cron may have removed the same rows already.
@@ -248,14 +296,19 @@ class Website(models.Model):
         # stopping on the time budget would restart from the first candidate on
         # every run and never reach the tail of a large catalogue.
         cursor = Param.get_int(SWEEP_CURSOR_PARAM, 0)
-        if not cursor:
-            # Starting a pass: drop the rows of scopes no website uses any more.
-            active = self._hide_unavailable_active_scopes()
-            orphans = Availability.search([]).filtered(
-                lambda r: (r.warehouse_id.id or False, r.company_id.id) not in active
-            )
+        active = self._hide_unavailable_active_scopes()
+        if not cursor or not active:
+            # Starting a pass, or nothing left to compute: drop the rows of the
+            # scopes no website uses any more.
+            # A domain, not search([]) + filtered: only the orphan rows are read.
+            orphans = Availability.search([("website_id", "not in", active.ids)])
             if orphans:
                 orphans.unlink()
+        if not active:
+            # Walking the whole catalogue for nobody would cost every database
+            # with a shop a feature none of its websites turned on.
+            Param.set_int(SWEEP_CURSOR_PARAM, 0)
+            return
         domain = Template._hide_unavailable_candidate_domain()
         if in_cron:
             Cron._commit_progress(remaining=Template.search_count(domain + [("id", ">", cursor)]))

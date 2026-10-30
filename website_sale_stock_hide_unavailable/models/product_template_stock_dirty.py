@@ -4,7 +4,7 @@ from odoo import fields, models
 class ProductTemplateStockDirty(models.Model):
     """Queue of products whose e-commerce availability must be recomputed.
 
-    Filled cheaply (no dedup on insert) by the stock.quant hooks; the drain
+    Filled cheaply (no dedup on insert) by whatever moves stock; the drain
     cron deduplicates on read and clears the processed rows.
     """
 

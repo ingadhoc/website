@@ -3,26 +3,26 @@ from odoo.tools import SQL
 
 
 class ProductTemplateStockAvailability(models.Model):
-    """Precomputed e-commerce unavailability.
+    """Precomputed e-commerce unavailability, per website.
 
-    Polarity rule: a row exists only for products that are NOT available in a
-    given scope. Absence of a row means the product is visible. Missing data
-    therefore fails open: we never hide a sellable product because the cron did
-    not run yet.
+    Polarity rule: a row exists only for products that are NOT available on a
+    given website; absence means visible. Missing data therefore fails open: a
+    sellable product is never hidden because the cron did not run yet.
+
+    The scope is the website and not the warehouse because the website is what
+    knows how availability is measured: with Inventory installed it resolves to
+    its warehouse, and without it, to the company.
     """
 
     _name = "product.template.stock.availability"
     _description = "E-commerce precomputed stock unavailability"
 
     product_tmpl_id = fields.Many2one("product.template", required=True, index=True, ondelete="cascade")
-    warehouse_id = fields.Many2one(
-        "stock.warehouse", index=True, help="Empty means the availability is measured over the whole company."
-    )
-    company_id = fields.Many2one("res.company", required=True, index=True)
+    website_id = fields.Many2one("website", required=True, index=True, ondelete="cascade")
 
     _scope_uniq = models.Constraint(
-        "unique(product_tmpl_id, warehouse_id, company_id)",
-        "The unavailability of a product is unique per warehouse scope.",
+        "unique(product_tmpl_id, website_id)",
+        "The unavailability of a product is unique per website.",
     )
 
     @api.model
@@ -43,10 +43,9 @@ class ProductTemplateStockAvailability(models.Model):
         uid = self.env.uid
         rows = SQL(", ").join(
             SQL(
-                "(%s, %s, %s, %s, now() at time zone 'UTC', %s, now() at time zone 'UTC')",
+                "(%s, %s, %s, now() at time zone 'UTC', %s, now() at time zone 'UTC')",
                 vals["product_tmpl_id"],
-                vals.get("warehouse_id") or None,
-                vals["company_id"],
+                vals["website_id"],
                 uid,
                 uid,
             )
@@ -56,8 +55,7 @@ class ProductTemplateStockAvailability(models.Model):
             SQL(
                 """
                 INSERT INTO product_template_stock_availability
-                    (product_tmpl_id, warehouse_id, company_id,
-                     create_uid, create_date, write_uid, write_date)
+                    (product_tmpl_id, website_id, create_uid, create_date, write_uid, write_date)
                 VALUES %s
                 ON CONFLICT DO NOTHING
                 """,
@@ -68,15 +66,3 @@ class ProductTemplateStockAvailability(models.Model):
         # inverse one2many, which a plain create() would have invalidated too.
         self.invalidate_model()
         self.env["product.template"].invalidate_model(["stock_unavailability_ids"])
-
-    def init(self):
-        # Postgres unique() does not enforce uniqueness across NULLs, so the
-        # company-wide rows (warehouse_id IS NULL) need their own partial index.
-        self.env.cr.execute(
-            SQL("""
-            CREATE UNIQUE INDEX IF NOT EXISTS
-                product_template_stock_availability_company_wide_uniq
-            ON product_template_stock_availability (product_tmpl_id, company_id)
-            WHERE warehouse_id IS NULL
-        """)
-        )

@@ -7,13 +7,15 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
+    "auto_install": True,
     "depends": [
-        "website_sale_stock",
+        "website_sale",
     ],
     "data": [
         "security/ir.access.csv",
         "data/ir_cron.xml",
         "views/res_config_settings_views.xml",
     ],
+    "post_init_hook": "_post_init_hook",
     "website": "https://github.com/ingadhoc/website",
 }
