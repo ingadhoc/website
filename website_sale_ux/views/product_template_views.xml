@@ -13,8 +13,7 @@
 
     <template id="products_categories_list" inherit_id="website_sale.products_categories_list">
         <xpath expr="//a" position="replace">
-            <!-- Same link core draws: back to the shop root with every filter cleared. Only the
-                 label differs, so the entry reads as the way out of the category tree. -->
+            <!-- Core's own link; only the label differs. -->
             <a
                 t-att-href="keep(shop_path, **reset_filters)"
                 t-attf-class="{{not category and 'text-decoration-underline'}} p-0"
