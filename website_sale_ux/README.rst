@@ -19,10 +19,19 @@ Website Sale UX
 #. Adds an option to disable returning categories on shop search bar. To do so you need to go to website settings and check option "Disable Categories Search".
 #. Adds a button on the filters sidebar on ecommerce to get back to the shop page unapplying all filters previously set
 #. Makes the native fields description_ecommerce and website_description visible on product.template backend view
+<<<<<<< c6e054fcd09c8528712497ab4e795e93ef8eb4cd
 #. Adds a toggle button on website Builder for 'Products list page' customization, called "Prod. Internal. Ref.". This button shows/hides the product internal reference (default_code) on frontend shop views.
 #. Adds a toggle "eCommerce Desc." on the "Products Design" panel of the website Builder, which shows/hides the eCommerce description (description_ecommerce) on the product tiles of the shop, of the wishlist page and of the "Products" dynamic snippet. Natively the shop only offers the quotation description (description_sale), while the product page only shows the eCommerce one, so both can now be shown together, either of them or none. Core's own toggle is renamed from "Description" to "Quotation Desc." to tell them apart. Being an html field, the eCommerce description is clamped to 3 lines on the tile.
 #. Shows the product ribbon (product.ribbon: "Sale", "New", etc.) on the cards of the "Products" dynamic snippet. Natively the ribbon is only drawn on the /shop tile and on the product page, so a product with a ribbon looked plain on the home page carousel. It is always active and has no editor option: the ribbon resolution is the same one core uses on the shop (variant ribbon, then template ribbon, then the automatically assigned ones), so the same product shows the same ribbon everywhere.
 #. Moves the badge-style product ribbon clear of the wishlist button on the shop tiles. Natively both are placed on the same top-right corner of the tile and the button, having no ribbon z-index to compete with, paints over the label and hides it.
+||||||| 6c0b62475ff1a385829b1edeae86478ad23be8ec
+#. A toggle button is added on website Builder for 'Product page' cutomization, called "Sale description". This button shows/hides the sale_description field on frontend view.
+#. Shows the expand/collapse chevron next to the shop categories that have subcategories, on the desktop sidebar and on the mobile filters panel, when the "Collapse Category Recursive" option is enabled. Natively the chevron is hidden, so nothing tells the visitor that those categories can be expanded.
+=======
+#. A toggle button is added on website Builder for 'Product page' cutomization, called "Sale description". This button shows/hides the sale_description field on frontend view.
+#. Shows the expand/collapse chevron next to the shop categories that have subcategories, on the desktop sidebar and on the mobile filters panel, when the "Collapse Category Recursive" option is enabled. Natively the chevron is hidden, so nothing tells the visitor that those categories can be expanded.
+#. Keeps the product description of the product page (website_description) within the site margins when it is loaded from the backend. Natively that block is full-width because the website Builder blocks bring their own container, so text or images saved from the backend form were rendered against the screen edges. Builder blocks are left as they are, including full-width sections with a background; when a description mixes both, the paragraphs, lists and other elements loaded from the backend get the margins and the Builder blocks keep their width.
+>>>>>>> 227ce7e57980d0862299d63a33237d7e75410003
 
 Installation
 ============

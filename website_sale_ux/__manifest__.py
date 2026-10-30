@@ -43,7 +43,14 @@
             "website_sale_ux/static/src/website_builder/**/*",
         ],
         "web.assets_frontend": [
+<<<<<<< c6e054fcd09c8528712497ab4e795e93ef8eb4cd
             "website_sale_ux/static/src/scss/product_tile.scss",
+||||||| 6c0b62475ff1a385829b1edeae86478ad23be8ec
+            "website_sale_ux/static/src/scss/products_categories_list.scss",
+=======
+            "website_sale_ux/static/src/scss/products_categories_list.scss",
+            "website_sale_ux/static/src/scss/product_full_description.scss",
+>>>>>>> 227ce7e57980d0862299d63a33237d7e75410003
         ],
     },
     "installable": False,
