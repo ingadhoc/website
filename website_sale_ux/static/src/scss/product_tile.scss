@@ -53,8 +53,7 @@
 }
 
 // Core pins price and actions to the bottom of the tile on the list view only, so on a grid row
-// each price sits right under its own text and they end up at different heights. `:where()` keeps
-// the specificity at zero, so a theme can still override it without `!important`.
+// each price sits under its own text and prices end up at different heights.
 .o_wsale_products_opt_layout_catalog:where(
     .o_wsale_products_opt_design_thumbs,
     .o_wsale_products_opt_design_chips,
@@ -62,4 +61,10 @@
     .o_wsale_products_opt_design_grid
 ) .o_wsale_product_sub {
     margin-top: auto;
+}
+
+// Core orders the tile with a flex map (2 previewer, 4 text, 6 price). Without an order of its
+// own the reference lands on 0, above the product name.
+.o_wsale_ux_tile_ref {
+    order: var(--o-wsale-ux-tile-ref-order, 5);
 }
