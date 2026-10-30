@@ -14,7 +14,7 @@ class ProductTemplate(models.Model):
 
     # bypass_search_access: the 'not any' filter in website.sale_product_domain
     # must resolve for public/portal shoppers without granting them read access
-    # to this internal table (which would leak per-warehouse stock over RPC).
+    # to this internal table (which would leak stock figures over RPC).
     stock_unavailability_ids = fields.One2many(
         "product.template.stock.availability",
         "product_tmpl_id",
@@ -24,10 +24,25 @@ class ProductTemplate(models.Model):
     def write(self, vals):
         res = super().write(vals)
         if RECOMPUTE_TRIGGER_FIELDS & vals.keys():
-            self.sudo()._enqueue_stock_availability()
+            self._hide_unavailable_enqueue_candidates()
         return res
 
+    def _hide_unavailable_enqueue_candidates(self):
+        """Enqueue the ones a website would act on, if any website would.
+
+        Asking first is what keeps a database where nobody turned the feature on
+        from paying for it on every write that could have moved availability.
+        Products that are no longer candidates are enqueued too, to clear the
+        rows they still have.
+        """
+        if not self or not self.env["website"]._hide_unavailable_any_active_scope():
+            return
+        self.sudo().filtered(
+            lambda tmpl: tmpl._hide_unavailable_is_candidate() or tmpl.stock_unavailability_ids
+        )._enqueue_stock_availability()
+
     def _enqueue_stock_availability(self):
+        # Raw insert: _hide_unavailable_enqueue_candidates is what decides who.
         if not self:
             return
         self.env["product.template.stock.dirty"].sudo().create([{"product_tmpl_id": tmpl_id} for tmpl_id in self.ids])

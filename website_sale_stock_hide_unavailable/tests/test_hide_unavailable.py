@@ -1,3 +1,4 @@
+from odoo import fields
 from odoo.tests import TransactionCase, tagged
 
 
@@ -7,13 +8,10 @@ class TestHideUnavailable(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.company = cls.env.company
-        cls.wh_a = cls.env["stock.warehouse"].search([("company_id", "=", cls.company.id)], limit=1)
-        cls.wh_b = cls.env["stock.warehouse"].create({"name": "WH B", "code": "WHB", "company_id": cls.company.id})
         cls.website = cls.env["website"].create(
             {
                 "name": "Shop A",
                 "company_id": cls.company.id,
-                "warehouse_id": cls.wh_a.id,
                 "out_of_stock_display": "hide",
             }
         )
@@ -31,11 +29,12 @@ class TestHideUnavailable(TransactionCase):
             }
         )
 
-    def _set_stock(self, template, warehouse, qty):
-        self._set_variant_stock(template.product_variant_id, warehouse, qty)
+    def _set_stock(self, template, qty):
+        self._set_variant_stock(template.product_variant_id, qty)
 
-    def _set_variant_stock(self, variant, warehouse, qty):
-        self.env["stock.quant"]._update_available_quantity(variant, warehouse.lot_stock_id, qty)
+    def _set_variant_stock(self, variant, qty):
+        # Without Inventory, qty_available is a plain company-dependent column.
+        variant.with_company(self.company).qty_available = qty
 
     def _add_variants(self, template):
         attribute = self.env["product.attribute"].create(
@@ -135,7 +134,7 @@ class TestHideUnavailable(TransactionCase):
 
     def test_in_stock_is_visible(self):
         product = self._product("In stock")
-        self._set_stock(product, self.wh_a, 7)
+        self._set_stock(product, 7)
         self.env["website"]._recompute_stock_availability(product)
         self.assertFalse(self._rows(product))
         self.assertIn(product.id, self._shop_ids(self.website))
@@ -151,7 +150,7 @@ class TestHideUnavailable(TransactionCase):
     def test_variants_visible_when_one_has_stock(self):
         product = self._product("Partly in stock")
         self._add_variants(product)
-        self._set_variant_stock(product.product_variant_ids[0], self.wh_a, 5)
+        self._set_variant_stock(product.product_variant_ids[0], 5)
         self.env["website"]._recompute_stock_availability(product)
         self.assertFalse(self._rows(product), "one variant in stock keeps the product visible")
         self.assertIn(product.id, self._shop_ids(self.website))
@@ -165,50 +164,6 @@ class TestHideUnavailable(TransactionCase):
         self.assertTrue(self._rows(product), "new variants without stock do not make it reappear")
         self.assertNotIn(product.id, self._shop_ids(self.website))
 
-    def test_blank_warehouse_resolves_company_wide(self):
-        website = self.env["website"].create(
-            {
-                "name": "Shop company",
-                "company_id": self.company.id,
-                "warehouse_id": False,
-                "out_of_stock_display": "hide",
-            }
-        )
-        product = self._product("Company scope")
-        # stock in any company warehouse must make it visible company-wide
-        self._set_stock(product, self.wh_b, 3)
-        self.env["website"]._recompute_stock_availability(product)
-        self.assertFalse(
-            self._rows(product).filtered(lambda r: not r.warehouse_id),
-            "company-wide scope should see stock from any warehouse",
-        )
-        self.assertIn(product.id, self._shop_ids(website))
-
-    def test_two_websites_distinct_warehouses(self):
-        website_b = self.env["website"].create(
-            {
-                "name": "Shop B",
-                "company_id": self.company.id,
-                "warehouse_id": self.wh_b.id,
-                "out_of_stock_display": "hide",
-            }
-        )
-        product = self._product("Only in A")
-        self._set_stock(product, self.wh_a, 5)  # stock in A, none in B
-        self.env["website"]._recompute_stock_availability(product)
-        self.assertIn(product.id, self._shop_ids(self.website), "visible in A")
-        self.assertNotIn(product.id, self._shop_ids(website_b), "hidden in B")
-
-    def test_quant_hook_enqueues_only_candidates(self):
-        candidate = self._product("Candidate")
-        sellable = self._product("Sellable", allow_oos=True)
-        self.env["product.template.stock.dirty"].search([]).unlink()
-        self._set_stock(candidate, self.wh_a, 1)
-        self._set_stock(sellable, self.wh_a, 1)
-        queued = self.env["product.template.stock.dirty"].search([]).product_tmpl_id
-        self.assertIn(candidate, queued)
-        self.assertNotIn(sellable, queued)
-
     def test_drain_cron_roundtrip(self):
         product = self._product("Roundtrip")
         self.env["product.template.stock.dirty"].search([]).unlink()
@@ -217,7 +172,7 @@ class TestHideUnavailable(TransactionCase):
         self.assertTrue(self._rows(product))
         self.assertFalse(self.env["product.template.stock.dirty"].search([]))
         # restock -> hook enqueues -> drain removes the row
-        self._set_stock(product, self.wh_a, 4)
+        self._set_stock(product, 4)
         self.env["website"]._cron_drain_stock_availability()
         self.assertFalse(self._rows(product))
         self.assertIn(product.id, self._shop_ids(self.website))
@@ -273,7 +228,6 @@ class TestHideUnavailable(TransactionCase):
             {
                 "name": "Shop born hidden",
                 "company_id": self.company.id,
-                "warehouse_id": self.wh_a.id,
                 "out_of_stock_display": "hide",
             }
         )
@@ -296,7 +250,7 @@ class TestHideUnavailable(TransactionCase):
         self.website.out_of_stock_display = "last"
         out = self._product("Last one")
         keep = self._product("Keep")
-        self._set_stock(keep, self.wh_a, 2)
+        self._set_stock(keep, 2)
         self.env["website"]._recompute_stock_availability(out + keep)
         unavailable = self.website._get_unavailable_tmpl_ids(out + keep)
         self.assertEqual(unavailable, {out.id})
@@ -305,7 +259,7 @@ class TestHideUnavailable(TransactionCase):
 
     def test_carousels_from_a_filter_hide_out_of_stock(self):
         in_stock = self._product("Carousel in stock")
-        self._set_stock(in_stock, self.wh_a, 5)
+        self._set_stock(in_stock, 5)
         sold_out = self._product("Carousel sold out")
         self.env["website"]._recompute_stock_availability(in_stock + sold_out)
         self.assertTrue(self._rows(sold_out))
@@ -318,23 +272,81 @@ class TestHideUnavailable(TransactionCase):
         self.assertIn(in_stock, shown)
         self.assertNotIn(sold_out, shown, "the carousels must not show what the shop hides")
 
-    def test_switching_to_hide_turns_off_the_native_unpublishing(self):
+    def _enable_native_unpublishing(self):
+        feature = "website_sale.group_unpublish_out_of_stock"
+        self.env.ref("website.group_website_restricted_editor")._apply_group(self.env.ref(feature))
+        self.assertTrue(self.env["res.groups"]._is_feature_enabled(feature))
+
+    def test_saving_the_settings_stores_the_choice_and_leaves_the_native_alone(self):
+        # The real path, through res.config.settings: the module takes the group
+        # off when it takes over and does not keep fighting for it afterwards.
+        # Odoo reads the group before saving and writes back what it read, so a
+        # module undoing it mid-save gets undone in turn -- and would break the
+        # native feature for whoever does turn it back on.
         Groups = self.env["res.groups"]
         feature = "website_sale.group_unpublish_out_of_stock"
-        editor = self.env.ref("website.group_website_restricted_editor")
-        editor._apply_group(self.env.ref(feature))
-        self.assertTrue(Groups._is_feature_enabled(feature))
-        site = self.env["website"].create(
-            {"name": "Native off", "company_id": self.company.id, "out_of_stock_display": "show"}
+        self.assertFalse(Groups._is_feature_enabled(feature), "the install took it off")
+        settings = self.env["res.config.settings"].create(
+            {"website_id": self.website.id, "out_of_stock_display": "last"}
         )
-        site.out_of_stock_display = "hide"
-        self.assertFalse(Groups._is_feature_enabled(feature), "it would undo the per-website setting")
+        settings.execute()
+        self.assertEqual(self.website.out_of_stock_display, "last")
+        self.assertFalse(Groups._is_feature_enabled(feature))
+
+    def test_install_republishes_what_the_native_had_unpublished(self):
+        # Once the group is gone the native compute stops running, so what it
+        # had taken down would stay down for good.
+        Groups = self.env["res.groups"]
+        feature = "website_sale.group_unpublish_out_of_stock"
+        self._enable_native_unpublishing()
+        product = self._product("Unpublished by Odoo")
+        self.assertFalse(product.is_published, "the native one takes it down for having no stock")
+
+        self.env["website"]._hide_unavailable_take_over_native()
+
+        self.assertFalse(Groups._is_feature_enabled(feature))
+        self.assertTrue(product.is_published, "its page must keep answering 200")
+
+    def test_the_take_over_keeps_the_publish_date(self):
+        # publish_date is a stored compute of is_published: letting it move
+        # would send the whole backlog to the top of "Newest Arrivals".
+        self._enable_native_unpublishing()
+        product = self._product("Old arrival")
+        was = fields.Datetime.to_datetime("2020-01-01 00:00:00")
+        self.env.cr.execute("UPDATE product_template SET publish_date = %s WHERE id = %s", (was, product.id))
+        product.invalidate_recordset(["publish_date"])
+
+        self.env["website"]._hide_unavailable_take_over_native()
+
+        self.assertTrue(product.is_published)
+        self.assertEqual(product.publish_date, was)
+
+    def test_the_take_over_leaves_the_rest_unpublished(self):
+        self._enable_native_unpublishing()
+        by_hand = self._product("Unpublished by hand")
+        self._set_stock(by_hand, 5)
+        self.assertTrue(by_hand.is_published, "with stock the native one leaves it published")
+        by_hand.is_published = False
+        self.env["website"]._hide_unavailable_take_over_native()
+        self.assertFalse(by_hand.is_published, "with stock, the native one had not touched it")
+
+    def test_nothing_is_queued_when_no_website_hides(self):
+        # The module ships with the shop: a database where nobody turned it on
+        # must not pay for it.
+        self.website.out_of_stock_display = "show"
+        product = self._product("Nobody uses it")
+        self.env["product.template.stock.dirty"].search([]).unlink()
+        self._set_stock(product, 5)
+        self.assertFalse(
+            self.env["product.template.stock.dirty"].search([]),
+            "with no website hiding or pushing down, there is nothing to recompute",
+        )
 
     def test_carousels_from_a_server_action_hide_out_of_stock(self):
         # The "Recently sold", "Recently viewed" and "Sold with" carousels are
         # backed by a server action, where filter_id is empty.
         in_stock = self._product("Action in stock")
-        self._set_stock(in_stock, self.wh_a, 5)
+        self._set_stock(in_stock, 5)
         sold_out = self._product("Action sold out")
         self.env["website"]._recompute_stock_availability(in_stock + sold_out)
         self.assertTrue(self._rows(sold_out))
@@ -348,10 +360,114 @@ class TestHideUnavailable(TransactionCase):
         # with stock changes what the shop shows.
         product = self._product("Variant archived")
         self._add_variants(product)
-        self._set_variant_stock(product.product_variant_ids[0], self.wh_a, 5)
+        self._set_variant_stock(product.product_variant_ids[0], 5)
         self.env["website"]._recompute_stock_availability(product)
         self.assertFalse(self._rows(product))
         self.env["product.template.stock.dirty"].search([]).unlink()
         product.product_variant_ids[0].action_archive()
         queued = self.env["product.template.stock.dirty"].search([]).product_tmpl_id
         self.assertIn(product, queued)
+
+    def _confirmed_order(self, template, qty):
+        partner = self.env["res.partner"].create({"name": "QA customer"})
+        order = self.env["sale.order"].create(
+            {
+                "partner_id": partner.id,
+                "order_line": [(0, 0, {"product_id": template.product_variant_id.id, "product_uom_qty": qty})],
+            }
+        )
+        order.action_confirm()
+        return order
+
+    def _queued(self):
+        return self.env["product.template.stock.dirty"].search([]).product_tmpl_id
+
+    def test_changing_a_confirmed_order_line_enqueues(self):
+        # The product has no stock, so with Inventory there is nothing to
+        # reserve and no quant is written: the enqueue can only be this hook.
+        # That is what makes this run in both worlds.
+        product = self._product("Live order")
+        order = self._confirmed_order(product, 1)
+        self.env["product.template.stock.dirty"].search([]).unlink()
+        order.order_line.product_uom_qty = 5
+        self.assertIn(product, self._queued())
+
+    def test_a_new_line_on_a_confirmed_order_enqueues(self):
+        product = self._product("Grown order")
+        other = self._product("Second product")
+        order = self._confirmed_order(product, 1)
+        self.env["product.template.stock.dirty"].search([]).unlink()
+        self.env["sale.order.line"].create(
+            {"order_id": order.id, "product_id": other.product_variant_id.id, "product_uom_qty": 1}
+        )
+        self.assertIn(other, self._queued())
+
+    def test_a_line_on_a_draft_order_does_not_enqueue(self):
+        # A quotation moves nothing: free_qty only counts confirmed lines.
+        product = self._product("Quoted")
+        partner = self.env["res.partner"].create({"name": "QA customer"})
+        self.env["product.template.stock.dirty"].search([]).unlink()
+        self.env["sale.order"].create(
+            {
+                "partner_id": partner.id,
+                "order_line": [(0, 0, {"product_id": product.product_variant_id.id, "product_uom_qty": 1})],
+            }
+        )
+        self.assertNotIn(product, self._queued())
+
+    def test_a_confirmed_order_line_takes_the_product_out_of_the_shop(self):
+        """Without Inventory, the confirmed line carries the outgoing quantity."""
+        if "stock.quant" in self.env:
+            self.skipTest("with Inventory the quant holds the reservation, not the line")
+        product = self._product("Live order effect")
+        self._set_stock(product, 10)
+        order = self._confirmed_order(product, 1)
+        self.env["website"]._cron_drain_stock_availability()
+        self.assertFalse(self._rows(product), "free to sell, visible")
+
+        order.order_line.product_uom_qty = 10
+        self.env["website"]._cron_drain_stock_availability()
+        self.assertTrue(self._rows(product), "nothing free to sell, hidden")
+
+    def test_zeroing_a_confirmed_order_line_brings_the_product_back(self):
+        # Odoo does not let a confirmed line be deleted; it asks for quantity 0.
+        if "stock.quant" in self.env:
+            self.skipTest("with Inventory the quant holds the reservation, not the line")
+        product = self._product("Trimmed order")
+        self._set_stock(product, 10)
+        order = self._confirmed_order(product, 10)
+        self.env["website"]._cron_drain_stock_availability()
+        self.assertTrue(self._rows(product))
+
+        order.order_line.product_uom_qty = 0
+        self.env["website"]._cron_drain_stock_availability()
+        self.assertFalse(self._rows(product), "with nothing ordered, the balance is back")
+
+    def test_vendor_bill_brings_the_product_back(self):
+        """Sin Inventario, el stock entra por la factura de proveedor."""
+        if "stock.quant" in self.env:
+            self.skipTest("con Inventario el stock sale de los quants, no de la factura")
+        product = self._product("Repuesto")
+        self.env["website"]._recompute_stock_availability(product)
+        self.assertTrue(self._rows(product), "sin stock, oculto")
+        self.assertNotIn(product.id, self._shop_ids(self.website))
+
+        partner = self.env["res.partner"].create({"name": "Proveedor QA"})
+        bill = self.env["account.move"].create(
+            {
+                "move_type": "in_invoice",
+                "partner_id": partner.id,
+                "invoice_date": fields.Date.today(),
+                "invoice_line_ids": [
+                    (0, 0, {"product_id": product.product_variant_id.id, "quantity": 5, "price_unit": 10.0})
+                ],
+            }
+        )
+        bill.action_post()
+        self.env.invalidate_all()
+
+        queued = self.env["product.template.stock.dirty"].search([]).product_tmpl_id
+        self.assertIn(product, queued, "publicar la factura tiene que encolar el producto")
+        self.env["website"]._recompute_stock_availability(product)
+        self.assertFalse(self._rows(product), "con stock de la factura, vuelve a verse")
+        self.assertIn(product.id, self._shop_ids(self.website))
