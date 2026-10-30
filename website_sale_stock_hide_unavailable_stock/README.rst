@@ -3,7 +3,8 @@ Website Sale Stock Hide Unavailable - Inventory
 ===============================================
 
 Bridge between ``website_sale_stock_hide_unavailable`` and Inventory. Installs
-itself when both are present.
+itself when both get installed, and on an upgrade when both are already there.
+A plain ``-u`` of the core module does not bring it in.
 
 Without Inventory the shop reads the company-wide ``qty_available`` that Odoo
 keeps in ``product``, and the core module already follows what moves it:

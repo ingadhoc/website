@@ -2,8 +2,11 @@
 Website Sale Stock Hide Unavailable - MRP
 =========================================
 
-Bridge between ``website_sale_stock_hide_unavailable`` and ``mrp``. Installs
-itself when both are present.
+Bridge between ``website_sale_stock_hide_unavailable_stock`` and ``mrp``.
+Installs itself when both get installed, and on an upgrade when both are
+already there. It hangs off the Inventory bridge
+because that is where the enqueue seam lives: a kit only exists where stock
+moves do.
 
 A kit (a product with a *phantom* bill of materials) has no stock of its own:
 its availability comes from its components. ``free_qty`` already reports that
