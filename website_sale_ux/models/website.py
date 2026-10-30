@@ -2,7 +2,7 @@
 # For copyright and license notices, see __manifest__.py file in module root
 # directory
 ##############################################################################
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class Website(models.Model):
@@ -21,7 +21,6 @@ class Website(models.Model):
                     res.pop(idx)
         return res
 
-    @api.ormcache("self.id")
     def _get_disable_categories_search(self):
         self.ensure_one()
         return self.disable_categories_search
