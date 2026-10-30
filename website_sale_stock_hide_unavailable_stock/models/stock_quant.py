@@ -26,7 +26,7 @@ class StockQuant(models.Model):
         using stored columns, takes no row locks on product_template (SELECT,
         not UPDATE), and writes only to the queue table.
         """
-        if not self.ids:
+        if not self.ids or not self.env["website"]._hide_unavailable_any_active_scope():
             return
         self.env.cr.execute(
             SQL(
@@ -48,9 +48,7 @@ class StockQuant(models.Model):
                 tuple(self.ids),
             )
         )
-        extra = self._hide_unavailable_extra_templates()
-        if extra:
-            extra.filtered(lambda t: t._hide_unavailable_is_candidate())._enqueue_stock_availability()
+        self._hide_unavailable_extra_templates()._hide_unavailable_enqueue_candidates()
 
     def _hide_unavailable_extra_templates(self):
         """Templates these quants affect beyond the product they are on.

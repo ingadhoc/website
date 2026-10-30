@@ -9,7 +9,7 @@
     "installable": True,
     "auto_install": True,
     "depends": [
-        "website_sale_stock_hide_unavailable",
+        "website_sale_stock_hide_unavailable_stock",
         "mrp",
     ],
     "website": "https://github.com/ingadhoc/website",

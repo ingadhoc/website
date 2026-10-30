@@ -25,7 +25,7 @@ class MrpBom(models.Model):
     def unlink(self):
         kits = self._hide_unavailable_kits()
         res = super().unlink()
-        kits._enqueue_stock_availability()
+        kits._hide_unavailable_enqueue_candidates()
         return res
 
     def _hide_unavailable_kits(self):
@@ -34,7 +34,7 @@ class MrpBom(models.Model):
         return kits.filtered(lambda tmpl: tmpl._hide_unavailable_is_candidate())
 
     def _enqueue_hide_unavailable_kits(self):
-        self._hide_unavailable_kits()._enqueue_stock_availability()
+        self._hide_unavailable_kits()._hide_unavailable_enqueue_candidates()
 
 
 class MrpBomLine(models.Model):
