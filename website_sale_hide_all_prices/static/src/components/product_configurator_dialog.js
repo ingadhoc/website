@@ -1,6 +1,6 @@
-import { useSubEnv } from "@odoo/owl";
 import { ProductConfiguratorDialog } from "@sale/js/product_configurator_dialog/product_configurator_dialog";
 import { patch } from "@web/core/utils/patch";
+import { useSubEnv } from "@web/owl2/utils";
 import { session } from "@web/session";
 
 patch(ProductConfiguratorDialog.prototype, {
