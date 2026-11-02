@@ -19,6 +19,10 @@ class TestHiddenPrices(HideAllPricesHttpCommon):
         super().setUpClass()
         cls.portal_user = new_test_user(cls.env, login="hide_prices_portal", groups="base.group_portal")
         cls.portal_user.partner_id.write(dict(cls.dummy_partner_address_values, name="Hide Prices Portal"))
+        # Accessories and the reference price render after the hidden cart price blocks
+        cls.priced_product.accessory_product_ids = cls.product
+        cls.priced_product.base_unit_count = 2
+        cls.website.show_product_reference_price = True
         cls.env["product.wishlist"].create(
             {
                 "partner_id": cls.portal_user.partner_id.id,
