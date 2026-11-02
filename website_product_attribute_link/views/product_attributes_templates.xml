@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <!-- The specs cell joins the values of a line with ", ", so the nodes below go
+       on one line: any whitespace between them is rendered inside that cell. -->
   <template id="product" inherit_id="website_sale.specifications_table" name="Product attributes Link">
-    <xpath expr="//span[@t-field='pav.name']" position="replace">
-      <a t-if="ptal.attribute_id.website_link_on_product"
-         t-att-href="'%s?%s=%s' % (shop_path, slug(ptal.attribute_id), slug(pav))">
-        <t t-out="pav.name"/>
-      </a>
-      <t t-if="not ptal.attribute_id.website_link_on_product">
-        <t t-out="pav.name"/>
-      </t>
-    </xpath>
+    <xpath expr="//span[@t-field='pav.name']" position="replace"><a t-if="ptal.attribute_id.website_link_on_product" t-att-href="'%s?%s=%s' % (shop_path, slug(ptal.attribute_id), slug(pav))"><t t-out="pav.name"/></a><t t-if="not ptal.attribute_id.website_link_on_product"><t t-out="pav.name"/></t></xpath>
   </template>
 </odoo>
