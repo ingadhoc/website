@@ -84,7 +84,7 @@
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <button type="submit" class="btn btn-primary w-100">
                     <span>Request Quotation</span>
-                    <i class="fa fa-angle-right ms-2 fw-light"/>
+                    <i class="oi ms-2 fw-light" data-icon="keyboard_arrow_right"/>
                 </button>
             </form>
             <a t-else=""
@@ -92,7 +92,7 @@
                t-attf-class="btn btn-primary #{not website_sale_order._is_cart_ready() and 'disabled'} w-100"
                t-att-href="next_website_checkout_step_href">
                 <span t-field="next_website_checkout_step.main_button_label"/>
-                <i class="fa fa-angle-right ms-2 fw-light"/>
+                <i class="oi ms-2 fw-light" data-icon="keyboard_arrow_right"/>
             </a>
         </xpath>
     </template>
@@ -110,7 +110,7 @@
                 <div class="container d-flex flex-column justify-content-center h-100">
                     <div class="row justify-content-center">
                         <h1 class="text-center">
-                            <i class="fa fa-check-circle fa-1x text-success mr-2" role="img" aria-label="Success" title="Success"/>
+                            <i class="oi oi-filled text-success mr-2" data-icon="check_circle" role="img" aria-label="Success" title="Success"/>
                             <span>Your request has been sent <b>successfully</b></span>
                         </h1>
                         <p class="text-center">We will get back to you shortly.</p>
