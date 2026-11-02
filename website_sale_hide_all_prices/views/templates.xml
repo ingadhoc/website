@@ -24,16 +24,30 @@
     <!-- suggested_products_list: en v19 el precio está en h6[@name='suggested_product_price_container']
          (en v18 era div[@name='website_sale_suggested_product_price']) -->
     <template id="suggested_products_list" inherit_id="website_sale.suggested_products_list">
+        <!-- combination_info is used after the hidden h6 -->
+        <xpath expr="//h6[@name='suggested_product_price_container']" position="before">
+            <xpath expr="//h6[@name='suggested_product_price_container']/t[@t-set='combination_info']" position="move"/>
+        </xpath>
         <xpath expr="//h6[@name='suggested_product_price_container']" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.base_unit_price']" position="attributes">
+            <attribute name="t-if">combination_info.get('base_unit_price') and not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
     <!-- cart_lines_price: en v19 el precio fue extraído a template separado 'cart_lines_price'
          y el elemento cambió de div a h6 -->
     <template id="cart_lines_price" inherit_id="website_sale.cart_lines_price">
+        <!-- product_price is used after the hidden h6 -->
+        <xpath expr="//h6[@name='website_sale_cart_line_price']" position="before">
+            <xpath expr="//h6[@name='website_sale_cart_line_price']/t[@t-set='product_price']" position="move"/>
+        </xpath>
         <xpath expr="//h6[@name='website_sale_cart_line_price']" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('cart_product_base_unit_price')]" position="attributes">
+            <attribute name="t-if">website.show_product_reference_price and line.product_id.base_unit_price and not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
@@ -100,7 +114,7 @@
     <!-- payment_status: //div[@name='o_payment_status'] sigue existiendo en v19 -->
     <template id="payment_status" inherit_id="payment.payment_status">
         <xpath expr="//div[@name='o_payment_status']" position="attributes">
-            <attribute name="t-attf-class">#{website.website_hide_all_prices and 'd-none' or ''}</attribute>
+            <attribute name="t-attf-class">d-flex flex-column #{website.website_hide_all_prices and 'd-none' or ''}</attribute>
         </xpath>
     </template>
 
