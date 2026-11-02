@@ -4,7 +4,7 @@
     <t t-name="website_sale_hide_all_prices.MyAddToCartNotification">
         <div
             class="d-flex flex-column gap-2 mb-2 mt-1"
-            t-foreach="mainLines"
+            t-foreach="this.mainLines"
             t-as="line"
             t-key="line.id"
         >
@@ -41,20 +41,18 @@
                 <span t-out="line.uom_name" class="badge mt-1 bg-light"/>
             </div>
             <div
-                t-if="!line.linked_line_id and !websiteHideAllPrices"
+                t-if="!line.linked_line_id and !this.websiteHideAllPrices"
                 class="col-3 d-flex flex-column align-items-end gap-1"
-                t-out="getFormattedPrice(line)"
+                t-out="this.getFormattedPrice(line)"
             />
         </div>
         <div
             class="d-flex ps-5"
-            t-foreach="getLinkedLines(line.id)"
+            t-foreach="this.getLinkedLines(line.id)"
             t-as="linkedLine"
             t-key="linkedLine.id"
         >
-            <t t-call="website_sale_hide_all_prices.cartLine">
-                <t t-set="line" t-value="linkedLine"/>
-            </t>
+            <t t-call="website_sale_hide_all_prices.cartLine" line="linkedLine"/>
         </div>
     </t>
 
