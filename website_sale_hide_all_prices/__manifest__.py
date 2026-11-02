@@ -41,6 +41,7 @@
             "website_sale_hide_all_prices/static/src/components/product_comparison_row.js",
             "website_sale_hide_all_prices/static/src/components/product_template_attribute_line.xml",
             "website_sale_hide_all_prices/static/src/components/product_template_attribute_line.js",
+            "website_sale_hide_all_prices/static/src/components/product_page.js",
         ]
     },
     "installable": True,

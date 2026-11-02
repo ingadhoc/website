@@ -1,4 +1,7 @@
+import json
+
 from lxml import html
+from odoo.fields import Command
 from odoo.tests import new_test_user, tagged
 
 from .common import HideAllPricesHttpCommon
@@ -23,6 +26,9 @@ class TestHiddenPrices(HideAllPricesHttpCommon):
         cls.priced_product.accessory_product_ids = cls.product
         cls.priced_product.base_unit_count = 2
         cls.website.show_product_reference_price = True
+        # Several packagings show a price per packaging on the product page
+        cls.group_user._apply_group(cls.env.ref("uom.group_uom"))
+        cls.priced_product.uom_ids = [Command.set(cls.env.ref("uom.product_uom_pack_6").ids)]
         cls.env["product.wishlist"].create(
             {
                 "partner_id": cls.portal_user.partner_id.id,
@@ -49,6 +55,20 @@ class TestHiddenPrices(HideAllPricesHttpCommon):
                 assert_price(self.price_text, self._page("/shop?search=Hidden Price Product"))
             with self.subTest("product page, hide all prices %s" % state):
                 assert_price(self.price_text, self._page(self.priced_product.website_url))
+            with self.subTest("product page packaging prices, hide all prices %s" % state):
+                tree = html.fromstring(self._page(self.priced_product.website_url))
+                packagings = tree.xpath("//input[@name='uom_id']")
+                self.assertTrue(packagings)
+                (self.assertFalse if hide else self.assertTrue)(
+                    [p for p in packagings if p.get("data-packaging-price")]
+                )
+            with self.subTest("search suggestions, hide all prices %s" % state):
+                results = self.make_jsonrpc_request(
+                    "/website/snippet/autocomplete",
+                    {"search_type": "products", "term": "Hidden Price Product", "options": {}},
+                )
+                self.assertTrue(results["results"])
+                assert_price(self.price_text, json.dumps(results))
             with self.subTest("comparison page, hide all prices %s" % state):
                 assert_price(self.price_text, self._page("/shop/compare?products=%s" % variant.id))
             with self.subTest("cart, hide all prices %s" % state):
