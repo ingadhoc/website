@@ -31,9 +31,9 @@ class WebsiteSale(WebsiteSale):
         on; its last id is stashed for the thank-you page and the cart session
         is reset so the customer gets a fresh cart.
         """
-        order_sudo._recompute_cart()
+        order_sudo._update_cart_taxes_and_prices()
         request.session["sale_last_order_id"] = order_sudo.id
-        request.website.sale_reset()
+        self.env.website.sale_reset()
 
     @http.route(
         ["/shop/request_quotation"],
@@ -54,8 +54,8 @@ class WebsiteSale(WebsiteSale):
         """
         order_sudo = request.cart
 
-        if redirection := self._check_cart_and_addresses(order_sudo):
-            return redirection
+        if redirect := self.env["website.checkout.step"].validate_checkout_progress("/shop/checkout", order_sudo):
+            return request.redirect(redirect)
 
         # If the module is not active for this website, keep the native flow.
         if not (order_sudo.website_id and order_sudo.website_id.website_hide_all_prices):
@@ -118,9 +118,9 @@ class WebsiteSale(WebsiteSale):
         if feedback.get("invalid_fields") or not feedback.get("redirectUrl"):
             return result  # Save failed: keep the native error handling.
 
-        if self._check_cart_and_addresses(order_sudo):
+        if self.env["website.checkout.step"].validate_checkout_progress("/shop/checkout", order_sudo):
             return result  # Addresses still incomplete: keep the native flow.
 
         self._confirm_quotation_request(order_sudo)
         feedback["redirectUrl"] = "/request-quotation"
-        return json.dumps(feedback)
+        return request.make_json_response(feedback)

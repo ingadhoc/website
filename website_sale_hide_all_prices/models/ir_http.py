@@ -1,5 +1,4 @@
 from odoo import api, models
-from odoo.http import request
 
 
 class Http(models.AbstractModel):
@@ -10,7 +9,7 @@ class Http(models.AbstractModel):
         session_info = super(Http, self).get_frontend_session_info()
         session_info.update(
             {
-                "website_hide_all_prices": request.website.website_hide_all_prices,
+                "website_hide_all_prices": self.env.website.website_hide_all_prices,
             }
         )
         return session_info

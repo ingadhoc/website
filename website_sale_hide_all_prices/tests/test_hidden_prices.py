@@ -24,7 +24,6 @@ class TestHiddenPrices(HideAllPricesHttpCommon):
                 "partner_id": cls.portal_user.partner_id.id,
                 "product_id": cls.priced_product.product_variant_id.id,
                 "website_id": cls.website.id,
-                "pricelist_id": cls.pricelist.id,
             }
         )
 
