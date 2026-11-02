@@ -57,6 +57,7 @@ class WebsitePromotion(models.Model):
             self.env["product.pricelist.item"].create(vals_list)
 
     def finished(self):
+        price_digits = self.env["decimal.precision"].precision_get("Product Price")
         for rec in self:
             rec.state = "finished"
             prod_pricelist_item_obj = self.env["product.pricelist.item"]
@@ -65,13 +66,14 @@ class WebsitePromotion(models.Model):
                 ("pricelist_id", "=", rec.pricelist_id.id),
                 ("product_tmpl_id", "in", rec.template_ids.ids),
                 ("applied_on", "=", "1_product"),
+                ("compute_price", "in", ("discount", "markup")),
                 ("base", "=", rec.base),
             ]
             if rec.base == "pricelist":
                 domain.append(("base_pricelist_id", "=", rec.base_pricelist_id.id))
             items = prod_pricelist_item_obj.search(domain).filtered(
-                lambda i: not float_compare(i.price_discount, rec.price_discount, precision_digits=2)
-                and not float_compare(i.price_surcharge, rec.price_surcharge, precision_digits=6)
+                lambda i: float_compare(i.price_discount, rec.price_discount, precision_digits=2) == 0
+                and float_compare(i.price_surcharge, rec.price_surcharge, precision_digits=price_digits) == 0
             )
             if items:
                 items.unlink()
