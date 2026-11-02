@@ -28,6 +28,7 @@
     "license": "AGPL-3",
     "images": [],
     "depends": [
+        "product",
         "website_sale",
     ],
     "data": [
