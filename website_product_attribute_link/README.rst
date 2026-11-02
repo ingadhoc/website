@@ -30,7 +30,7 @@ Configuration
 
 To configure this module, you need to:
 
-#. Go to Website > eCommerce > Products > Attributes and set which attribute you would like to show on website as a link by toggling the field Website Link On Product.
+#. Go to Website > eCommerce > Products > Attributes and set which attribute you would like to show on website as a link by toggling the field Website Link on Product.
 
 Usage
 =====
