@@ -15,7 +15,7 @@ class TestQuotationCheckout(HideAllPricesHttpCommon):
     With the setting off the native payment step is kept."""
 
     def _post(self, url, data):
-        return self.url_open(url, data=dict(data, csrf_token=self._csrf()), allow_redirects=False)
+        return self.url_open(url, data=dict(data, csrf_token=self.csrf_token()), allow_redirects=False)
 
     def _assert_redirects_to(self, response, path):
         self.assertEqual(response.status_code, 303)
@@ -24,7 +24,7 @@ class TestQuotationCheckout(HideAllPricesHttpCommon):
     def _assert_quotation_requested(self, cart, session):
         session = self._reload_session(session)
         self.assertEqual(cart.state, "draft")
-        self.assertFalse(cart.transaction_ids)
+        self.assertFalse(cart.sudo().transaction_ids)
         self.assertNotIn(CART_SESSION_CACHE_KEY, session)
         self.assertEqual(session.get("sale_last_order_id"), cart.id)
 

@@ -6,6 +6,12 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestPaymentMail(WebsiteSaleCommon):
+    _test_user_groups = (
+        "base.group_user",
+        "sales_team.group_sale_manager",
+        "website.group_website_designer",  # website config (website_hide_all_prices)
+    )
+
     def test_payment_mail_skipped_when_prices_are_hidden(self):
         """A website that hides all prices does not send the 'payment succeeded'
         mail to the customer; with the setting off the mail goes out.

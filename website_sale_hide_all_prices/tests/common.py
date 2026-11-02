@@ -1,8 +1,7 @@
-from odoo import http
 from odoo.addons.website_sale.models.website import CART_SESSION_CACHE_KEY
 from odoo.addons.website_sale.tests.common import WebsiteSaleCommon
 from odoo.fields import Command
-from odoo.http import root
+from odoo.http.session import session_store
 from odoo.tests import HttpCase
 
 
@@ -10,6 +9,12 @@ class HideAllPricesHttpCommon(WebsiteSaleCommon, HttpCase):
     """Shared scenario for the eCommerce flows: a product with a price that
     cannot match any other figure on the page, and helpers to drive a cart
     through the public session."""
+
+    _test_user_groups = (
+        "base.group_user",
+        "sales_team.group_sale_manager",
+        "website.group_website_designer",  # website config (website_hide_all_prices)
+    )
 
     @classmethod
     def setUpClass(cls):
@@ -35,11 +40,8 @@ class HideAllPricesHttpCommon(WebsiteSaleCommon, HttpCase):
         # Bind the cart to a fresh public (or logged) session, as the shop does
         session = self.authenticate(login, login)
         session[CART_SESSION_CACHE_KEY] = cart.id
-        root.session_store.save(session)
+        session_store().save(session)
         return session
 
     def _reload_session(self, session):
-        return root.session_store.get(session.sid)
-
-    def _csrf(self):
-        return http.Request.csrf_token(self)
+        return session_store().get(session.sid)

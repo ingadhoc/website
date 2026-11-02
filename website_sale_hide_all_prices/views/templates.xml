@@ -9,8 +9,8 @@
     <!-- product: en v19 el small ya no tiene groups='group_show_uom_price',
          se identifica por la clase o_base_unit_price_wrapper dentro del bloque de precio -->
     <template id="product" inherit_id="website_sale.product">
-        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]/small[hasclass('o_base_unit_price_wrapper')]" position="attributes">
-            <attribute name="t-if">combination_info.get('base_unit_price') and not website.website_hide_all_prices</attribute>
+        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]/t[@t-call='website_sale.base_unit_price']" position="attributes">
+            <attribute name="t-if">'base_unit_price' in combination_info and not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
@@ -89,7 +89,7 @@
             </form>
             <a t-else=""
                role="button" name="website_sale_main_button"
-               t-attf-class="btn btn-primary #{not website_sale_order._is_cart_ready() and 'disabled'} w-100"
+               t-attf-class="btn btn-primary #{cart_has_blocking_alerts and 'disabled'} w-100"
                t-att-href="next_website_checkout_step_href">
                 <span t-field="next_website_checkout_step.main_button_label"/>
                 <i class="oi ms-2 fw-light" data-icon="keyboard_arrow_right"/>
@@ -123,8 +123,8 @@
     <!-- badge_extra_price: //span[@t-if='price_extra'] sigue existiendo en v19.
          Se combina la condición original con la nueva para no perder la lógica de price_extra. -->
     <template id="badge_extra_price" inherit_id="website_sale.badge_extra_price">
-        <xpath expr="//span[@t-if='price_extra']" position="attributes">
-            <attribute name="t-if">price_extra and not website.website_hide_all_prices</attribute>
+        <xpath expr="//span[@t-if='ptav.show_price_extra and price_extra']" position="attributes">
+            <attribute name="t-if">ptav.show_price_extra and price_extra and not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
@@ -132,25 +132,25 @@
          div.product_price del template generico del snippet. Se oculta el bloque completo. -->
     <template id="dynamic_filter_template_product_product_products_item"
               inherit_id="website_sale.dynamic_filter_template_product_product_products_item">
-        <xpath expr="//div[hasclass('product_price')]" position="attributes">
+        <xpath expr="//t[@t-call='website_sale.price_dynamic_filter_template_product_product']" position="attributes">
             <attribute name="t-if">not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
     <!-- Comparador - página /shop/compare: dos renders de precio (overview sticky y tabla).
-         Se combina la condición nativa (prevent_zero_price_sale) con website_hide_all_prices. -->
-    <template id="product_compare" inherit_id="website_sale_comparison.product_compare">
+         Se combina la condición nativa (hide_price) con website_hide_all_prices. -->
+    <template id="product_compare" inherit_id="website_sale.product_compare">
         <xpath expr="//div[@id='miniStickyComparison']//div[hasclass('text-wrap')]" position="attributes">
-            <attribute name="t-if">not combination_info['prevent_zero_price_sale'] and not website.website_hide_all_prices</attribute>
+            <attribute name="t-if">not combination_info['hide_price'] and not website.website_hide_all_prices</attribute>
         </xpath>
-        <xpath expr="//div[@id='o_comparelist_product_name']/span" position="attributes">
-            <attribute name="t-if">not combination_info['prevent_zero_price_sale'] and not website.website_hide_all_prices</attribute>
+        <xpath expr="//div[@id='o_comparelist_product_name']/span[@t-if=&quot;not combination_info['hide_price']&quot;]" position="attributes">
+            <attribute name="t-if">not combination_info['hide_price'] and not website.website_hide_all_prices</attribute>
         </xpath>
     </template>
 
     <!-- Lista de deseos /shop/wishlist: el precio va en un slot product_price propio (o_wish_price),
          no cubierto por el inherit de products_item. Se oculta via d-none. -->
-    <template id="product_wishlist" inherit_id="website_sale_wishlist.product_wishlist">
+    <template id="product_wishlist" inherit_id="website_sale.product_wishlist">
         <xpath expr="//div[hasclass('o_wish_price')]" position="attributes">
             <attribute name="t-attf-class">align-middle o_wish_price #{website.website_hide_all_prices and 'd-none' or ''}</attribute>
         </xpath>
