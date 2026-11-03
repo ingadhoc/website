@@ -22,27 +22,15 @@ msgstr ""
 
 #. module: website_sale_installment_plans
 #. odoo-python
-#: code:addons/website_sale_installment_plans/models/product_template.py:0
+#: code:addons/website_sale_installment_plans/models/account_card_installment.py:0
 msgid "%(count)s installment of %(amount)s"
 msgstr "En %(count)s cuota de %(amount)s"
 
 #. module: website_sale_installment_plans
 #. odoo-python
-#: code:addons/website_sale_installment_plans/models/product_template.py:0
+#: code:addons/website_sale_installment_plans/models/account_card_installment.py:0
 msgid "%(count)s installments of %(amount)s (Total %(total)s)"
 msgstr "En %(count)s cuotas de %(amount)s (Total %(total)s)"
-
-#. module: website_sale_installment_plans
-#. odoo-python
-#: code:addons/website_sale_installment_plans/models/account_card_installment.py:0
-msgid "%s installment of $%.2f"
-msgstr "En %s cuota de $%.2f"
-
-#. module: website_sale_installment_plans
-#. odoo-python
-#: code:addons/website_sale_installment_plans/models/account_card_installment.py:0
-msgid "%s installments of $%.2f (Total $%.2f)"
-msgstr "En %s cuotas de $%.2f (Total $%.2f)"
 
 #. module: website_sale_installment_plans
 #: model:ir.module.module,description:base.module_website_sale_installment_plans

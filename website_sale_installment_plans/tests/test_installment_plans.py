@@ -114,3 +114,17 @@ class TestInstallmentPlans(TransactionCase):
             ).strip(),
             "",
         )
+
+    def test_checkout_description_uses_currency_format(self):
+        """The checkout shows the same text as the shop, in the card company currency by default."""
+        values = self.plan_three.map_installment_values(300.0)
+        self.assertEqual(
+            values["description"],
+            f"3 installments of {format_amount(self.env, 120.0, self.env.company.currency_id)}"
+            f" (Total {format_amount(self.env, 360.0, self.env.company.currency_id)})",
+        )
+        eur = self.env.ref("base.EUR")
+        self.assertIn(
+            format_amount(self.env, 120.0, eur),
+            self.plan_three.map_installment_values(300.0, currency=eur)["description"],
+        )

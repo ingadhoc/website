@@ -1,6 +1,5 @@
 from odoo import models
 from odoo.http import request
-from odoo.tools import format_amount
 
 
 class ProductTemplate(models.Model):
@@ -35,29 +34,14 @@ class ProductTemplate(models.Model):
         currency = self.env.website.currency_id or self.env.company.currency_id
         plans = []
         for plan in self._get_published_installments():
-            amount = plan.map_installment_values(price)["amount"]
-            if (plan.divisor or 1) == 1:
-                count, total = 1, amount
-                description = self.env._(
-                    "%(count)s installment of %(amount)s",
-                    count=count,
-                    amount=format_amount(self.env, amount, currency),
-                )
-            else:
-                count = plan.installment or 1
-                total = amount
-                description = self.env._(
-                    "%(count)s installments of %(amount)s (Total %(total)s)",
-                    count=count,
-                    amount=format_amount(self.env, amount / count, currency),
-                    total=format_amount(self.env, total, currency),
-                )
+            values = plan.map_installment_values(price, currency=currency)
+            count = 1 if (plan.divisor or 1) == 1 else plan.installment or 1
             plans.append(
                 {
                     "count": count,
-                    "amount": amount / count,
-                    "total": total,
-                    "description": description,
+                    "amount": values["amount"] / count,
+                    "total": values["amount"],
+                    "description": values["description"],
                     "message": plan.message or "",
                 }
             )
