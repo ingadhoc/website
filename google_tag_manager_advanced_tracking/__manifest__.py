@@ -25,10 +25,20 @@
     "website": "www.adhoc.com.ar",
     "license": "AGPL-3",
     "depends": [
+        "website",
         "website_google_tag_manager",
         "website_sale_advanced_tracking",
     ],
+<<<<<<< 09d5c13748170de4e74b6478395abdb1d583a484
     "data": [],
+||||||| 45ed18e46a1da84aaa581c3c7ddd9f8587e0ae94
+    "data": ["views/snippets.xml"],
+=======
+    "data": [
+        "views/snippets.xml",
+        "views/res_config_settings_view.xml",
+    ],
+>>>>>>> 1c5f85bd58c5be5fddcfdd7168c89249d05cace1
     "assets": {
         "web.assets_frontend": [
             "google_tag_manager_advanced_tracking/static/src/**/*.js",
