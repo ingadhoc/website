@@ -1,5 +1,5 @@
 from odoo import fields
-from odoo.tests import TransactionCase, tagged
+from odoo.tests import Form, TransactionCase, tagged
 
 
 @tagged("post_install", "-at_install")
@@ -292,6 +292,18 @@ class TestHideUnavailable(TransactionCase):
         settings.execute()
         self.assertEqual(self.website.out_of_stock_display, "last")
         self.assertFalse(Groups._is_feature_enabled(feature))
+
+    def test_settings_option_is_only_required_with_a_website(self):
+        company = self.env["res.company"].create({"name": "No shop"})
+        form = Form(self.env["res.config.settings"].with_company(company))
+        self.assertFalse(form.website_id)
+        self.assertFalse(form._get_modifier("out_of_stock_display", "required"))
+        self.assertTrue(form._get_modifier("out_of_stock_display", "invisible"))
+
+        form = Form(self.env["res.config.settings"].with_company(self.company))
+        self.assertTrue(form.website_id)
+        self.assertTrue(form._get_modifier("out_of_stock_display", "required"))
+        self.assertFalse(form._get_modifier("out_of_stock_display", "invisible"))
 
     def test_install_republishes_what_the_native_had_unpublished(self):
         # Once the group is gone the native compute stops running, so what it
