@@ -9,9 +9,10 @@
             <setting id="product_availability_setting" position="after">
                 <setting
                     id="out_of_stock_display_setting"
+                    invisible="not website_id"
                     string="Out-of-Stock Products"
                     help="Show them, push them to the end of the shop, or hide them from the listing, search and sitemap. Set per website; the product page always stays reachable.">
-                    <field name="out_of_stock_display" widget="radio"/>
+                    <field name="out_of_stock_display" widget="radio" required="website_id"/>
                 </setting>
             </setting>
             <!-- This module replaces it: only one of the two is ever offered. -->
