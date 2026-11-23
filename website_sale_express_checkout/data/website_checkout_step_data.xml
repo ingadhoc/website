@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Generic step (website_id = False). website._create_checkout_steps copies
+         it per website; publication is driven by website.enable_express_checkout. -->
+    <record id="checkout_step_express" model="website.checkout.step">
+        <field name="name">Checkout</field>
+        <field name="sequence">250</field>
+        <field name="step_href">/shop/express_checkout</field>
+        <field name="main_button_label">Confirm</field>
+        <field name="back_button_label">Back to cart</field>
+        <field name="is_published" eval="False"/>
+    </record>
+
+</odoo>

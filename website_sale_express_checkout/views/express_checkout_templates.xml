@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Primary field block. Inheriting portal.address_form_fields (not a fresh
+         template) means _get_combined_archs applies every extension of the parent
+         to us too (l10n_ar's ARCA block, l10n_latam, etc.). We render with
+         is_used_as_billing = False, so the whole b2b block AND the ARCA
+         responsibility select/hidden simply do not render (spec §3 / C2). The CUIT
+         for the Factura A path is rendered by the page below, not here. -->
+    <template id="address_form_fields" inherit_id="portal.address_form_fields" primary="True">
+        <!-- AR-only: keep the (hidden) country select so the native interaction
+             still loads AR states, but the buyer never sees or changes it. -->
+        <xpath expr="//div[@id='div_country']" position="attributes">
+            <attribute name="class" add="d-none" separator=" "/>
+        </xpath>
+        <!-- street2 behind a collapsed disclosure. -->
+        <xpath expr="//div[@id='div_street2']" position="before">
+            <div class="col-lg-12 mb-1">
+                <a
+                    role="button"
+                    class="small text-decoration-none"
+                    data-bs-toggle="collapse"
+                    href="#div_street2"
+                >
+                    <i class="fa fa-plus me-1"/>Agregar piso, depto o indicaciones
+                </a>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='div_street2']" position="attributes">
+            <attribute name="class">col-lg-12 mb-2 collapse</attribute>
+        </xpath>
+    </template>
+
+    <!-- /shop/express_checkout page -->
+    <template id="express_checkout" name="Express Checkout AR">
+        <t t-call="website_sale.checkout_layout">
+            <t t-set="additional_title">Shop - Checkout</t>
+            <t t-set="redirect" t-valuef="/shop/express_checkout"/>
+            <div class="o_customer_address_fill">
+                <div id="errors"/> <!-- for js -->
+                <form
+                    action="/shop/express_checkout/submit"
+                    method="post"
+                    name="address_form"
+                    class="address_autoformat o_express_checkout_form"
+                    t-att-data-company-country-code="res_company.country_id.code"
+                    data-submit-url="/shop/express_checkout/submit"
+                >
+                    <h4 class="mb-3">Datos de contacto y entrega</h4>
+                    <div name="address_details" class="row">
+                        <t t-call="website_sale_express_checkout.address_form_fields"/>
+                        <!-- Consumidor Final document. Shares name="vat" with the
+                             Factura A CUIT input; the JS disables whichever one is
+                             inactive so only one is submitted. -->
+                        <div class="col-lg-6 mb-2" id="div_express_dni">
+                            <label class="col-form-label" for="express_dni">DNI</label>
+                            <input
+                                type="text"
+                                id="express_dni"
+                                name="vat"
+                                class="form-control"
+                                inputmode="numeric"
+                                autocomplete="off"
+                                required="required"
+                                t-att-value="partner_sudo.vat"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Factura A: CUIT + fiscal fields filled from ARCA (readonly)
+                         or entered by hand when ARCA can't be reached. -->
+                    <div class="o_express_factura_a border-top pt-3 mt-2">
+                        <div class="form-check">
+                            <input
+                                type="checkbox"
+                                id="express_factura_a"
+                                name="factura_a"
+                                value="true"
+                                class="form-check-input"
+                                t-att-checked="express_factura_a"
+                            />
+                            <label class="form-check-label" for="express_factura_a">
+                                Necesito factura a nombre de mi empresa o monotributo
+                            </label>
+                        </div>
+                        <div id="express_factura_a_fields" t-attf-class="mt-2 #{'' if express_factura_a else 'd-none'}">
+                            <div class="row">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="col-form-label" for="express_vat">CUIT</label>
+                                    <div class="input-group">
+                                        <input
+                                            type="text"
+                                            id="express_vat"
+                                            name="vat"
+                                            class="form-control"
+                                            inputmode="numeric"
+                                            autocomplete="off"
+                                            t-att-value="express_fa_billing.vat"
+                                        />
+                                        <span class="input-group-text d-none" id="express_vat_status"/>
+                                    </div>
+                                    <small id="express_vat_msg" class="form-text text-danger d-none">
+                                        El CUIT ingresado no es válido.
+                                    </small>
+                                </div>
+                            </div>
+                            <!-- Fiscal details: shown once the CUIT resolves — readonly
+                                 if ARCA answered, editable if it could not be reached. -->
+                            <div id="express_fa_details" t-attf-class="row #{'' if express_factura_a else 'd-none'}">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="col-form-label" for="express_fa_responsibility">
+                                        Responsabilidad ARCA
+                                    </label>
+                                    <select
+                                        id="express_fa_responsibility"
+                                        name="fa_responsibility"
+                                        class="form-select"
+                                    >
+                                        <option value="">Seleccioná...</option>
+                                        <option
+                                            t-foreach="express_responsibility_types"
+                                            t-as="rt"
+                                            t-att-value="rt.id"
+                                            t-att-selected="rt == express_fa_billing.l10n_ar_afip_responsibility_type_id"
+                                            t-out="rt.name"
+                                        />
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 mb-2">
+                                    <label class="col-form-label" for="express_fa_name">Razón social</label>
+                                    <input type="text" id="express_fa_name" name="fa_name" class="form-control" t-att-value="express_fa_billing.name"/>
+                                </div>
+                                <div class="col-lg-12 mb-2">
+                                    <label class="col-form-label" for="express_fa_street">
+                                        Domicilio fiscal
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="express_fa_street"
+                                        name="fa_street"
+                                        class="form-control"
+                                        placeholder="Calle y número"
+                                        t-att-value="express_fa_billing.street"
+                                    />
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="col-form-label" for="express_fa_zip">Código postal</label>
+                                    <input type="text" id="express_fa_zip" name="fa_zip" class="form-control" t-att-value="express_fa_billing.zip"/>
+                                </div>
+                                <div class="col-md-8 mb-2">
+                                    <label class="col-form-label" for="express_fa_city">Ciudad</label>
+                                    <input type="text" id="express_fa_city" name="fa_city" class="form-control" t-att-value="express_fa_billing.city"/>
+                                </div>
+                                <div class="col-lg-6 mb-2">
+                                    <label class="col-form-label" for="express_fa_state">Provincia</label>
+                                    <select id="express_fa_state" name="fa_state_id" class="form-select">
+                                        <option value="">Provincia...</option>
+                                        <option
+                                            t-foreach="country_states"
+                                            t-as="s"
+                                            t-att-value="s.id"
+                                            t-att-selected="s == express_fa_billing.state_id"
+                                            t-out="s.name"
+                                        />
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery method. The express interaction re-renders this
+                         container (and enables selection) once the delivery address
+                         is complete, so the carriers can be rated for that address. -->
+                    <div
+                        t-if="order._has_deliverable_products()"
+                        id="express_delivery_container"
+                        class="mb-4 mt-4"
+                    >
+                        <t t-call="website_sale.delivery_form">
+                            <t t-set="selected_dm_id" t-value="order.carrier_id.id"/>
+                        </t>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+</odoo>
