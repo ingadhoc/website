@@ -1,3 +1,2 @@
 html2text
-suds-jurko
 requests
