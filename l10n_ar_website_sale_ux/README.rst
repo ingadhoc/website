@@ -23,35 +23,35 @@ Enhanced Tax Indication Display
 -------------------------------
 
 * **Dynamic Tax Names**: Replaces generic "(Tax excluded)" and "(Tax included)" text with the actual tax name (e.g., "(+ VAT 21% Excluded)" or "(VAT 21% Included)")
-* **Context-Aware Display**: Automatically detects and displays the specific tax applied to each product
+* **VAT Only**: Only the VAT taxes of the product are shown (taxes whose tax group has an AFIP VAT code), already mapped by the customer's fiscal position. Other taxes, like internal taxes, are not shown
 * **Multi-Context Support**: Works consistently across:
 
-  * Shop page (list and grid views)
+  * Shop page (product grid)
   * Product detail pages
-  * Checkout pages
 
 B2B/B2C Tax Display Logic
 -------------------------
 
 * **B2B Mode** (tax_excluded): Shows "(+ [Tax Name] Excluded)" next to prices
 * **B2C Mode** (tax_included): Shows "([Tax Name] Included)" next to prices
-* **Fallback Support**: Gracefully falls back to generic "VAT excluded/included" when no specific tax is found
+* The mode comes from the "eCommerce Price Display" of the customer's pricelist and, when the pricelist does not set it, from the website configuration
+* No tax indication is shown for products without VAT, for products whose price is hidden, or for combo products that show "Taxes calculated at checkout."
+* Websites of non-Argentinian companies keep the standard "(Tax excluded)" and "(Tax included)" text
 
 Installation
 ============
 
 1. Install the module from the Apps menu
-2. The enhancements are automatically applied to your eCommerce website
-3. No additional configuration required
+2. Enable the "Tax Indication" option of the product page in the website editor
 
 Configuration
 =============
 
-No specific configuration is needed. The module automatically:
+The tax indication is shown only when the "Tax Indication" option of the product page is enabled in the website editor. The module then:
 
-* Detects the website's tax display preference (B2B/B2C)
-* Identifies applicable taxes for each product
-* Displays appropriate tax information based on context
+* Uses the tax display of the customer's pricelist or, when it is not set, of the website (B2B/B2C)
+* Identifies the VAT taxes of each product, mapped by the customer's fiscal position
+* Displays the tax names next to the price on the shop and product pages
 
 Dependencies
 ============
@@ -66,14 +66,13 @@ Once installed, the enhanced tax indications will automatically appear throughou
 
 1. **Shop Pages**: Enhanced tax information next to product prices
 2. **Product Pages**: Detailed tax indication on product detail view
-3. **Checkout**: Consistent tax display during purchase process
 
 The module respects your website's tax configuration and automatically adjusts the display format accordingly.
 
 Known Issues
 ============
 
-* Tax information is only displayed for products with configured taxes
+* Tax information is only displayed for products with VAT taxes
 * Requires Argentinian localization (``l10n_ar``) to function properly
 
 Bug Tracker
