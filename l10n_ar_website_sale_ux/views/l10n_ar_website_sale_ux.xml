@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="ar_tax_indication" name="Tax Indication- Argentina" inherit_id="website_sale.tax_indication" priority="20" active="True">
-        <!-- Reemplazar el primer span (tax_excluded) para mostrar la alícuota de IVA -->
-        <xpath expr="//span[contains(@t-if, 'tax_excluded')]" position="replace">
-            <t t-if="website.show_line_subtotals_tax_selection == 'tax_excluded'">
-                <span
-                    t-if="combination_info.get('taxes') and combination_info['taxes'].name"
-                    class="fs-6 fw-normal text-muted text-nowrap"
-                >
-                    (+ <t t-esc="combination_info['taxes'].name"/> Excluded)
-                </span>
+
+    <template id="ar_tax_indication" name="Tax Indication- Argentina" inherit_id="website_sale.tax_indication" priority="20">
+        <xpath expr="//small[@t-if]" position="before">
+            <t t-if="l10n_ar_vat_tax_name is not None">
+                <small t-if="l10n_ar_vat_tax_name and website.tax_display == 'tax_excluded'" class="text-muted text-nowrap">
+                    (+ <t t-out="l10n_ar_vat_tax_name"/> Excluded)
+                </small>
+                <small t-elif="l10n_ar_vat_tax_name" class="text-muted text-nowrap">
+                    (<t t-out="l10n_ar_vat_tax_name"/> Included)
+                </small>
             </t>
         </xpath>
-
-        <!-- Reemplazar el segundo span (tax_included) -->
-        <xpath expr="//span[@t-else='']" position="replace">
-            <span t-else="" class="fs-6 fw-normal text-muted text-nowrap">
-                <t t-if="combination_info.get('taxes') and combination_info['taxes'].name">
-                    (<t t-esc="combination_info['taxes'].name"/> Included)
-                </t>
-                <t t-else="">
-                    (VAT included)
-                </t>
-            </span>
+        <xpath expr="/t/small[@t-if]" position="attributes">
+            <attribute name="t-elif">website.tax_display == 'tax_excluded'</attribute>
+            <attribute name="t-if"/>
         </xpath>
     </template>
+
+    <template id="ar_product_price" name="Tax Indication Argentina - Product Page" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@name='tax_indicator']/t[@t-call='website_sale.tax_indication']" position="attributes">
+            <attribute name="l10n_ar_vat_tax_name">combination_info.get('l10n_ar_vat_tax_name')</attribute>
+        </xpath>
+    </template>
+
+    <template id="ar_products_item" name="Tax Indication Argentina - Shop" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]/t[@t-if='not hide_price']" position="inside">
+            <div t-if="template_price_vals.get('l10n_ar_vat_tax_name') and is_view_active('website_sale.tax_indication')" class="d-block">
+                <t t-call="website_sale.tax_indication" l10n_ar_vat_tax_name="template_price_vals['l10n_ar_vat_tax_name']"/>
+            </div>
+        </xpath>
+    </template>
+
 </odoo>
